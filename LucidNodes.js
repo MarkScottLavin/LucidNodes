@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES PRELIM PLAN: 
-	* Version 0.1
+	* Version 0.1.1
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -110,6 +110,23 @@ var LUCIDNODES = {
 	
 	
 	// SINGLE NODE
+	
+	/**
+	 * Node();
+	 * 
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters = {
+	 *  nodeName: <string>,
+	 *  radius: <float>,
+	 *  shape: <string>,
+	 *  color: <object> { r: <integer>, g: <integer>, b: <integer> }
+	 *  opacity: <float> between 0 & 1,
+	 *  castShadows: <boolean>,
+	 *  recieveShadows: <boolean>
+	 * }
+	 */
+	
 	Node: function( nodeName = "Node", 
 					x = 2, y = -4, z = 2, 
 					radius = 0.5,
@@ -166,14 +183,15 @@ var LUCIDNODES = {
 			bias: {},
 		};
 		this.heirarchy = {
-			inGraphPriority: 		{ /* integer */ }, /* determines what the priority level of this node is in the system */
-			inGraphLevel: 			{ /* integer */ }, /* determines what the heirarchical level of the node is. */
-			inGraphSequentialVal:   { /* integar */ }, /* determines what the sequential value of the node is relative to other nodes in the graph */ 
+			priority: 		{ /* integer */ }, /* determines what the priority level of this node is in the system */
+			level: 			{ /* integer */ }, /* determines what the heirarchical level of the node is. */
+			sequenceVal:   	{ /* integar */ }, /* determines what the sequential value of the node is relative to other nodes in the graph */ 
 		};
-		this.meaning = {
-			generic: { /* a basic node, nothing special */ },
-			logic: { /* visualizing logical operators */ },
-			/* add and/or configure others */
+		this.meaning = function( meaningSystem, meaning ){
+			if ( meaningSystem === "generic" && meaning === "logic" ) {
+				/* visualizing logical operators */
+			} 
+			/* etc... */
 		};
 		
 		this.bufferGeom = new THREE.SphereBufferGeometry( this.radius, 32, 32 );
@@ -188,6 +206,24 @@ var LUCIDNODES = {
 	},
 	
 	// EDGES
+	
+	/**
+	 * Edge();
+	 * 
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters = {
+	 *  sourceNode: <obj> var representing source node,
+	 *  targetNode: <obj> var representing target node,
+	 * 	edgeName: <string>
+	 *  color: <obj> {r: <integer>, g: <integer>, b: <integer> },
+	 *  lineweight: <float>,
+	 *  opacity: <float> between 0 & 1,
+	 *  castShadows: <boolean>,
+	 *  recieveShadows: <boolean>
+	 * }
+	 */	
+	
 	Edge: function( sourceNode, 
 					targetNode,
 					edgeName = "edge",
@@ -223,13 +259,12 @@ var LUCIDNODES = {
 		this.material = new THREE.LineBasicMaterial( { color: this.colorAsHex(), linewidth: this.thickness } );
 		this.castShadows = castShadows;  /* Set to global default */
 		this.recieveShadows = recieveShadows; /* Set to global default */
-		this.meaning = {
-			generic: {},
-			a: "string", /* one meaning type */
-			b: "string", /* another meaning type */
-			c: "string", /* another meaning type */
+		this.meaning = function( meaningSystem, meaning ) {
+				if ( meaningSystem === "generic" ) {
+					// do stuff
+				};
 			};
-		this.isdirectional = function( meaning ){ 
+		this.isdirectional = function( meaningSystem, meaning ){ 
 				// set by meaning;
 			};
 		this.direction = function( Edge ){ 
@@ -264,15 +299,64 @@ var LUCIDNODES = {
 	},	
 };
 
-var node1 = new LUCIDNODES.Node( "Charley" , 2, 6, 8, 0.5, "sphere", { r: 0, g: 255, b: 0 }, 0.5 );
-var node2 = new LUCIDNODES.Node( "Max" , 1, 11, -4, 0.5, "sphere", { r: 0, g: 0, b: 255 }, 0.5 );
-var node3 = new LUCIDNODES.Node( "John" , 9, -6, 8, 0.5, "sphere", { r: 255, g: 0, b: 0 }, 0.5 );
-var node4 = new LUCIDNODES.Node( "Tommy" , 2, 0, 7, 0.5, "sphere", { r: 255, g: 255, b: 0 }, 0.5 );
-var node5 = new LUCIDNODES.Node( "Cindy" , 3, 3, 3, 0.5, "sphere", { r: 255, g: 255, b: 0 }, 0.5 );
 
-var edge1 = new LUCIDNODES.Edge( node1, node2, "Charley to Max" );
-var edge2 = new LUCIDNODES.Edge( node2, node3, "Max to John");
-var edge3 = new LUCIDNODES.Edge( node3, node1, "John to Charley");
-var edge4 = new LUCIDNODES.Edge( node3, node2, "John to Max");
-var edge4 = new LUCIDNODES.Edge( node4, node1, "Tommy to Charley");
-var edge4 = new LUCIDNODES.Edge( node5, node1, "Cindy to Charley");
+function randomTestGraph(){
+	var node1 = new LUCIDNODES.Node( "Charley" , 2, 6, 8, 0.5, "sphere", { r: 0, g: 255, b: 0 }, 0.5 );
+	var node2 = new LUCIDNODES.Node( "Max" , 1, 11, -4, 0.5, "sphere", { r: 0, g: 0, b: 255 }, 0.5 );
+	var node3 = new LUCIDNODES.Node( "John" , 9, -6, 8, 0.5, "sphere", { r: 255, g: 0, b: 0 }, 0.5 );
+	var node4 = new LUCIDNODES.Node( "Tommy" , 2, 0, 7, 0.5, "sphere", { r: 255, g: 255, b: 0 }, 0.5 );
+	var node5 = new LUCIDNODES.Node( "Cindy" , 3, 3, 3, 0.5, "sphere", { r: 255, g: 255, b: 0 }, 0.5 );
+
+	var edge1 = new LUCIDNODES.Edge( node1, node2, "Charley to Max" );
+	var edge2 = new LUCIDNODES.Edge( node2, node3, "Max to John");
+	var edge3 = new LUCIDNODES.Edge( node3, node1, "John to Charley");
+	var edge4 = new LUCIDNODES.Edge( node3, node2, "John to Max");
+	var edge4 = new LUCIDNODES.Edge( node4, node1, "Tommy to Charley");
+	var edge4 = new LUCIDNODES.Edge( node5, node1, "Cindy to Charley");
+};
+
+// randomTestGraph();
+
+var testPointsRaw = {
+n00: { x: 0,		y: 5.25731, 	z: 8.50651 },			
+n01: { x: -8.50651, y: 0, 			z: 5.25731 },		
+n02: { x: 0,		y: -5.25731, 	z: 8.50651 },		
+n03: { x: 5.25731, 	y: 8.50651, 	z: 0 },		
+n04: { x: 8.50651, 	y: 0, 			z: -5.25731 },		
+n05: { x: 0, 		y: 5.25731, 	z: -8.50651 },		
+n06: { x: 8.50651, 	y: 0, 			z: 5.25731 },							
+n07: { x: 5.25731, 	y: -8.50651,	z: 0 },		
+n08: { x: -5.25731, y: -8.50651, 	z: 0 },		
+n09: { x: 0,		y: -5.25731, 	z: -8.50651 },		
+};
+
+var Graph = {
+	nodes: {},
+	edges: {},
+};
+
+function structuredTestNodes( pointSet ){
+	
+	for ( key in pointSet ) {
+		if (pointSet.hasOwnProperty(key)){	
+			Graph.nodes.key  = new LUCIDNODES.Node( key.toString(), pointSet[key].x, pointSet[key].y, pointSet[key].z, 0.5, "sphere", { r: 0, g: 0, b: 255 }, 0.5 );
+		}
+	}
+};
+
+function structuredTestEdges( pointSet ){
+	
+	for ( node in Graph.nodes ) {
+		
+	}
+};
+
+
+structuredTestNodes( testPointsRaw );
+
+
+	
+	
+	
+	
+	

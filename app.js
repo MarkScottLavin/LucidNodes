@@ -66,7 +66,7 @@ function init() {
 	// Lights
 	lights();
 	// Axes
-	axes( 300 , true );	
+	var globalAxes = new Axes( 300, true, 0.1, { x: 0, y: 0, z: 0 } );	
 	// Materials
 	materials();
 	
@@ -192,112 +192,134 @@ function lights() {
 	scene.add(entities.lights.pureWhiteLight2);
 	
 	debug.master && debug.lights && console.log ( 'lights(): ', entities.lights );
-}
+};
 
-/* AXES HANDLING */
+/* AXES  */
 
-function axes( extents , rulers ) {
-	// Setup the Axes
+/**
+ * Axes
+ *
+ * @author Mark Scott Lavin
+ *
+ * 	parameters = {
+ *  	extents: <integer>,
+ *		rulers: <bool>,
+ *  	opacity: <float> between 0 and 1
+ *		originPoint <object> { x: <integer>, y: <integer>, z: <integer>  } 
+ * }
+ */
+
+function Axes( extents, rulers, opacity = 0.5, originPoint = { x: 0, y: 0, z: 0 } ) {
 	
-	entities.axes = {
-		x: new THREE.Geometry(),
-		y: new THREE.Geometry(),
-		z: new THREE.Geometry(),
-		color: {
-			x: 0x880000,
-			y: 0x008800,
-			z: 0x000088
-		},
-		lineWidth: 1,
-		material: {
-				x: new THREE.LineBasicMaterial ({ 
-					color: 0x880000,  
-					linewidth: 1 }),
-				y: new THREE.LineBasicMaterial ({ 
-					color: 0x008800,  
-					linewidth: 1 }),
-				z: new THREE.LineBasicMaterial ({ 
-					color: 0x000088,  
-					linewidth: 1 })
-		},
-		rulers: function( axis, extents , spacing ) {
+	this.x = new THREE.Geometry();
+	this.y = new THREE.Geometry();
+	this.z = new THREE.Geometry();
+	this.originPoint = originPoint;
+	this.color = {
+		x: 0x880000,
+		y: 0x008800,
+		z: 0x000088
+		};
+	this.linewidth = 1;
+	this.material = {
+		x: new THREE.LineBasicMaterial ({ 
+			color: this.color.x,  
+			linewidth: this.linewidth }),
+		y: new THREE.LineBasicMaterial ({ 
+			color: this.color.y,  
+			linewidth: this.linewidth }),
+		z: new THREE.LineBasicMaterial ({ 
+			color: this.color.z,  
+			linewidth: this.linewidth })
+		};
+	this.opacity = function( material ){ 
+			material.transparent = true; 
+			material.opacity = opacity || 0;
+			return material.opacity;
+		};
+	this.rulers = function( axis, extents = this.extents ) {
 			
-			var rulerPoints;
+			this.rulers[axis] = new THREE.BufferGeometry();
 			
-			entities.axes.rulers[axis] = new THREE.BufferGeometry();
-			
-			var positions = new Float32Array( extents * 2 * 3 ); 
+			var positions = new Float32Array( ( extents * 2 + 1 ) * 3 ); 
 			
 			for ( var i = 0; i < positions.length; i += 3 ) {	
 					
-					var currAxPos = -extents + i/3;
+					var currAxPos = ( this.originPoint[axis] - extents ) + i/3;
 					
 					if ( axis === 'x' ) {
 						positions[i] = currAxPos;
-						positions[i + 1] = 0;
-						positions[1 + 2] = 0;
+						positions[i + 1] = this.originPoint.y;
+						positions[i + 2] = this.originPoint.z;
 					}
 					
 					if ( axis === 'y' ) {
-						positions[i] = 0;
+						positions[i] = this.originPoint.x;
 						positions[i + 1] = currAxPos;
-						positions[i + 2] = 0;
+						positions[i + 2] = this.originPoint.z;
 					}
 					
 					if ( axis === 'z' ) { 
-						positions[i] = 0;
-						positions[i + 1] = 0;
+						positions[i] = this.originPoint.x;
+						positions[i + 1] = this.originPoint.y;
 						positions[i + 2] = currAxPos;
 					}
 				}
 				
-			entities.axes.rulers[axis].addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-			entities.axes.rulers[axis].computeBoundingSphere();
+			this.rulers[axis].addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+			this.rulers[axis].computeBoundingSphere();
 			
-			var rulerPointMaterial = new THREE.PointsMaterial( { size: 0.1, color: entities.axes.color[axis] } );
+			this.rulerPointMaterial = new THREE.PointsMaterial( { size: 0.1, color: this.color[axis] } );
+			this.opacity( this.rulerPointMaterial );
 			
-			rulerPoints = new THREE.Points( entities.axes.rulers[axis], rulerPointMaterial );
-			scene.add( rulerPoints );
+			this.rulerPoints = new THREE.Points( this.rulers[axis], this.rulerPointMaterial );
+			scene.add( this.rulerPoints );
 		},
-		draw: function( axis ) {
+		this.draw = function( axis ) {
 			
-			entities.axes.x.vertices.push(
-				new THREE.Vector3( -extents, 0, 0 ),
-				new THREE.Vector3( extents, 0, 0 )
+			this.x.vertices.push(
+				new THREE.Vector3( this.originPoint.x - extents, this.originPoint.y, this.originPoint.z ),
+				new THREE.Vector3( this.originPoint.x + extents, this.originPoint.y, this.originPoint.z )
 			);
 			
-			entities.axes.y.vertices.push(
-				new THREE.Vector3( 0, -extents, 0 ),
-				new THREE.Vector3( 0, extents, 0 )
+			this.y.vertices.push(
+				new THREE.Vector3( this.originPoint.x, this.originPoint.y - extents, this.originPoint.z ),
+				new THREE.Vector3( this.originPoint.x, this.originPoint.y + extents, this.originPoint.z )
 			);
 			
-			entities.axes.z.vertices.push(
-				new THREE.Vector3( 0, 0, -extents ),
-				new THREE.Vector3( 0, 0, extents )
+			this.z.vertices.push(
+				new THREE.Vector3( this.originPoint.x, this.originPoint.y, this.originPoint.z - extents ),
+				new THREE.Vector3( this.originPoint.x, this.originPoint.y, this.originPoint.z + extents )
 			);
+			
+			// Set Axis Line Opacity
+			this.opacity( this.material.x );
+			this.opacity( this.material.y );
+			this.opacity( this.material.z );
 			
 			// Draw the Axes with their Materials
-
-			var xAxis = new THREE.Line( entities.axes.x, entities.axes.material.x );
-			var yAxis = new THREE.Line( entities.axes.y, entities.axes.material.y );
-			var zAxis = new THREE.Line( entities.axes.z, entities.axes.material.z );
+			this.displayAxis = { 
+				x: new THREE.Line( this.x, this.material.x ),
+				y: new THREE.Line( this.y, this.material.y ),
+				z: new THREE.Line( this.z, this.material.z ),
+			};
 			
-			scene.add( xAxis );
-			scene.add( yAxis );
-			scene.add( zAxis );
+			scene.add( this.displayAxis.x );
+			scene.add( this.displayAxis.y );
+			scene.add( this.displayAxis.z );
 			
 			if (rulers === true ) {
-				entities.axes.rulers( 'x' , extents, 1 );
-				entities.axes.rulers( 'y' , extents, 1 );
-				entities.axes.rulers( 'z' , extents, 1 );
+				this.rulers( 'x' , extents, 1 );
+				this.rulers( 'y' , extents, 1 );
+				this.rulers( 'z' , extents, 1 );
 			}			
 		}
-	};
+
 	
-	entities.axes.draw();
+	this.draw();
 	
-	debug.master && debug.axes && console.log ( 'axes(): ', entities.axes );  
-}
+	debug.master && debug.axes && console.log ( 'axes(): ', this );  
+};
 
 /******* COLOR & MATERIALS HANDLING */
 
