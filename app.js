@@ -107,7 +107,7 @@ function cameras() {
 		perspCamera: new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, 1000 ),
 		position: {
 			init: function( camera ) {
-					camera.position.set( 0, 15, -5 );
+					camera.position.set( 0, 15, -20 );
 					camera.lookAt(new THREE.Vector3( 0, 15, 0 ));
 					camera.up = new THREE.Vector3( 0,1,0 );
 					 debug.master && debug.cameras && console.log ('Camera Position Initialized: ' , camera.position );
