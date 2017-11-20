@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES PRELIM PLAN: 
-	* Version 0.1.1
+	* Version 0.1.2
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -12,28 +12,68 @@
 	* etc.
 ****************************************************/
 
-_NodeMath = {
-
-	distanceBetween: function ( node1, node2 ) {
+var _Math = {
+	
+	vecRelativePosition: function ( node1, node2 ) {
 		
-		this.x = node2.x - node1.x || 0;
-		this.y = node2.y - node1.y || 0;
-		this.z = node2.z - node1.z || 0;
+		var dist = {};
 		
-		return this;
+		dist.x = node2.position.x - node1.position.x || 0;
+		dist.y = node2.position.y - node1.position.y || 0;
+		dist.z = node2.position.z - node1.position.z || 0;
+		// console.log( "_Math.vecRelativePosition( ", node1.nodeName, ", ", node2.nodeName, "  ): ", dist.x, ", ", dist.y, ", ", dist.z );
+		
+		return dist;
 	},
 	
-	averagePosition: function ( node1, node2 ) {
+	vecAbsDistance: function ( node1, node2 ) {
 		
-		this.x = ( node1.x + node2.x ) / 2 || 0;
-		this.y = ( node1.y + node2.y ) / 2 || 0; 
-		this.z = ( node1.z + node2.z ) / 2 || 0;
+		var dist = {};
 		
-		return this;
+		dist.x = _Math.absVal( node2.position.x - node1.position.x ) || 0;
+		dist.y = _Math.absVal( node2.position.y - node1.position.y ) || 0;
+		dist.z = _Math.absVal( node2.position.z - node1.position.z ) || 0;
 		
+		// console.log( "_Math.vecAbsDistance( ", node1.nodeName, ", ", node2.nodeName, "  ): ", dist.x, ", ", dist.y, ", ", dist.z );
+		return dist;
 	},
 	
-};
+	linearDistance: function ( node1, node2 ) {
+		
+		var vecDist = _Math.vecAbsDistance( node1, node2 );
+		var threeVec = new THREE.Vector3( vecDist.x, vecDist.y, vecDist.z );
+		
+		// console.log( threeVec );
+		// console.log( "_Math.linearDistance( ", node1.nodeName, ", ", node2.nodeName, "  ): ", threeVec.length() );
+		return threeVec.length();
+	},
+	
+	absVal: function( val ) {
+		
+		var absVal;
+		
+		if ( val < 0 ) {
+			absVal = -val;
+		} 
+		else { absVal = val || 0; }
+		
+		// console.log( "_Math.absVal( ", val, " ): ", absVal );
+		return absVal;
+	},
+	
+	avgPosition: function ( node1, node2 ) {
+		
+		var avgPos = {};
+		
+		avgPos.x = ( node1.position.x + node2.position.x ) / 2 || 0;
+		avgPos.y = ( node1.position.y + node2.position.y ) / 2 || 0; 
+		avgPos.z = ( node1.position.z + node2.position.z ) / 2 || 0;
+		
+		// console.log( "_Math.avgPosition( ", node1.nodeName, ", ", node2.nodeName, "  ): ", avgPos.x, ", ", avgPos.y, ", ", avgPos.z );
+		return avgPos;
+		
+	}	
+}
 
 _drawGraph = {
 
@@ -41,7 +81,7 @@ _drawGraph = {
 	edgeDraw: function ( Edge /* properties of the edge */, node1, node2 ){
 		
 		var geometry = new THREE.Geometry();
-		geometry.vertices.push(new THREE.Vector3( node1.x , node1.y, node1.z ));
+		geometry.vertices.push(new THREE.Vector3( node1.position.x , node1.position.y, node1.position.z ));
 		
 		var line = new THREE.Line( geometry, material /* get the material from the properties of Edge */ );
 		scene.add( line );
@@ -70,7 +110,9 @@ var globalAppSettings = {
 	defaultEdgeLineType: "solid" /* dashed */,
 	defaultEdgeOpacity: 0.5,
 	defaultMeaningSystem: { /* Meaning of Edges and Nodes */ },
-	showNodeCenterPoints: false
+	showGraphCenterPoints: true,
+	centerTechnique: "average",
+	centerPointMaterial: material = new THREE.PointsMaterial( { size: 0.25, color: 0x008800 } )
 }
 
 // THE LUCIDNODE MASTER OBJECT
@@ -78,9 +120,42 @@ var LUCIDNODES = {
 	
 	/* AVAILABLE METHODS */
 	
-	computeGraphCenter: function( nodeSet /* graph, subgraph or series of graphs */ , technique = "absolute" ){
+	computeGraphCenter: function( graph /* graph, subgraph or series of graphs */ , technique = "absolute" ){
+		
+		var center = {
+		};
+		var sum = {
+			x: 0,
+			y: 0,
+			z: 0
+		};
+		
+		/* average (average of all values alonng each axis) */
+		if ( technique === "average" ) { 
 			/* take the positionns of all objects in the graph and compute from their centerpoints the center of the graph.	*/
-			/* available techniques: average (average of all values alonng each axis) || absolute (average the furthest apart in each direction) */
+			for ( key in graph.nodes ) {
+				if (graph.nodes.hasOwnProperty(key)){	
+					sum.x = ( sum.x + graph.nodes[key].position.x );
+					sum.y = ( sum.y + graph.nodes[key].position.y );
+					sum.z = ( sum.z + graph.nodes[key].position.z );
+				}
+			}
+			
+			center.x = ( sum.x / Object.keys( graph.nodes ).length );
+			center.y = ( sum.y / Object.keys( graph.nodes ).length );
+			center.z = ( sum.z / Object.keys( graph.nodes ).length );
+			
+			console.log( "computeGraphCenter( ", graph.graphName , ", ", technique , " ) ", center );
+			return center;
+		};
+		
+		/* Extents (average the furthest apart in each direction) */
+		if ( technique === "extents" ) {
+			
+			
+		}
+		
+			
 	},
 	computeSubgraphs: function( graph /* graph or subgraph */ ){
 			/* 	Get all the nodes and edges in the graph submitted as argument, 
@@ -97,17 +172,36 @@ var LUCIDNODES = {
 				return the object of subgraphs
 				*/
 	},
-	showNodeCenterPoinnts: function( graph ){
+	showGraphCenterPoints: function( graph, material = globalAppSettings.centerPointMaterial ){
 		
-		if ( globalAppSettings.showNodeCenterPoints = true ) {
+		if ( globalAppSettings.showGraphCenterPoints ) {
 			
-			// do stuff
+			var center = graph.center();
+			
+			graph.center.point = new THREE.Geometry();
+			graph.center.point.vertices.push( new THREE.Vector3( center.x, center.y, center.z ) );
+			graph.center.displayEntity = new THREE.Points( graph.center.point , material );
+			scene.add( graph.center.displayEntity );
 		}
 		
 		else { return; }
 		
 	},
 	
+	nodePositionComparison: function( node1, node2 ){
+		
+		this.relativePosition = {
+			node1: node1,
+			toTarget: node2,
+			vecRelativePosition: _Math.vecRelativePosition( node1, node2 ),
+			vecAbsDistance: _Math.vecAbsDistance( node1, node2 ),
+			linearDistance: _Math.linearDistance( node1, node2 ),
+			avgPosition: _Math.avgPosition( node1, node2 )		
+		};
+		
+		console.log( "nodePositionComparison: ", this.relativePosition );
+		return this.relativePosition;	
+	},
 	
 	// SINGLE NODE
 	
@@ -194,6 +288,9 @@ var LUCIDNODES = {
 			/* etc... */
 		};
 		
+		this.edges = {}; /* What are the edges extending to/from this object? Initialize as empty */
+		this.targets = {}; /* What other nodes are connected to this object via edges? Initialize as empty */
+		
 		this.bufferGeom = new THREE.SphereBufferGeometry( this.radius, 32, 32 );
 		this.displayEntity = new THREE.Mesh( this.bufferGeom, this.material );
 		this.displayEntity.position.x = this.position.x;
@@ -237,7 +334,7 @@ var LUCIDNODES = {
 		// These values will often be set by external system variables.
 		this.sourcePosition = { x: sourceNode.position.x, y: sourceNode.position.y, z: sourceNode.position.z };
 		this.targetPosition = { x: targetNode.position.x, y: targetNode.position.y, z: targetNode.position.z };
-		this.name = edgeName;
+		this.edgeName = edgeName;
 		this.color = color;
 		this.colorAsHex = function(){
 			
@@ -273,6 +370,8 @@ var LUCIDNODES = {
 			}
 		};
 		
+		this.nodes = {}; /* What nodes are connected by this edge? */
+		
 		this.geom = new THREE.Geometry();
 		this.geom.vertices.push(
 		new THREE.Vector3( this.sourcePosition.x, this.sourcePosition.y, this.sourcePosition.z ),
@@ -290,12 +389,17 @@ var LUCIDNODES = {
 	SubGraph: {},
 	
 	// WHOLE GRAPH
-	Graph: {
-		center: function ( graph, technique ) {computeCenter( graph/* graph, subgraph or series of graphs */ , technique )},
-		meaningSystem: {
-		/* 	What do the nodes mean? 
-			What relationship do edges refer to? */
-		},
+	Graph: function( graphName, meaningSystem = globalAppSettings.defaultMeaningSystem, centerTechnique = globalAppSettings.centerTechnique ){
+		
+		this.nodes = {};
+		this.edges = {};
+		this.graphName = graphName;
+		this.centerTechnique = centerTechnique;
+		this.center = function( centerTechnique = this.centerTechnique ) { return LUCIDNODES.computeGraphCenter( this, centerTechnique ) };
+		this.meaningSystem = meaningSystem; /* {
+			What do the nodes mean? 
+			What relationship do edges refer to? 
+		}; */
 	},	
 };
 
@@ -318,45 +422,118 @@ function randomTestGraph(){
 // randomTestGraph();
 
 var testPointsRaw = {
-n00: { x: 0,		y: 5.25731, 	z: 8.50651 },			
-n01: { x: -8.50651, y: 0, 			z: 5.25731 },		
-n02: { x: 0,		y: -5.25731, 	z: 8.50651 },		
-n03: { x: 5.25731, 	y: 8.50651, 	z: 0 },		
-n04: { x: 8.50651, 	y: 0, 			z: -5.25731 },		
-n05: { x: 0, 		y: 5.25731, 	z: -8.50651 },		
-n06: { x: 8.50651, 	y: 0, 			z: 5.25731 },							
-n07: { x: 5.25731, 	y: -8.50651,	z: 0 },		
-n08: { x: -5.25731, y: -8.50651, 	z: 0 },		
-n09: { x: 0,		y: -5.25731, 	z: -8.50651 },		
+n00: { x: 0,		y: 15.25731, 	z: 8.50651 },			
+n01: { x: -8.50651, y: 10, 			z: 5.25731 },		
+n02: { x: 0,		y: 5.25731, 	z: 8.50651 },		
+n03: { x: 5.25731, 	y: 18.50651, 	z: 0 },		
+n04: { x: 8.50651, 	y: 10, 			z: -5.25731 },		
+n05: { x: 0, 		y: 15.25731, 	z: -8.50651 },		
+n06: { x: 8.50651, 	y: 10, 			z: 5.25731 },							
+n07: { x: 5.25731, 	y: 2.50651,		z: 0 },		
+n08: { x: -5.25731, y: 2.50651, 	z: 0 },		
+n09: { x: 0,		y: 5.25731, 	z: -8.50651 },	
+n10: { x: 0,		y: 10.25731, 	z: -8.50651 },
+n11: { x: 0,		y: 20.25731, 	z: -8.50651 },	
 };
 
-var Graph = {
-	nodes: {},
-	edges: {},
+var testPointsRaw2 = {
+n00: { x: 22,		y: 15.25731, 	z: 8.50651 },			
+n01: { x: 14.50651, y: 10, 			z: 5.25731 },		
+n02: { x: 22,		y: 5.25731, 	z: 8.50651 },		
+n03: { x: 27.25731, y: 18.50651, 	z: 0 },		
+	
 };
 
-function structuredTestNodes( pointSet ){
+var graph1 = new LUCIDNODES.Graph( "graph1" );
+var graph2 = new LUCIDNODES.Graph( "graph2" );
+
+function nodesFromPointSet( graph, pointSet ){
 	
 	for ( key in pointSet ) {
 		if (pointSet.hasOwnProperty(key)){	
-			Graph.nodes.key  = new LUCIDNODES.Node( key.toString(), pointSet[key].x, pointSet[key].y, pointSet[key].z, 0.5, "sphere", { r: 0, g: 0, b: 255 }, 0.5 );
+			graph.nodes[key]  = new LUCIDNODES.Node( key.toString(), pointSet[key].x, pointSet[key].y, pointSet[key].z, 0.5, "sphere", { r: 0, g: 0, b: 255 }, 0.5 );
 		}
 	}
 };
 
-function structuredTestEdges( pointSet ){
+function edgeSetFromNode( graph, sourceNode ){
 	
-	for ( node in Graph.nodes ) {
+	for ( var targetNodeName in graph.nodes ){		
+		if (graph.nodes.hasOwnProperty(targetNodeName)) {
 		
+			var edgeName;
+			
+			// check if the source and target are identical, and if the edge already exists. If not, generate the edge.
+			if ( !nodesIdentical( sourceNode, graph.nodes[targetNodeName] ) && !edgeExistsInGraph( sourceNode, graph.nodes[targetNodeName])) {
+	
+				edgeName = nameEdge( sourceNode, graph.nodes[targetNodeName] );
+				
+				graph.edges[edgeName] = new LUCIDNODES.Edge( sourceNode, graph.nodes[targetNodeName], edgeName );
+					
+			}
+		}
 	}
 };
 
-
-structuredTestNodes( testPointsRaw );
-
-
+/* Name of edge: sourceNode, operator, targetNode */
+function nameEdge( sourceNode, targetNode ){
 	
+	var operator = '-'; /*We'll add more operators when we start adding directionality later */
 	
+	return sourceNode.nodeName + operator + targetNode.nodeName;
+};
+
+function nodesIdentical( node1, node2 ){
+	return node1.nodeName === node2.nodeName;
+};
+
+function edgeExistsInGraph( graph, node1, node2 ){
+
+	var testString1, testString2;
+
+	for ( var edgeNodeName in graph.edges ){		
+		
+		testString1 = edgeNodeName.indexOf(node1.nodeName);
+		testString2 = edgeNodeName.indexOf(node2.nodeName);
+		
+		if (testString1 !== -1 && testString2 !== -1 ) {
+			return true;
+		}
+	}
 	
+	return false;
+};
+
+function edgesIdentical( edge1, edge2 ){
+	return edge1.edgeName === edge2.edgeName;
+};
+
+function graphLog( graph ){
+	
+	console.log( graph );
+	
+};
+
+function graphFromNodes( graph ) {
+	
+		for ( key in graph.nodes ) {
+		if (graph.nodes.hasOwnProperty(key)){	
+			edgeSetFromNode( graph, graph.nodes[key] );
+		}
+	}
+};
+
+nodesFromPointSet( graph1, testPointsRaw );
+graphFromNodes( graph1 );
+graphLog( graph1 );
+LUCIDNODES.showGraphCenterPoints( graph1 );
+
+nodesFromPointSet( graph2, testPointsRaw2 );
+graphFromNodes( graph2 );
+graphLog( graph2 );
+LUCIDNODES.showGraphCenterPoints( graph2 );
+
+
+LUCIDNODES.nodePositionComparison( graph1.nodes.n00, graph1.nodes.n01 );
 	
 	
