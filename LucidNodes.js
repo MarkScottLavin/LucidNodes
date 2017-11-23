@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES PRELIM PLAN: 
-	* Version 0.1.2
+	* Version 0.1.3
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -11,6 +11,64 @@
 	* mindmapping
 	* etc.
 ****************************************************/
+
+var _Text = {
+	
+	/**
+	 * sprite();
+	 * 
+	 * @author Mark Scott Lavin /
+	 * modified from http://stemkoski.github.io/Three.js/Labeled-Geometry.html
+	 *
+	 * parameters = {
+	 *  fontface: <string>,
+	 *  fontsize: <int>,
+	 *  opacity: <float> between 0 & 1,
+	 *  textLineThickness <int>,
+	 *  spriteAlignment <THREE.SpriteAlignment>
+	 *  color: <object> { r: <integer>, g: <integer>, b: <integer> }
+	 *  opacity: <float> between 0 & 1,
+	 * }
+	 */	
+	
+	sprite: function( message, parameters ){
+		if ( parameters === undefined ) parameters = {};
+		
+		this.fontface = parameters.hasOwnProperty("fontface") ? parameters["fontface"] : "Arial";
+		this.fontsize = parameters.hasOwnProperty("fontsize") ? parameters["fontsize"] : 10;
+		this.color = parameters.hasOwnProperty("color") ? {	r: parameters["color"].r, g: parameters["color"].g, b: parameters["color"].b } : { r: 0, g: 0, b: 0 };
+		this.opacity = parameters.hasOwnProperty("opacity") ? parameters["opacity"] : 0.5;
+		this.textLineThickness = parameters.hasOwnProperty("textLineThickness") ? parameters["textLineThickness"] : 6;
+//		this.spriteAlignment = THREE.SpriteAlignment.topLeft;
+
+		// create a nested canvas & context
+		this.canvas = document.createElement('canvas');
+		this.context = this.canvas.getContext('2d');
+		this.context.font = "Bold " + this.fontsize + "px " + this.fontface;
+		
+		// get size data (height depends only on font size)
+		this.metrics = this.context.measureText( message );
+		this.textWidth = this.metrics.width;
+		
+		// text color
+		this.context.fillStyle = "rgba(" + this.color.r + "," + this.color.g + "," + this.color.b + "," + this.opacity + " )";
+		this.context.fillText( message, this.textLineThickness, this.fontsize + this.textLineThickness );
+		var backgroundColor = {r:255, g:100, b:100, a:0.5};
+		
+		// canvas contents will be used for a texture
+		this.texture = new THREE.Texture(this.canvas) 
+		this.texture.needsUpdate = true;
+		this.texture.minFilter = THREE.LinearFilter;
+
+		this.spriteMaterial = new THREE.SpriteMaterial( 
+			{ map: this.texture /* alignment: this.spriteAlignment */ } );
+		this.sprite = new THREE.Sprite( this.spriteMaterial );
+		this.sprite.scale.set( 4.0, 2.0, 1 );
+		return this.sprite;	
+	}
+	
+}
+
 
 var _Math = {
 	
@@ -65,13 +123,12 @@ var _Math = {
 		
 		var avgPos = {};
 		
-		avgPos.x = ( node1.position.x + node2.position.x ) / 2 || 0;
-		avgPos.y = ( node1.position.y + node2.position.y ) / 2 || 0; 
-		avgPos.z = ( node1.position.z + node2.position.z ) / 2 || 0;
+		avgPos.x = ( ( node1.position.x + node2.position.x ) / 2 ) || 0;
+		avgPos.y = ( ( node1.position.y + node2.position.y ) / 2 ) || 0; 
+		avgPos.z = ( ( node1.position.z + node2.position.z ) / 2 ) || 0;
 		
 		// console.log( "_Math.avgPosition( ", node1.nodeName, ", ", node2.nodeName, "  ): ", avgPos.x, ", ", avgPos.y, ", ", avgPos.z );
 		return avgPos;
-		
 	}	
 }
 
@@ -370,7 +427,11 @@ var LUCIDNODES = {
 			}
 		};
 		
-		this.nodes = {}; /* What nodes are connected by this edge? */
+		/* What nodes are connected by this edge? */
+		this.nodes = {
+			source: sourceNode,
+			target: targetNode
+		}; 
 		
 		this.geom = new THREE.Geometry();
 		this.geom.vertices.push(
@@ -478,9 +539,9 @@ function edgeSetFromNode( graph, sourceNode ){
 /* Name of edge: sourceNode, operator, targetNode */
 function nameEdge( sourceNode, targetNode ){
 	
-	var operator = '-'; /*We'll add more operators when we start adding directionality later */
+	// var operator = '-'; /*We'll add more operators when we start adding directionality later */
 	
-	return sourceNode.nodeName + operator + targetNode.nodeName;
+	return sourceNode.nodeName + targetNode.nodeName;
 };
 
 function nodesIdentical( node1, node2 ){
@@ -523,6 +584,37 @@ function graphFromNodes( graph ) {
 	}
 };
 
+/*
+	for (var i = 0; i < geometry.vertices.length; i++){
+		
+*/ 
+function nodeText( node, color ){
+	
+	var textSprite = new _Text.sprite( node.nodeName, { fontsize: 64, opacity: 0.25, color: ( color || node.color ) } );
+	
+	textSprite.position.x = node.position.x;
+	textSprite.position.y = node.position.y;
+	textSprite.position.z = node.position.z;
+	
+	scene.add( textSprite );
+};
+
+
+function edgeText( edge, color ){
+
+	var edgeCenter = _Math.avgPosition( edge.nodes.source, edge.nodes.target )
+	var textSprite = new _Text.sprite( edge.edgeName, { fontsize: 64, opacity: 0.40, color: ( color || edge.color ) } );
+	
+	textSprite.position.x = edgeCenter.x;
+	textSprite.position.y = edgeCenter.y;
+	textSprite.position.z = edgeCenter.z;
+	
+	scene.add( textSprite );
+};
+
+
+
+
 nodesFromPointSet( graph1, testPointsRaw );
 graphFromNodes( graph1 );
 graphLog( graph1 );
@@ -533,7 +625,29 @@ graphFromNodes( graph2 );
 graphLog( graph2 );
 LUCIDNODES.showGraphCenterPoints( graph2 );
 
-
 LUCIDNODES.nodePositionComparison( graph1.nodes.n00, graph1.nodes.n01 );
 	
+nodeText( graph1.nodes.n00 );
+nodeText( graph1.nodes.n01 );
+nodeText( graph1.nodes.n02 );
+nodeText( graph1.nodes.n03 );
+nodeText( graph1.nodes.n04 );
+nodeText( graph1.nodes.n05 );
+nodeText( graph1.nodes.n06 );
+nodeText( graph1.nodes.n07 );
+nodeText( graph1.nodes.n08 );
+nodeText( graph1.nodes.n09 );
+nodeText( graph1.nodes.n10 );
+nodeText( graph1.nodes.n11 );
 	
+nodeText( graph2.nodes.n00 );
+nodeText( graph2.nodes.n01 );
+nodeText( graph2.nodes.n02 );
+nodeText( graph2.nodes.n03 );
+
+edgeText( graph2.edges.n00n01 );
+edgeText( graph2.edges.n00n02 );
+edgeText( graph2.edges.n00n03 );
+edgeText( graph2.edges.n01n02 );
+edgeText( graph2.edges.n01n03 );
+edgeText( graph2.edges.n02n03 );
