@@ -387,7 +387,13 @@ var LUCIDNODES = {
 					castShadows = globalAppSettings.castShadows,
 					recieveShadows = globalAppSettings.recieveShadows
 					) {
-						
+		
+		/* What nodes are connected by this edge? */
+		this.nodes = {
+			source: sourceNode,
+			target: targetNode
+		}; 
+		
 		// These values will often be set by external system variables.
 		this.sourcePosition = { x: sourceNode.position.x, y: sourceNode.position.y, z: sourceNode.position.z };
 		this.targetPosition = { x: targetNode.position.x, y: targetNode.position.y, z: targetNode.position.z };
@@ -418,6 +424,7 @@ var LUCIDNODES = {
 					// do stuff
 				};
 			};
+		this.centerPoint = _Math.avgPosition( this.nodes.source, this.nodes.target );
 		this.isdirectional = function( meaningSystem, meaning ){ 
 				// set by meaning;
 			};
@@ -426,12 +433,6 @@ var LUCIDNODES = {
 			/* return or do something with the Edge direction (pointing toward one node, away from the other node in a binary pair */
 			}
 		};
-		
-		/* What nodes are connected by this edge? */
-		this.nodes = {
-			source: sourceNode,
-			target: targetNode
-		}; 
 		
 		this.geom = new THREE.Geometry();
 		this.geom.vertices.push(
@@ -444,6 +445,64 @@ var LUCIDNODES = {
 		
 		console.log( 'LUCIDNODES.Edge(): ', this );
 	},	
+	
+	/**
+	 * EdgeText();
+	 * 
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters = {
+	 *  node: <Node>,
+	 *  fontsize: <int>,
+	 *  color: <obj> {r: <integer>, g: <integer>, b: <integer> },
+	 *  opacity: <float> between 0 & 1,
+	 * }
+	 */	
+	 
+	NodeText: function( parameters ){
+		
+		this.node = parameters.node;
+		this.fontsize = parameters.fontsize || 64;
+		this.color =  parameters.color || this.node.color;
+		this.opacity = parameters.opacity || this.node.opacity();
+		
+		var textSprite = new _Text.sprite( this.node.nodeName, { fontsize: this.fontsize, color: this.color, opacity: this.node.opacity() } );
+		
+		textSprite.position.x = this.node.position.x;
+		textSprite.position.y = this.node.position.y;
+		textSprite.position.z = this.node.position.z;
+		
+		scene.add( textSprite );
+	},
+
+	/**
+	 * EdgeText();
+	 * 
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters = {
+	 *  edge: <Edge> the Edge,
+	 *  fontsize: <int>,
+	 *  color: <obj> {r: <integer>, g: <integer>, b: <integer> },
+	 *  opacity: <float> between 0 & 1,
+	 * }
+	 */	
+
+	EdgeText: function( parameters ){
+		
+		this.edge = parameters.edge;
+		this.fontsize = parameters.fontsize || 64;
+		this.color = parameters.color || parameters.edge.color;
+		this.opacity = parameters.opacity || parameters.edge.opacity;
+
+		this.textSprite = new _Text.sprite( this.edge.edgeName, { fontsize: this.fontsize, color: this.color, opacity: this.opacity } );
+		
+		this.textSprite.position.x = this.edge.centerPoint.x;
+		this.textSprite.position.y = this.edge.centerPoint.y;
+		this.textSprite.position.z = this.edge.centerPoint.z;
+		
+		scene.add( this.textSprite );
+	},
 		
 	// SUBGRAPHS
 	
@@ -465,23 +524,8 @@ var LUCIDNODES = {
 };
 
 
-function randomTestGraph(){
-	var node1 = new LUCIDNODES.Node( "Charley" , 2, 6, 8, 0.5, "sphere", { r: 0, g: 255, b: 0 }, 0.5 );
-	var node2 = new LUCIDNODES.Node( "Max" , 1, 11, -4, 0.5, "sphere", { r: 0, g: 0, b: 255 }, 0.5 );
-	var node3 = new LUCIDNODES.Node( "John" , 9, -6, 8, 0.5, "sphere", { r: 255, g: 0, b: 0 }, 0.5 );
-	var node4 = new LUCIDNODES.Node( "Tommy" , 2, 0, 7, 0.5, "sphere", { r: 255, g: 255, b: 0 }, 0.5 );
-	var node5 = new LUCIDNODES.Node( "Cindy" , 3, 3, 3, 0.5, "sphere", { r: 255, g: 255, b: 0 }, 0.5 );
 
-	var edge1 = new LUCIDNODES.Edge( node1, node2, "Charley to Max" );
-	var edge2 = new LUCIDNODES.Edge( node2, node3, "Max to John");
-	var edge3 = new LUCIDNODES.Edge( node3, node1, "John to Charley");
-	var edge4 = new LUCIDNODES.Edge( node3, node2, "John to Max");
-	var edge4 = new LUCIDNODES.Edge( node4, node1, "Tommy to Charley");
-	var edge4 = new LUCIDNODES.Edge( node5, node1, "Cindy to Charley");
-};
-
-// randomTestGraph();
-
+// Test Point Sets;
 var testPointsRaw = {
 n00: { x: 0,		y: 15.25731, 	z: 8.50651 },			
 n01: { x: -8.50651, y: 10, 			z: 5.25731 },		
@@ -492,9 +536,7 @@ n05: { x: 0, 		y: 15.25731, 	z: -8.50651 },
 n06: { x: 8.50651, 	y: 10, 			z: 5.25731 },							
 n07: { x: 5.25731, 	y: 2.50651,		z: 0 },		
 n08: { x: -5.25731, y: 2.50651, 	z: 0 },		
-n09: { x: 0,		y: 5.25731, 	z: -8.50651 },	
-n10: { x: 0,		y: 10.25731, 	z: -8.50651 },
-n11: { x: 0,		y: 20.25731, 	z: -8.50651 },	
+testText: { x: 0,		y: 5.25731, 	z: -8.50651 },
 };
 
 var testPointsRaw2 = {
@@ -524,8 +566,11 @@ function edgeSetFromNode( graph, sourceNode ){
 		
 			var edgeName;
 			
+			var notIdentical = !nodesIdentical( sourceNode, graph.nodes[targetNodeName] );
+			var notExists = !edgeExistsInGraph( sourceNode, graph.nodes[targetNodeName]);
+			
 			// check if the source and target are identical, and if the edge already exists. If not, generate the edge.
-			if ( !nodesIdentical( sourceNode, graph.nodes[targetNodeName] ) && !edgeExistsInGraph( sourceNode, graph.nodes[targetNodeName])) {
+			if ( !nodesIdentical( sourceNode, graph.nodes[targetNodeName] ) && !edgeExistsInGraph( graph, sourceNode, graph.nodes[targetNodeName])) {
 	
 				edgeName = nameEdge( sourceNode, graph.nodes[targetNodeName] );
 				
@@ -539,9 +584,9 @@ function edgeSetFromNode( graph, sourceNode ){
 /* Name of edge: sourceNode, operator, targetNode */
 function nameEdge( sourceNode, targetNode ){
 	
-	// var operator = '-'; /*We'll add more operators when we start adding directionality later */
+	var operator = '-'; /*We'll add more operators when we start adding directionality later */
 	
-	return sourceNode.nodeName + targetNode.nodeName;
+	return sourceNode.nodeName + operator + targetNode.nodeName;
 };
 
 function nodesIdentical( node1, node2 ){
@@ -584,32 +629,46 @@ function graphFromNodes( graph ) {
 	}
 };
 
-/*
-	for (var i = 0; i < geometry.vertices.length; i++){
-		
-*/ 
-function nodeText( node, color ){
+	/**
+	 * graphNodeText();
+	 * 
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters = {
+	 *  graph: <Graph>,
+	 *  fontsize: <int>,
+	 *  color: <obj> {r: <integer>, g: <integer>, b: <integer> },
+	 *  opacity: <float> between 0 & 1,
+	 * }
+	 */	
+
+
+function graphNodeText( parameters ) {
 	
-	var textSprite = new _Text.sprite( node.nodeName, { fontsize: 64, opacity: 0.25, color: ( color || node.color ) } );
-	
-	textSprite.position.x = node.position.x;
-	textSprite.position.y = node.position.y;
-	textSprite.position.z = node.position.z;
-	
-	scene.add( textSprite );
+	for ( key in parameters.graph.nodes ) {
+		if ( parameters.graph.nodes.hasOwnProperty( key ) ){
+			var nodeText = new LUCIDNODES.NodeText( {
+				node: parameters.graph.nodes[key],
+				fontsize: parameters.fontsize || 64,
+				color: parameters.color || parameters.graph.nodes[key].color,
+				opacity: parameters.opacity || parameters.graph.nodes[key].opacity(),
+			})
+		}
+	}
 };
 
-
-function edgeText( edge, color ){
-
-	var edgeCenter = _Math.avgPosition( edge.nodes.source, edge.nodes.target )
-	var textSprite = new _Text.sprite( edge.edgeName, { fontsize: 64, opacity: 0.40, color: ( color || edge.color ) } );
+function graphEdgeText( parameters ) {
 	
-	textSprite.position.x = edgeCenter.x;
-	textSprite.position.y = edgeCenter.y;
-	textSprite.position.z = edgeCenter.z;
-	
-	scene.add( textSprite );
+	for ( key in parameters.graph.edges ) {
+		if ( parameters.graph.edges.hasOwnProperty( key ) ){
+			var edgeText = new LUCIDNODES.EdgeText( {
+				edge: parameters.graph.edges[key],
+				fontsize: parameters.fontsize || 64,
+				color: parameters.color || parameters.graph.edges[key].color,
+				opacity: parameters.opacity || parameters.graph.edges[key].opacity(),
+			})
+		}
+	}
 };
 
 
@@ -626,28 +685,9 @@ graphLog( graph2 );
 LUCIDNODES.showGraphCenterPoints( graph2 );
 
 LUCIDNODES.nodePositionComparison( graph1.nodes.n00, graph1.nodes.n01 );
-	
-nodeText( graph1.nodes.n00 );
-nodeText( graph1.nodes.n01 );
-nodeText( graph1.nodes.n02 );
-nodeText( graph1.nodes.n03 );
-nodeText( graph1.nodes.n04 );
-nodeText( graph1.nodes.n05 );
-nodeText( graph1.nodes.n06 );
-nodeText( graph1.nodes.n07 );
-nodeText( graph1.nodes.n08 );
-nodeText( graph1.nodes.n09 );
-nodeText( graph1.nodes.n10 );
-nodeText( graph1.nodes.n11 );
-	
-nodeText( graph2.nodes.n00 );
-nodeText( graph2.nodes.n01 );
-nodeText( graph2.nodes.n02 );
-nodeText( graph2.nodes.n03 );
 
-edgeText( graph2.edges.n00n01 );
-edgeText( graph2.edges.n00n02 );
-edgeText( graph2.edges.n00n03 );
-edgeText( graph2.edges.n01n02 );
-edgeText( graph2.edges.n01n03 );
-edgeText( graph2.edges.n02n03 );
+graphNodeText( { graph: graph1, fontsize: 64, color: { r: 0, g: 128, b: 0 }, opacity: 0.4 } );
+graphNodeText( { graph: graph2, fontsize: 32, color: { r: 255, g: 128, b: 0 }, opacity: 0.2 } );
+
+graphEdgeText( { graph: graph1, fontsize: 32, color: { r: 255, g: 0, b: 0 }, opacity: 0.4 } );
+graphEdgeText( { graph: graph2, fontsize: 48, color: { r: 255, g: 0, b: 255 }, opacity: 0.2 } );
