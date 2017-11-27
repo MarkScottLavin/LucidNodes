@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES PRELIM PLAN: 
-	* Version 0.1.3
+	* Version 0.1.4
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -12,7 +12,7 @@
 	* etc.
 ****************************************************/
 
-var _Text = {
+var _Label = {
 	
 	/**
 	 * sprite();
@@ -129,7 +129,12 @@ var _Math = {
 		
 		// console.log( "_Math.avgPosition( ", node1.nodeName, ", ", node2.nodeName, "  ): ", avgPos.x, ", ", avgPos.y, ", ", avgPos.z );
 		return avgPos;
-	}	
+	},	
+	
+	distanceFromGraphCenter: function(){
+		
+	}
+
 }
 
 _drawGraph = {
@@ -162,10 +167,14 @@ var globalAppSettings = {
 	recieveShadows: true,
 	defaultNodeColor: { r: 128, g: 128, b: 128 },
 	defaultNodeOpacity: 0.75,
+	defaultNodeLabelFontSize: 64,
+	defaultNodeLabelOpacity: 0.2,
 	defaultEdgeColor: { r: 128, g: 128, b: 128 },
 	defaultEdgeThickness: 4,
 	defaultEdgeLineType: "solid" /* dashed */,
 	defaultEdgeOpacity: 0.5,
+	defaultEdgeLabelFontSize: 32,
+	defaultEdgeLabelOpacity: 0.2,
 	defaultMeaningSystem: { /* Meaning of Edges and Nodes */ },
 	showGraphCenterPoints: true,
 	centerTechnique: "average",
@@ -269,30 +278,26 @@ var LUCIDNODES = {
 	 *
 	 * parameters = {
 	 *  nodeName: <string>,
+	 * 	label: <string>,
 	 *  radius: <float>,
 	 *  shape: <string>,
 	 *  color: <object> { r: <integer>, g: <integer>, b: <integer> }
 	 *  opacity: <float> between 0 & 1,
+	 *  labelColor <object> { r: <integer>, g: <integer>, b: <integer> }
+	 *  labelFontSize <integer>
+	 *  labelOpacity <float> between 0 & 1,
 	 *  castShadows: <boolean>,
 	 *  recieveShadows: <boolean>
 	 * }
 	 */
 	
-	Node: function( nodeName = "Node", 
-					x = 2, y = -4, z = 2, 
-					radius = 0.5,
-					shape = "sphere",
-					color = globalAppSettings.defaultNodeColor, 
-					opacity = globalAppSettings.defaultOpacity,
-					castShadows = globalAppSettings.castShadows, 
-					recieveShadows = globalAppSettings.recieveShadows
-					) {
+	Node: function( parameters ) {
 		
-		this.nodeName = nodeName;
-		this.position = { x, y, z };
-		this.radius = radius;
-		this.shape = shape;
-		this.color = color;
+		this.nodeName = parameters.nodeName || "Node";
+		this.position = parameters.position || { x: 0, y: -2, z: -2 };
+		this.radius = parameters.radius || 0.5;
+		this.shape = parameters.shape || "sphere";
+		this.color = parameters.color || globalAppSettings.defaultNodeColor;
 		this.colorAsHex = function(){
 			
 			return colorUtils.decRGBtoHexRGB( this.color.r, this.color.g, this.color.b );
@@ -302,7 +307,7 @@ var LUCIDNODES = {
 		this.opacity = function(){ 
 				if ( globalAppSettings.transparencyOn ) { 
 					this.material.transparent = true;
-					this.material.opacity = opacity || 0;
+					this.material.opacity = parameters.opacity || globalAppSettings.defaultNodeOpacity;
 					}
 				else {
 					this.material.transparent = false;
@@ -310,8 +315,15 @@ var LUCIDNODES = {
 					}
 				return this.material.opacity;
 			};
-		this.castShadows = castShadows;  /* Set to global default */
-		this.recieveShadows = recieveShadows; /* Set to global default */
+		this.label = new LUCIDNODES.NodeLabel( {
+				text: this.label || this.nodeName,
+				node: this,
+				fontsize: parameters.labelFontsize || globalAppSettings.defaultNodeLabelFontSize,
+				color: parameters.labelColor || this.color,
+				opacity: parameters.labelOpacity || globalAppSettings.defaultNodeLabelOpacity
+			});
+		this.castShadows = parameters.castShadows || globalAppSettings.castShadows;  /* Set to global default */
+		this.recieveShadows = parameters.recieveShadows || globalAppSettings.recieveShadows; /* Set to global default */
 		
 		this.components = {
 			masterContainer: { /* obj */ }, /* The Master Object that parents all of the node contents  */ 
@@ -370,61 +382,65 @@ var LUCIDNODES = {
 	 *  sourceNode: <obj> var representing source node,
 	 *  targetNode: <obj> var representing target node,
 	 * 	edgeName: <string>
+	 *  label: <string>
 	 *  color: <obj> {r: <integer>, g: <integer>, b: <integer> },
 	 *  lineweight: <float>,
 	 *  opacity: <float> between 0 & 1,
+	 *  labelColor <object> { r: <integer>, g: <integer>, b: <integer> }
+	 *  labelFontSize <integer>
+	 *  labelOpacity <float> between 0 & 1,
 	 *  castShadows: <boolean>,
 	 *  recieveShadows: <boolean>
 	 * }
 	 */	
 	
-	Edge: function( sourceNode, 
-					targetNode,
-					edgeName = "edge",
-					color = globalAppSettings.defaultEdgeColor,
-					thickness = globalAppSettings.defaultEdgeThickness,
-					opacity = globalAppSettings.defaultEdgeOpacity,
-					castShadows = globalAppSettings.castShadows,
-					recieveShadows = globalAppSettings.recieveShadows
-					) {
+	Edge: function( parameters ) {
 		
 		/* What nodes are connected by this edge? */
 		this.nodes = {
-			source: sourceNode,
-			target: targetNode
+			source: parameters.sourceNode,
+			target: parameters.targetNode
 		}; 
 		
 		// These values will often be set by external system variables.
-		this.sourcePosition = { x: sourceNode.position.x, y: sourceNode.position.y, z: sourceNode.position.z };
-		this.targetPosition = { x: targetNode.position.x, y: targetNode.position.y, z: targetNode.position.z };
-		this.edgeName = edgeName;
-		this.color = color;
+		this.sourcePosition = { x: this.nodes.source.position.x, y: this.nodes.source.position.y, z: this.nodes.source.position.z };
+		this.targetPosition = { x: this.nodes.target.position.x, y: this.nodes.target.position.y, z: this.nodes.target.position.z };
+		this.edgeName = parameters.edgeName || "Edge";
+		this.color = parameters.color || globalAppSettings.defaultEdgeColor;
+		this.thickness = parameters.thickness || globalAppSettings.defaultEdgeThickness;
+		this.lineType = parameters.lineType || globalAppSettings.defaultEdgeLineType;
 		this.colorAsHex = function(){
 			
 			return colorUtils.decRGBtoHexRGB( this.color.r, this.color.g, this.color.b );
 						
 			};
-		this.thickness = thickness;
 		this.opacity = function(){ 
 				if ( globalAppSettings.transparencyOn ) { 
 					this.material.transparent = true;
-					this.material.opacity = opacity || 0;
+					this.material.opacity = parameters.opacity || globalAppSettings.defaultEdgeOpacity;
 					}
 				else {
 					this.material.transparent = false;
 					this.material.opacity = 1;
 					}
 				return this.material.opacity;
-			};
+			},
 		this.material = new THREE.LineBasicMaterial( { color: this.colorAsHex(), linewidth: this.thickness } );
-		this.castShadows = castShadows;  /* Set to global default */
-		this.recieveShadows = recieveShadows; /* Set to global default */
+		this.castShadows = parameters.castShadows;  /* Set to global default */
+		this.recieveShadows = parameters.recieveShadows; /* Set to global default */
 		this.meaning = function( meaningSystem, meaning ) {
 				if ( meaningSystem === "generic" ) {
 					// do stuff
 				};
 			};
 		this.centerPoint = _Math.avgPosition( this.nodes.source, this.nodes.target );
+		this.label = new LUCIDNODES.EdgeLabel( {
+				text: this.label || this.edgeName,
+				edge: this,
+				fontsize: parameters.fontsize || globalAppSettings.defaultEdgeLabelFontSize,
+				color: parameters.labelcolor || this.color,
+				opacity: parameters.labelOpacity || globalAppSettings.defaultEdgeLabelOpacity
+			});
 		this.isdirectional = function( meaningSystem, meaning ){ 
 				// set by meaning;
 			};
@@ -447,7 +463,7 @@ var LUCIDNODES = {
 	},	
 	
 	/**
-	 * EdgeText();
+	 * NodeLabel();
 	 * 
 	 * @author Mark Scott Lavin /
 	 *
@@ -459,14 +475,15 @@ var LUCIDNODES = {
 	 * }
 	 */	
 	 
-	NodeText: function( parameters ){
+	NodeLabel: function( parameters ){
 		
+		this.text = parameters.text;
 		this.node = parameters.node;
-		this.fontsize = parameters.fontsize || 64;
+		this.fontsize = parameters.fontsize || globalAppSettings.defaultNodeLabelFontSize;
 		this.color =  parameters.color || this.node.color;
-		this.opacity = parameters.opacity || this.node.opacity();
+		this.opacity = parameters.opacity || parameters.node.opacity || globalAppSettings.defaultNodeLabelOpacity;
 		
-		var textSprite = new _Text.sprite( this.node.nodeName, { fontsize: this.fontsize, color: this.color, opacity: this.node.opacity() } );
+		var textSprite = new _Label.sprite( this.text, { fontsize: this.fontsize, color: this.color, opacity: this.opacity } );
 		
 		textSprite.position.x = this.node.position.x;
 		textSprite.position.y = this.node.position.y;
@@ -474,9 +491,10 @@ var LUCIDNODES = {
 		
 		scene.add( textSprite );
 	},
+	
 
 	/**
-	 * EdgeText();
+	 * EdgeLabel();
 	 * 
 	 * @author Mark Scott Lavin /
 	 *
@@ -488,14 +506,15 @@ var LUCIDNODES = {
 	 * }
 	 */	
 
-	EdgeText: function( parameters ){
+	EdgeLabel: function( parameters ){
 		
+		this.text = parameters.text;
 		this.edge = parameters.edge;
-		this.fontsize = parameters.fontsize || 64;
-		this.color = parameters.color || parameters.edge.color;
-		this.opacity = parameters.opacity || parameters.edge.opacity;
+		this.fontsize = parameters.fontsize || globalAppSettings.defaultEdgeLabelFontSize;
+		this.color = parameters.color || this.edge.color;
+		this.opacity = parameters.opacity || parameters.edge.opacity || globalAppSettings.defaultEdgeLabelOpacity;
 
-		this.textSprite = new _Text.sprite( this.edge.edgeName, { fontsize: this.fontsize, color: this.color, opacity: this.opacity } );
+		this.textSprite = new _Label.sprite( this.text, { fontsize: this.fontsize, color: this.color, opacity: this.opacity } );
 		
 		this.textSprite.position.x = this.edge.centerPoint.x;
 		this.textSprite.position.y = this.edge.centerPoint.y;
@@ -554,10 +573,45 @@ function nodesFromPointSet( graph, pointSet ){
 	
 	for ( key in pointSet ) {
 		if (pointSet.hasOwnProperty(key)){	
-			graph.nodes[key]  = new LUCIDNODES.Node( key.toString(), pointSet[key].x, pointSet[key].y, pointSet[key].z, 0.5, "sphere", { r: 0, g: 0, b: 255 }, 0.5 );
+			graph.nodes[key]  = new LUCIDNODES.Node( { 	nodeName: key.toString(), 
+														position: { x: pointSet[key].x, 
+																	y: pointSet[key].y, 
+																	z: pointSet[key].z},
+														radius: 0.5, 
+														shape: "sphere", 
+														color: { r: 0, g: 0, b: 255 },
+														labelColor: { r: 0, g: 128, b: 0 },
+														opacity: 0.5 } );
 		}
 	}
 };
+
+	/* nodesFromPointSet2();
+	 *
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters = {
+	 *  graph: <Graph>: what graph to assign the Ndes to;
+	 *  pointset: <object>,
+	 * }
+	*/	
+
+function nodesFromPointSet2( parameters ){
+	
+	var graph = parameters.graph;
+
+	if (pointSet.hasOwnProperty(key)){	
+		graph.nodes[key]  = new LUCIDNODES.Node( { 	nodeName: key.toString(), 
+													position: { x: pointSet[key].x, 
+																y: pointSet[key].y, 
+																z: pointSet[key].z},
+													radius: 0.5, 
+													shape: "sphere", 
+													color: { r: 0, g: 0, b: 255 },
+													labelColor: { r: 0, g: 128, b: 0 },
+													opacity: 0.5 } );
+	}		
+}
 
 function edgeSetFromNode( graph, sourceNode ){
 	
@@ -574,8 +628,9 @@ function edgeSetFromNode( graph, sourceNode ){
 	
 				edgeName = nameEdge( sourceNode, graph.nodes[targetNodeName] );
 				
-				graph.edges[edgeName] = new LUCIDNODES.Edge( sourceNode, graph.nodes[targetNodeName], edgeName );
-					
+				graph.edges[edgeName] = new LUCIDNODES.Edge( { sourceNode: sourceNode, 
+															   targetNode: graph.nodes[targetNodeName], 
+															   edgeName: edgeName } );
 			}
 		}
 	}
@@ -629,50 +684,6 @@ function graphFromNodes( graph ) {
 	}
 };
 
-	/**
-	 * graphNodeText();
-	 * 
-	 * @author Mark Scott Lavin /
-	 *
-	 * parameters = {
-	 *  graph: <Graph>,
-	 *  fontsize: <int>,
-	 *  color: <obj> {r: <integer>, g: <integer>, b: <integer> },
-	 *  opacity: <float> between 0 & 1,
-	 * }
-	 */	
-
-
-function graphNodeText( parameters ) {
-	
-	for ( key in parameters.graph.nodes ) {
-		if ( parameters.graph.nodes.hasOwnProperty( key ) ){
-			var nodeText = new LUCIDNODES.NodeText( {
-				node: parameters.graph.nodes[key],
-				fontsize: parameters.fontsize || 64,
-				color: parameters.color || parameters.graph.nodes[key].color,
-				opacity: parameters.opacity || parameters.graph.nodes[key].opacity(),
-			})
-		}
-	}
-};
-
-function graphEdgeText( parameters ) {
-	
-	for ( key in parameters.graph.edges ) {
-		if ( parameters.graph.edges.hasOwnProperty( key ) ){
-			var edgeText = new LUCIDNODES.EdgeText( {
-				edge: parameters.graph.edges[key],
-				fontsize: parameters.fontsize || 64,
-				color: parameters.color || parameters.graph.edges[key].color,
-				opacity: parameters.opacity || parameters.graph.edges[key].opacity(),
-			})
-		}
-	}
-};
-
-
-
 
 nodesFromPointSet( graph1, testPointsRaw );
 graphFromNodes( graph1 );
@@ -685,9 +696,3 @@ graphLog( graph2 );
 LUCIDNODES.showGraphCenterPoints( graph2 );
 
 LUCIDNODES.nodePositionComparison( graph1.nodes.n00, graph1.nodes.n01 );
-
-graphNodeText( { graph: graph1, fontsize: 64, color: { r: 0, g: 128, b: 0 }, opacity: 0.4 } );
-graphNodeText( { graph: graph2, fontsize: 32, color: { r: 255, g: 128, b: 0 }, opacity: 0.2 } );
-
-graphEdgeText( { graph: graph1, fontsize: 32, color: { r: 255, g: 0, b: 0 }, opacity: 0.4 } );
-graphEdgeText( { graph: graph2, fontsize: 48, color: { r: 255, g: 0, b: 255 }, opacity: 0.2 } );
