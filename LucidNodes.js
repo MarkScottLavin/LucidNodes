@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES PRELIM PLAN: 
-	* Version 0.1.4
+	* Version 0.1.5
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -79,7 +79,7 @@ var _Math = {
 		dist.x = node2.position.x - node1.position.x || 0;
 		dist.y = node2.position.y - node1.position.y || 0;
 		dist.z = node2.position.z - node1.position.z || 0;
-		// console.log( "_Math.vecRelativePosition( ", node1.nodeName, ", ", node2.nodeName, "  ): ", dist.x, ", ", dist.y, ", ", dist.z );
+		// console.log( "_Math.vecRelativePosition( ", node1.id, ", ", node2.id, "  ): ", dist.x, ", ", dist.y, ", ", dist.z );
 		
 		return dist;
 	},
@@ -92,7 +92,7 @@ var _Math = {
 		dist.y = _Math.absVal( node2.position.y - node1.position.y ) || 0;
 		dist.z = _Math.absVal( node2.position.z - node1.position.z ) || 0;
 		
-		// console.log( "_Math.vecAbsDistance( ", node1.nodeName, ", ", node2.nodeName, "  ): ", dist.x, ", ", dist.y, ", ", dist.z );
+		// console.log( "_Math.vecAbsDistance( ", node1.id, ", ", node2.id, "  ): ", dist.x, ", ", dist.y, ", ", dist.z );
 		return dist;
 	},
 	
@@ -102,7 +102,7 @@ var _Math = {
 		var threeVec = new THREE.Vector3( vecDist.x, vecDist.y, vecDist.z );
 		
 		// console.log( threeVec );
-		// console.log( "_Math.linearDistance( ", node1.nodeName, ", ", node2.nodeName, "  ): ", threeVec.length() );
+		// console.log( "_Math.linearDistance( ", node1.id, ", ", node2.id, "  ): ", threeVec.length() );
 		return threeVec.length();
 	},
 	
@@ -127,7 +127,7 @@ var _Math = {
 		avgPos.y = ( ( node1.position.y + node2.position.y ) / 2 ) || 0; 
 		avgPos.z = ( ( node1.position.z + node2.position.z ) / 2 ) || 0;
 		
-		// console.log( "_Math.avgPosition( ", node1.nodeName, ", ", node2.nodeName, "  ): ", avgPos.x, ", ", avgPos.y, ", ", avgPos.z );
+		// console.log( "_Math.avgPosition( ", node1.id, ", ", node2.id, "  ): ", avgPos.x, ", ", avgPos.y, ", ", avgPos.z );
 		return avgPos;
 	},	
 	
@@ -277,7 +277,7 @@ var LUCIDNODES = {
 	 * @author Mark Scott Lavin /
 	 *
 	 * parameters = {
-	 *  nodeName: <string>,
+	 *  id: <string>,
 	 * 	label: <string>,
 	 *  radius: <float>,
 	 *  shape: <string>,
@@ -293,7 +293,7 @@ var LUCIDNODES = {
 	
 	Node: function( parameters ) {
 		
-		this.nodeName = parameters.nodeName || "Node";
+		this.id = parameters.id || "Node";
 		this.position = parameters.position || { x: 0, y: -2, z: -2 };
 		this.radius = parameters.radius || 0.5;
 		this.shape = parameters.shape || "sphere";
@@ -316,7 +316,7 @@ var LUCIDNODES = {
 				return this.material.opacity;
 			};
 		this.label = new LUCIDNODES.NodeLabel( {
-				text: this.label || this.nodeName,
+				text: this.label || this.id,
 				node: this,
 				fontsize: parameters.labelFontsize || globalAppSettings.defaultNodeLabelFontSize,
 				color: parameters.labelColor || this.color,
@@ -381,7 +381,7 @@ var LUCIDNODES = {
 	 * parameters = {
 	 *  sourceNode: <obj> var representing source node,
 	 *  targetNode: <obj> var representing target node,
-	 * 	edgeName: <string>
+	 * 	id: <string>
 	 *  label: <string>
 	 *  color: <obj> {r: <integer>, g: <integer>, b: <integer> },
 	 *  lineweight: <float>,
@@ -405,7 +405,7 @@ var LUCIDNODES = {
 		// These values will often be set by external system variables.
 		this.sourcePosition = { x: this.nodes.source.position.x, y: this.nodes.source.position.y, z: this.nodes.source.position.z };
 		this.targetPosition = { x: this.nodes.target.position.x, y: this.nodes.target.position.y, z: this.nodes.target.position.z };
-		this.edgeName = parameters.edgeName || "Edge";
+		this.id = parameters.id || "Edge";
 		this.color = parameters.color || globalAppSettings.defaultEdgeColor;
 		this.thickness = parameters.thickness || globalAppSettings.defaultEdgeThickness;
 		this.lineType = parameters.lineType || globalAppSettings.defaultEdgeLineType;
@@ -435,7 +435,7 @@ var LUCIDNODES = {
 			};
 		this.centerPoint = _Math.avgPosition( this.nodes.source, this.nodes.target );
 		this.label = new LUCIDNODES.EdgeLabel( {
-				text: this.label || this.edgeName,
+				text: this.label || this.id,
 				edge: this,
 				fontsize: parameters.fontsize || globalAppSettings.defaultEdgeLabelFontSize,
 				color: parameters.labelcolor || this.color,
@@ -546,37 +546,66 @@ var LUCIDNODES = {
 
 // Test Point Sets;
 var testPointsRaw = {
-n00: { x: 0,		y: 15.25731, 	z: 8.50651 },			
-n01: { x: -8.50651, y: 10, 			z: 5.25731 },		
-n02: { x: 0,		y: 5.25731, 	z: 8.50651 },		
-n03: { x: 5.25731, 	y: 18.50651, 	z: 0 },		
-n04: { x: 8.50651, 	y: 10, 			z: -5.25731 },		
-n05: { x: 0, 		y: 15.25731, 	z: -8.50651 },		
-n06: { x: 8.50651, 	y: 10, 			z: 5.25731 },							
-n07: { x: 5.25731, 	y: 2.50651,		z: 0 },		
-n08: { x: -5.25731, y: 2.50651, 	z: 0 },		
-testText: { x: 0,		y: 5.25731, 	z: -8.50651 },
+n00: [ 0, 15.25731, 8.50651 ],			
+n01: [ -8.50651, 10, 5.25731 ],		
+n02: [ 0, 5.25731, 8.50651 ],		
+n03: [ 5.25731, 18.50651, 0 ],		
+n04: [ 8.50651, 10, -5.25731 ],		
+n05: [ 0, 15.25731, -8.50651 ],		
+n06: [ 8.50651, 10, 5.25731 ],							
+n07: [ 5.25731, 2.50651, 0 ],		
+n08: [ -5.25731, 2.50651, 0 ],		
+testText: [ 0, 5.25731, -8.50651 ],
 };
 
 var testPointsRaw2 = {
-n00: { x: 22,		y: 15.25731, 	z: 8.50651 },			
-n01: { x: 14.50651, y: 10, 			z: 5.25731 },		
-n02: { x: 22,		y: 5.25731, 	z: 8.50651 },		
-n03: { x: 27.25731, y: 18.50651, 	z: 0 },		
+n00: [ 22, 15.25731, 8.50651 ],			
+n01: [ 14.50651, 10, 5.25731 ],		
+n02: [ 22, 5.25731, 8.50651 ],		
+n03: [ 27.25731, 18.50651, 0 ],		
 	
 };
 
 var graph1 = new LUCIDNODES.Graph( "graph1" );
 var graph2 = new LUCIDNODES.Graph( "graph2" );
 
+
+
+
+	/**
+	 * mapAcrossGraph();
+	 * 
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters = {
+	 *  graph: <Graph>,
+	 *  elementType: <string> Either "nodes" || "edges"
+	 *  fn: <function> the function to apply to the elements of type in the graph;
+	 * }
+	 */
+
+function mapAcrossGraph( parameters ) {
+	
+	var graph = parameters.graph;
+	var fn = parameters.fn;
+	var elementType = parameters.elementType
+	
+	for ( key in graph[elementType] ) {
+		if ( graph[elementType].hasOwnProperty( key ) ){
+			fn( graph[elementType][key] );  // do sommething to each element of this type in the graph.
+		}
+	}
+};
+
 function nodesFromPointSet( graph, pointSet ){
 	
 	for ( key in pointSet ) {
 		if (pointSet.hasOwnProperty(key)){	
-			graph.nodes[key]  = new LUCIDNODES.Node( { 	nodeName: key.toString(), 
-														position: { x: pointSet[key].x, 
-																	y: pointSet[key].y, 
-																	z: pointSet[key].z},
+			graph.nodes[key]  = new LUCIDNODES.Node( { 	id: key.toString(), 
+														position: { x: pointSet[key][0], 
+																	y: pointSet[key][1], 
+																	z: pointSet[key][2]
+														},
 														radius: 0.5, 
 														shape: "sphere", 
 														color: { r: 0, g: 0, b: 255 },
@@ -586,7 +615,7 @@ function nodesFromPointSet( graph, pointSet ){
 	}
 };
 
-	/* nodesFromPointSet2();
+	/* nodesFromPointGroup();
 	 *
 	 * @author Mark Scott Lavin /
 	 *
@@ -596,20 +625,23 @@ function nodesFromPointSet( graph, pointSet ){
 	 * }
 	*/	
 
-function nodesFromPointSet2( parameters ){
+function nodesFromPointGroup( parameters ){
 	
-	var graph = parameters.graph;
+	this.graph = parameters.graph;
+	this.pointGroup = parameters.pointGroup;
 
-	if (pointSet.hasOwnProperty(key)){	
-		graph.nodes[key]  = new LUCIDNODES.Node( { 	nodeName: key.toString(), 
-													position: { x: pointSet[key].x, 
-																y: pointSet[key].y, 
-																z: pointSet[key].z},
-													radius: 0.5, 
-													shape: "sphere", 
-													color: { r: 0, g: 0, b: 255 },
-													labelColor: { r: 0, g: 128, b: 0 },
-													opacity: 0.5 } );
+	if ( this.pointGroup.hasOwnProperty(key)){	
+		this.graph.nodes[key]  = new LUCIDNODES.Node( { 	
+			id: key.toString(), 
+			position: { x: this.pointGroup[key][0], 
+						y: this.pointGroup[key][1], 
+						z: this.pointGroup[key][2]
+						},
+			radius: 0.5, 
+			shape: "sphere", 
+			color: { r: 0, g: 0, b: 255 },
+			labelColor: { r: 0, g: 128, b: 0 },
+			opacity: 0.5 } );
 	}		
 }
 
@@ -618,7 +650,7 @@ function edgeSetFromNode( graph, sourceNode ){
 	for ( var targetNodeName in graph.nodes ){		
 		if (graph.nodes.hasOwnProperty(targetNodeName)) {
 		
-			var edgeName;
+			var id;
 			
 			var notIdentical = !nodesIdentical( sourceNode, graph.nodes[targetNodeName] );
 			var notExists = !edgeExistsInGraph( sourceNode, graph.nodes[targetNodeName]);
@@ -626,11 +658,11 @@ function edgeSetFromNode( graph, sourceNode ){
 			// check if the source and target are identical, and if the edge already exists. If not, generate the edge.
 			if ( !nodesIdentical( sourceNode, graph.nodes[targetNodeName] ) && !edgeExistsInGraph( graph, sourceNode, graph.nodes[targetNodeName])) {
 	
-				edgeName = nameEdge( sourceNode, graph.nodes[targetNodeName] );
+				id = nameEdge( sourceNode, graph.nodes[targetNodeName] );
 				
-				graph.edges[edgeName] = new LUCIDNODES.Edge( { sourceNode: sourceNode, 
+				graph.edges[id] = new LUCIDNODES.Edge( { sourceNode: sourceNode, 
 															   targetNode: graph.nodes[targetNodeName], 
-															   edgeName: edgeName } );
+															   id: id } );
 			}
 		}
 	}
@@ -641,11 +673,11 @@ function nameEdge( sourceNode, targetNode ){
 	
 	var operator = '-'; /*We'll add more operators when we start adding directionality later */
 	
-	return sourceNode.nodeName + operator + targetNode.nodeName;
+	return sourceNode.id + operator + targetNode.id;
 };
 
 function nodesIdentical( node1, node2 ){
-	return node1.nodeName === node2.nodeName;
+	return node1.id === node2.id;
 };
 
 function edgeExistsInGraph( graph, node1, node2 ){
@@ -654,8 +686,8 @@ function edgeExistsInGraph( graph, node1, node2 ){
 
 	for ( var edgeNodeName in graph.edges ){		
 		
-		testString1 = edgeNodeName.indexOf(node1.nodeName);
-		testString2 = edgeNodeName.indexOf(node2.nodeName);
+		testString1 = edgeNodeName.indexOf(node1.id);
+		testString2 = edgeNodeName.indexOf(node2.id);
 		
 		if (testString1 !== -1 && testString2 !== -1 ) {
 			return true;
@@ -666,7 +698,7 @@ function edgeExistsInGraph( graph, node1, node2 ){
 };
 
 function edgesIdentical( edge1, edge2 ){
-	return edge1.edgeName === edge2.edgeName;
+	return edge1.id === edge2.id;
 };
 
 function graphLog( graph ){
