@@ -12,6 +12,9 @@
 	* etc.
 ****************************************************/
 
+// Create a global graphs object to hold the graphs that are in the scene.
+var graphsInScene = {};
+
 window.onload = function(){
 	
 	initUI();
@@ -27,15 +30,15 @@ var initUI = function(){
 
 var graphFromJson = function( json ){
 	
-	var graphs = json.graphData.graphs;
+	var loadedGraphs = json.graphData.graphs;
 	 
-	if ( graphs ){ 
+	if ( loadedGraphs ){ 
 
 		/* Separate each graph object in the laded JSON file */
-		for ( key in graphs ) {
-			if ( graphs.hasOwnProperty( key )){
-				var rendered = new LUCIDNODES.Graph( key );
-				renderGraph( rendered, graphs[key].nodes );
+		for ( key in loadedGraphs ) {
+			if ( loadedGraphs.hasOwnProperty( key )){
+				graphsInScene[key] = new LUCIDNODES.Graph( key );
+				renderGraph( graphsInScene[key], loadedGraphs[key].nodes );
 			}
 		}
 	}
@@ -50,7 +53,4 @@ var renderGraph = function( graph , graphData ){
 	LUCIDNODES.showGraphCenterPoints( graph );
 };
 
-//renderGraph( graph1, testPointsRaw );
-//renderGraph( graph2, testPointsRaw2 );
-
-//LUCIDNODES.nodePositionComparison( graph1.nodes.n00, graph1.nodes.n01 );
+LUCIDNODES.nodePositionComparison( graphsInScene.graph1.nodes.n00, graphsInScene.graph1.nodes.n01 );
