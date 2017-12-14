@@ -572,9 +572,9 @@ function nodesFromPointSet( graph, pointSet ){
 	for ( key in pointSet ) {
 		if (pointSet.hasOwnProperty(key)){	
 			graph.nodes[key]  = new LUCIDNODES.Node( { 	id: key.toString(), 
-														position: { x: pointSet[key][0], 
-																	y: pointSet[key][1], 
-																	z: pointSet[key][2]
+														position: { x: parseFloat(pointSet[key][0]), 
+																	y: parseFloat(pointSet[key][1]), 
+																	z: parseFloat(pointSet[key][2])
 														},
 														radius: 0.5, 
 														shape: "sphere", 
