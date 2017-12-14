@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.7
+	* Version 0.1.7.2
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -23,7 +23,7 @@ window.onload = function(){
 
 var initUI = function(){
 
-	document.getElementById('loadBtn').addEventListener( 'click' , function() { loadFile( "./userfiles/" , "testpoints.json" ) } );
+	document.getElementById('loadBtn').addEventListener( 'click' , function() { loadFile( "./userfiles/" , "testpoints2.json" ) } );
 	
 };
 
@@ -47,10 +47,10 @@ var graphFromJson = function( json ){
 
 var renderGraph = function( graph , graphData ){
 	 
-	nodesFromPointSet( graph, graphData );
+	nodesFromJson( graph, graphData );
 	graphFromNodes( graph, graphData );
 	graphLog( graph );
 	LUCIDNODES.showGraphCenterPoints( graph );
 };
 
-LUCIDNODES.nodePositionComparison( graphsInScene.graph1.nodes.n00, graphsInScene.graph1.nodes.n01 );
+//LUCIDNODES.nodePositionComparison( graphsInScene.graph1.nodes.n00, graphsInScene.graph1.nodes.n01 );

@@ -567,22 +567,39 @@ function mapAcrossGraph( parameters ) {
 	}
 };
 
+function nodesFromJson( graph, pointSet ){
+	
+	for ( key in pointSet ) {
+		if (pointSet.hasOwnProperty(key)){	
+			graph.nodes[key]  = new LUCIDNODES.Node( { 	id: key.toString(), 
+														position: { x: parseFloat( pointSet[key].position[0] ), 
+																	y: parseFloat( pointSet[key].position[1] ), 
+																	z: parseFloat( pointSet[key].position[2] )
+														},
+														radius: parseFloat( pointSet[key].radius ), 
+														shape: "sphere", 
+														color: pointSet[key].color,
+														opacity: parseFloat( pointSet[key].opacity ), 														
+														labelColor: pointSet[key].labelColor,
+														labelOpacity: parseFloat( pointSet[key].labelOpacity )
+														} );
+		}
+	}
+};
+
+// Let's have this function generate a set of homogeneous nodes programmatically
 function nodesFromPointSet( graph, pointSet ){
 	
 	for ( key in pointSet ) {
 		if (pointSet.hasOwnProperty(key)){	
 			graph.nodes[key]  = new LUCIDNODES.Node( { 	id: key.toString(), 
-														position: { x: parseFloat(pointSet[key][0]), 
-																	y: parseFloat(pointSet[key][1]), 
-																	z: parseFloat(pointSet[key][2])
-														},
-														radius: 0.5, 
-														shape: "sphere", 
-														color: { r: 0, g: 0, b: 255 },
-														labelColor: { r: 0, g: 128, b: 0 },
-														opacity: 0.5 } );
+														position: { x: parseFloat( pointSet[key].position[0] ), 
+																	y: parseFloat( pointSet[key].position[1] ), 
+																	z: parseFloat( pointSet[key].position[2] )
+																}, 
+														} );
 		}
-	}
+	}	
 };
 
 	/* nodesFromPointGroup();
