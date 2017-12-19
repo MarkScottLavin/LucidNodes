@@ -77,7 +77,7 @@ function init() {
 	entities();
 	
 	// Create the Stereoscopic viewing object (Not applied yet)
-	var effect = new THREE.StereoEffect(renderer);
+	var effect = new THREE.StereoEffect( renderer );
 		
 	debug.master && debug.renderer && console.log ('About to call the render function' );
 	render();		  
@@ -86,8 +86,54 @@ function init() {
 
 function render() {
 
+	mouseEventHandler( transformGraphElement, unTransformGraphElement );
+
 	requestAnimationFrame( render );
 	renderer.render(scene, entities.cameras.perspCamera );
+}
+
+//var intersectedGraphElements = [];
+
+
+function mouseEventHandler( fn, revFn ){
+	
+	// update the picking ray with the camera and mouse position
+	ray.setFromCamera( mouse, entities.cameras.perspCamera );
+
+	// calculate objects intersecting the picking ray
+	var intersects = ray.intersectObjects( scene.children );
+	
+	if ( intersects && intersects[0] && intersects[0].object ){
+
+		if ( intersects[ 0 ].object != INTERSECTED ){	// if there's an intersected object
+			
+			if ( INTERSECTED ) {						// and if a previous INTERSECTED object exists:
+				revFn( INTERSECTED );					// restore the previous intersected object to its original state.				
+			} 						
+				
+			INTERSECTED = intersects[ 0 ].object;   // set the currently intersected object to INTERSECTED
+			fn( INTERSECTED );						// transform the currentlY INTERSECTED object.
+			
+			}	
+		}
+}
+
+function transformGraphElement( obj ){
+	
+	( obj.graphElementType === "Node" ) && obj.referent.transformOnMouseOver();		
+	( obj.graphElementType === "Edge" ) && obj.referent.transformOnMouseOver();
+	( obj.graphElementType === "NodeLabel" ) && obj.referent.transformOnMouseOver();			
+	( obj.graphElementType === "EdgeLabel" ) && obj.referent.transformOnMouseOver();	
+	
+}
+
+function unTransformGraphElement( obj ){
+	
+	( obj.graphElementType === "Node" ) && obj.referent.transformOnMouseOut();		
+	( obj.graphElementType === "Edge" ) && obj.referent.transformOnMouseOut();
+	( obj.graphElementType === "NodeLabel" ) && obj.referent.transformOnMouseOut();			
+	( obj.graphElementType === "EdgeLabel" ) && obj.referent.transformOnMouseOut();	
+	
 }
 	
 /****** Event Listeners ******/
@@ -421,15 +467,38 @@ var entities = function(){
 	
 	entities.geometries = {
 		constant: {
-			ground: function( xSize = 2000 , zSize = 2000 , heightOffset = -0.001, opacity = 0.5 ) { 
+			
+			// GROUND PLANE
+			
+			/**
+			 * entities.geometries.constant.ground();
+			 * 
+			 * @author Mark Scott Lavin /
+			 *
+			 * parameters = {
+			 *  xSize: <number>
+			 *  zSize: <number>
+			 *  heightOffset: <float>
+			 *  opacity: <float> between 0 & 1
+			 *  name: <string>
+			 * }
+			 */
+			
+			ground: function( parameters ) { 
 				
-				var groundBuffer = new THREE.PlaneBufferGeometry( xSize, zSize, 1 );
-				var groundMesh = new THREE.Mesh( groundBuffer , entities.materials.ground );
+				this.xSize = parameters.xSize || 1000;
+				this.zSize = parameters.zSize || 1000;
+				this.heightOffset = parameters.heightOffset || 0.001;
+				this.opacity = parameters.opacity || 0.5;
 				
-				groundMesh.rotation.x = Math.PI / 2;
-				groundMesh.position.y = heightOffset;
+				this.groundBuffer = new THREE.PlaneBufferGeometry( this.xSize, this.zSize, 1 );
+				this.groundMesh = new THREE.Mesh( this.groundBuffer , entities.materials.ground );
 				
-				scene.add( groundMesh );
+				this.groundMesh.rotation.x = Math.PI / 2;
+				this.groundMesh.position.y = this.heightOffset;
+				this.groundMesh.name = parameters.name || "ground";				
+				
+				scene.add( this.groundMesh );
 			}
 		},
 		dynamic: {
@@ -441,7 +510,7 @@ var entities = function(){
 	};
 	
 	//	Render the Ground
-	entities.geometries.constant.ground();
+	entities.geometries.constant.ground( { xSize: 2000 , zSize: 2000 , heightOffset: -0.001, opacity: 0.5, name: "groundPlane" } );
 
 };
 
