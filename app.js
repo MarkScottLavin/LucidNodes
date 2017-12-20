@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.8
+	* Version 0.1.8.2
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -49,8 +49,16 @@ var renderGraph = function( graph , graphData ){
 	 
 	nodesFromJson( graph, graphData );
 	graphFromNodes( graph, graphData );
-	graphLog( graph );
 	LUCIDNODES.showGraphCenterPoints( graph );
+
+	graphLog( graph );
+	
+	for ( node in graph.nodes ){
+		getEdges( { graph: graph, node: node } );
+	}
+	
+	graphLog( graph );
+	
 };
 
 //LUCIDNODES.nodePositionComparison( graphsInScene.graph1.nodes.n00, graphsInScene.graph1.nodes.n01 );

@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.8
+	* Version 0.1.8.1
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -226,7 +226,7 @@ var LUCIDNODES = {
 		
 			
 	},
-	computeSubgraphs: function( graph /* graph or subgraph */ ){
+	computeSubgraph: function( node ){
 			/* 	Get all the nodes and edges in the graph submitted as argument, 
 				map/generate all subgraphs of the graph (dot-notation: graphName.subGraph[key1], graphName.subGraph[key2]... );
 				include an 'edges' property that notes all edges between nodes ( 
@@ -635,24 +635,46 @@ var LUCIDNODES = {
 		
 		this.transformOnMouseOver = function(){
 			var color = globalAppSettings.edgeColorOnMouseOver;
-			this.textSprite.material.color.set ( globalAppSettings.edgeColorOnMouseOver );
+			var scale = globalAppSettings.defaultLabelScale;	
+			var multiplier = globalAppSettings.nodeScaleOnMouseOver;			
+			var newScale = { 	x: scale.x * multiplier,
+								y: scale.y * multiplier,
+								z: scale.z * multiplier
+							};
+							
+			this.textSprite.material.color.set ( globalAppSettings.edgeColorOnMouseOver );							
+			this.textSprite.scale.set( newScale.x, newScale.y, newScale.z );			
 			
 			this.edge.transformOnMouseOverLabel();
 		};
 		
 		this.transformOnMouseOut = function(){
+			var scale = globalAppSettings.defaultLabelScale;
+			
 			this.textSprite.material.color.set ( this.colorAsHex() );
+			this.textSprite.scale.set( scale.x , scale.y , scale.z );
 			
 			this.edge.transformOnLabelMouseOut();
 		};
 
 		this.transformOnMouseOverEdge = function(){
 			var color = globalAppSettings.edgeColorOnMouseOver;
-			this.textSprite.material.color.set ( globalAppSettings.edgeColorOnMouseOver );			
+			var scale = globalAppSettings.defaultLabelScale;						
+			var multiplier = globalAppSettings.nodeScaleOnMouseOver;
+			var newScale = { 	x: scale.x * multiplier,
+								y: scale.y * multiplier,
+								z: scale.z * multiplier
+							};
+			
+			this.textSprite.material.color.set ( globalAppSettings.edgeColorOnMouseOver );	
+			this.textSprite.scale.set( newScale.x, newScale.y, newScale.z );			
 		};
 		
 		this.transformOnEdgeMouseOut = function(){
-			this.textSprite.material.color.set ( this.colorAsHex() );			
+			var scale = globalAppSettings.defaultLabelScale;			
+			
+			this.textSprite.material.color.set ( this.colorAsHex() );		
+			this.textSprite.scale.set( scale.x , scale.y , scale.z );			
 		};
 		
 		scene.add( this.textSprite );
@@ -775,10 +797,10 @@ function edgeSetFromNode( graph, sourceNode ){
 			var id;
 			
 			var notIdentical = !nodesIdentical( sourceNode, graph.nodes[targetNodeName] );
-			var notExists = !edgeExistsInGraph( sourceNode, graph.nodes[targetNodeName]);
+			var notExists = !edgeExistsInGraph( { graph: graph, node1: sourceNode, node2: graph.nodes[targetNodeName] } );
 			
 			// check if the source and target are identical, and if the edge already exists. If not, generate the edge.
-			if ( !nodesIdentical( sourceNode, graph.nodes[targetNodeName] ) && !edgeExistsInGraph( graph, sourceNode, graph.nodes[targetNodeName])) {
+			if ( !nodesIdentical( sourceNode, graph.nodes[targetNodeName] ) && !edgeExistsInGraph( { graph: graph, node1: sourceNode, node2: graph.nodes[targetNodeName] } ) ) {
 	
 				id = nameEdge( sourceNode, graph.nodes[targetNodeName] );
 				
@@ -790,7 +812,19 @@ function edgeSetFromNode( graph, sourceNode ){
 	}
 };
 
-/* Name of edge: sourceNode, operator, targetNode */
+
+	/* nameEdge();
+	 *
+	 * Names Edge using convention: [sourceNode.id + operator + targetNode.id]
+	 *
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters = {
+	 *  sourceNode: <Node>	first node
+	 *  targetNode: <Node>  second node
+	 * }
+	*/	
+
 function nameEdge( sourceNode, targetNode ){
 	
 	var operator = '-'; /*We'll add more operators when we start adding directionality later */
@@ -798,11 +832,56 @@ function nameEdge( sourceNode, targetNode ){
 	return sourceNode.id + operator + targetNode.id;
 };
 
+	/* nodesIdentical();
+	 *
+	 * Checks for identity of two nodes using Node.id
+	 *
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters = {
+	 *  sourceNode: <Node>	first node
+	 *  targetNode: <Node>  second node
+	 * }
+	*/	
+
 function nodesIdentical( node1, node2 ){
 	return node1.id === node2.id;
 };
 
-function edgeExistsInGraph( graph, node1, node2 ){
+	/* edgesIdentical();
+	 *
+	 * Checks for identity of two edges using Edge.id
+	 *
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters = {
+	 *  edge1: <Node>	first node
+	 *  edge2: <Node>  second node
+	 * }
+	*/	
+
+function edgesIdentical( edge1, edge2 ){
+	return edge1.id === edge2.id;
+};
+
+	/* edgeExistsInGraph();
+	 *
+	 * Uses the ids of nodes to determine if a particular edge exists.
+	 *
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters = {
+	 *  graph: <Graph>	 the Graph to check inside of for the edge;
+	 *  node1: <Node>	 the first node
+	 *  node2: <Node>    the second node
+	 * }
+	*/	
+
+function edgeExistsInGraph( parameters ){
+
+	var graph = parameters.graph;
+	var node1 = parameters.node1;
+	var node2 = parameters.node2;
 
 	var testString1, testString2;
 
@@ -819,9 +898,21 @@ function edgeExistsInGraph( graph, node1, node2 ){
 	return false;
 };
 
-function edgesIdentical( edge1, edge2 ){
-	return edge1.id === edge2.id;
-};
+function getEdges( parameters ){
+	
+	var graph = parameters.graph;
+	var node = parameters.node;
+	var testString;
+	
+	for ( edge in graph.edges ){
+		
+		testString = edge.indexOf( node );
+
+		if ( testString != -1 ){
+			graph.nodes[node].edges[edge] = graph.edges[edge];
+		}
+	}
+}
 
 function graphLog( graph ){
 	
