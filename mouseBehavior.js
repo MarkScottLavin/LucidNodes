@@ -1,8 +1,9 @@
 var ray = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
 var INTERSECTED;  // Object closest to the camera
+var SELECTED;	  // Object selected via dblclick
 
-function onMouseMove( event ) {
+function onMouse( event ) {
 
 	event.preventDefault();
 	
@@ -11,17 +12,18 @@ function onMouseMove( event ) {
 
 	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
-//	console.log( event.type );
+	
+	mouseEventHandler( event /*, transformGraphElement, unTransformGraphElement */ );
 	
 }
 
-function registerMouse( event ){
-	
-	console.log( 'Event in Node: ', event );
+function listenFor(){
+	document.addEventListener( 'click', onMouse, false );
+	document.addEventListener( 'mousemove', onMouse, false );
+	document.addEventListener( 'mousedown', onMouse, false );
+	document.addEventListener( 'dblclick', onMouse, false )
+	document.addEventListener( 'wheel', onMouse, false );
+	document.addEventListener( 'contextmenu', onMouse, false );
 }
 
-document.addEventListener( 'click', onMouseMove, false );
-document.addEventListener( 'mousemove', onMouseMove, false );
-//window.addEventListener( 'mouseout', onMouseMove, false );
-//window.addEventListener( 'mouseenter', onMouseMove, false );
+listenFor();

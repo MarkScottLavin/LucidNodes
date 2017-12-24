@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.8.1
+	* Version 0.1.9
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -178,7 +178,10 @@ var globalAppSettings = {
 	defaultEdgeLabelOpacity: 0.2,
 	defaultMeaningSystem: { /* Meaning of Edges and Nodes */ },
 	nodeScaleOnMouseOver: 1.5,
+	nodeColorOnSelect: 0x0000ff,
+	nodeScaleOnSelect: 1.5,
 	edgeColorOnMouseOver: 0x000000,
+	edgeColorOnSelect: 0x0000ff,
 	showGraphCenterPoints: true,
 	centerTechnique: "average",
 	centerPointMaterial: material = new THREE.PointsMaterial( { size: 0.25, color: 0x008800 } )
@@ -332,15 +335,16 @@ var LUCIDNODES = {
 		
 		this.bufferGeom = new THREE.SphereBufferGeometry( this.radius, 32, 32 );
 		this.displayEntity = new THREE.Mesh( this.bufferGeom, this.material );
+		this.displayEntity.isGraphElement = true;
 		this.displayEntity.referent = this;
+		
 		this.displayEntity.position.x = this.position.x;
 		this.displayEntity.position.y = this.position.y;
 		this.displayEntity.position.z = this.position.z;
-		this.displayEntity.graphElementType = "Node";
 
 		this.transformOnMouseOver = function(){
-			var multiplier = globalAppSettings.nodeScaleOnMouseOver;
-			this.displayEntity.scale.set( multiplier, multiplier, multiplier );
+			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
+			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );
 			
 			this.label.transformOnMouseOverNode();
 		};
@@ -351,12 +355,28 @@ var LUCIDNODES = {
 		};
 		
 		this.transformOnMouseOverLabel = function(){
-			var multiplier = globalAppSettings.nodeScaleOnMouseOver;
-			this.displayEntity.scale.set( multiplier, multiplier, multiplier );			
+			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
+			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );			
 		};
 		
 		this.transformOnLabelMouseOut = function(){
 			this.displayEntity.scale.set( 1, 1, 1 );			
+		};
+		
+		this.transformOnDblClick = function(){
+			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnSelect );
+			var scaleFactor = globalAppSettings.nodeScaleOnSelect;
+			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );						
+		};
+		
+		this.unTransformOnDblClickOutside = function(){
+			this.displayEntity.material.color.set( this.colorAsHex() );
+			this.displayEntity.scale.set( 1, 1, 1 );			
+		};
+		
+		this.transformOnWheel = function(){
+			this.color = { r: 255, g: 0, b: 0 };
+			this.displayEntity.material.color.set( this.colorAsHex() );
 		};
 		
 		this.components = {
@@ -465,8 +485,8 @@ var LUCIDNODES = {
 		);		
 		
 		this.displayEntity = new THREE.Line( this.geom, this.material );
-		this.displayEntity.referent = this;
-		this.displayEntity.graphElementType = "Edge";				
+		this.displayEntity.isGraphElement = true;
+		this.displayEntity.referent = this;				
 		
 		this.transformOnMouseOver = function(){
 			var color = globalAppSettings.edgeColorOnMouseOver;
@@ -491,6 +511,18 @@ var LUCIDNODES = {
 			var color = this.colorAsHex();
 			this.displayEntity.material.color.set( color );				
 		};
+
+		this.transformOnDblClick = function(){
+			this.displayEntity.material.color.set( globalAppSettings.edgeColorOnSelect );
+		};
+		
+		this.unTransformOnDblClickOutside = function(){
+			this.displayEntity.material.color.set( this.colorAsHex() );			
+		};
+		
+		this.transformOnWheel = function(){
+			
+		};		
 		
 		this.meaning = function( meaningSystem, meaning ) {
 				if ( meaningSystem === "generic" ) {
@@ -549,20 +581,20 @@ var LUCIDNODES = {
 		this.opacity = parameters.opacity || parameters.node.opacity || globalAppSettings.defaultNodeLabelOpacity;
 		
 		this.textSprite = new _Label.sprite( this.text, { fontsize: this.fontsize, color: this.color, opacity: this.opacity } );
+		this.textSprite.isGraphElement = true;
 		this.textSprite.referent = this;
 		
-		this.textSprite.graphElementType = "NodeLabel";
 		this.textSprite.position.x = this.node.position.x;
 		this.textSprite.position.y = this.node.position.y;
 		this.textSprite.position.z = this.node.position.z;
 		
 		this.transformOnMouseOver = function(){
-			var multiplier = globalAppSettings.nodeScaleOnMouseOver;
+			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
 			var scale = this.textSprite.scale;
 
-			var newScale = { 	x: scale.x * multiplier,
-								y: scale.y * multiplier,
-								z: scale.z * multiplier
+			var newScale = { 	x: scale.x * scaleFactor,
+								y: scale.y * scaleFactor,
+								z: scale.z * scaleFactor
 							};
 			this.textSprite.scale.set( newScale.x, newScale.y, newScale.z );
 			
@@ -577,12 +609,12 @@ var LUCIDNODES = {
 		}
 		
 		this.transformOnMouseOverNode = function(){
-			var multiplier = globalAppSettings.nodeScaleOnMouseOver;
+			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
 			var scale = this.textSprite.scale;
 
-			var newScale = { 	x: scale.x * multiplier,
-								y: scale.y * multiplier,
-								z: scale.z * multiplier
+			var newScale = { 	x: scale.x * scaleFactor,
+								y: scale.y * scaleFactor,
+								z: scale.z * scaleFactor
 							};
 			this.textSprite.scale.set( newScale.x, newScale.y, newScale.z );			
 		};
@@ -592,6 +624,18 @@ var LUCIDNODES = {
 			this.textSprite.scale.set( scale.x , scale.y , scale.z );
 			
 		};
+		
+		this.transformOnDblClick = function(){
+			this.textSprite.material.color.set( globalAppSettings.nodeColorOnSelect );
+		};
+		
+		this.unTransformOnDblClickOutside = function(){
+			this.textSprite.material.color.set( this.colorAsHex() );			
+		};
+		
+		this.transformOnWheel = function(){
+			
+		};		
 		
 		scene.add( this.textSprite );
 	},
@@ -626,9 +670,9 @@ var LUCIDNODES = {
 		this.opacity = parameters.opacity || parameters.edge.opacity || globalAppSettings.defaultEdgeLabelOpacity;
 
 		this.textSprite = new _Label.sprite( this.text, { fontsize: this.fontsize, color: this.color, opacity: this.opacity } );
+		this.textSprite.isGraphElement = true;		
 		this.textSprite.referent = this;
 		
-		this.textSprite.graphElementType = "EdgeLabel";		
 		this.textSprite.position.x = this.edge.centerPoint.x;
 		this.textSprite.position.y = this.edge.centerPoint.y;
 		this.textSprite.position.z = this.edge.centerPoint.z;
@@ -636,10 +680,10 @@ var LUCIDNODES = {
 		this.transformOnMouseOver = function(){
 			var color = globalAppSettings.edgeColorOnMouseOver;
 			var scale = globalAppSettings.defaultLabelScale;	
-			var multiplier = globalAppSettings.nodeScaleOnMouseOver;			
-			var newScale = { 	x: scale.x * multiplier,
-								y: scale.y * multiplier,
-								z: scale.z * multiplier
+			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;			
+			var newScale = { 	x: scale.x * scaleFactor,
+								y: scale.y * scaleFactor,
+								z: scale.z * scaleFactor
 							};
 							
 			this.textSprite.material.color.set ( globalAppSettings.edgeColorOnMouseOver );							
@@ -660,10 +704,10 @@ var LUCIDNODES = {
 		this.transformOnMouseOverEdge = function(){
 			var color = globalAppSettings.edgeColorOnMouseOver;
 			var scale = globalAppSettings.defaultLabelScale;						
-			var multiplier = globalAppSettings.nodeScaleOnMouseOver;
-			var newScale = { 	x: scale.x * multiplier,
-								y: scale.y * multiplier,
-								z: scale.z * multiplier
+			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
+			var newScale = { 	x: scale.x * scaleFactor,
+								y: scale.y * scaleFactor,
+								z: scale.z * scaleFactor
 							};
 			
 			this.textSprite.material.color.set ( globalAppSettings.edgeColorOnMouseOver );	
@@ -676,6 +720,18 @@ var LUCIDNODES = {
 			this.textSprite.material.color.set ( this.colorAsHex() );		
 			this.textSprite.scale.set( scale.x , scale.y , scale.z );			
 		};
+
+		this.transformOnDblClick = function(){
+			this.textSprite.material.color.set( globalAppSettings.edgeColorOnSelect );
+		};
+		
+		this.unTransformOnDblClickOutside = function(){
+			this.textSprite.material.color.set( this.colorAsHex() );			
+		};
+		
+		this.transformOnWheel = function(){
+			
+		};		
 		
 		scene.add( this.textSprite );
 	},
@@ -702,7 +758,9 @@ var LUCIDNODES = {
 	/**
 	 * mapAcrossGraph();
 	 * 
-	 * @author Mark Scott Lavin /
+	 * @author Mark Scott Lavin
+	 *
+	 * Use this function to do something across all graph elements of a particular type in a graph, as in all Nodes, Edges, NodeLabels or EdgeLabels 
 	 *
 	 * parameters = {
 	 *  graph: <Graph>,
@@ -897,6 +955,18 @@ function edgeExistsInGraph( parameters ){
 	
 	return false;
 };
+
+	/* getEdges();
+	 *
+	 * Gets all the Edges associated with a particular Node.
+	 *
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters = {
+	 *  graph: <Graph>	 the Graph to check inside of;
+	 *  node1: <Node>	 the Node to check for associated edges;
+	 * }
+	*/	
 
 function getEdges( parameters ){
 	

@@ -1,6 +1,6 @@
 /* SCENEETUP.JS
  * Name: Scene Setup
- * version 0.1
+ * version 0.1.9
  * Author: Mark Scott Lavin 
  * License: MIT
  * For Changelog see README.txt
@@ -86,55 +86,91 @@ function init() {
 
 function render() {
 
-	mouseEventHandler( transformGraphElement, unTransformGraphElement );
-
 	requestAnimationFrame( render );
 	renderer.render(scene, entities.cameras.perspCamera );
 }
 
-//var intersectedGraphElements = [];
-
-
-function mouseEventHandler( fn, revFn ){
+function mouseEventHandler( event /* , fn, revFn */ ){
 	
 	// update the picking ray with the camera and mouse position
 	ray.setFromCamera( mouse, entities.cameras.perspCamera );
-
+	
 	// calculate objects intersecting the picking ray
 	var intersects = ray.intersectObjects( scene.children );
 	
+	// if there's at least one intersected object...
 	if ( intersects && intersects[0] && intersects[0].object ){
 
-		if ( intersects[ 0 ].object != INTERSECTED ){	// if there's an intersected object
-			
-			if ( INTERSECTED ) {						// and if a previous INTERSECTED object exists:
-				revFn( INTERSECTED );					// restore the previous intersected object to its original state.				
-			} 						
-				
-			INTERSECTED = intersects[ 0 ].object;   // set the currently intersected object to INTERSECTED
-			fn( INTERSECTED );						// transform the currentlY INTERSECTED object.
-			
-			}	
+		// Check if the event is a mouse move, INTERSECTED exists and we're sitting on the same INTERSECTED object as the last time this function ran...		
+		if ( event.type === 'mousemove' ){
+			// Check if the current top-level intersected object is the previous INTERSECTED		
+			if ( intersects[ 0 ].object != INTERSECTED ){
+				// ... if there is a previous INTERSECTED
+				if ( INTERSECTED ) {	
+					// restore the previous INTERSECTED to it's previous state.
+					unTransformGraphElementOnMouseOut( INTERSECTED );									
+				} 						
+				// set the currently intersected object to INTERSECTED	
+				INTERSECTED = intersects[ 0 ].object;   	
+				// and transform it accordingly.
+				transformGraphElementOnMouseOver( INTERSECTED );							
+				}	
 		}
+		
+		// Check if the mouse event is a doubble click 
+		if ( event.type === 'dblclick' ){
+			// If the currently intersected object is a graphElement and is INTERSECTED
+			if ( intersects[ 0 ].object.isGraphElement && intersects[ 0 ].object === INTERSECTED ){
+				// select it.				
+				SELECTED = INTERSECTED;
+				// transform it accordingly.
+				transformGraphElementOnSelect( SELECTED );							
+			}
+		}
+
+		// Check if the mouse event is a single click
+		if ( event.type === 'click' ){
+			// If the currently intersected object is not SELECTED
+			if ( intersects[ 0 ].object !== SELECTED ){
+				// If there is a previous INTERSECTED
+				if ( SELECTED )
+					// restore it to its unselected state.
+					unTransformGraphElementOnUnselect( SELECTED );								
+			}			
+		}
+		
+		// Check if the mouse event is a wheel event (This is temporary, just to see if we can save a file with the change. We're also going to make it so that the change happens at the level of the graphElement itself, and not just the displayObject )
+		if ( event.type === 'wheel' ){
+			if ( intersects[ 0 ].object.isGraphElement && intersects[ 0 ].object === INTERSECTED ){
+				// transform on wheel.
+				transformGraphElementOnWheel( INTERSECTED );							
+			}			
+		}
+		
+	INTERSECTED && console.log( 'INTERSECTED.isGraphElement: ', INTERSECTED.isGraphElement, 'MouseEvent: ', event.type );			
+	}
 }
 
-function transformGraphElement( obj ){
-	
-	( obj.graphElementType === "Node" ) && obj.referent.transformOnMouseOver();		
-	( obj.graphElementType === "Edge" ) && obj.referent.transformOnMouseOver();
-	( obj.graphElementType === "NodeLabel" ) && obj.referent.transformOnMouseOver();			
-	( obj.graphElementType === "EdgeLabel" ) && obj.referent.transformOnMouseOver();	
-	
+function transformGraphElementOnMouseOver( obj ){
+	if ( obj.isGraphElement ) { obj.referent.transformOnMouseOver(); }	
 }
 
-function unTransformGraphElement( obj ){
-	
-	( obj.graphElementType === "Node" ) && obj.referent.transformOnMouseOut();		
-	( obj.graphElementType === "Edge" ) && obj.referent.transformOnMouseOut();
-	( obj.graphElementType === "NodeLabel" ) && obj.referent.transformOnMouseOut();			
-	( obj.graphElementType === "EdgeLabel" ) && obj.referent.transformOnMouseOut();	
-	
+function unTransformGraphElementOnMouseOut( obj ){
+	if ( obj.isGraphElement ) { obj.referent.transformOnMouseOut(); }
 }
+
+function transformGraphElementOnSelect( obj ){
+	if ( obj.isGraphElement ) { obj.referent.transformOnDblClick(); }	
+}
+
+function unTransformGraphElementOnUnselect( obj ){
+	if ( obj.isGraphElement ) { obj.referent.unTransformOnDblClickOutside(); }	
+}
+
+function transformGraphElementOnWheel( obj ){
+	if ( obj.isGraphElement ) { obj.referent.transformOnWheel(); }	
+}
+
 	
 /****** Event Listeners ******/
 
