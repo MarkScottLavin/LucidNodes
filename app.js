@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.9.1
+	* Version 0.1.9.2
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -24,7 +24,7 @@ window.onload = function(){
 var initUI = function(){
 
 	document.getElementById('loadBtn').addEventListener( 'click' , function() { loadFile( "./userfiles/" , "testpoints2.json" ) } );
-	document.getElementById('saveBtn').addEventListener( 'click' , function() { saveFile( "./userfiles/", "testSave.json" , { hello: "Hello World!"} ) } );
+	document.getElementById('saveBtn').addEventListener( 'click' , function() { saveFile( "./userfiles/", "testSave.json" , graphsInScene.graph2.nodes.n01.color ) } );
 	
 };
 

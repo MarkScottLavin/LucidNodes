@@ -66,15 +66,17 @@ var saveFile = function( url, filename, content ){
 	
 	var httpRequest = new XMLHttpRequest();
 	
-	var body = JSON.stringify({ 
+	var body = { 
 		fullpath: url + filename,  		// filename includes ext
 		data: content   				// file contents		
-	});
+	};
+	
+	var jBody = JSON.stringify( body );
 	
 	// Send the request
 	httpRequest.open("POST", '/save', true);
     httpRequest.setRequestHeader( "Content-Type", "application/json;charset=UTF-8" );
-	httpRequest.send( body );	
+	httpRequest.send( jBody );	
 
 	console.log( httpRequest );
 };
@@ -85,5 +87,29 @@ var setFileExt = function( filename ){
 	
 };
 // FILE SAVING UTILS
+
+
+// Handling circular references throwing errors in JSON.stringify
+
+// Note: cache should not be re-used by repeated calls to JSON.stringify.
+/*
+function stringifyOnce( obj ) {
+
+	var cache = [];
+	JSON.stringify( obj, function(key, value) {
+		if (typeof value === 'object' && value !== null) {
+			if (cache.indexOf(value) !== -1) {
+				// Circular reference found, discard key
+				return;
+			}
+			// Store value in our collection
+			cache.push(value);
+		}
+		return value;
+	});
+	cache = null; // Enable garbage collection
+}*/
+
+
 
 // END FILE SAVING UTILS

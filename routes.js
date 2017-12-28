@@ -22,9 +22,12 @@ router.post('/save', function( req, res, next ) { console.log( 'accessing the Sa
 					},
 					 function( req, res, next ) { 
 						req.on( 'data', function( data ) {
-							var jsonParsed = JSON.parse( data );
-							console.log( 'data at router.post: ', jsonParsed );
-							jsonMethods.saveJson( jsonParsed.fullpath, jsonParsed.data );
+							console.log( 'data at router.post: ', data );
+							
+							var jParsed = JSON.parse( data );
+							console.log( 'data parsed: ', jParsed );
+							
+							jsonMethods.saveJson( jParsed.fullpath, jParsed.data );
 						});
 						next();
 					},
