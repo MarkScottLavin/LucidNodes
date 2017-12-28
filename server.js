@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const url = require('url');
-//const app = express();
 
 var init = function( app, prt ){
 

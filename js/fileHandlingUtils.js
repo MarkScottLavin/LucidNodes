@@ -12,8 +12,11 @@
 
 var loadFile = function( url, filename ){
 	
+	// Assemble the full file path
 	var fullpath = url + filename;
 	var ext = getFileExt( filename );
+	
+	// create the httpRequest
 	var httpRequest = new XMLHttpRequest();
 	
 	httpRequest.onreadystatechange = function() {
@@ -29,6 +32,7 @@ var loadFile = function( url, filename ){
 		}
 	};
 	
+	// Send the request
 	httpRequest.open("GET", fullpath, true);
 	httpRequest.send();
 
@@ -57,3 +61,29 @@ var fileTypeHandle = function( file, ext ){
 };
 
 // END FILE LOAD UTILS
+
+var saveFile = function( url, filename, content ){
+	
+	var httpRequest = new XMLHttpRequest();
+	
+	var body = JSON.stringify({ 
+		fullpath: url + filename,  		// filename includes ext
+		data: content   				// file contents		
+	});
+	
+	// Send the request
+	httpRequest.open("POST", '/save', true);
+    httpRequest.setRequestHeader( "Content-Type", "application/json;charset=UTF-8" );
+	httpRequest.send( body );	
+
+	console.log( httpRequest );
+};
+
+var setFileExt = function( filename ){
+	
+	return filename.split('.').pop();
+	
+};
+// FILE SAVING UTILS
+
+// END FILE SAVING UTILS

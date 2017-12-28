@@ -1,20 +1,20 @@
 /* Methods for handling JSON imports and exports */
 const express = require('express');
+const fs = require('fs');
 const app = express();
 
 var jsonMethods = {
-	
-	getJson: function( route, dir ){
-		app.get( '/' + route, ( req, res ) => readJson( dir + '/' + route + '.json' , res ) );
-	},
 
-	readJson: function( jsonFile, res ){
+	saveJson: function( filename, data ){
 		
-		fs.readFile( jsonFile, 'utf8', function( err, data ){
-			console.log( data );
-			res.send( 'Got the JSON data from <strong>' + jsonFile + '</strong>!' );
-			return( data );
-		});
+		var jsonString = JSON.stringify( data, null, 2 );
+
+		fs.writeFile( filename, jsonString, (err) => {  
+			// throws an error, you could also catch it here
+			if (err) throw err;
+			// success case, the file was saved
+			console.log( filename, 'saved!'); 
+		});		
 	}
 }
 
