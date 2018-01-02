@@ -1,0 +1,43 @@
+VM19168:1 Console was cleared
+undefined
+graphsInScene
+{graph1: Graph, graph2: Graph, graph3: Graph}
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousedown
+three.min.js:486 Uncaught TypeError: Cannot read property '1374512F-9385-41A2-82FC-6F01EF6A712F' of undefined
+    at b (three.min.js:486)
+    at Ac.toJSON (three.min.js:487)
+    at JSON.stringify (<anonymous>)
+    at saveFile (fileHandlingUtils.js:74)
+    at HTMLInputElement.<anonymous> (app.js:27)
+b @ three.min.js:486
+toJSON @ three.min.js:487
+saveFile @ fileHandlingUtils.js:74
+(anonymous) @ app.js:27
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  click
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove
+scenesetup.js:150 INTERSECTED.isGraphElement:  undefined MouseEvent:  mousemove

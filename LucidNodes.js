@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.9.2
+	* Version 0.1.9.3
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -53,15 +53,13 @@ var _Label = {
 		// text color
 		this.context.fillStyle = "rgba(" + this.color.r + "," + this.color.g + "," + this.color.b + "," + this.opacity + " )";
 		this.context.fillText( message, this.textLineThickness, this.fontsize + this.textLineThickness );
-		var backgroundColor = {r:255, g:100, b:100, a:0.5};
 		
 		// canvas contents will be used for a texture
-		this.texture = new THREE.Texture(this.canvas) 
+		this.texture = new THREE.Texture( this.canvas ); 
 		this.texture.needsUpdate = true;
 		this.texture.minFilter = THREE.LinearFilter;
 
-		this.spriteMaterial = new THREE.SpriteMaterial( 
-			{ map: this.texture /* alignment: this.spriteAlignment */ } );
+		this.spriteMaterial = new THREE.SpriteMaterial( { map: this.texture } );
 		this.sprite = new THREE.Sprite( this.spriteMaterial );
 		this.sprite.scale.set( globalAppSettings.defaultLabelScale.x, globalAppSettings.defaultLabelScale.y, globalAppSettings.defaultLabelScale.z );
 		return this.sprite;	
@@ -217,7 +215,7 @@ var LUCIDNODES = {
 			center.y = ( sum.y / Object.keys( graph.nodes ).length );
 			center.z = ( sum.z / Object.keys( graph.nodes ).length );
 			
-			console.log( "computeGraphCenter( ", graph.graphName , ", ", technique , " ) ", center );
+			console.log( "computeGraphCenter( ", graph.id , ", ", technique , " ) ", center );
 			return center;
 		};
 		
@@ -231,7 +229,7 @@ var LUCIDNODES = {
 	},
 	computeSubgraph: function( node ){
 			/* 	Get all the nodes and edges in the graph submitted as argument, 
-				map/generate all subgraphs of the graph (dot-notation: graphName.subGraph[key1], graphName.subGraph[key2]... );
+				map/generate all subgraphs of the graph (dot-notation: id.subGraph[key1], id.subGraph[key2]... );
 				include an 'edges' property that notes all edges between nodes ( 
 					edge: true/false, 
 					if (edge) {
@@ -409,8 +407,8 @@ var LUCIDNODES = {
 			/* etc... */
 		};
 		
-		this.edges = {}; /* What are the edges extending to/from this object? Initialize as empty */
-		this.targets = {}; /* What other nodes are connected to this object via edges? Initialize as empty */
+		this.edges = []; /* What are the edges extending to/from this object? Initialize as empty */
+		this.adjacentNodes = []; /* What other nodes are connected to this object via edges? Initialize as empty */
 		
 		this.opacity();
 		scene.add( this.displayEntity );
@@ -446,14 +444,11 @@ var LUCIDNODES = {
 		this.isEdge = true;
 		
 		/* What nodes are connected by this edge? */
-		this.nodes = {
-			source: parameters.sourceNode,
-			target: parameters.targetNode
-		}; 
+		this.nodes = [ parameters.sourceNode, parameters.targetNode ];
 		
 		// These values will often be set by external system variables.
-		this.sourcePosition = { x: this.nodes.source.position.x, y: this.nodes.source.position.y, z: this.nodes.source.position.z };
-		this.targetPosition = { x: this.nodes.target.position.x, y: this.nodes.target.position.y, z: this.nodes.target.position.z };
+		this.sourcePosition = { x: this.nodes[0].position.x, y: this.nodes[0].position.y, z: this.nodes[0].position.z };
+		this.targetPosition = { x: this.nodes[1].position.x, y: this.nodes[1].position.y, z: this.nodes[1].position.z };
 		this.id = parameters.id || "Edge";
 		this.color = parameters.color || globalAppSettings.defaultEdgeColor;
 		this.thickness = parameters.thickness || globalAppSettings.defaultEdgeThickness;
@@ -529,7 +524,7 @@ var LUCIDNODES = {
 					// do stuff
 				};
 			};
-		this.centerPoint = _Math.avgPosition( this.nodes.source, this.nodes.target );
+		this.centerPoint = _Math.avgPosition( this.nodes[0], this.nodes[1] );
 		this.label = new LUCIDNODES.EdgeLabel( {
 				text: this.label || this.id,
 				edge: this,
@@ -741,11 +736,21 @@ var LUCIDNODES = {
 	SubGraph: {},
 	
 	// WHOLE GRAPH
-	Graph: function( graphName, meaningSystem = globalAppSettings.defaultMeaningSystem, centerTechnique = globalAppSettings.centerTechnique ){
+	
+	/* 
+	 * Graph();
+	 * Parameters = {
+	 *  type: <string>,	 
+	 *	name: <string>,
+	 *  filename: <string>, (for nexus);
+	 * }
+	 */ 
+	 
+	Graph: function( id, meaningSystem = globalAppSettings.defaultMeaningSystem, centerTechnique = globalAppSettings.centerTechnique ){
 		
-		this.nodes = {};
-		this.edges = {};
-		this.graphName = graphName;
+		this.nodes = [];
+		this.edges = [];
+		this.id = id;
 		this.centerTechnique = centerTechnique;
 		this.center = function( centerTechnique = this.centerTechnique ) { return LUCIDNODES.computeGraphCenter( this, centerTechnique ) };
 		this.meaningSystem = meaningSystem; /* {
@@ -777,101 +782,95 @@ function mapAcrossGraph( parameters ) {
 	
 	for ( key in graph[elementType] ) {
 		if ( graph[elementType].hasOwnProperty( key ) ){
-			fn( graph[elementType][key] );  // do sommething to each element of this type in the graph.
+			fn( graph[elementType][key] );  // do something to each element of this type in the graph.
 		}
 	}
 };
 
-function nodesFromJson( graph, pointSet ){
+function nodesFromJson( graph, pointArray ){
 	
-	for ( key in pointSet ) {
-		if (pointSet.hasOwnProperty(key)){	
-			graph.nodes[key]  = new LUCIDNODES.Node( { 	id: key.toString(), 
-														position: { x: parseFloat( pointSet[key].position[0] ), 
-																	y: parseFloat( pointSet[key].position[1] ), 
-																	z: parseFloat( pointSet[key].position[2] )
+	for ( n = 0; n < pointArray.length; n++ ) {	
+			graph.nodes[n]  = new LUCIDNODES.Node( { 	id: pointArray[n].id.toString(), 
+														position: { x: parseFloat( pointArray[n].position[0] ), 
+																	y: parseFloat( pointArray[n].position[1] ), 
+																	z: parseFloat( pointArray[n].position[2] )
 														},
-														radius: parseFloat( pointSet[key].radius ), 
+														radius: parseFloat( pointArray[n].radius ), 
 														shape: "sphere", 
-														color: pointSet[key].color,
-														opacity: parseFloat( pointSet[key].opacity ), 														
-														labelColor: pointSet[key].labelColor,
-														labelOpacity: parseFloat( pointSet[key].labelOpacity )
+														color: pointArray[n].color,
+														opacity: parseFloat( pointArray[n].opacity ), 														
+														labelColor: pointArray[n].labelColor,
+														labelOpacity: parseFloat( pointArray[n].labelOpacity )
 														} );
-		}
 	}
 };
 
-// Let's have this function generate a set of homogeneous nodes programmatically
-function nodesFromPointSet( graph, pointSet ){
-	
-	for ( key in pointSet ) {
-		if (pointSet.hasOwnProperty(key)){	
-			graph.nodes[key]  = new LUCIDNODES.Node( { 	id: key.toString(), 
-														position: { x: parseFloat( pointSet[key].position[0] ), 
-																	y: parseFloat( pointSet[key].position[1] ), 
-																	z: parseFloat( pointSet[key].position[2] )
-																}, 
-														} );
-		}
-	}	
-};
-
-	/* nodesFromPointGroup();
+	/**
+	 * edgesToAllNodesFromSourceNode();
+	 * 
+	 * @author Mark Scott Lavin
 	 *
-	 * @author Mark Scott Lavin /
+	 * Use this function generate edges from one Node to all other Nodes in a Graph 
 	 *
 	 * parameters = {
-	 *  graph: <Graph>: what graph to assign the Ndes to;
-	 *  pointset: <object>,
+	 *  graph: <Graph>,
+	 *  sourceNode: <Node>
 	 * }
-	*/	
+	 */
 
-function nodesFromPointGroup( parameters ){
+
+function edgesToAllNodesFromSourceNode( graph, sourceNode ){
 	
-	this.graph = parameters.graph;
-	this.pointGroup = parameters.pointGroup;
-
-	if ( this.pointGroup.hasOwnProperty(key)){	
-		this.graph.nodes[key]  = new LUCIDNODES.Node( { 	
-			id: key.toString(), 
-			position: { x: this.pointGroup[key][0], 
-						y: this.pointGroup[key][1], 
-						z: this.pointGroup[key][2]
-						},
-			radius: 0.5, 
-			shape: "sphere", 
-			color: { r: 0, g: 0, b: 255 },
-			labelColor: { r: 0, g: 128, b: 0 },
-			opacity: 0.5 } );
-	}		
-}
-
-function edgeSetFromNode( graph, sourceNode ){
+	var targetNode;
 	
-	for ( var targetNodeName in graph.nodes ){		
-		if (graph.nodes.hasOwnProperty(targetNodeName)) {
+	for ( var i = 0; i < graph.nodes.length; i++ ){
 		
-			var id;
+		targetNode = graph.nodes[i];
+		
+		var nIdentical = nodesIdentical( sourceNode, targetNode );
+		var eExists = edgeExistsInGraph( { graph: graph, node1: sourceNode, node2: targetNode } );
+		
+		if ( !nIdentical && !eExists ){		
 			
-			var notIdentical = !nodesIdentical( sourceNode, graph.nodes[targetNodeName] );
-			var notExists = !edgeExistsInGraph( { graph: graph, node1: sourceNode, node2: graph.nodes[targetNodeName] } );
-			
-			// check if the source and target are identical, and if the edge already exists. If not, generate the edge.
-			if ( !nodesIdentical( sourceNode, graph.nodes[targetNodeName] ) && !edgeExistsInGraph( { graph: graph, node1: sourceNode, node2: graph.nodes[targetNodeName] } ) ) {
-	
-				id = nameEdge( sourceNode, graph.nodes[targetNodeName] );
-				
-				graph.edges[id] = new LUCIDNODES.Edge( { sourceNode: sourceNode, 
-															   targetNode: graph.nodes[targetNodeName], 
-															   id: id } );
-			}
+			graph.edges.push( new LUCIDNODES.Edge({
+													graph: graph,
+													sourceNode: sourceNode,
+													targetNode: targetNode,
+													id: edgeAssignId( sourceNode, targetNode )
+												}));
 		}
 	}
 };
 
 
-	/* nameEdge();
+function edgesToNodesFromSourceNode( graph, sourceNode, targetNodes ){
+	
+	if ( sourceNode && targetNodes && Array.isArray ( targetNodes )){
+		
+		for ( var i = 0; i < targetNodes; i++ ){
+
+			var id;
+			
+			var notIdentical = !nodesIdentical( sourceNode, targetNodes[i] );
+			var notExists = !edgeExistsInGraph( { 	graph: graph, 
+													node1: sourceNode, 
+													node2: targetNodes[i] 
+												} );
+
+			if ( notIdentical && notExists ){
+				
+				id = edgeAssignId( sourceNode, targetNodes[i] );
+				
+				graph.edges[id] = new LUCIDNODES.Edge( {	sourceNode: sourceNode, 
+															targetNode: targetNodes[i]
+														} );
+			}
+		}	
+	}
+};
+
+
+	/* edgeAssignId();
 	 *
 	 * Names Edge using convention: [sourceNode.id + operator + targetNode.id]
 	 *
@@ -883,11 +882,12 @@ function edgeSetFromNode( graph, sourceNode ){
 	 * }
 	*/	
 
-function nameEdge( sourceNode, targetNode ){
+function edgeAssignId( sourceNode, targetNode ){
 	
 	var operator = '-'; /*We'll add more operators when we start adding directionality later */
+	var id = sourceNode.id + operator + targetNode.id;
 	
-	return sourceNode.id + operator + targetNode.id;
+	return id;
 };
 
 	/* nodesIdentical();
@@ -941,9 +941,21 @@ function edgeExistsInGraph( parameters ){
 	var node1 = parameters.node1;
 	var node2 = parameters.node2;
 
-	var testString1, testString2;
+	var edgeId, testString1, testString2;
 
-	for ( var edgeNodeName in graph.edges ){		
+	for ( var i = 0; i < graph.edges.length ; i++ ){
+		
+		edgeId = graph.edges[i].id
+		testString1 = edgeId.indexOf( node1.id );
+		testString2 = edgeId.indexOf( node2.id );
+
+		if ( testString1 !== -1 && testString2 !== -1 ) {
+			return true;		
+		}
+	}
+	
+	
+/*	for ( var edgeNodeName in graph.edges ){		
 		
 		testString1 = edgeNodeName.indexOf(node1.id);
 		testString2 = edgeNodeName.indexOf(node2.id);
@@ -951,7 +963,7 @@ function edgeExistsInGraph( parameters ){
 		if (testString1 !== -1 && testString2 !== -1 ) {
 			return true;
 		}
-	}
+	}*/
 	
 	return false;
 };
@@ -964,7 +976,7 @@ function edgeExistsInGraph( parameters ){
 	 *
 	 * parameters = {
 	 *  graph: <Graph>	 the Graph to check inside of;
-	 *  node1: <Node>	 the Node to check for associated edges;
+	 *  node: <Node>	 the Node to check for associated edges;
 	 * }
 	*/	
 
@@ -972,16 +984,37 @@ function getEdges( parameters ){
 	
 	var graph = parameters.graph;
 	var node = parameters.node;
+	var nodeId = node.id;
+	var edgeId;
 	var testString;
 	
-	for ( edge in graph.edges ){
+	for ( var i = 0; i < graph.edges.length ; i++ ){
 		
-		testString = edge.indexOf( node );
+		edgeId = graph.edges[i].id; 
+		testString = edgeId.indexOf( nodeId );
 
 		if ( testString != -1 ){
-			graph.nodes[node].edges[edge] = graph.edges[edge];
+			node.edges.push( graph.edges[i] );
 		}
 	}
+}
+
+function getAdjacentNodes( node ){
+	
+	var nodeId = node.id;
+	var edges = node.edges;
+	var nIdentical;
+	
+	for ( var i = 0; i < node.edges.length; i++ ){
+		
+		for ( var j = 0; j < node.edges[i].nodes.length; j++ ){	
+			nIdentical = nodesIdentical( node, node.edges[i].nodes[j] );
+			if ( !nIdentical ) {
+				node.adjacentNodes.push( node.edges[i].nodes[j] );
+			}
+		}
+	}
+	
 }
 
 function graphLog( graph ){
@@ -990,11 +1023,9 @@ function graphLog( graph ){
 	
 };
 
-function graphFromNodes( graph ) {
+function completeGraphFromNodes( graph ) {
 	
-		for ( key in graph.nodes ) {
-		if (graph.nodes.hasOwnProperty(key)){	
-			edgeSetFromNode( graph, graph.nodes[key] );
-		}
+	for ( var i = 0; i < graph.nodes.length; i++ ){
+		edgesToAllNodesFromSourceNode( graph, graph.nodes[i] );
 	}
 };

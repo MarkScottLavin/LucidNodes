@@ -62,6 +62,35 @@ var fileTypeHandle = function( file, ext ){
 
 // END FILE LOAD UTILS
 
+var circularRefs = [ 		/* Toplevel File Admin Paramas */
+							'fullpath',
+							'data',
+							/* Shared GraphElement Params */
+							'id',
+							'color', 
+							'r', 
+							'g', 
+							'b', 
+							'position',
+							'x',
+							'y',
+							'z', 
+							'opacity', 
+							'label', 
+							'labelColor', 
+							'labelOpacity',
+							'labelFontSize',
+							'castShadows',
+							'receiveShadows', 
+							/* Graph Params */
+							'graphData', 
+							'graphs', 
+							'nodes', 
+							/* Node Params */ 
+							'radius', 
+							'shape' 
+					];
+
 var saveFile = function( url, filename, content ){
 	
 	var httpRequest = new XMLHttpRequest();
@@ -71,7 +100,7 @@ var saveFile = function( url, filename, content ){
 		data: content   				// file contents		
 	};
 	
-	var jBody = JSON.stringify( body );
+	var jBody = JSON.stringify( body, circularRefs );
 	
 	// Send the request
 	httpRequest.open("POST", '/save', true);
@@ -90,25 +119,34 @@ var setFileExt = function( filename ){
 
 
 // Handling circular references throwing errors in JSON.stringify
+var circularRefHandler = function( key, value ) {
+	
+  var refs = ( 'node' || 'nodes' || 'edge' || 'edges' || 'label' || 'displayEntity' );
+  var returns = ( value.id || null );
+  
+  if ( key === refs ) { return returns; }
+//  if ( key !== ( 'node' || 'Node' ) ) { return returns; }
+  else {return value;}
 
-// Note: cache should not be re-used by repeated calls to JSON.stringify.
-/*
-function stringifyOnce( obj ) {
+};
 
-	var cache = [];
-	JSON.stringify( obj, function(key, value) {
-		if (typeof value === 'object' && value !== null) {
-			if (cache.indexOf(value) !== -1) {
-				// Circular reference found, discard key
-				return;
-			}
-			// Store value in our collection
-			cache.push(value);
-		}
-		return value;
-	});
-	cache = null; // Enable garbage collection
-}*/
+var circularRefHandler2 = function( key, value ){
+	
+	var refs = ( 'node' || 'nodes' || 'edge' || 'edges' || 'label' || 'displayEntity' );
+	var returns = ( value.id || null );	
+	
+    // convert RegExp to string
+    if ( value && value.constructor === RegExp && key === refs ) {
+        return value.toString() || null;
+    } else if ( key === 'str' && key === refs ) { // 
+        return undefined; // remove from result
+    } else {
+        return value; // return as is
+    }
+}
+
+
+
 
 
 

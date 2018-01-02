@@ -1,5 +1,451 @@
 {
-  "r": 128,
-  "g": 36,
-  "b": 11
+  "graphs": [
+    {
+      "id": "graph1",
+      "nodes": [
+        {
+          "id": "n00",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 0,
+            "y": 15.25731,
+            "z": 8.50651
+          },
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n01",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": -8.50651,
+            "y": 10,
+            "z": 5.25731
+          },
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n03",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 0,
+            "y": 5.25731,
+            "z": 8.50651
+          },
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n04",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 5.25731,
+            "y": 18.50651,
+            "z": 0
+          },
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n05",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 8.50651,
+            "y": 10,
+            "z": -5.25731
+          },
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n06",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 0,
+            "y": 15.25731,
+            "z": -8.50651
+          },
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n07",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 8.50651,
+            "y": 10,
+            "z": 5.25731
+          },
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n08",
+          "color": {
+            "r": 255,
+            "g": 0,
+            "b": 0
+          },
+          "position": {
+            "x": 5.25731,
+            "y": 2.50651,
+            "z": 0
+          },
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 3.6,
+          "shape": "sphere"
+        },
+        {
+          "id": "n09",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": -5.25731,
+            "y": 2.50651,
+            "z": 0
+          },
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n10",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 0,
+            "y": 5.25731,
+            "z": -8.50651
+          },
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ]
+    },
+    {
+      "id": "graph2",
+      "nodes": [
+        {
+          "id": "n00",
+          "color": {
+            "r": 255,
+            "g": 128,
+            "b": 0
+          },
+          "position": {
+            "x": 22,
+            "y": 15.25731,
+            "z": 8.50651
+          },
+          "label": {
+            "color": {
+              "r": 0,
+              "g": 128,
+              "b": 255
+            },
+            "opacity": 1
+          },
+          "castShadows": true,
+          "radius": 1,
+          "shape": "sphere"
+        },
+        {
+          "id": "n01",
+          "color": {
+            "r": 128,
+            "g": 36,
+            "b": 11
+          },
+          "position": {
+            "x": 14.50651,
+            "y": 10,
+            "z": 5.25731
+          },
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 36,
+              "b": 11
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.2,
+          "shape": "sphere"
+        },
+        {
+          "id": "n02",
+          "color": {
+            "r": 0,
+            "g": 255,
+            "b": 0
+          },
+          "position": {
+            "x": 22,
+            "y": 5.25731,
+            "z": 8.50651
+          },
+          "label": {
+            "color": {
+              "r": 0,
+              "g": 255,
+              "b": 0
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n03",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 27.25731,
+            "y": 18.50651,
+            "z": 0
+          },
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 1.6,
+          "shape": "sphere"
+        }
+      ]
+    },
+    {
+      "id": "graph3",
+      "nodes": [
+        {
+          "id": "n00",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 44,
+            "y": 15.25731,
+            "z": 8.50651
+          },
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n01",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 46,
+            "y": 10,
+            "z": 5.25731
+          },
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n02",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 49,
+            "y": 5.25731,
+            "z": 8.50651
+          },
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n03",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 44,
+            "y": 18.50651,
+            "z": 0
+          },
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ]
+    }
+  ]
 }

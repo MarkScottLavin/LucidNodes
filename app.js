@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.9.2
+	* Version 0.1.9.3
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -23,24 +23,22 @@ window.onload = function(){
 
 var initUI = function(){
 
-	document.getElementById('loadBtn').addEventListener( 'click' , function() { loadFile( "./userfiles/" , "testpoints2.json" ) } );
-	document.getElementById('saveBtn').addEventListener( 'click' , function() { saveFile( "./userfiles/", "testSave.json" , graphsInScene.graph2.nodes.n01.color ) } );
+	document.getElementById('loadBtn').addEventListener( 'click' , function() { loadFile( "./userfiles/", "testpoints3.json" ) } );
+	document.getElementById('saveBtn').addEventListener( 'click' , function() { saveFile( "./userfiles/", "testSave.json" , graphsInScene ) } );
 	
 };
 
 
 var graphFromJson = function( json ){
 	
-	var loadedGraphs = json.graphData.graphs;
+	var loadedGraphs = json.graphs;
+	graphsInScene.graphs = [];
 	 
 	if ( loadedGraphs ){ 
-
-		/* Separate each graph object in the laded JSON file */
-		for ( key in loadedGraphs ) {
-			if ( loadedGraphs.hasOwnProperty( key )){
-				graphsInScene[key] = new LUCIDNODES.Graph( key );
-				renderGraph( graphsInScene[key], loadedGraphs[key].nodes );
-			}
+	
+		for ( g = 0; g < loadedGraphs.length; g++ ){
+			graphsInScene.graphs[g] = new LUCIDNODES.Graph( loadedGraphs[g].id );
+			renderGraph( graphsInScene.graphs[g], loadedGraphs[g].nodes );
 		}
 	}
 
@@ -49,13 +47,14 @@ var graphFromJson = function( json ){
 var renderGraph = function( graph , graphData ){
 	 
 	nodesFromJson( graph, graphData );
-	graphFromNodes( graph, graphData );
+	completeGraphFromNodes( graph );
 	LUCIDNODES.showGraphCenterPoints( graph );
 
 	graphLog( graph );
 	
-	for ( node in graph.nodes ){
-		getEdges( { graph: graph, node: node } );
+	for ( var i = 0; i < graph.nodes.length; i++ ){
+		getEdges({ graph: graph, node: graph.nodes[i] });
+		getAdjacentNodes( graph.nodes[i] );
 	}
 	
 	graphLog( graph );
