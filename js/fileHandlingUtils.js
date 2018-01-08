@@ -8,12 +8,23 @@
 	*
 ****************************************************/
 
+var SELECTEDFILE, CURRENTFILE;
+
 // FILE LOADING UTILS
 
-var loadFile = function( url, filename ){
+// File loading version 1 (Just get one fixed filename for texting)
+
+var loadFile = function( parameters ){
+	
+	var url = parameters.url;
+	var filename = parameters.filename;
 	
 	// Assemble the full file path
-	var fullpath = url + filename;
+	var fullpath; 
+	
+	if ( url ){ fullpath = url + '/' + filename }
+	else { fullpath = filename }
+	
 	var ext = getFileExt( filename );
 	
 	// create the httpRequest
@@ -37,6 +48,81 @@ var loadFile = function( url, filename ){
 	httpRequest.send();
 
 };
+
+/* loadFile3() 
+ *
+ * parameters{
+ *		url 
+ *  	filename
+ * }
+ *
+*/
+
+var loadFile3 = function( parameters ){
+	
+	var url = parameters.url || '/userfiles';
+	var filename = parameters.filename;
+	
+	// Assemble the full file path
+	var fullpath; 
+	
+	if ( url ){ fullpath = url + '/' + filename }
+	else { fullpath = filename }
+	
+	var ext = getFileExt( filename );
+	
+	// create the httpRequest
+	var httpRequest = new XMLHttpRequest();
+	
+	httpRequest.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var response = this.responseText;
+			console.log( response );
+			var loadedFile = fileTypeHandle( response, ext );
+			graphFromJson( loadedFile ); 
+		}
+		else {
+			response = 'No file found at ' + fullpath + '!';
+			console.error( response );
+		}
+	};
+	
+	// Send the request
+	httpRequest.open("GET", fullpath, true);
+	httpRequest.send();
+
+};
+
+var loadFile2 = function( formdata ){
+	
+	var route = '/userfiles/';
+	var xhr = new XMLHttpRequest();
+	
+	xhr.open( 'POST', route );
+	xhr.send( formdata );
+	
+	var file = formdata.file;
+	xhr = new XMLHttpRequest();
+	
+	xhr.open('POST', route );
+	xhr.setRequestHeader( 'Content-Type', file.type );
+	xhr.send( file );
+
+};
+
+// File loading version 2 ( Load any file from Input type=file )
+
+var loadFileFromInput = function( event ){
+	
+	// If the user selected a file to upload...
+	if ( event.target.files.length > 0 ){
+	
+		SELECTEDFILE = event.target.files[0];
+		
+		loadFile3 ({ filename: SELECTEDFILE.name });
+	}
+}
+
 
 var getFileExt = function( filename ){
 	
@@ -67,6 +153,7 @@ var circularRefs = [ 		/* Toplevel File Admin Paramas */
 							'data',
 							/* Shared GraphElement Params */
 							'id',
+							'name',
 							'color', 
 							'r', 
 							'g', 
@@ -96,8 +183,8 @@ var saveFile = function( url, filename, content ){
 	var httpRequest = new XMLHttpRequest();
 	
 	var body = { 
-		fullpath: url + filename,  		// filename includes ext
-		data: content   				// file contents		
+		fullpath: url + '/' + filename,  		// filename includes ext
+		data: content   						// file contents		
 	};
 	
 	var jBody = JSON.stringify( body, circularRefs );

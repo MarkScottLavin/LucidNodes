@@ -32,15 +32,34 @@
 	<script src="app.js"></script>	
 </div>
 
-<div class="container-fluid" id="browserUI">
+<div class="container-fluid" id="browserUI"><!--
 	<form id="temp">
 		<div class="btn btn-center">
-		<input type="button" name="loadBtn" id="loadBtn" value="Load File">
+			<input type="button" name="loadBtn" id="loadBtn" value="Load File">
 		</div>
 		<div class="btn btn-center">
-		<input type="button" name="saveBtn" id="saveBtn" value="Save File">
+			<input type="button" name="saveBtn" id="saveBtn" value="Save File">
 		</div>
-	</form>
+	</form>-->
+	
+	<form method="GET" id="temp2" enctype="multipart/form-data">
+	 <div>
+	   <label for="fileInput">Choose a file to open</label>
+	   <input type="file" id="fileInput" name="fileInput" accept=".json">
+	 </div>
+	 <div>
+	   <button>Submit</button>
+	 </div>
+	 
+	 	<div class="btn btn-center">
+			<input type="button" name="loadBtn" id="loadBtn" value="Load File">
+		</div>
+		<div class="btn btn-center">
+			<input type="button" name="saveBtn" id="saveBtn" value="Save File">
+		</div>
+	</form>	
+	
+	
 	<div class="row">
 		<div id="tempdisplay">
 		</div>

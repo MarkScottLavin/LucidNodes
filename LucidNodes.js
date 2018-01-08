@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.9.3
+	* Version 0.1.9.4
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -11,62 +11,6 @@
 	* mindmapping
 	* etc.
 ****************************************************/
-
-var _Label = {
-	
-	/**
-	 * sprite();
-	 * 
-	 * @author Mark Scott Lavin /
-	 * modified from http://stemkoski.github.io/Three.js/Labeled-Geometry.html
-	 *
-	 * parameters = {
-	 *  fontface: <string>,
-	 *  fontsize: <int>,
-	 *  opacity: <float> between 0 & 1,
-	 *  textLineThickness <int>,
-	 *  spriteAlignment <THREE.SpriteAlignment>
-	 *  color: <object> { r: <integer>, g: <integer>, b: <integer> }
-	 *  opacity: <float> between 0 & 1,
-	 * }
-	 */	
-	
-	sprite: function( message, parameters ){
-		if ( parameters === undefined ) parameters = {};
-		
-		this.fontface = parameters.hasOwnProperty("fontface") ? parameters["fontface"] : "Arial";
-		this.fontsize = parameters.hasOwnProperty("fontsize") ? parameters["fontsize"] : 10;
-		this.color = parameters.hasOwnProperty("color") ? {	r: parameters["color"].r, g: parameters["color"].g, b: parameters["color"].b } : { r: 0, g: 0, b: 0 };
-		this.opacity = parameters.hasOwnProperty("opacity") ? parameters["opacity"] : 0.5;
-		this.textLineThickness = parameters.hasOwnProperty("textLineThickness") ? parameters["textLineThickness"] : 6;
-//		this.spriteAlignment = THREE.SpriteAlignment.topLeft;
-
-		// create a nested canvas & context
-		this.canvas = document.createElement('canvas');
-		this.context = this.canvas.getContext('2d');
-		this.context.font = "Bold " + this.fontsize + "px " + this.fontface;
-		
-		// get size data (height depends only on font size)
-		this.metrics = this.context.measureText( message );
-		this.textWidth = this.metrics.width;
-		
-		// text color
-		this.context.fillStyle = "rgba(" + this.color.r + "," + this.color.g + "," + this.color.b + "," + this.opacity + " )";
-		this.context.fillText( message, this.textLineThickness, this.fontsize + this.textLineThickness );
-		
-		// canvas contents will be used for a texture
-		this.texture = new THREE.Texture( this.canvas ); 
-		this.texture.needsUpdate = true;
-		this.texture.minFilter = THREE.LinearFilter;
-
-		this.spriteMaterial = new THREE.SpriteMaterial( { map: this.texture } );
-		this.sprite = new THREE.Sprite( this.spriteMaterial );
-		this.sprite.scale.set( globalAppSettings.defaultLabelScale.x, globalAppSettings.defaultLabelScale.y, globalAppSettings.defaultLabelScale.z );
-		return this.sprite;	
-	}
-	
-}
-
 
 var _Math = {
 	
@@ -158,9 +102,29 @@ _drawGraph = {
 
 }
 
+// We'll auto-generate Node Id's as Base 36 integers. 
+
+var nodeIdCounter = 0;
+
+var nodeIdEncode = function(){
+	
+	var b36string = nodeIdCounter.toString( 36 );
+	var prefix = "n";
+	var id = b36string + "";
+	var digits = 3;
+	while ( id.length < ( digits ) ){
+			id = "0" + id;
+		}
+
+	id = prefix + id;
+	
+	nodeIdCounter++;
+	return id;
+};
+
 // Setup some global defaults for initial testing
 var globalAppSettings = {
-	transparencyOn: true,
+	transparency: true,
 	castShadows: true,
 	recieveShadows: true,
 	defaultNodeColor: { r: 128, g: 128, b: 128 },
@@ -299,8 +263,17 @@ var LUCIDNODES = {
 		
 		this.isNode = true;
 		
-		this.id = parameters.id || "Node";
+		/* Identification */ 
+		
+		this.id = parameters.id || nodeIdEncode();  // If the Node already has an ID on load, use that
+		this.name = parameters.name; 
+		
+		/* Position */
+		
 		this.position = parameters.position || { x: 0, y: -2, z: -2 };
+		
+		/* Appearance */
+		
 		this.radius = parameters.radius || 0.5;
 		this.shape = parameters.shape || "sphere";
 		this.color = parameters.color || globalAppSettings.defaultNodeColor;
@@ -309,27 +282,26 @@ var LUCIDNODES = {
 			return colorUtils.decRGBtoHexRGB( this.color.r, this.color.g, this.color.b );
 						
 			};
-		this.material = new THREE.MeshBasicMaterial( {color: this.colorAsHex() } );
-		this.opacity = function(){ 
-				if ( globalAppSettings.transparencyOn ) { 
-					this.material.transparent = true;
-					this.material.opacity = parameters.opacity || globalAppSettings.defaultNodeOpacity;
-					}
-				else {
-					this.material.transparent = false;
-					this.material.opacity = 1;
-					}
-				return this.material.opacity;
-			};
+		this.opacity = parameters.opacity || globalAppSettings.defaultNodeOpacity;
+		this.material = new THREE.MeshPhongMaterial( {color: this.colorAsHex() } );
+		this.material.opacity = this.opacity;
+		
+		toggleGraphElementTransparency( this );
+		
 		this.castShadows = parameters.castShadows || globalAppSettings.castShadows;  /* Set to global default */
 		this.recieveShadows = parameters.recieveShadows || globalAppSettings.recieveShadows; /* Set to global default */
+		
+		/* Text */
+		
 		this.label = new LUCIDNODES.NodeLabel( {
-				text: this.label || this.id,
+				text: this.name || this.id,
 				node: this,
 				fontsize: parameters.labelFontsize || globalAppSettings.defaultNodeLabelFontSize,
 				color: parameters.labelColor || this.color,
 				opacity: parameters.labelOpacity || globalAppSettings.defaultNodeLabelOpacity
 			});
+			
+		/* THREE.js Object genesis */
 		
 		this.bufferGeom = new THREE.SphereBufferGeometry( this.radius, 32, 32 );
 		this.displayEntity = new THREE.Mesh( this.bufferGeom, this.material );
@@ -340,6 +312,8 @@ var LUCIDNODES = {
 		this.displayEntity.position.y = this.position.y;
 		this.displayEntity.position.z = this.position.z;
 
+		/* UI Behaviors */
+		
 		this.transformOnMouseOver = function(){
 			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
 			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );
@@ -372,10 +346,9 @@ var LUCIDNODES = {
 			this.displayEntity.scale.set( 1, 1, 1 );			
 		};
 		
-		this.transformOnWheel = function(){
-			this.color = { r: 255, g: 0, b: 0 };
-			this.displayEntity.material.color.set( this.colorAsHex() );
-		};
+		this.transformOnWheel = function(){ changeGraphElementColor( this, { r: 255, g: 0, b: 0 } )};
+		
+		/* Playing Nice with Others */
 		
 		this.components = {
 			masterContainer: { /* obj */ }, /* The Master Object that parents all of the node contents  */ 
@@ -387,6 +360,8 @@ var LUCIDNODES = {
 			textVal: { /* string */ },
 			description: { /* string */ },
 		};
+		
+		/* Physics (Later) */
 		
 		this.computedPhysicsBehavior = {
 			repeulsiveForce: {},		
@@ -400,6 +375,9 @@ var LUCIDNODES = {
 			level: 			{ /* integer */ }, /* determines what the heirarchical level of the node is. */
 			sequenceVal:   	{ /* integar */ }, /* determines what the sequential value of the node is relative to other nodes in the graph */ 
 		};
+		
+		/* Meaning Structure */
+		
 		this.meaning = function( meaningSystem, meaning ){
 			if ( meaningSystem === "generic" && meaning === "logic" ) {
 				/* visualizing logical operators */
@@ -410,7 +388,6 @@ var LUCIDNODES = {
 		this.edges = []; /* What are the edges extending to/from this object? Initialize as empty */
 		this.adjacentNodes = []; /* What other nodes are connected to this object via edges? Initialize as empty */
 		
-		this.opacity();
 		scene.add( this.displayEntity );
 		
 		console.log( 'LUCIDNODES.Node(): ', this );
@@ -458,18 +435,12 @@ var LUCIDNODES = {
 			return colorUtils.decRGBtoHexRGB( this.color.r, this.color.g, this.color.b );
 						
 			};
-		this.opacity = function(){ 
-				if ( globalAppSettings.transparencyOn ) { 
-					this.material.transparent = true;
-					this.material.opacity = parameters.opacity || globalAppSettings.defaultEdgeOpacity;
-					}
-				else {
-					this.material.transparent = false;
-					this.material.opacity = 1;
-					}
-				return this.material.opacity;
-			},
+		this.opacity = parameters.opacity || globalAppSettings.defaultEdgeOpacity;
 		this.material = new THREE.LineBasicMaterial( { color: this.colorAsHex(), linewidth: this.thickness } );
+		this.material.opacity = this.opacity;
+		
+		toggleGraphElementTransparency( this );
+		
 		this.castShadows = parameters.castShadows;  /* Set to global default */
 		this.recieveShadows = parameters.recieveShadows; /* Set to global default */
 		
@@ -484,6 +455,7 @@ var LUCIDNODES = {
 		this.displayEntity.referent = this;				
 		
 		this.transformOnMouseOver = function(){
+			
 			var color = globalAppSettings.edgeColorOnMouseOver;
 			this.displayEntity.material.color.set( globalAppSettings.edgeColorOnMouseOver );
 			
@@ -515,9 +487,7 @@ var LUCIDNODES = {
 			this.displayEntity.material.color.set( this.colorAsHex() );			
 		};
 		
-		this.transformOnWheel = function(){
-			
-		};		
+		this.transformOnWheel = function(){ changeGraphElementColor( this, { r: 255, g: 0, b: 0 } )};	
 		
 		this.meaning = function( meaningSystem, meaning ) {
 				if ( meaningSystem === "generic" ) {
@@ -541,10 +511,60 @@ var LUCIDNODES = {
 			}
 		};
 
-		this.opacity();
 		scene.add( this.displayEntity );
 		
 		console.log( 'LUCIDNODES.Edge(): ', this );
+	},	
+	
+	/**
+	 * Label();
+	 * 
+	 * @author Mark Scott Lavin /
+	 * modified from http://stemkoski.github.io/Three.js/Labeled-Geometry.html
+	 *
+	 * parameters = {
+	 *  fontface: <string>,
+	 *  fontsize: <int>,
+	 *  opacity: <float> between 0 & 1,
+	 *  textLineThickness <int>,
+	 *  spriteAlignment <THREE.SpriteAlignment>
+	 *  color: <object> { r: <integer>, g: <integer>, b: <integer> }
+	 *  opacity: <float> between 0 & 1,
+	 * }
+	 */	
+	
+	Label: function( message, parameters ){
+		if ( parameters === undefined ) parameters = {};
+		
+		this.fontface = parameters.hasOwnProperty("fontface") ? parameters["fontface"] : "Arial";
+		this.fontsize = parameters.hasOwnProperty("fontsize") ? parameters["fontsize"] : 10;
+		this.color = parameters.hasOwnProperty("color") ? {	r: parameters["color"].r, g: parameters["color"].g, b: parameters["color"].b } : { r: 0, g: 0, b: 0 };
+		this.opacity = parameters.hasOwnProperty("opacity") ? parameters["opacity"] : 0.5;
+		this.textLineThickness = parameters.hasOwnProperty("textLineThickness") ? parameters["textLineThickness"] : 6;
+//		this.spriteAlignment = THREE.SpriteAlignment.topLeft;
+
+		// create a nested canvas & context
+		this.canvas = document.createElement('canvas');
+		this.context = this.canvas.getContext('2d');
+		this.context.font = "Bold " + this.fontsize + "px " + this.fontface;
+		
+		// get size data (height depends only on font size)
+		this.metrics = this.context.measureText( message );
+		this.textWidth = this.metrics.width;
+		
+		// text color
+		this.context.fillStyle = "rgba(" + this.color.r + "," + this.color.g + "," + this.color.b + "," + this.opacity + " )";
+		this.context.fillText( message, this.textLineThickness, this.fontsize + this.textLineThickness );
+		
+		// canvas contents will be used for a texture
+		this.texture = new THREE.Texture( this.canvas ); 
+		this.texture.needsUpdate = true;
+		this.texture.minFilter = THREE.LinearFilter;
+
+		this.material = new THREE.SpriteMaterial( { map: this.texture } );
+		this.sprite = new THREE.Sprite( this.material );
+		this.sprite.scale.set( globalAppSettings.defaultLabelScale.x, globalAppSettings.defaultLabelScale.y, globalAppSettings.defaultLabelScale.z );
+		return this.sprite;	
 	},	
 	
 	/**
@@ -575,64 +595,64 @@ var LUCIDNODES = {
 			};
 		this.opacity = parameters.opacity || parameters.node.opacity || globalAppSettings.defaultNodeLabelOpacity;
 		
-		this.textSprite = new _Label.sprite( this.text, { fontsize: this.fontsize, color: this.color, opacity: this.opacity } );
-		this.textSprite.isGraphElement = true;
-		this.textSprite.referent = this;
+		this.displayEntity = new LUCIDNODES.Label( this.text, { fontsize: this.fontsize, color: this.color, opacity: this.opacity } );
+		this.displayEntity.isGraphElement = true;
+		this.displayEntity.referent = this;
 		
-		this.textSprite.position.x = this.node.position.x;
-		this.textSprite.position.y = this.node.position.y;
-		this.textSprite.position.z = this.node.position.z;
+		this.displayEntity.position.x = this.node.position.x;
+		this.displayEntity.position.y = this.node.position.y;
+		this.displayEntity.position.z = this.node.position.z;
 		
 		this.transformOnMouseOver = function(){
 			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
-			var scale = this.textSprite.scale;
+			var scale = this.displayEntity.scale;
 
 			var newScale = { 	x: scale.x * scaleFactor,
 								y: scale.y * scaleFactor,
 								z: scale.z * scaleFactor
 							};
-			this.textSprite.scale.set( newScale.x, newScale.y, newScale.z );
+			this.displayEntity.scale.set( newScale.x, newScale.y, newScale.z );
 			
 			this.node.transformOnMouseOverLabel();
 		}
 		
 		this.transformOnMouseOut = function(){
 			var scale = globalAppSettings.defaultLabelScale;
-			this.textSprite.scale.set( scale.x , scale.y , scale.z );
+			this.displayEntity.scale.set( scale.x , scale.y , scale.z );
 			
 			this.node.transformOnLabelMouseOut();
 		}
 		
 		this.transformOnMouseOverNode = function(){
 			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
-			var scale = this.textSprite.scale;
+			var scale = this.displayEntity.scale;
 
 			var newScale = { 	x: scale.x * scaleFactor,
 								y: scale.y * scaleFactor,
 								z: scale.z * scaleFactor
 							};
-			this.textSprite.scale.set( newScale.x, newScale.y, newScale.z );			
+			this.displayEntity.scale.set( newScale.x, newScale.y, newScale.z );			
 		};
 		
 		this.transformOnNodeMouseOut = function(){
 			var scale = globalAppSettings.defaultLabelScale;
-			this.textSprite.scale.set( scale.x , scale.y , scale.z );
+			this.displayEntity.scale.set( scale.x , scale.y , scale.z );
 			
 		};
 		
 		this.transformOnDblClick = function(){
-			this.textSprite.material.color.set( globalAppSettings.nodeColorOnSelect );
+			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnSelect );
 		};
 		
 		this.unTransformOnDblClickOutside = function(){
-			this.textSprite.material.color.set( this.colorAsHex() );			
+			this.displayEntity.material.color.set( this.colorAsHex() );			
 		};
 		
 		this.transformOnWheel = function(){
 			
 		};		
 		
-		scene.add( this.textSprite );
+		scene.add( this.displayEntity );
 	},
 	
 
@@ -664,13 +684,13 @@ var LUCIDNODES = {
 			};
 		this.opacity = parameters.opacity || parameters.edge.opacity || globalAppSettings.defaultEdgeLabelOpacity;
 
-		this.textSprite = new _Label.sprite( this.text, { fontsize: this.fontsize, color: this.color, opacity: this.opacity } );
-		this.textSprite.isGraphElement = true;		
-		this.textSprite.referent = this;
+		this.displayEntity = new LUCIDNODES.Label( this.text, { fontsize: this.fontsize, color: this.color, opacity: this.opacity } );
+		this.displayEntity.isGraphElement = true;		
+		this.displayEntity.referent = this;
 		
-		this.textSprite.position.x = this.edge.centerPoint.x;
-		this.textSprite.position.y = this.edge.centerPoint.y;
-		this.textSprite.position.z = this.edge.centerPoint.z;
+		this.displayEntity.position.x = this.edge.centerPoint.x;
+		this.displayEntity.position.y = this.edge.centerPoint.y;
+		this.displayEntity.position.z = this.edge.centerPoint.z;
 		
 		this.transformOnMouseOver = function(){
 			var color = globalAppSettings.edgeColorOnMouseOver;
@@ -681,8 +701,8 @@ var LUCIDNODES = {
 								z: scale.z * scaleFactor
 							};
 							
-			this.textSprite.material.color.set ( globalAppSettings.edgeColorOnMouseOver );							
-			this.textSprite.scale.set( newScale.x, newScale.y, newScale.z );			
+			this.displayEntity.material.color.set ( globalAppSettings.edgeColorOnMouseOver );							
+			this.displayEntity.scale.set( newScale.x, newScale.y, newScale.z );			
 			
 			this.edge.transformOnMouseOverLabel();
 		};
@@ -690,8 +710,8 @@ var LUCIDNODES = {
 		this.transformOnMouseOut = function(){
 			var scale = globalAppSettings.defaultLabelScale;
 			
-			this.textSprite.material.color.set ( this.colorAsHex() );
-			this.textSprite.scale.set( scale.x , scale.y , scale.z );
+			this.displayEntity.material.color.set ( this.colorAsHex() );
+			this.displayEntity.scale.set( scale.x , scale.y , scale.z );
 			
 			this.edge.transformOnLabelMouseOut();
 		};
@@ -705,30 +725,30 @@ var LUCIDNODES = {
 								z: scale.z * scaleFactor
 							};
 			
-			this.textSprite.material.color.set ( globalAppSettings.edgeColorOnMouseOver );	
-			this.textSprite.scale.set( newScale.x, newScale.y, newScale.z );			
+			this.displayEntity.material.color.set ( globalAppSettings.edgeColorOnMouseOver );	
+			this.displayEntity.scale.set( newScale.x, newScale.y, newScale.z );			
 		};
 		
 		this.transformOnEdgeMouseOut = function(){
 			var scale = globalAppSettings.defaultLabelScale;			
 			
-			this.textSprite.material.color.set ( this.colorAsHex() );		
-			this.textSprite.scale.set( scale.x , scale.y , scale.z );			
+			this.displayEntity.material.color.set ( this.colorAsHex() );		
+			this.displayEntity.scale.set( scale.x , scale.y , scale.z );			
 		};
 
 		this.transformOnDblClick = function(){
-			this.textSprite.material.color.set( globalAppSettings.edgeColorOnSelect );
+			this.displayEntity.material.color.set( globalAppSettings.edgeColorOnSelect );
 		};
 		
 		this.unTransformOnDblClickOutside = function(){
-			this.textSprite.material.color.set( this.colorAsHex() );			
+			this.displayEntity.material.color.set( this.colorAsHex() );			
 		};
 		
 		this.transformOnWheel = function(){
 			
 		};		
 		
-		scene.add( this.textSprite );
+		scene.add( this.displayEntity );
 	},
 		
 	// SUBGRAPHS
@@ -790,11 +810,18 @@ function mapAcrossGraph( parameters ) {
 function nodesFromJson( graph, pointArray ){
 	
 	for ( n = 0; n < pointArray.length; n++ ) {	
-			graph.nodes[n]  = new LUCIDNODES.Node( { 	id: pointArray[n].id.toString(), 
-														position: { x: parseFloat( pointArray[n].position[0] ), 
-																	y: parseFloat( pointArray[n].position[1] ), 
-																	z: parseFloat( pointArray[n].position[2] )
-														},
+			graph.nodes[n]  = new LUCIDNODES.Node( { 	id: pointArray[n].id,
+														name: pointArray[n].name, 
+														position: {		//vWhen position is object-based
+															x: parseFloat ( pointArray[n].position.x ),
+															y: parseFloat ( pointArray[n].position.y ),
+															z: parseFloat ( pointArray[n].position.z ) 
+														},  
+													/*	position: {   // When Position is array - based
+															x: parseFloat ( pointArray[n].position[0] ),
+															y: parseFloat ( pointArray[n].position[1] ),
+															z: parseFloat ( pointArray[n].position[2] )
+														}, */ 
 														radius: parseFloat( pointArray[n].radius ), 
 														shape: "sphere", 
 														color: pointArray[n].color,
@@ -836,6 +863,8 @@ function edgesToAllNodesFromSourceNode( graph, sourceNode ){
 													graph: graph,
 													sourceNode: sourceNode,
 													targetNode: targetNode,
+													opacity: 0.5,
+													color: { r: 128, g: 128, b:128 },
 													id: edgeAssignId( sourceNode, targetNode )
 												}));
 		}
@@ -1017,6 +1046,13 @@ function getAdjacentNodes( node ){
 	
 }
 
+var toggleGraphElementTransparency = function( graphElement ){
+	if ( globalAppSettings.transparency ){
+		graphElement.material.transparent = true;
+	}
+	else { graphElement.material.transparent = false; }
+}
+
 function graphLog( graph ){
 	
 	console.log( graph );
@@ -1028,4 +1064,12 @@ function completeGraphFromNodes( graph ) {
 	for ( var i = 0; i < graph.nodes.length; i++ ){
 		edgesToAllNodesFromSourceNode( graph, graph.nodes[i] );
 	}
+};
+
+
+var changeGraphElementColor = function( graphElement, color ){
+	
+	graphElement.color = color;
+	graphElement.displayEntity.material.color.set( graphElement.colorAsHex() );
+	
 };

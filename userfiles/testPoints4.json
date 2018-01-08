@@ -189,9 +189,9 @@
           "id": "n007",
           "name": "Kindness",
           "color": {
-            "r": 255,
-            "g": 0,
-            "b": 0
+            "r": 128,
+            "g": 128,
+            "b": 128
           },
           "position": {
             "x": 5.25731,
@@ -283,11 +283,11 @@
           "opacity": 0.4,
           "label": {
             "color": {
-              "r": 255,
+              "r": 0,
               "g": 128,
-              "b": 0
+              "b": 255
             },
-            "opacity": 0.2
+            "opacity": 1
           },
           "castShadows": true,
           "radius": 1,
