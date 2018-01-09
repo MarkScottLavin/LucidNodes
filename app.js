@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.9.4
+	* Version 0.1.9.5
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -54,8 +54,8 @@ var renderGraph = function( graph , graphData ){
 	graphLog( graph );
 	
 	for ( var i = 0; i < graph.nodes.length; i++ ){
-		getEdges({ graph: graph, node: graph.nodes[i] });
-		getAdjacentNodes( graph.nodes[i] );
+		getNodeEdges({ graph: graph, node: graph.nodes[i] });
+		getNodesAdjacentToNode( graph.nodes[i] );
 	}
 	
 	graphLog( graph );

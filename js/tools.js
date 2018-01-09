@@ -88,6 +88,7 @@ Edge								Add (Connect 2 nodes)
 									Change Thickness
 									
 Subgraph (Node + Edges)				Delete
+									Isolate
 									Change Color (All Nodes or all Edges)
 									Disconnect From
 									Change Association (Disconnect & Connect to something else)
@@ -96,6 +97,6 @@ Subgraph (Node + Edges)				Delete
 									Rotate
 									Rotate Plane
 Subgraph (Node + Edges + Nodes)
-Graph
+Graph or "System"
 Map (Entire file)
 

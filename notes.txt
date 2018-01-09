@@ -1,0 +1,64 @@
+Directional
+
+Localizing priority, weight of nodes or edges
+Integrating nameable Plane objects... essentially 3D versions of 2D Edges. 
+
+UI considerations - VR vs Desktop primacy
+
+Peace between explicit (user-added) Edges and systemically generated edges ( CompleteGraphBetween )
+
+
+Log
+
+Refactored 
+
+- Changed "edgesFromNodeToAllNodes()" to "connectNodeToNodeArray()". The refactored function now takes an array of nodes as its third param. This makes the function potentially
+  far more useful in being able to generate complete graphs within an array of nodes as before, but also to handle situations such as connecting master nodes to set of subnodes, 
+  as in a mindmap or other branching or structure. 
+  
+- Added _Math.possibleEdges() function to support LucidNodes in calculating whether a graph is complete.
+  
+  
+What's hard to change? How to make it easy to change?
+  - Explicit vs Programmatic Graph genesis (Edges, Nodes, Graphs)
+	  - Develop a method for handling the fork between these. Fully understand the difference that would be required in 
+			- Functionality
+			- UX transition. 
+			- What functions would serve both possibilities?
+			- Handling some behavior in UX/UI vs via hardcode? Ie, the user creates the 'system,' 'completes the graph' and can set up desired behaviors in UI/Front-end. 
+			
+  - How to have multiple 'graphs' in a single file, while the file itself is treated as a single graph
+		- Potential solution built into version 1.9.5 - It's now possible to pass an array of nodes and check if it's a complete graph. Dynamic checking makes it possible
+		  to have complete graphs be created/destroyed by the user inside a system of nodes, and, if verified complete as graphs, be treated uniquely. This also portends the
+		  possibility of other graph types, such as incomplete, but closed, or branching/tree structures to be detected automatically and treated uniquely when detected.
+		- Some refactoring suggested for the new potential solution mentioned. 
+			- An array.clean() function that handles the work of 
+				- removing duplicate entries
+				- deleting references to graphElements identical to the graphElement being checked as the origin point
+				- deleting references to non-existent graphElements.
+			- Removing duplicate instrumentation arising out of nested function calls.
+		  
+		  
+isComplete = function( nodeArray ){
+
+	var possEdges = _Math.possibleEdges( nodeArray.length );
+
+};
+
+countEdgesInGraph = function( nodeArray ){
+
+	var edgeCount = 0;
+
+	for ( n = 0, n < nodeArray.length, n++ ){ // For every node in the node array
+		
+		for ( e = 0, e < nodeArray[n].edges.length, e++ ){  // Retrieve and iterate through all the edges associated with that node.
+		
+			// and determine if that edge's id also includes the id of any of the other nodes.
+			// If it does, add it to the count;
+		
+		
+		
+		}
+	
+	}
+};

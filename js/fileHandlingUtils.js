@@ -172,7 +172,8 @@ var circularRefs = [ 		/* Toplevel File Admin Paramas */
 							/* Graph Params */
 							'graphData', 
 							'graphs', 
-							'nodes', 
+							'nodes',
+						/*	'edges',    --- Causes circular ref error */
 							/* Node Params */ 
 							'radius', 
 							'shape' 
