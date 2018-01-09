@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.9.4
+	* Version 0.1.9.5
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -74,6 +74,28 @@ var _Math = {
 	},	
 	
 	distanceFromGraphCenter: function(){
+		
+	},
+	
+	
+	/*
+	 * possibleEdges()
+	 * 
+	 * author: @markscottlavin
+	 *
+	 * parameters: 
+	 * n: <number> 
+	 * numTypes: <number>. Default = 1
+	 *
+	 * pass a number or an array.length for a group of nodes to determine how many edges are possible amongst those nodes assuming one edge between every node and every other node.  
+	 *
+	 */
+		
+
+	possibleEdges: function( n, numTypes = 1 ){ 
+		
+		pEdges = ( ( n * ( n - 1 )) / 2 ) * numTypes;
+		return pEdges;
 		
 	}
 
@@ -833,7 +855,7 @@ function nodesFromJson( graph, pointArray ){
 };
 
 	/**
-	 * edgesToAllNodesFromSourceNode();
+	 * connectNodeToArrayOfNodes();
 	 * 
 	 * @author Mark Scott Lavin
 	 *
@@ -842,57 +864,32 @@ function nodesFromJson( graph, pointArray ){
 	 * parameters = {
 	 *  graph: <Graph>,
 	 *  sourceNode: <Node>
+	 *  targetNodes: <Array> Array of Nodes
 	 * }
 	 */
 
 
-function edgesToAllNodesFromSourceNode( graph, sourceNode ){
-	
-	var targetNode;
-	
-	for ( var i = 0; i < graph.nodes.length; i++ ){
-		
-		targetNode = graph.nodes[i];
-		
-		var nIdentical = nodesIdentical( sourceNode, targetNode );
-		var eExists = edgeExistsInGraph( { graph: graph, node1: sourceNode, node2: targetNode } );
-		
-		if ( !nIdentical && !eExists ){		
-			
-			graph.edges.push( new LUCIDNODES.Edge({
-													graph: graph,
-													sourceNode: sourceNode,
-													targetNode: targetNode,
-													opacity: 0.5,
-													color: { r: 128, g: 128, b:128 },
-													id: edgeAssignId( sourceNode, targetNode )
-												}));
-		}
-	}
-};
-
-
-function edgesToNodesFromSourceNode( graph, sourceNode, targetNodes ){
+function connectNodeToArrayOfNodes( graph, sourceNode, targetNodes ){
 	
 	if ( sourceNode && targetNodes && Array.isArray ( targetNodes )){
 		
-		for ( var i = 0; i < targetNodes; i++ ){
+		for ( var i = 0; i < targetNodes.length; i++ ){
 
 			var id;
 			
-			var notIdentical = !nodesIdentical( sourceNode, targetNodes[i] );
-			var notExists = !edgeExistsInGraph( { 	graph: graph, 
-													node1: sourceNode, 
-													node2: targetNodes[i] 
-												} );
+			var nIdentical = !nodesIdentical( sourceNode, targetNodes[i] );
+			var eExists = edgeExistsInGraph( { graph: graph, node1: sourceNode, node2: targetNodes[i] } );
 
-			if ( notIdentical && notExists ){
+			if ( nIdentical && !eExists ){
 				
-				id = edgeAssignId( sourceNode, targetNodes[i] );
-				
-				graph.edges[id] = new LUCIDNODES.Edge( {	sourceNode: sourceNode, 
-															targetNode: targetNodes[i]
-														} );
+				graph.edges.push( new LUCIDNODES.Edge({
+														graph: graph,
+														sourceNode: sourceNode,
+														targetNode: targetNodes[i],
+														opacity: 0.5,
+														color: { r: 128, g: 128, b:128 },
+														id: edgeAssignId( sourceNode, targetNodes[i] )
+													}));
 			}
 		}	
 	}
@@ -983,23 +980,12 @@ function edgeExistsInGraph( parameters ){
 		}
 	}
 	
-	
-/*	for ( var edgeNodeName in graph.edges ){		
-		
-		testString1 = edgeNodeName.indexOf(node1.id);
-		testString2 = edgeNodeName.indexOf(node2.id);
-		
-		if (testString1 !== -1 && testString2 !== -1 ) {
-			return true;
-		}
-	}*/
-	
 	return false;
 };
 
-	/* getEdges();
+	/* getNodeEdges();
 	 *
-	 * Gets all the Edges associated with a particular Node.
+	 * Gets all the Edges associated with a Node.
 	 *
 	 * @author Mark Scott Lavin /
 	 *
@@ -1009,7 +995,7 @@ function edgeExistsInGraph( parameters ){
 	 * }
 	*/	
 
-function getEdges( parameters ){
+function getNodeEdges( parameters ){
 	
 	var graph = parameters.graph;
 	var node = parameters.node;
@@ -1017,7 +1003,7 @@ function getEdges( parameters ){
 	var edgeId;
 	var testString;
 	
-	for ( var i = 0; i < graph.edges.length ; i++ ){
+	for ( var i = 0; i < graph.edges.length; i++ ){
 		
 		edgeId = graph.edges[i].id; 
 		testString = edgeId.indexOf( nodeId );
@@ -1028,7 +1014,125 @@ function getEdges( parameters ){
 	}
 }
 
-function getAdjacentNodes( node ){
+	/* getEdgesFromNodeToNodeArray() 
+	 *
+	 * author: @markscottlavin
+	 *
+	 * parameters:
+	 * node <Node>
+	 * nodeArray <Array> - An array of nodes.
+	 * 
+	 * returns an array of unique edges
+	 * the array of nodes passed can include non-existent nodes, and nodes identical to the node passed as the first parameter. These will be stripped from the array before comparison.
+	 * one known error condition still occurring and known about is when nodes are passed from a non-existent graph. This may become moot with intended refactoring (1/8/18)
+	 *
+	 * Tested for existing nodes in same graph, non-existing nodes & duplicates - Works
+	 */
+
+function getEdgesFromNodeToNodeArray( node, nodeArray ){
+
+	var nodeArrayNoDups = removeDupsFromGraphElementArray( nodeArray ); 
+	var nodeArrayNoIdenticals = removeIdenticalGraphElementsFromArray( nodeArrayNoDups, node ); 
+	var edgeArray = []; 
+	
+	for ( var e = 0; e < node.edges.length; e++ ){
+	
+		edgeId = node.edges[e].id
+		
+		for ( var n = 0; n < nodeArrayNoIdenticals.length; n++ ){
+		
+			if ( nodeArrayNoIdenticals[n] ){
+				var testString = nodeArrayNoIdenticals[n].id;
+				testString = edgeId.indexOf( nodeArrayNoIdenticals[n].id );
+
+				if ( testString !== -1 ) { edgeArray.push( node.edges[e] ); }
+			}
+		}
+	}
+
+	console.log( 'getEdgesFromNodeToNodeArray(): ' , edgeArray );
+	return edgeArray;
+
+};
+
+	/* getAllEdgesInNodeArray() 
+	 *
+	 * author: @markscottlavin
+	 *
+	 * parameters:
+	 * nodeArray <Array> - An array of nodes.
+	 * 
+	 * returns the unique edges connecting the nodeArray as an array.
+	 * the array of nodes passed can include non-existent nodes, and nodes identical to the node passed as the first parameter. 
+	 * one known error condition still occurring and known about is when nodes are passed from a non-existent graph. This may become moot with intended refactoring (1/8/18)
+	 */
+
+function getAllEdgesInNodeArray( nodeArray ){
+	
+	var nodeArrayNoDups = removeDupsFromGraphElementArray( nodeArray ); 
+	var nodeArrayNoIdenticals;
+	var subSet = [];
+	var edgeArray = [];
+	
+	for ( var n = 0; n < nodeArrayNoDups.length; n++ ){
+		
+		if ( nodeArrayNoDups[n] ){
+			subSet = getEdgesFromNodeToNodeArray( nodeArrayNoDups[n], nodeArrayNoDups );
+			
+			for ( var s = 0; s < subSet.length; s++ ){
+				edgeArray.push( subSet[s] );
+			}
+		}
+	}
+	
+	edgeArray = removeDupsFromGraphElementArray( edgeArray );	
+	console.log( 'getAllEdgesInNodeArray: ', edgeArray );
+	return edgeArray;
+
+}
+
+	/* isComplete() 
+	 *
+	 * author: @markscottlavin
+	 *
+	 * parameters:
+	 * nodeArray <Array> - An array of nodes.
+	 * 
+	 * returns true or false.
+	 * the array of nodes passed can include non-existent nodes, nodes identical to the node passed as the first parameter, and nodes in different graphs. 
+	 */
+
+function isCompleteGraph( nodeArray ){
+	
+	var nodeArrayNoDups = removeDupsFromGraphElementArray( nodeArray );
+
+	var numEdges = getAllEdgesInNodeArray( nodeArray ).length;
+	
+	var pEdges = _Math.possibleEdges( nodeArrayNoDups.length );
+	
+	var isComplete = ( numEdges === pEdges );
+
+	if ( isComplete ) { console.log( "Complete Graph" ); }
+	
+	else { 
+		if ( numEdges < pEdges ){ console.log( "Incomplete Graph" ) }
+		else if ( numEdges > pEdges ){ console.log ("More edges than possible in the graph... That's impossible!") }
+	}
+	
+	return isComplete;
+}
+
+
+	/* getNodesAdjacentToNode() 
+	 *
+	 * parameters:
+	 * node <Node>
+	 * 
+	 * gets all Nodes connected to a Node via Edges.
+	 * 
+	 */
+
+function getNodesAdjacentToNode( node ){
 	
 	var nodeId = node.id;
 	var edges = node.edges;
@@ -1043,6 +1147,20 @@ function getAdjacentNodes( node ){
 			}
 		}
 	}
+	
+}
+
+function removeDupsFromGraphElementArray( graphElementArray ){
+	
+	var graphElementArrayNoDups = Array.from(new Set( graphElementArray ));
+	return graphElementArrayNoDups;
+	
+}
+
+function removeIdenticalGraphElementsFromArray( graphElementArray, graphElement ){
+	
+	var graphElementArrayNoIdenticals = graphElementArray.filter( includes => includes !== graphElement );
+	return graphElementArrayNoIdenticals;
 	
 }
 
@@ -1062,7 +1180,8 @@ function graphLog( graph ){
 function completeGraphFromNodes( graph ) {
 	
 	for ( var i = 0; i < graph.nodes.length; i++ ){
-		edgesToAllNodesFromSourceNode( graph, graph.nodes[i] );
+		//edgesToAllNodesFromSourceNode( graph, graph.nodes[i] );
+		connectNodeToArrayOfNodes( graph, graph.nodes[i], graph.nodes );
 	}
 };
 
