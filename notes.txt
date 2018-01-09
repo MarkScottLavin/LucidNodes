@@ -37,6 +37,8 @@ What's hard to change? How to make it easy to change?
 				- deleting references to graphElements identical to the graphElement being checked as the origin point
 				- deleting references to non-existent graphElements.
 			- Removing duplicate instrumentation arising out of nested function calls.
+		- Make functions able to recieve either an array of Nodes or an array of ids. For this to work, add a "referent" property to the graphElement "id" property.
+		- Detect loose nodes using a nodeHasEdges() function that simply tests for edges and returns true or false.  
 		  
 		  
 isComplete = function( nodeArray ){
