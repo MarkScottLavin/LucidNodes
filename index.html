@@ -1,13 +1,6 @@
 <html>
 <header>
 	<title>LucidNodes Experiment</title>
-
-	<!-- BOOTSTRAP & JQUERY -->
-	
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -42,23 +35,24 @@
 		</div>
 	</form>-->
 	
-	<form method="GET" id="temp2" enctype="multipart/form-data">
-	 <div>
-	   <label for="fileInput">Choose a file to open</label>
-	   <input type="file" id="fileInput" name="fileInput" accept=".json">
-	 </div>
-	 <div>
-	   <button>Submit</button>
-	 </div>
-	 
-	 	<div class="btn btn-center">
-			<input type="button" name="loadBtn" id="loadBtn" value="Load File">
-		</div>
-		<div class="btn btn-center">
-			<input type="button" name="saveBtn" id="saveBtn" value="Save File">
-		</div>
-	</form>	
-	
+	<div class="left">
+		<form method="GET" id="temp2" enctype="multipart/form-data">
+			<div>
+			   <label for="fileInput">Choose a file to open</label>
+			   <input type="file" id="fileInput" name="fileInput" accept=".json">
+			</div>
+			<div class="btn btn-center">
+				<input type="button" name="saveBtn" id="saveBtn" value="Save File">
+			</div>
+		</form>	
+	</div>
+	<div class="middle">
+		<div><strong>Tools</strong></div>
+		<div><img id="paintBucket" src="assets/imported_icons/bucket.png"></div>
+		<input type="color" id="colorPicker" name="colorPicker" value="#ff0000">
+		<div><img width="32px" id="createCompleteGraph" src="assets/mindmap_symbols/Influencing-Network.png"></div>
+		<div id="showCenterPoints">Show Center Points</div>
+	</div>
 	
 	<div class="row">
 		<div id="tempdisplay">

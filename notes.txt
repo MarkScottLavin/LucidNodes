@@ -40,6 +40,18 @@ What's hard to change? How to make it easy to change?
 		- Make functions able to recieve either an array of Nodes or an array of ids. For this to work, add a "referent" property to the graphElement "id" property.
 		- Detect loose nodes using a nodeHasEdges() function that simply tests for edges and returns true or false.  
 		  
+  - UI should be highly flexible. The set of tools may change significantly. The UI interface will change wildly both to accomodate desktop vs AR situations. AR situation itself 
+    will involve a lot of experimentation. We'll want to iterate quickly. 
+	
+  - Make graph completion functions explicit (executed via UI tools) rather than implicit as first step toward preserving functionality while creating user control. 
+		-Functions executed: 
+				- graphFromJson
+				- renderGraph
+				- nodesFromJson
+				- completeGraphFromNodes( graph ); - ACTIONS: refactor this function to take any array of nodes. DONE Test using the UI element. DONE Activate multiselect capability. Pass the selected as an array to the function. Test. Work out error conditions. DONE Replicate for the other functions on this list. 
+				- LUCIDNODES.showGraphCenterPoints( graph );
+				- getNodeEdges({ graph: graph, node: graph.nodes[i] });
+				- getNodesAdjacentToNode( graph.nodes[i] );
 		  
 isComplete = function( nodeArray ){
 
@@ -64,3 +76,18 @@ countEdgesInGraph = function( nodeArray ){
 	
 	}
 };
+
+
+Deep bug in SELECTED:
+
+Multiselect: 
+	- CTRL-Click (First Time): 3 Nodes successfully selected (transformed) and added to SELECTED ARRAY.
+	- Click outside after Multiselection above: All nodes unselected (undransformed) and removed from SELECTED ARRAY
+	- Click of node (after purge): Correct node selected (transformed) and added to SELECTED array.
+	- Click outside node after single select: Node unselected (untransformed) and removed from SELECTED array.
+	- CTRL-Click (after purge): 3 Nodes successfully selected (transformed) and added to SELECTED array.
+	- CTRL-Click selected nodes, no change to SELECTED array. (That's good).
+	- Click FIRST selected node after multi-select of 3 Nodes: FIRST Selected node is in the array twice. Third node remains selected (transformed), in array. Second is unseleected and removed from array.
+	- Click outside afterward, all nodes unselected and removed from array.
+	- Click THIRD selected Node, THIRD remains selected, is duplicated, SECOND remains selected, first is unselected
+	

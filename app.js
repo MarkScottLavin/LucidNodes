@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.9.5
+	* Version 0.1.9.6
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -23,12 +23,24 @@ window.onload = function(){
 
 var initUI = function(){
 
-	document.getElementById('loadBtn').addEventListener( 'click' , function() { loadFile( { url: "./userfiles", filename: "testpoints3.json" } ) } );
-	document.getElementById('saveBtn').addEventListener( 'click' , function() { saveFile( "./userfiles", SELECTEDFILE.name , graphsInScene ) } );
 	document.getElementById('fileInput').addEventListener( 'change', loadFileFromInput, false );
+	document.getElementById('saveBtn').addEventListener( 'click' , function() { saveFile( "./userfiles", SELECTEDFILE.name , graphsInScene ) } );
+	document.getElementById('createCompleteGraph').addEventListener( 'click', function() { if ( SELECTED ) { completeGraphFromNodes( graphsInScene.graphs[0], SELECTED ) } } );
+	document.getElementById('showCenterPoints').addEventListener( 'click', function() { if ( SELECTED ) { LUCIDNODES.showGraphCenterPoints( graphsInScene.graphs[0] )}; } );
 	
 };
 
+/* graphFromJson( json )
+ *
+ * author: markscottlavin 
+ *
+ * parameters:
+ * 		json <JSON OBJECT> - structured to be parsible by LucidNodes. Must include Graphs and Nodes
+ *
+ * assigns each graph object in the JSON to an element of the graphsInScene object.
+ * then for each graph called in, calls the renderGraph function 
+ *
+*/
 
 var graphFromJson = function( json ){
 	
@@ -48,17 +60,15 @@ var graphFromJson = function( json ){
 var renderGraph = function( graph , graphData ){
 	 
 	nodesFromJson( graph, graphData );
-	completeGraphFromNodes( graph );
-	LUCIDNODES.showGraphCenterPoints( graph );
 
 	graphLog( graph );
 	
-	for ( var i = 0; i < graph.nodes.length; i++ ){
+/*	for ( var i = 0; i < graph.nodes.length; i++ ){
 		getNodeEdges({ graph: graph, node: graph.nodes[i] });
 		getNodesAdjacentToNode( graph.nodes[i] );
 	}
 	
-	graphLog( graph );
+	graphLog( graph ); */
 	
 };
 

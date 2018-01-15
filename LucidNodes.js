@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.9.5
+	* Version 0.1.9.6
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -174,9 +174,9 @@ var globalAppSettings = {
 // THE LUCIDNODE MASTER OBJECT
 var LUCIDNODES = {
 	
-	/* AVAILABLE METHODS */
+	/* AVAILABLE METHODS */  /*
 	
-	computeGraphCenter: function( graph /* graph, subgraph or series of graphs */ , technique = "absolute" ){
+	computeNodeArrayCenter: function( , technique = "absolute" ){
 		
 		var center = {
 		};
@@ -186,9 +186,9 @@ var LUCIDNODES = {
 			z: 0
 		};
 		
-		/* average (average of all values alonng each axis) */
+		// average (average of all values alonng each axis) 
 		if ( technique === "average" ) { 
-			/* take the positionns of all objects in the graph and compute from their centerpoints the center of the graph.	*/
+			// take the positionns of all objects in the graph and compute from their centerpoints the center of the graph.	
 			for ( key in graph.nodes ) {
 				if (graph.nodes.hasOwnProperty(key)){	
 					sum.x = ( sum.x + graph.nodes[key].position.x );
@@ -205,6 +205,45 @@ var LUCIDNODES = {
 			return center;
 		};
 		
+		// Extents (average the furthest apart in each direction) 
+		if ( technique === "extents" ) {
+			
+			
+		}
+		
+			
+	}, */
+	
+	
+	computeNodeArrayCenter: function( nodeArray /* nodeArray, subgraph or series of graphs */ , technique = "absolute" ){
+		
+		var center = {
+		};
+		var sum = {
+			x: 0,
+			y: 0,
+			z: 0
+		};
+		
+		/* average (average of all values alonng each axis) */
+		if ( technique === "average" ) { 
+			/* take the positionns of all objects in the nodeArray and compute from their centerpoints the center of the nodeArray.	*/
+			
+			for ( var n = 0; n < nodeArray.length; n++ ){
+			
+				sum.x = ( sum.x + nodeArray[n].position.x );
+				sum.y = ( sum.y + nodeArray[n].position.y );
+				sum.z = ( sum.z + nodeArray[n].position.z );
+			}
+			
+			center.x = ( sum.x / nodeArray.length );
+			center.y = ( sum.y / nodeArray.length );
+			center.z = ( sum.z / nodeArray.length );
+			
+			console.log( "computeNodeArrayCenter( ", nodeArray , ", ", technique , " ) ", center );
+			return center;
+		};
+		
 		/* Extents (average the furthest apart in each direction) */
 		if ( technique === "extents" ) {
 			
@@ -213,6 +252,7 @@ var LUCIDNODES = {
 		
 			
 	},
+	
 	computeSubgraph: function( node ){
 			/* 	Get all the nodes and edges in the graph submitted as argument, 
 				map/generate all subgraphs of the graph (dot-notation: id.subGraph[key1], id.subGraph[key2]... );
@@ -357,13 +397,13 @@ var LUCIDNODES = {
 			this.displayEntity.scale.set( 1, 1, 1 );			
 		};
 		
-		this.transformOnDblClick = function(){
+		this.transformOnClick = function(){
 			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnSelect );
 			var scaleFactor = globalAppSettings.nodeScaleOnSelect;
 			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );						
 		};
 		
-		this.unTransformOnDblClickOutside = function(){
+		this.untransformOnClickOutside = function(){
 			this.displayEntity.material.color.set( this.colorAsHex() );
 			this.displayEntity.scale.set( 1, 1, 1 );			
 		};
@@ -501,11 +541,11 @@ var LUCIDNODES = {
 			this.displayEntity.material.color.set( color );				
 		};
 
-		this.transformOnDblClick = function(){
+		this.transformOnClick = function(){
 			this.displayEntity.material.color.set( globalAppSettings.edgeColorOnSelect );
 		};
 		
-		this.unTransformOnDblClickOutside = function(){
+		this.unTransformOnClickOutside = function(){
 			this.displayEntity.material.color.set( this.colorAsHex() );			
 		};
 		
@@ -662,6 +702,10 @@ var LUCIDNODES = {
 			
 		};
 		
+		this.transformOnClick = function(){};
+		
+		this.unTransformOnClickOutside = function(){};
+		
 		this.transformOnDblClick = function(){
 			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnSelect );
 		};
@@ -757,6 +801,14 @@ var LUCIDNODES = {
 			this.displayEntity.material.color.set ( this.colorAsHex() );		
 			this.displayEntity.scale.set( scale.x , scale.y , scale.z );			
 		};
+		
+		this.transformOnClick = function(){
+			
+		};
+		
+		this.unTransformOnClickOutside = function(){
+			
+		};
 
 		this.transformOnDblClick = function(){
 			this.displayEntity.material.color.set( globalAppSettings.edgeColorOnSelect );
@@ -794,7 +846,7 @@ var LUCIDNODES = {
 		this.edges = [];
 		this.id = id;
 		this.centerTechnique = centerTechnique;
-		this.center = function( centerTechnique = this.centerTechnique ) { return LUCIDNODES.computeGraphCenter( this, centerTechnique ) };
+		this.center = function( centerTechnique = this.centerTechnique ) { return LUCIDNODES.computeNodeArrayCenter( this.nodes, centerTechnique ) };
 		this.meaningSystem = meaningSystem; /* {
 			What do the nodes mean? 
 			What relationship do edges refer to? 
@@ -1177,11 +1229,11 @@ function graphLog( graph ){
 	
 };
 
-function completeGraphFromNodes( graph ) {
+function completeGraphFromNodes( graph, nodeArray ) {
 	
-	for ( var i = 0; i < graph.nodes.length; i++ ){
+	for ( var i = 0; i < nodeArray.length; i++ ){
 		//edgesToAllNodesFromSourceNode( graph, graph.nodes[i] );
-		connectNodeToArrayOfNodes( graph, graph.nodes[i], graph.nodes );
+		connectNodeToArrayOfNodes( graph, nodeArray[i], nodeArray );
 	}
 };
 
