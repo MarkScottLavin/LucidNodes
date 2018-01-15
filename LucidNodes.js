@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.9.7
+	* Version 0.1.9.8
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -1233,13 +1233,40 @@ function graphLog( graph ){
 	
 };
 
-function completeGraphFromNodes( graph, nodeArray ) {
+function completeGraph( graph, nodeArray ) {
 	
-	for ( var i = 0; i < nodeArray.length; i++ ){
+	var nodeArrayCleaned = filterArrayForNodes( nodeArray );
+	
+	for ( var i = 0; i < nodeArrayCleaned.length; i++ ){
 		//edgesToAllNodesFromSourceNode( graph, graph.nodes[i] );
-		connectNodeToArrayOfNodes( graph, nodeArray[i], nodeArray );
+		connectNodeToArrayOfNodes( graph, nodeArrayCleaned[i], nodeArrayCleaned );
 	}
 };
+
+function filterArrayForNodes( arr ){
+	
+	var nodeArray = arr.filter( includes => includes.isNode );
+	return nodeArray;
+};
+
+function filterArrayForEdges( arr ){
+	
+	var edgeArray = arr.filter( includes => includes.isEdge );
+	return edgeArray;
+};
+
+function filterArrayFrorNodeLabels( arr ){
+	
+	var nodeLabelArray = arr.filter( includes => includes.isNodeLabel );
+	return nodeLabelArray;
+};
+
+function filterArrayForEdgeLabels( arr ){
+	
+	var edgeLabelArray = arr.filter( includes => includes.isEdgeLabel );
+	return edgeLabelArray;
+	
+}
 
 
 var changeGraphElementColor = function( graphElement, color ){

@@ -57,58 +57,58 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 					
 					if ( INTERSECTED.referent.isNode || INTERSECTED.referent.isEdge ) {
 						// If SELECTED includes INTERSECTED, leave it alone.
-						if ( SELECTED && SELECTED.includes( INTERSECTED ) ) { 
+						if ( SELECTED && SELECTED.includes( INTERSECTED.referent ) ) { 
 							
-							var intersectedIndex = SELECTED.indexOf( INTERSECTED );
-							unTransformGraphElementOnUnselect( INTERSECTED );
+							var intersectedIndex = SELECTED.indexOf( INTERSECTED.referent );
+							unTransformGraphElementOnUnselect( INTERSECTED.referent );
 							SELECTED.splice( intersectedIndex, 1 ); 
 							console.log( SELECTED );
 							//return; 
 							}
 						
 						// If SELECTED doesn't include INTERSECTED, transform it and add it.
-						else if ( SELECTED && !SELECTED.includes( INTERSECTED ) ) { 
-							SELECTED.push( INTERSECTED );
-							transformGraphElementOnSelect( INTERSECTED );
+						else if ( SELECTED && !SELECTED.includes( INTERSECTED.referent ) ) { 
+							SELECTED.push( INTERSECTED.referent );
+							transformGraphElementOnSelect( INTERSECTED.referent );
 							console.log( SELECTED );
 							}
 					}
 					
 					else if ( INTERSECTED.referent.isNodeLabel ){
 						// If SELECTED includes INTERSECTED, leave it alone.
-						if ( SELECTED && SELECTED.includes( INTERSECTED.referent.node.displayEntity ) ) { 
+						if ( SELECTED && SELECTED.includes( INTERSECTED.referent.node ) ) { 
 							
-							var intersectedIndex = SELECTED.indexOf( INTERSECTED.referent.node.displayEntity );
-							unTransformGraphElementOnUnselect( INTERSECTED.referent.node.displayEntity );
+							var intersectedIndex = SELECTED.indexOf( INTERSECTED.referent.node );
+							unTransformGraphElementOnUnselect( INTERSECTED.referent.node );
 							SELECTED.splice( intersectedIndex, 1 ); 
 							console.log( SELECTED );
 							//return; 
 							}
 						
 						// If SELECTED doesn't include INTERSECTED, transform it and add it.
-						else if ( SELECTED && !SELECTED.includes( INTERSECTED.referent.node.displayEntity ) ) { 
-							SELECTED.push( INTERSECTED.referent.node.displayEntity );
-							transformGraphElementOnSelect( INTERSECTED.referent.node.displayEntity );
+						else if ( SELECTED && !SELECTED.includes( INTERSECTED.referent.node ) ) { 
+							SELECTED.push( INTERSECTED.referent.node );
+							transformGraphElementOnSelect( INTERSECTED.referent.node );
 							console.log( SELECTED );
 							}						
 					}
 					
 					else if ( INTERSECTED.referent.isEdgeLabel ){
 						// If SELECTED includes INTERSECTED, leave it alone.
-						if ( SELECTED && SELECTED.includes( INTERSECTED.referent.edge.displayEntity ) ) { 
+						if ( SELECTED && SELECTED.includes( INTERSECTED.referent.edge ) ) { 
 							
-							var intersectedIndex = SELECTED.indexOf( INTERSECTED.referent.edge.displayEntity );
-							unTransformGraphElementOnUnselect( INTERSECTED.referent.edge.displayEntity );
+							var intersectedIndex = SELECTED.indexOf( INTERSECTED.referent.edge );
+							unTransformGraphElementOnUnselect( INTERSECTED.referent.edge );
 							SELECTED.splice( intersectedIndex, 1 ); 
-							console.log( SELECTED.referent.edge.displayEntity );
+							console.log( SELECTED.referent.edge );
 							//return; 
 							}
 						
 						// If SELECTED doesn't include INTERSECTED, transform it and add it.
-						else if ( SELECTED && !SELECTED.includes( INTERSECTED.referent.edge.displayEntity ) ) { 
-							SELECTED.push( INTERSECTED.referent.edge.displayEntity );
-							transformGraphElementOnSelect( INTERSECTED.referent.edge.displayEntity );
-							console.log( SELECTED.referent.edge.displayEntity );
+						else if ( SELECTED && !SELECTED.includes( INTERSECTED.referent.edge ) ) { 
+							SELECTED.push( INTERSECTED.referent.edge );
+							transformGraphElementOnSelect( INTERSECTED.referent.edge );
+							console.log( SELECTED.referent.edge );
 							}						
 					}							
 				}
@@ -141,15 +141,15 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 						if ( SELECTED ){
 							
 							// If that SELECTED array includes the currently INTERSECTED object
-							if ( SELECTED.includes ( INTERSECTED ) ) { 
+							if ( SELECTED.includes ( INTERSECTED.referent ) ) { 
 								// Negative for loop -- untransform and remove from SELECTED everything but the INTERSECTED object
 								for ( var s = 0; s < SELECTED.length; s++ ){
 									
-									if ( SELECTED[ s ] !== INTERSECTED ){
+									if ( SELECTED[ s ] !== INTERSECTED.referent ){
 										unTransformGraphElementOnUnselect( SELECTED[ s ] );								
 									}
 								}
-								SELECTED = [ INTERSECTED ];
+								SELECTED = [ INTERSECTED.referent ];
 								console.log( SELECTED );
 							}
 						
@@ -160,8 +160,8 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 									}
 								SELECTED = [];
 
-								transformGraphElementOnSelect( INTERSECTED );
-								SELECTED.push( INTERSECTED );							
+								transformGraphElementOnSelect( INTERSECTED.referent );
+								SELECTED.push( INTERSECTED.referent );							
 							}
 						}
 					}
@@ -171,15 +171,15 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 						if ( SELECTED ){
 							
 							// If that SELECTED array includes the currently INTERSECTED object
-							if ( SELECTED.includes ( INTERSECTED.referent.node.displayEntity ) ) { 
+							if ( SELECTED.includes ( INTERSECTED.referent.node ) ) { 
 								// Negative for loop -- untransform and remove from SELECTED everything but the INTERSECTED object
 								for ( var s = 0; s < SELECTED.length; s++ ){
 									
-									if ( SELECTED[ s ] !== INTERSECTED.referent.node.displayEntity ){
+									if ( SELECTED[ s ] !== INTERSECTED.referent.node ){
 										unTransformGraphElementOnUnselect( SELECTED[ s ] );								
 									}
 								}
-								SELECTED = [ INTERSECTED.referent.node.displayEntity ];
+								SELECTED = [ INTERSECTED.referent.node ];
 								console.log( SELECTED );
 							}
 						
@@ -190,8 +190,8 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 									}
 								SELECTED = [];
 
-								transformGraphElementOnSelect( INTERSECTED );
-								SELECTED.push( INTERSECTED.referent.node.displayEntity );							
+								transformGraphElementOnSelect( INTERSECTED.referent );
+								SELECTED.push( INTERSECTED.referent.node );							
 							}
 						}
 					}
@@ -201,15 +201,15 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 						if ( SELECTED ){
 							
 							// If that SELECTED array includes the currently INTERSECTED object
-							if ( SELECTED.includes ( INTERSECTED.referent.edge.displayEntity ) ) { 
+							if ( SELECTED.includes ( INTERSECTED.referent.edge ) ) { 
 								// Negative for loop -- untransform and remove from SELECTED everything but the INTERSECTED object
 								for ( var s = 0; s < SELECTED.length; s++ ){
 									
-									if ( SELECTED[ s ] !== INTERSECTED.referent.edge.displayEntity ){
+									if ( SELECTED[ s ] !== INTERSECTED.referent.edge ){
 										unTransformGraphElementOnUnselect( SELECTED[ s ] );								
 									}
 								}
-								SELECTED = [ INTERSECTED.referent.edge.displayEntity ];
+								SELECTED = [ INTERSECTED.referent.edge ];
 								console.log( SELECTED );
 							}
 						
@@ -220,8 +220,8 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 									}
 								SELECTED = [];
 
-								transformGraphElementOnSelect( INTERSECTED );
-								SELECTED.push( INTERSECTED.referent.edge.displayEntity );							
+								transformGraphElementOnSelect( INTERSECTED.referent );
+								SELECTED.push( INTERSECTED.referent.edge );							
 							}
 						}
 					}					
@@ -234,7 +234,7 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 		if ( event.type === 'wheel' ){
 			if ( intersects[ 0 ].object.isGraphElement && intersects[ 0 ].object === INTERSECTED ){
 				// transform on wheel.
-				transformGraphElementOnWheel( INTERSECTED );							
+				transformGraphElementOnWheel( INTERSECTED.referent );							
 			}			
 		}
 		
@@ -251,47 +251,47 @@ function unTransformGraphElementOnMouseOut( obj ){
 }
 
 function transformGraphElementOnSelect( obj ){
-	if ( obj.isGraphElement ) { 
+	if ( obj.displayEntity.isGraphElement ) { 
 		
-		if ( obj.referent.isNode || obj.referent.isEdge ){
-			obj.referent.transformOnClick(); 
-			obj.referent.label.transformOnClick();
+		if ( obj.isNode || obj.isEdge ){
+			obj.transformOnClick(); 
+			obj.label.transformOnClick();
 		}
 		
-		if ( obj.referent.isNodeLabel ){
-			obj.referent.node.transformOnClick();
-			obj.referent.transformOnClick();
+		if ( obj.isNodeLabel ){
+			obj.node.transformOnClick();
+			obj.transformOnClick();
 		}
 		
-		if ( obj.referent.isEdgeLabel ){
-			obj.referent.edge.transformOnClick();
-			obj.referent.transformOnClick();
+		if ( obj.isEdgeLabel ){
+			obj.edge.transformOnClick();
+			obj.transformOnClick();
 		}
 	}
 }
 
 function unTransformGraphElementOnUnselect( obj ){
-	if ( obj.isGraphElement ) { 
+	if ( obj.displayEntity.isGraphElement ) { 
 		
-		if ( obj.referent.isNode || obj.referent.isEdge ){
-			obj.referent.unTransformOnClickOutside();
-			obj.referent.label.unTransformOnClickOutside();
+		if ( obj.isNode || obj.isEdge ){
+			obj.unTransformOnClickOutside();
+			obj.label.unTransformOnClickOutside();
 		}
 
-		if ( obj.referent.isNodeLabel ){
-			obj.referent.node.unTransformOnClickOutside();
-			obj.referent.unTransformOnClickOutside();
+		if ( obj.isNodeLabel ){
+			obj.node.unTransformOnClickOutside();
+			obj.unTransformOnClickOutside();
 		}
 		
-		if ( obj.referent.isEdgeLabel ){
-			obj.referent.edge.unTransformOnClickOutside();
-			obj.referent.unTransformOnClickOutside();
+		if ( obj.isEdgeLabel ){
+			obj.edge.unTransformOnClickOutside();
+			obj.unTransformOnClickOutside();
 		}		
 	}	
 }
 
 function transformGraphElementOnWheel( obj ){
-	if ( obj.isGraphElement ) { obj.referent.transformOnWheel(); }	
+	if ( obj.displayEntity.isGraphElement ) { obj.transformOnWheel(); }	
 }
 
 function listenFor(){
