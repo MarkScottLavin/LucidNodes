@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.9.6
+	* Version 0.1.9.7
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -403,7 +403,7 @@ var LUCIDNODES = {
 			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );						
 		};
 		
-		this.untransformOnClickOutside = function(){
+		this.unTransformOnClickOutside = function(){
 			this.displayEntity.material.color.set( this.colorAsHex() );
 			this.displayEntity.scale.set( 1, 1, 1 );			
 		};
@@ -702,16 +702,20 @@ var LUCIDNODES = {
 			
 		};
 		
-		this.transformOnClick = function(){};
+		this.transformOnClick = function(){
+			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnSelect );			
+		};
 		
-		this.unTransformOnClickOutside = function(){};
+		this.unTransformOnClickOutside = function(){
+			this.displayEntity.material.color.set( this.colorAsHex() );						
+		};
 		
 		this.transformOnDblClick = function(){
-			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnSelect );
+
 		};
 		
 		this.unTransformOnDblClickOutside = function(){
-			this.displayEntity.material.color.set( this.colorAsHex() );			
+
 		};
 		
 		this.transformOnWheel = function(){
@@ -803,19 +807,19 @@ var LUCIDNODES = {
 		};
 		
 		this.transformOnClick = function(){
-			
+			this.displayEntity.material.color.set( globalAppSettings.edgeColorOnSelect );			
 		};
 		
 		this.unTransformOnClickOutside = function(){
-			
+			this.displayEntity.material.color.set( this.colorAsHex() );				
 		};
 
 		this.transformOnDblClick = function(){
-			this.displayEntity.material.color.set( globalAppSettings.edgeColorOnSelect );
+
 		};
 		
 		this.unTransformOnDblClickOutside = function(){
-			this.displayEntity.material.color.set( this.colorAsHex() );			
+
 		};
 		
 		this.transformOnWheel = function(){
