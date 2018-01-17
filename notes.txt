@@ -7,16 +7,6 @@ UI considerations - VR vs Desktop primacy
 
 Peace between explicit (user-added) Edges and systemically generated edges ( CompleteGraphBetween )
 
-
-Log
-
-Refactored 
-
-- Changed "edgesFromNodeToAllNodes()" to "connectNodeToNodeArray()". The refactored function now takes an array of nodes as its third param. This makes the function potentially
-  far more useful in being able to generate complete graphs within an array of nodes as before, but also to handle situations such as connecting master nodes to set of subnodes, 
-  as in a mindmap or other branching or structure. 
-  
-- Added _Math.possibleEdges() function to support LucidNodes in calculating whether a graph is complete.
   
   
 What's hard to change? How to make it easy to change?
@@ -52,42 +42,4 @@ What's hard to change? How to make it easy to change?
 				- LUCIDNODES.showGraphCenterPoints( graph );
 				- getNodeEdges({ graph: graph, node: graph.nodes[i] });
 				- getNodesAdjacentToNode( graph.nodes[i] );
-		  
-isComplete = function( nodeArray ){
-
-	var possEdges = _Math.possibleEdges( nodeArray.length );
-
-};
-
-countEdgesInGraph = function( nodeArray ){
-
-	var edgeCount = 0;
-
-	for ( n = 0, n < nodeArray.length, n++ ){ // For every node in the node array
-		
-		for ( e = 0, e < nodeArray[n].edges.length, e++ ){  // Retrieve and iterate through all the edges associated with that node.
-		
-			// and determine if that edge's id also includes the id of any of the other nodes.
-			// If it does, add it to the count;
-		
-		
-		
-		}
-	
-	}
-};
-
-
-Deep bug in SELECTED:
-
-Multiselect: 
-	- CTRL-Click (First Time): 3 Nodes successfully selected (transformed) and added to SELECTED ARRAY.
-	- Click outside after Multiselection above: All nodes unselected (undransformed) and removed from SELECTED ARRAY
-	- Click of node (after purge): Correct node selected (transformed) and added to SELECTED array.
-	- Click outside node after single select: Node unselected (untransformed) and removed from SELECTED array.
-	- CTRL-Click (after purge): 3 Nodes successfully selected (transformed) and added to SELECTED array.
-	- CTRL-Click selected nodes, no change to SELECTED array. (That's good).
-	- Click FIRST selected node after multi-select of 3 Nodes: FIRST Selected node is in the array twice. Third node remains selected (transformed), in array. Second is unseleected and removed from array.
-	- Click outside afterward, all nodes unselected and removed from array.
-	- Click THIRD selected Node, THIRD remains selected, is duplicated, SECOND remains selected, first is unselected
 	

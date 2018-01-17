@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.9.8
+	* Version 0.1.9.9
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -27,7 +27,14 @@ var initUI = function(){
 	document.getElementById('saveBtn').addEventListener( 'click' , function() { saveFile( "./userfiles", SELECTEDFILE.name , graphsInScene ) } );
 	document.getElementById('createCompleteGraph').addEventListener( 'click', function() { if ( SELECTED ) { completeGraph( graphsInScene.graphs[0], SELECTED ) } } );
 	document.getElementById('showCenterPoints').addEventListener( 'click', function() { if ( SELECTED ) { LUCIDNODES.showGraphCenterPoints( graphsInScene.graphs[0] )}; } );
-	
+	document.getElementById('colorPicker').addEventListener('change', function () {
+																					var s = filterArrayForNodes( SELECTED );
+																					var c = colorUtils.splitHexIntoDecChannels ( document.getElementById('colorPicker').value );
+																					mapAcrossGraphElementArray( changeGraphElementColor, s, c );
+																					
+																					console.log( 'color changed!' );
+																				} );
+																					
 };
 
 /* graphFromJson( json )

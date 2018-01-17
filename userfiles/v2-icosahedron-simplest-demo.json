@@ -1,0 +1,1084 @@
+{
+  "graphs": [
+    {
+      "id": "v2icosahedron",
+      "nodes": [
+        {
+          "id": "n000",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 255
+          },
+          "position": {
+            "x": 5,
+            "y": 3.09017,
+            "z": 8.09017
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n001",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 3.09017,
+            "y": 8.09017,
+            "z": 5
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n002",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 0,
+            "y": 5.25731,
+            "z": 8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n003",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 255
+          },
+          "position": {
+            "x": 8.09017,
+            "y": 5,
+            "z": 3.09017
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n004",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 255
+          },
+          "position": {
+            "x": 8.50651,
+            "y": 0,
+            "z": 5.25731
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n005",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 5.25731,
+            "y": 8.50651,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n006",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": -3.09017,
+            "y": 8.09017,
+            "z": 5
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n007",
+          "color": {
+            "r": 0,
+            "g": 128,
+            "b": 0
+          },
+          "position": {
+            "x": 0,
+            "y": 10,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 0,
+              "g": 128,
+              "b": 0
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n008",
+          "color": {
+            "r": 255,
+            "g": 128,
+            "b": 64
+          },
+          "position": {
+            "x": -5.25731,
+            "y": 8.50651,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 0,
+              "g": 128,
+              "b": 0
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n009",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": -3.09017,
+            "y": 8.09017,
+            "z": 5
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00a",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": -5,
+            "y": 3.09017,
+            "z": 8.09017
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00b",
+          "color": {
+            "r": 255,
+            "g": 128,
+            "b": 64
+          },
+          "position": {
+            "x": -8.09017,
+            "y": 5,
+            "z": 3.09017
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00c",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": -8.50651,
+            "y": 0,
+            "z": 5.25731
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00d",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 10
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00e",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": -5,
+            "y": -3.09017,
+            "z": 8.09017
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00f",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 0,
+            "y": -5.25731,
+            "z": 8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00g",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 5,
+            "y": -3.09017,
+            "z": 8.09017
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00h",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 10,
+            "y": 0,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00i",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 255
+          },
+          "position": {
+            "x": 8.09017,
+            "y": 5,
+            "z": -3.09017
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 0,
+              "g": 128,
+              "b": 0
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00j",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 8.50651,
+            "y": 0,
+            "z": -5.25731
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00k",
+          "color": {
+            "r": 255,
+            "g": 128,
+            "b": 64
+          },
+          "position": {
+            "x": 3.09017,
+            "y": 8.09017,
+            "z": -5
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 0,
+              "g": 128,
+              "b": 0
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00l",
+          "color": {
+            "r": 255,
+            "g": 128,
+            "b": 64
+          },
+          "position": {
+            "x": 0,
+            "y": 5.25731,
+            "z": -8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 0,
+              "g": 128,
+              "b": 0
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00m",
+          "color": {
+            "r": 255,
+            "g": 128,
+            "b": 64
+          },
+          "position": {
+            "x": -3.09017,
+            "y": 8.09017,
+            "z": -5
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 0,
+              "g": 128,
+              "b": 0
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00n",
+          "color": {
+            "r": 255,
+            "g": 128,
+            "b": 64
+          },
+          "position": {
+            "x": -8.09017,
+            "y": 5,
+            "z": -3.09017
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00o",
+          "color": {
+            "r": 255,
+            "g": 128,
+            "b": 64
+          },
+          "position": {
+            "x": -8.50651,
+            "y": 0,
+            "z": -5.25731
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00p",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": -10,
+            "y": 0,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00q",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": -8.09017,
+            "y": -5,
+            "z": 3.09017
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00r",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": -3.09017,
+            "y": -8.09017,
+            "z": 5
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00s",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": -5.25731,
+            "y": -8.50651,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00t",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 3.09017,
+            "y": -8.09017,
+            "z": 5
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00u",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 5.25731,
+            "y": -8.50651,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00v",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 8.09017,
+            "y": -5,
+            "z": 3.09017
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00w",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 8.09017,
+            "y": -5,
+            "z": -3.09017
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00x",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 5,
+            "y": 3.09017,
+            "z": -8.09017
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00y",
+          "color": {
+            "r": 255,
+            "g": 128,
+            "b": 64
+          },
+          "position": {
+            "x": -5,
+            "y": 3.09017,
+            "z": -8.09017
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 0,
+              "g": 128,
+              "b": 0
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n00z",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": -8.09017,
+            "y": -5,
+            "z": -3.09017
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n010",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 0,
+            "y": -10,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n011",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 5,
+            "y": -3.09017,
+            "z": -8.09017
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n012",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 3.09017,
+            "y": -8.09017,
+            "z": -5
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n013",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 0,
+            "y": -5.25731,
+            "z": -8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n014",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": -10
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n015",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": -5,
+            "y": -3.09017,
+            "z": -8.09017
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n016",
+          "color": {
+            "r": 128,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": -3.09017,
+            "y": -8.09017,
+            "z": -5
+          },
+          "opacity": 0.75,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 128,
+              "b": 128
+            },
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ]
+    }
+  ]
+}

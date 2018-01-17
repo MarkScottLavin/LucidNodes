@@ -1,7 +1,8 @@
 var ray = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
 var INTERSECTED;  // Object closest to the camera
-var SELECTED = [];	  // Object selected via dblclick
+var SELECTED = [];	  // Objects selected via click (single) and//or CTRL-click (multiple)
+var ALTSELECTED = [];  // Objects selected via ALT-Click ( Temporary solution for explicitly adding edges )
 
 function onMouse( event ) {
 
@@ -227,7 +228,50 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 					}					
 				}
 			}
-		}
+			
+			if ( event.altKey && !event.ctrlKey ){ 
+			
+				if ( INTERSECTED && INTERSECTED.isGraphElement ){
+
+					if ( INTERSECTED.referent.isNode ){ 
+
+						if ( ( ALTSELECTED.length <= 1 ) && ( !ALTSELECTED.includes ( INTERSECTED.referent ) ) ){
+							
+							ALTSELECTED.push( INTERSECTED.referent ); 
+							console.log( ALTSELECTED );
+						}
+						
+						if ( ALTSELECTED.length === 2 ){
+							
+							addEdge( graphsInScene.graphs[0], ALTSELECTED[0], ALTSELECTED[1] );
+							ALTSELECTED = [];
+						}
+											
+
+						// NOTE: Escape conditions necessary ( ie if click-event without ALT, ALTSELECTED = [] )
+
+					}
+
+					if ( INTERSECTED.referent.isNodeLabel ){ 
+					
+						if ( ( ALTSELECTED.length <= 1 ) && ( !ALTSELECTED.includes ( INTERSECTED.referent.node ) ) ){
+								
+								ALTSELECTED.push( INTERSECTED.referent.node ); 
+								console.log( ALTSELECTED );
+							}
+							
+							if ( ALTSELECTED.length === 2 ){
+								
+								addEdge( graphsInScene.graphs[0], ALTSELECTED[0], ALTSELECTED[1] );
+								ALTSELECTED = [];
+							}		
+				
+						}						
+					}
+			}
+			
+			else if ( !event.altKey ){ /* alert( "Alt Key wasn't pressed!" ) */ }
+		}			
 		
 		
 		// Check if the mouse event is a wheel event (This is temporary, just to see if we can save a file with the change. We're also going to make it so that the change happens at the level of the graphElement itself, and not just the displayObject )

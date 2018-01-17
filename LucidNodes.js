@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.9.8
+	* Version 0.1.9.9
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -858,33 +858,6 @@ var LUCIDNODES = {
 	},	
 };
 
-	/**
-	 * mapAcrossGraph();
-	 * 
-	 * @author Mark Scott Lavin
-	 *
-	 * Use this function to do something across all graph elements of a particular type in a graph, as in all Nodes, Edges, NodeLabels or EdgeLabels 
-	 *
-	 * parameters = {
-	 *  graph: <Graph>,
-	 *  elementType: <string> Either "nodes" || "edges"
-	 *  fn: <function> the function to apply to the elements of type in the graph;
-	 * }
-	 */
-
-function mapAcrossGraph( parameters ) {
-	
-	var graph = parameters.graph;
-	var fn = parameters.fn;
-	var elementType = parameters.elementType
-	
-	for ( key in graph[elementType] ) {
-		if ( graph[elementType].hasOwnProperty( key ) ){
-			fn( graph[elementType][key] );  // do something to each element of this type in the graph.
-		}
-	}
-};
-
 function nodesFromJson( graph, pointArray ){
 	
 	for ( n = 0; n < pointArray.length; n++ ) {	
@@ -950,6 +923,45 @@ function connectNodeToArrayOfNodes( graph, sourceNode, targetNodes ){
 		}	
 	}
 };
+
+	/* addEdge();
+	 *
+	 * Creates an edge between two nodes, after checking if the edge already exists, and if the source and target nodes are identical.
+	 *
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters = {
+	 *	graph: <Graph> // Soon to be deprecated
+	 *  sourceNode: <Node>	first node
+	 *  targetNode: <Node>  second node
+	 *  edgeParams: <obj>   object describing Edge parameters. 
+	 * }
+	*/	
+
+function addEdge( graph, sourceNode, targetNode, edgeParams ){
+	
+	var nIdentical = nodesIdentical( sourceNode, targetNode );
+	var eExists = edgeExistsInGraph( { graph: graph, node1: sourceNode, node2: targetNode } );
+
+	if ( !nIdentical && !eExists ){
+		
+		graph.edges.push( new LUCIDNODES.Edge({
+												graph: graph,
+												sourceNode: sourceNode,
+												targetNode: targetNode,
+												opacity: globalAppSettings.defaultEdgeOpacity,
+												color: { r: 128, g: 128, b:128 },
+												id: edgeAssignId( sourceNode, targetNode )
+											}));
+	}	
+} 
+
+function onAddEdgeKey(){
+	
+	// Should be a duplicate 
+	
+	
+}
 
 
 	/* edgeAssignId();
@@ -1243,6 +1255,8 @@ function completeGraph( graph, nodeArray ) {
 	}
 };
 
+/* FILTER FUNCTIONS */
+
 function filterArrayForNodes( arr ){
 	
 	var nodeArray = arr.filter( includes => includes.isNode );
@@ -1268,6 +1282,45 @@ function filterArrayForEdgeLabels( arr ){
 	
 }
 
+function filterArrayForGraphElementsWithProp( arr, prop ){
+
+	var haveProp = arr.filter( includes => includes[prop] );	
+	return haveProp;
+	
+};
+
+/* So far working for single values, but not for objects passed as values, for ex. "color: r, g, b " */
+
+function filterArrayForNodesWithPropVal( arr, prop, val ){
+	
+	var nodeArray = filterArrayForNodes( arr );
+	var nodesWithProp = filterArrayForGraphElementsWithProp( nodeArray, prop );
+	var nodesWithVal = nodesWithProp.filter ( ( includes ) => ( includes[prop] === val ) );
+	return nodesWithVal;
+};
+
+/* END FILTER FUNCTIONS */
+
+	/**
+	 * mapAcrossGraph();
+	 * 
+	 * @author Mark Scott Lavin
+	 *
+	 * Use this function to do something across all graph elements of a particular type in a graph, as in all Nodes, Edges, NodeLabels or EdgeLabels 
+	 *
+	 * parameters = 
+	 *  arr: <array> Array of Nodes or Edges
+	 *  graphElementType: <string> Either "node" || "edge"
+	 *  fn: <function> the function to apply to the elements of type in the graph;
+	 * 
+	 */
+
+function mapAcrossGraphElementArray( fn, arr, param ) {
+	
+	for ( var a = 0; a < arr.length; a++ ){
+		fn( arr[a], param ); 	
+	}
+};
 
 var changeGraphElementColor = function( graphElement, color ){
 	
