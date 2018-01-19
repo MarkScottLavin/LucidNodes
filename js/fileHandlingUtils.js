@@ -35,7 +35,7 @@ var loadFile = function( parameters ){
 			var response = this.responseText;
 			console.log( response );
 			var loadedFile = fileTypeHandle( response, ext );
-			graphFromJson( loadedFile ); 
+			cognitionFromJson( loadedFile ); 
 		}
 		else {
 			response = 'No file found at ' + fullpath + '!';
@@ -79,7 +79,7 @@ var loadFile3 = function( parameters ){
 			var response = this.responseText;
 			console.log( response );
 			var loadedFile = fileTypeHandle( response, ext );
-			graphFromJson( loadedFile ); 
+			cognitionFromJson( loadedFile ); 
 		}
 		else {
 			response = 'No file found at ' + fullpath + '!';

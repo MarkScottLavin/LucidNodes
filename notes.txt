@@ -8,7 +8,6 @@ UI considerations - VR vs Desktop primacy
 Peace between explicit (user-added) Edges and systemically generated edges ( CompleteGraphBetween )
 
   
-  
 What's hard to change? How to make it easy to change?
   - Explicit vs Programmatic Graph genesis (Edges, Nodes, Graphs)
 	  - Develop a method for handling the fork between these. Fully understand the difference that would be required in 
@@ -43,3 +42,24 @@ What's hard to change? How to make it easy to change?
 				- getNodeEdges({ graph: graph, node: graph.nodes[i] });
 				- getNodesAdjacentToNode( graph.nodes[i] );
 	
+	
+Version 0.1.10
+
+Refactor so that we don't need "graph" references in functions. We'll replace the top-down graph structures with "groups" that can be mindmap, graph, or other diagram structures.
+	- Changing Functions
+		- Started by 
+			- making "graph" a "group" type.
+			- renaming functions that could apply to any group to Group where previously Graphs
+			- left functions that would apply to graphs, ie 'Complete Graph' named as Graph... applicable to that type of group.
+				- still to do, renaming/refactoring where "graph" is still taken as a function param inappropriately. 
+		- Generalized showGraphCenterPoints() to showNodeArrayCenterPoints() - now this function can show centerpoint for any node array. Groups can be passed....
+	- Changing JSON structures
+		- Started by renaming "graphs" to "groups"
+	
+	
+Node.inGroups = [];
+Edge.inGroups = [];
+
+Group.type = mindmap || graph || ??
+Group.edges = [];
+Group.nodes = []; 

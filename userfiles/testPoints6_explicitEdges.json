@@ -1,7 +1,7 @@
 {
-  "graphs": [
+  "groups": [
     {
-      "id": "graph1",
+      "name": "graph1",
       "nodes": [
         {
           "id": "n000",

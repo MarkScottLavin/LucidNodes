@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.9.9
+	* Version 0.1.10
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -12,8 +12,8 @@
 	* etc.
 ****************************************************/
 
-// Create a global graphs object to hold the graphs that are in the scene.
-var graphsInScene = {};
+// Create a global groups object to hold the groups that are in the scene.
+var cognition = {};
 
 window.onload = function(){
 	
@@ -24,9 +24,9 @@ window.onload = function(){
 var initUI = function(){
 
 	document.getElementById('fileInput').addEventListener( 'change', loadFileFromInput, false );
-	document.getElementById('saveBtn').addEventListener( 'click' , function() { saveFile( "./userfiles", SELECTEDFILE.name , graphsInScene ) } );
-	document.getElementById('createCompleteGraph').addEventListener( 'click', function() { if ( SELECTED ) { completeGraph( graphsInScene.graphs[0], SELECTED ) } } );
-	document.getElementById('showCenterPoints').addEventListener( 'click', function() { if ( SELECTED ) { LUCIDNODES.showGraphCenterPoints( graphsInScene.graphs[0] )}; } );
+	document.getElementById('saveBtn').addEventListener( 'click' , function() { saveFile( "./userfiles", SELECTEDFILE.name , cognition ) } );
+	document.getElementById('createCompleteGraph').addEventListener( 'click', function() { if ( SELECTED ) { completeGraph( cognition.groups[0], SELECTED ) } } );
+	document.getElementById('showCenterPoints').addEventListener( 'click', function() { LUCIDNODES.showAllGroupCenterPoints() } );
 	document.getElementById('colorPicker').addEventListener('change', function () {
 																					var s = filterArrayForNodes( SELECTED );
 																					var c = colorUtils.splitHexIntoDecChannels ( document.getElementById('colorPicker').value );
@@ -37,34 +37,34 @@ var initUI = function(){
 																					
 };
 
-/* graphFromJson( json )
+/* cognitionFromJson( json )
  *
  * author: markscottlavin 
  *
  * parameters:
- * 		json <JSON OBJECT> - structured to be parsible by LucidNodes. Must include Graphs and Nodes
+ * 		json <JSON OBJECT> - structured to be parsible by LucidNodes. Must include Groups and Nodes
  *
- * assigns each graph object in the JSON to an element of the graphsInScene object.
- * then for each graph called in, calls the renderGraph function 
+ * assigns each graph object in the JSON to an element of the cognition object.
+ * then for each graph called in, calls the renderGroup function 
  *
 */
 
-var graphFromJson = function( json ){
+var cognitionFromJson = function( json ){
 	
-	var loadedGraphs = json.graphs;
-	graphsInScene.graphs = [];
+	var loadedGroups = json.groups;
+	cognition.groups = [];
 	 
-	if ( loadedGraphs ){ 
+	if ( loadedGroups ){ 
 	
-		for ( g = 0; g < loadedGraphs.length; g++ ){
-			graphsInScene.graphs[g] = new LUCIDNODES.Graph( loadedGraphs[g].id );
-			renderGraph( graphsInScene.graphs[g], loadedGraphs[g].nodes );
+		for ( g = 0; g < loadedGroups.length; g++ ){
+			cognition.groups[g] = new LUCIDNODES.Group( loadedGroups[g].id );
+			renderGroup( cognition.groups[g], loadedGroups[g].nodes );
 		}
 	}
 
 };
 
-var renderGraph = function( graph , graphData ){
+var renderGroup = function( graph , graphData ){
 	 
 	nodesFromJson( graph, graphData );
 
@@ -79,4 +79,4 @@ var renderGraph = function( graph , graphData ){
 	
 };
 
-//LUCIDNODES.nodePositionComparison( graphsInScene.graph1.nodes.n00, graphsInScene.graph1.nodes.n01 );
+//LUCIDNODES.nodePositionComparison( cognition.graph1.nodes.n00, cognition.graph1.nodes.n01 );

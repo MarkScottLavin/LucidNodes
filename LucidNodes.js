@@ -73,7 +73,7 @@ var _Math = {
 		return avgPos;
 	},	
 	
-	distanceFromGraphCenter: function(){
+	distanceFromGroupCenter: function(){
 		
 	},
 	
@@ -101,7 +101,7 @@ var _Math = {
 
 }
 
-_drawGraph = {
+_drawGroup = {
 
 	nodeDraw: function (){},	
 	edgeDraw: function ( Edge /* properties of the edge */, node1, node2 ){
@@ -126,12 +126,22 @@ _drawGraph = {
 
 // We'll auto-generate Node Id's as Base 36 integers. 
 
-var nodeIdCounter = 0;
+var nodeCounter = 0;
+var groupCounter = 0;
 
-var nodeIdEncode = function(){
+var idEncode = function( type, counter ){
 	
-	var b36string = nodeIdCounter.toString( 36 );
-	var prefix = "n";
+	var prefix, b36string;
+	
+	if ( type === "node" ){	
+		prefix = "n"; 
+		b36string = nodeCounter.toString( 36 );
+		nodeCounter++; }
+	else if ( type === "group" ){ 
+		prefix = "g";
+		b36string = groupCounter.toString( 36 );
+		groupCounter++ }	
+	
 	var id = b36string + "";
 	var digits = 3;
 	while ( id.length < ( digits ) ){
@@ -139,8 +149,6 @@ var nodeIdEncode = function(){
 		}
 
 	id = prefix + id;
-	
-	nodeIdCounter++;
 	return id;
 };
 
@@ -166,7 +174,7 @@ var globalAppSettings = {
 	nodeScaleOnSelect: 1.5,
 	edgeColorOnMouseOver: 0x000000,
 	edgeColorOnSelect: 0x0000ff,
-	showGraphCenterPoints: true,
+	showGroupCenterPoints: true,
 	centerTechnique: "average",
 	centerPointMaterial: material = new THREE.PointsMaterial( { size: 0.25, color: 0x008800 } )
 }
@@ -174,48 +182,7 @@ var globalAppSettings = {
 // THE LUCIDNODE MASTER OBJECT
 var LUCIDNODES = {
 	
-	/* AVAILABLE METHODS */  /*
-	
-	computeNodeArrayCenter: function( , technique = "absolute" ){
-		
-		var center = {
-		};
-		var sum = {
-			x: 0,
-			y: 0,
-			z: 0
-		};
-		
-		// average (average of all values alonng each axis) 
-		if ( technique === "average" ) { 
-			// take the positionns of all objects in the graph and compute from their centerpoints the center of the graph.	
-			for ( key in graph.nodes ) {
-				if (graph.nodes.hasOwnProperty(key)){	
-					sum.x = ( sum.x + graph.nodes[key].position.x );
-					sum.y = ( sum.y + graph.nodes[key].position.y );
-					sum.z = ( sum.z + graph.nodes[key].position.z );
-				}
-			}
-			
-			center.x = ( sum.x / Object.keys( graph.nodes ).length );
-			center.y = ( sum.y / Object.keys( graph.nodes ).length );
-			center.z = ( sum.z / Object.keys( graph.nodes ).length );
-			
-			console.log( "computeGraphCenter( ", graph.id , ", ", technique , " ) ", center );
-			return center;
-		};
-		
-		// Extents (average the furthest apart in each direction) 
-		if ( technique === "extents" ) {
-			
-			
-		}
-		
-			
-	}, */
-	
-	
-	computeNodeArrayCenter: function( nodeArray /* nodeArray, subgraph or series of graphs */ , technique = "absolute" ){
+	computeNodeArrayCenter: function( nodeArray /* nodeArray, subgraph or series of graphs */ , technique = "average" ){
 		
 		var center = {
 		};
@@ -255,7 +222,7 @@ var LUCIDNODES = {
 	
 	computeSubgraph: function( node ){
 			/* 	Get all the nodes and edges in the graph submitted as argument, 
-				map/generate all subgraphs of the graph (dot-notation: id.subGraph[key1], id.subGraph[key2]... );
+				map/generate all subgraphs of the graph (dot-notation: id.subGroup[key1], id.subGroup[key2]... );
 				include an 'edges' property that notes all edges between nodes ( 
 					edge: true/false, 
 					if (edge) {
@@ -268,20 +235,33 @@ var LUCIDNODES = {
 				return the object of subgraphs
 				*/
 	},
-	showGraphCenterPoints: function( graph, material = globalAppSettings.centerPointMaterial ){
+	showNodeArrayCenterPoint: function( nodeArray, material = globalAppSettings.centerPointMaterial ){
 		
-		if ( globalAppSettings.showGraphCenterPoints ) {
+		if ( globalAppSettings.showGroupCenterPoints ) {
 			
-			var center = graph.center();
+			nodeArray.center = LUCIDNODES.computeNodeArrayCenter( nodeArray );
 			
-			graph.center.point = new THREE.Geometry();
-			graph.center.point.vertices.push( new THREE.Vector3( center.x, center.y, center.z ) );
-			graph.center.displayEntity = new THREE.Points( graph.center.point , material );
-			scene.add( graph.center.displayEntity );
+			nodeArray.center.point = new THREE.Geometry();
+			nodeArray.center.point.vertices.push( new THREE.Vector3( nodeArray.center.x, nodeArray.center.y, nodeArray.center.z ) );
+			nodeArray.center.displayEntity = new THREE.Points( nodeArray.center.point , material );
+			scene.add( nodeArray.center.displayEntity );
 		}
 		
 		else { return; }
 		
+	},
+	
+	showAllGroupCenterPoints( type ){
+		
+		//Later we'll enable this function to restrict groups by type.
+		
+		if ( cognition.groups && cognition.groups.length > 0 ){
+			for ( var g = 0; g < cognition.groups.length; g++ ){
+				
+				LUCIDNODES.showNodeArrayCenterPoint( cognition.groups[g].nodes );
+				
+			}
+		}
 	},
 	
 	nodePositionComparison: function( node1, node2 ){
@@ -327,7 +307,7 @@ var LUCIDNODES = {
 		
 		/* Identification */ 
 		
-		this.id = parameters.id || nodeIdEncode();  // If the Node already has an ID on load, use that
+		this.id = parameters.id || idEncode( "node", nodeCounter );  // If the Node already has an ID on load, use that
 		this.name = parameters.name; 
 		
 		/* Position */
@@ -435,7 +415,7 @@ var LUCIDNODES = {
 		this.heirarchy = {
 			priority: 		{ /* integer */ }, /* determines what the priority level of this node is in the system */
 			level: 			{ /* integer */ }, /* determines what the heirarchical level of the node is. */
-			sequenceVal:   	{ /* integar */ }, /* determines what the sequential value of the node is relative to other nodes in the graph */ 
+			sequenceVal:   	{ /* integar */ }, /* determines what the sequential value of the node is relative to other nodes in the group */ 
 		};
 		
 		/* Meaning Structure */
@@ -831,12 +811,12 @@ var LUCIDNODES = {
 		
 	// SUBGRAPHS
 	
-	SubGraph: {},
+	SubGroup: {},
 	
-	// WHOLE GRAPH
+	// WHOLE GROUP
 	
 	/* 
-	 * Graph();
+	 * Group();
 	 * Parameters = {
 	 *  type: <string>,	 
 	 *	name: <string>,
@@ -844,17 +824,22 @@ var LUCIDNODES = {
 	 * }
 	 */ 
 	 
-	Graph: function( id, meaningSystem = globalAppSettings.defaultMeaningSystem, centerTechnique = globalAppSettings.centerTechnique ){
+	Group: function( name, type, meaningSystem = globalAppSettings.defaultMeaningSystem, centerTechnique = globalAppSettings.centerTechnique ){
 		
+		this.id = idEncode( "group", groupCounter );
+		this.name = name;
+		this.type = [];
 		this.nodes = [];
 		this.edges = [];
-		this.id = id;
 		this.centerTechnique = centerTechnique;
 		this.center = function( centerTechnique = this.centerTechnique ) { return LUCIDNODES.computeNodeArrayCenter( this.nodes, centerTechnique ) };
 		this.meaningSystem = meaningSystem; /* {
 			What do the nodes mean? 
 			What relationship do edges refer to? 
 		}; */
+		
+		if ( this.type.includes( "graph" ) ){    }
+		if ( this.type.includes( "mindmap") ){    } 
 	},	
 };
 
@@ -888,10 +873,10 @@ function nodesFromJson( graph, pointArray ){
 	 * 
 	 * @author Mark Scott Lavin
 	 *
-	 * Use this function generate edges from one Node to all other Nodes in a Graph 
+	 * Use this function generate edges from one Node to all other Nodes in a Group 
 	 *
 	 * parameters = {
-	 *  graph: <Graph>,
+	 *  graph: <Group>,
 	 *  sourceNode: <Node>
 	 *  targetNodes: <Array> Array of Nodes
 	 * }
@@ -907,12 +892,11 @@ function connectNodeToArrayOfNodes( graph, sourceNode, targetNodes ){
 			var id;
 			
 			var nIdentical = !nodesIdentical( sourceNode, targetNodes[i] );
-			var eExists = edgeExistsInGraph( { graph: graph, node1: sourceNode, node2: targetNodes[i] } );
+			var eExists = edgeExistsInGroup( { graph: graph, node1: sourceNode, node2: targetNodes[i] } );
 
 			if ( nIdentical && !eExists ){
 				
 				graph.edges.push( new LUCIDNODES.Edge({
-														graph: graph,
 														sourceNode: sourceNode,
 														targetNode: targetNodes[i],
 														opacity: 0.5,
@@ -931,7 +915,7 @@ function connectNodeToArrayOfNodes( graph, sourceNode, targetNodes ){
 	 * @author Mark Scott Lavin /
 	 *
 	 * parameters = {
-	 *	graph: <Graph> // Soon to be deprecated
+	 *	graph: <Group> // Soon to be deprecated
 	 *  sourceNode: <Node>	first node
 	 *  targetNode: <Node>  second node
 	 *  edgeParams: <obj>   object describing Edge parameters. 
@@ -941,12 +925,11 @@ function connectNodeToArrayOfNodes( graph, sourceNode, targetNodes ){
 function addEdge( graph, sourceNode, targetNode, edgeParams ){
 	
 	var nIdentical = nodesIdentical( sourceNode, targetNode );
-	var eExists = edgeExistsInGraph( { graph: graph, node1: sourceNode, node2: targetNode } );
+	var eExists = edgeExistsInGroup( { graph: graph, node1: sourceNode, node2: targetNode } );
 
 	if ( !nIdentical && !eExists ){
 		
 		graph.edges.push( new LUCIDNODES.Edge({
-												graph: graph,
 												sourceNode: sourceNode,
 												targetNode: targetNode,
 												opacity: globalAppSettings.defaultEdgeOpacity,
@@ -1016,20 +999,20 @@ function edgesIdentical( edge1, edge2 ){
 	return edge1.id === edge2.id;
 };
 
-	/* edgeExistsInGraph();
+	/* edgeExistsInGroup();
 	 *
 	 * Uses the ids of nodes to determine if a particular edge exists.
 	 *
 	 * @author Mark Scott Lavin /
 	 *
 	 * parameters = {
-	 *  graph: <Graph>	 the Graph to check inside of for the edge;
+	 *  graph: <Group>	 the Group to check inside of for the edge;
 	 *  node1: <Node>	 the first node
 	 *  node2: <Node>    the second node
 	 * }
 	*/	
 
-function edgeExistsInGraph( parameters ){
+function edgeExistsInGroup( parameters ){
 
 	var graph = parameters.graph;
 	var node1 = parameters.node1;
@@ -1058,7 +1041,7 @@ function edgeExistsInGraph( parameters ){
 	 * @author Mark Scott Lavin /
 	 *
 	 * parameters = {
-	 *  graph: <Graph>	 the Graph to check inside of;
+	 *  graph: <Group>	 the Group to check inside of;
 	 *  node: <Node>	 the Node to check for associated edges;
 	 * }
 	*/	
@@ -1302,7 +1285,7 @@ function filterArrayForNodesWithPropVal( arr, prop, val ){
 /* END FILTER FUNCTIONS */
 
 	/**
-	 * mapAcrossGraph();
+	 * mapAcrossGraphElementArray();
 	 * 
 	 * @author Mark Scott Lavin
 	 *

@@ -1,10 +1,9 @@
 {
-  "graphs": [
+  "groups": [
     {
-      "id": "graph1",
+      "name": "graph1",
       "nodes": [
         {
-          "id": "n000",
           "name": "superduper",
           "color": {
             "r": 128,
@@ -30,7 +29,6 @@
           "shape": "sphere"
         },
         {
-          "id": "n001",
           "name": "WTF",
           "color": {
             "r": 128,
@@ -56,7 +54,6 @@
           "shape": "sphere"
         },
         {
-          "id": "n002",
           "name": "Wonder",
           "color": {
             "r": 128,
@@ -82,7 +79,6 @@
           "shape": "sphere"
         },
         {
-          "id": "n003",
           "name": "Aye!",
           "color": {
             "r": 128,
@@ -108,7 +104,6 @@
           "shape": "sphere"
         },
         {
-          "id": "n004",
           "name": "Ox",
           "color": {
             "r": 128,
@@ -134,7 +129,6 @@
           "shape": "sphere"
         },
         {
-          "id": "n005",
           "name": "Nodal",
           "color": {
             "r": 128,
@@ -160,7 +154,6 @@
           "shape": "sphere"
         },
         {
-          "id": "n006",
           "name": "Memory",
           "color": {
             "r": 128,
@@ -186,7 +179,6 @@
           "shape": "sphere"
         },
         {
-          "id": "n007",
           "name": "Kindness",
           "color": {
             "r": 128,
@@ -212,7 +204,6 @@
           "shape": "sphere"
         },
         {
-          "id": "n008",
           "name": "Institutions",
           "color": {
             "r": 128,
@@ -238,7 +229,6 @@
           "shape": "sphere"
         },
         {
-          "id": "n009",
           "name": "Word",
           "color": {
             "r": 128,
@@ -266,10 +256,9 @@
       ]
     },
     {
-      "id": "graph2",
+      "name": "graph2",
       "nodes": [
         {
-          "id": "n00a",
           "color": {
             "r": 255,
             "g": 128,
@@ -294,7 +283,6 @@
           "shape": "sphere"
         },
         {
-          "id": "n00b",
           "color": {
             "r": 128,
             "g": 36,
@@ -319,7 +307,6 @@
           "shape": "sphere"
         },
         {
-          "id": "n00c",
           "color": {
             "r": 0,
             "g": 255,
@@ -344,7 +331,6 @@
           "shape": "sphere"
         },
         {
-          "id": "n00d",
           "color": {
             "r": 128,
             "g": 128,
@@ -371,10 +357,9 @@
       ]
     },
     {
-      "id": "graph3",
+      "name": "graph3",
       "nodes": [
         {
-          "id": "n00e",
           "color": {
             "r": 128,
             "g": 128,
@@ -399,7 +384,6 @@
           "shape": "sphere"
         },
         {
-          "id": "n00f",
           "color": {
             "r": 128,
             "g": 128,
@@ -424,7 +408,6 @@
           "shape": "sphere"
         },
         {
-          "id": "n00g",
           "color": {
             "r": 128,
             "g": 128,
@@ -449,7 +432,6 @@
           "shape": "sphere"
         },
         {
-          "id": "n00h",
           "color": {
             "r": 128,
             "g": 128,
