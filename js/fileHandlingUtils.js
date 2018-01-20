@@ -12,44 +12,7 @@ var SELECTEDFILE, CURRENTFILE;
 
 // FILE LOADING UTILS
 
-// File loading version 1 (Just get one fixed filename for texting)
-
-var loadFile = function( parameters ){
-	
-	var url = parameters.url;
-	var filename = parameters.filename;
-	
-	// Assemble the full file path
-	var fullpath; 
-	
-	if ( url ){ fullpath = url + '/' + filename }
-	else { fullpath = filename }
-	
-	var ext = getFileExt( filename );
-	
-	// create the httpRequest
-	var httpRequest = new XMLHttpRequest();
-	
-	httpRequest.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			var response = this.responseText;
-			console.log( response );
-			var loadedFile = fileTypeHandle( response, ext );
-			cognitionFromJson( loadedFile ); 
-		}
-		else {
-			response = 'No file found at ' + fullpath + '!';
-			console.error( response );
-		}
-	};
-	
-	// Send the request
-	httpRequest.open("GET", fullpath, true);
-	httpRequest.send();
-
-};
-
-/* loadFile3() 
+/* loadFile() 
  *
  * parameters{
  *		url 
@@ -58,7 +21,7 @@ var loadFile = function( parameters ){
  *
 */
 
-var loadFile3 = function( parameters ){
+var loadFile = function( parameters ){
 	
 	var url = parameters.url || '/userfiles';
 	var filename = parameters.filename;
@@ -93,23 +56,6 @@ var loadFile3 = function( parameters ){
 
 };
 
-var loadFile2 = function( formdata ){
-	
-	var route = '/userfiles/';
-	var xhr = new XMLHttpRequest();
-	
-	xhr.open( 'POST', route );
-	xhr.send( formdata );
-	
-	var file = formdata.file;
-	xhr = new XMLHttpRequest();
-	
-	xhr.open('POST', route );
-	xhr.setRequestHeader( 'Content-Type', file.type );
-	xhr.send( file );
-
-};
-
 // File loading version 2 ( Load any file from Input type=file )
 
 var loadFileFromInput = function( event ){
@@ -119,7 +65,7 @@ var loadFileFromInput = function( event ){
 	
 		SELECTEDFILE = event.target.files[0];
 		
-		loadFile3 ({ filename: SELECTEDFILE.name });
+		loadFile ({ filename: SELECTEDFILE.name });
 	}
 }
 
@@ -151,10 +97,18 @@ var fileTypeHandle = function( file, ext ){
 var circularRefs = [ 		/* Toplevel File Admin Paramas */
 							'fullpath',
 							'data',
+							'cognition',
+							/* GraphElement Params */
+							'nodes',
+							'edges',
+							/* Edge Params */
+							'sourceNode',
+							'targetNode',
 							/* Shared GraphElement Params */
 							'id',
 							'name',
-							'color', 
+							'color',
+							'text',
 							'r', 
 							'g', 
 							'b', 
@@ -169,10 +123,8 @@ var circularRefs = [ 		/* Toplevel File Admin Paramas */
 							'labelFontSize',
 							'castShadows',
 							'receiveShadows', 
-							/* Graph Params */
-							'graphData', 
-							'graphs', 
-							'nodes',
+							/* Group Params */ 
+							'groups', 
 						/*	'edges',    --- Causes circular ref error */
 							/* Node Params */ 
 							'radius', 
@@ -196,7 +148,7 @@ var saveFile = function( url, filename, content ){
 	httpRequest.send( jBody );	
 
 	console.log( httpRequest );
-};
+}; 
 
 var setFileExt = function( filename ){
 	
@@ -232,10 +184,5 @@ var circularRefHandler2 = function( key, value ){
         return value; // return as is
     }
 }
-
-
-
-
-
 
 // END FILE SAVING UTILS

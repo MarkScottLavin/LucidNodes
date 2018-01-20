@@ -97,6 +97,8 @@ Subgraph (Node + Edges)				Delete
 									Rotate
 									Rotate Plane
 Subgraph (Node + Edges + Nodes)
-Graph or "System"
+Graph or "System"					Delete
+									Complete
+									
 Map (Entire file)
 

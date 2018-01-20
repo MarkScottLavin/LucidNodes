@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.9.9
+	* Version 0.1.11
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -308,6 +308,7 @@ var LUCIDNODES = {
 		/* Identification */ 
 		
 		this.id = parameters.id || idEncode( "node", nodeCounter );  // If the Node already has an ID on load, use that
+		this.id.referent = this;
 		this.name = parameters.name; 
 		
 		/* Position */
@@ -468,7 +469,8 @@ var LUCIDNODES = {
 		// These values will often be set by external system variables.
 		this.sourcePosition = { x: this.nodes[0].position.x, y: this.nodes[0].position.y, z: this.nodes[0].position.z };
 		this.targetPosition = { x: this.nodes[1].position.x, y: this.nodes[1].position.y, z: this.nodes[1].position.z };
-		this.id = parameters.id || "Edge";
+		this.id = parameters.id;
+		this.id.referent = this;
 		this.color = parameters.color || globalAppSettings.defaultEdgeColor;
 		this.thickness = parameters.thickness || globalAppSettings.defaultEdgeThickness;
 		this.lineType = parameters.lineType || globalAppSettings.defaultEdgeLineType;
@@ -827,6 +829,7 @@ var LUCIDNODES = {
 	Group: function( name, type, meaningSystem = globalAppSettings.defaultMeaningSystem, centerTechnique = globalAppSettings.centerTechnique ){
 		
 		this.id = idEncode( "group", groupCounter );
+		this.id.referent = this;
 		this.name = name;
 		this.type = [];
 		this.nodes = [];
@@ -843,30 +846,131 @@ var LUCIDNODES = {
 	},	
 };
 
-function nodesFromJson( graph, pointArray ){
+function nodesFromJson( arr ){
 	
-	for ( n = 0; n < pointArray.length; n++ ) {	
-			graph.nodes[n]  = new LUCIDNODES.Node( { 	id: pointArray[n].id,
-														name: pointArray[n].name, 
+	for ( var n = 0; n < arr.length; n++ ) {	
+			cognition.nodes[n] = new LUCIDNODES.Node( { id: arr[n].id,
+														name: arr[n].name, 
 														position: {		//vWhen position is object-based
-															x: parseFloat ( pointArray[n].position.x ),
-															y: parseFloat ( pointArray[n].position.y ),
-															z: parseFloat ( pointArray[n].position.z ) 
+															x: parseFloat ( arr[n].position.x ),
+															y: parseFloat ( arr[n].position.y ),
+															z: parseFloat ( arr[n].position.z ) 
 														},  
 													/*	position: {   // When Position is array - based
-															x: parseFloat ( pointArray[n].position[0] ),
-															y: parseFloat ( pointArray[n].position[1] ),
-															z: parseFloat ( pointArray[n].position[2] )
+															x: parseFloat ( arr[n].position[0] ),
+															y: parseFloat ( arr[n].position[1] ),
+															z: parseFloat ( arr[n].position[2] )
 														}, */ 
-														radius: parseFloat( pointArray[n].radius ), 
+														radius: parseFloat( arr[n].radius ), 
 														shape: "sphere", 
-														color: pointArray[n].color,
-														opacity: parseFloat( pointArray[n].opacity ), 														
-														labelColor: pointArray[n].labelColor,
-														labelOpacity: parseFloat( pointArray[n].labelOpacity )
+														color: arr[n].color,
+														opacity: parseFloat( arr[n].opacity ), 														
+														labelColor: arr[n].labelColor,
+														labelOpacity: parseFloat( arr[n].labelOpacity )
 														} );
 	}
 };
+
+function edgesFromJson( arr ){
+	
+	for ( var e = 0; e < arr.length; e++ ){
+			cognition.edges[e] = new LUCIDNODES.Edge( { id: arr[e].id,
+														name: arr[e].name,
+														sourceNode: ( getEdgeNodesFromEdgeId( arr[e].id )[0] ),
+														targetNode: ( getEdgeNodesFromEdgeId( arr[e].id )[1] ),
+														opacity: arr[e].opacity,
+														color: arr[e].color,
+														label: { 
+															text: arr[e].label.text,
+															color: arr[e].label.color 
+															}
+														} );
+	}
+	console.log( cognition.edges );
+	
+}
+
+function getEdgeNodesFromEdgeId( edgeId ){
+	
+	var operator = '-';
+	var operatorIndex = edgeId.indexOf( operator );
+	var node1Id = edgeId.substr( 0, operatorIndex );
+	var node2Id = edgeId.substr( ( operatorIndex + 1 ) );
+	
+	var nodes = [ getNodeById( node1Id ) , getNodeById( node2Id ) ];
+	
+	return nodes;
+}
+
+	/**
+	 * getNodeById();
+	 * 
+	 * @author Mark Scott Lavin 
+	 *
+	 * parameters:
+	 *  nodeId: <String>
+	 * 
+	 */
+
+function getNodeById( nodeId ){
+	
+	var found = false;
+	var node;
+	
+	for ( var n = 0; n < cognition.nodes.length; n++ ){
+		
+		if ( nodeId === cognition.nodes[n].id ){
+			
+			found = true;
+			node = cognition.nodes[n];
+			break;
+		}
+	}
+	
+	if ( found === false ){
+		console.err( 'getNodeById( ', nodeId ,' ): Node not found.' );
+		return;
+	}
+	
+	if ( found === true ){
+		return node;
+	}
+}
+
+	/**
+	 * getEdgeById();
+	 * 
+	 * @author Mark Scott Lavin 
+	 *
+	 * parameters:
+	 *  edgeId: <String>
+	 * 
+	 */
+
+function getEdgeById( edgeId ){
+	
+	var found = false;
+	var edge;
+	
+	for ( var e = 0; e < cognition.edges.length; e++ ){
+		
+		if ( edgeId === cognition.edge[n].id ){
+			
+			found = true;
+			edge = cognition.edges[n];
+			break;
+		}
+	}
+	
+	if ( found === false ){
+		console.err( 'getEdgeById( ', edgeId ,' ): Edge not found.' );
+		return;
+	}
+	
+	if ( found === true ){
+		return edge;
+	}
+}
 
 	/**
 	 * connectNodeToArrayOfNodes();
@@ -876,14 +980,13 @@ function nodesFromJson( graph, pointArray ){
 	 * Use this function generate edges from one Node to all other Nodes in a Group 
 	 *
 	 * parameters = {
-	 *  graph: <Group>,
 	 *  sourceNode: <Node>
 	 *  targetNodes: <Array> Array of Nodes
 	 * }
 	 */
 
 
-function connectNodeToArrayOfNodes( graph, sourceNode, targetNodes ){
+function connectNodeToArrayOfNodes( sourceNode, targetNodes ){
 	
 	if ( sourceNode && targetNodes && Array.isArray ( targetNodes )){
 		
@@ -892,11 +995,11 @@ function connectNodeToArrayOfNodes( graph, sourceNode, targetNodes ){
 			var id;
 			
 			var nIdentical = !nodesIdentical( sourceNode, targetNodes[i] );
-			var eExists = edgeExistsInGroup( { graph: graph, node1: sourceNode, node2: targetNodes[i] } );
+			var eExists = edgeExistsInGroup( { node1: sourceNode, node2: targetNodes[i] } );
 
 			if ( nIdentical && !eExists ){
 				
-				graph.edges.push( new LUCIDNODES.Edge({
+				cognition.edges.push( new LUCIDNODES.Edge({
 														sourceNode: sourceNode,
 														targetNode: targetNodes[i],
 														opacity: 0.5,
@@ -922,14 +1025,14 @@ function connectNodeToArrayOfNodes( graph, sourceNode, targetNodes ){
 	 * }
 	*/	
 
-function addEdge( graph, sourceNode, targetNode, edgeParams ){
+function addEdge( sourceNode, targetNode, edgeParams ){
 	
 	var nIdentical = nodesIdentical( sourceNode, targetNode );
-	var eExists = edgeExistsInGroup( { graph: graph, node1: sourceNode, node2: targetNode } );
+	var eExists = edgeExistsInGroup( { node1: sourceNode, node2: targetNode } );
 
 	if ( !nIdentical && !eExists ){
 		
-		graph.edges.push( new LUCIDNODES.Edge({
+		cognition.edges.push( new LUCIDNODES.Edge({
 												sourceNode: sourceNode,
 												targetNode: targetNode,
 												opacity: globalAppSettings.defaultEdgeOpacity,
@@ -1001,28 +1104,31 @@ function edgesIdentical( edge1, edge2 ){
 
 	/* edgeExistsInGroup();
 	 *
-	 * Uses the ids of nodes to determine if a particular edge exists.
+	 * Uses the ids of nodes to determine if a particular edge exists, generally or within a group.
 	 *
 	 * @author Mark Scott Lavin /
 	 *
 	 * parameters = {
-	 *  graph: <Group>	 the Group to check inside of for the edge;
 	 *  node1: <Node>	 the first node
 	 *  node2: <Node>    the second node
+	 *  group: <Group>   ( optional: Group. If not provided, it gets set as the cognition object. )
 	 * }
 	*/	
 
 function edgeExistsInGroup( parameters ){
 
-	var graph = parameters.graph;
 	var node1 = parameters.node1;
 	var node2 = parameters.node2;
+	var group;
+	
+	if ( parameters.group ){ group = parameters.group }
+	else { group = cognition }
 
 	var edgeId, testString1, testString2;
 
-	for ( var i = 0; i < graph.edges.length ; i++ ){
+	for ( var i = 0; i < group.edges.length ; i++ ){
 		
-		edgeId = graph.edges[i].id
+		edgeId = group.edges[i].id
 		testString1 = edgeId.indexOf( node1.id );
 		testString2 = edgeId.indexOf( node2.id );
 
@@ -1040,27 +1146,24 @@ function edgeExistsInGroup( parameters ){
 	 *
 	 * @author Mark Scott Lavin /
 	 *
-	 * parameters = {
-	 *  graph: <Group>	 the Group to check inside of;
+	 * parameters:
 	 *  node: <Node>	 the Node to check for associated edges;
-	 * }
+	 * 
 	*/	
 
-function getNodeEdges( parameters ){
+function getNodeEdges( node ){
 	
-	var graph = parameters.graph;
-	var node = parameters.node;
 	var nodeId = node.id;
 	var edgeId;
 	var testString;
 	
-	for ( var i = 0; i < graph.edges.length; i++ ){
+	for ( var i = 0; i < cognition.edges.length; i++ ){
 		
-		edgeId = graph.edges[i].id; 
+		edgeId = cognition.edges[i].id; 
 		testString = edgeId.indexOf( nodeId );
 
 		if ( testString != -1 ){
-			node.edges.push( graph.edges[i] );
+			node.edges.push( cognition.edges[i] );
 		}
 	}
 }
@@ -1222,19 +1325,19 @@ var toggleGraphElementTransparency = function( graphElement ){
 	else { graphElement.material.transparent = false; }
 }
 
-function graphLog( graph ){
+function groupLog( group ){
 	
-	console.log( graph );
+	console.log( group );
 	
 };
 
-function completeGraph( graph, nodeArray ) {
+function completeGraph( nodeArray ) {
 	
 	var nodeArrayCleaned = filterArrayForNodes( nodeArray );
 	
 	for ( var i = 0; i < nodeArrayCleaned.length; i++ ){
-		//edgesToAllNodesFromSourceNode( graph, graph.nodes[i] );
-		connectNodeToArrayOfNodes( graph, nodeArrayCleaned[i], nodeArrayCleaned );
+
+		connectNodeToArrayOfNodes( nodeArrayCleaned[i], nodeArrayCleaned );
 	}
 };
 

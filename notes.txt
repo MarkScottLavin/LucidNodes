@@ -45,10 +45,10 @@ What's hard to change? How to make it easy to change?
 	
 Version 0.1.10
 
-Refactor so that we don't need "graph" references in functions. We'll replace the top-down graph structures with "groups" that can be mindmap, graph, or other diagram structures.
+Refactor so that we don't need "graph" references in functions. Replacing top-down "graph" structures with "groups" that can be mindmap, graph, or other diagram structures.
 	- Changing Functions
 		- Started by 
-			- making "graph" a "group" type.
+			- making "graph" a Group type.
 			- renaming functions that could apply to any group to Group where previously Graphs
 			- left functions that would apply to graphs, ie 'Complete Graph' named as Graph... applicable to that type of group.
 				- still to do, renaming/refactoring where "graph" is still taken as a function param inappropriately. 

@@ -1,9 +1,95 @@
 {
-  "groups": [
+  "nodes": [
     {
-      "name": "graph1",
+      "edges": [],
+      "id": "n000",
+      "name": "superduper",
+      "color": {
+        "r": 255,
+        "g": 128,
+        "b": 128
+      },
+      "position": {
+        "x": 0,
+        "y": 15.25731,
+        "z": 8.50651
+      },
+      "opacity": 0.5,
+      "label": {
+        "color": {
+          "r": 255,
+          "g": 128,
+          "b": 128
+        },
+        "text": "superduper",
+        "opacity": 0.2
+      },
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "edges": [],
+      "id": "n001",
+      "name": "WTF",
+      "color": {
+        "r": 128,
+        "g": 255,
+        "b": 128
+      },
+      "position": {
+        "x": -8.50651,
+        "y": 10,
+        "z": 5.25731
+      },
+      "opacity": 0.5,
+      "label": {
+        "color": {
+          "r": 128,
+          "g": 255,
+          "b": 128
+        },
+        "text": "WTF",
+        "opacity": 0.2
+      },
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "edges": [],
+      "id": "n002",
+      "name": "Wonder",
+      "color": {
+        "r": 0,
+        "g": 0,
+        "b": 255
+      },
+      "position": {
+        "x": 0,
+        "y": 5.25731,
+        "z": 8.50651
+      },
+      "opacity": 0.5,
+      "label": {
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 255
+        },
+        "text": "Wonder",
+        "opacity": 0.2
+      },
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "sphere"
+    }
+  ],
+  "edges": [
+    {
       "nodes": [
         {
+          "edges": [],
           "id": "n000",
           "name": "superduper",
           "color": {
@@ -23,6 +109,7 @@
               "g": 128,
               "b": 128
             },
+            "text": "superduper",
             "opacity": 0.2
           },
           "castShadows": true,
@@ -30,6 +117,55 @@
           "shape": "sphere"
         },
         {
+          "edges": [],
+          "id": "n002",
+          "name": "Wonder",
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 255
+          },
+          "position": {
+            "x": 0,
+            "y": 5.25731,
+            "z": 8.50651
+          },
+          "opacity": 0.5,
+          "label": {
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 255
+            },
+            "text": "Wonder",
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n000-n002",
+      "color": {
+        "r": 128,
+        "g": 128,
+        "b": 128
+      },
+      "opacity": 0.5,
+      "label": {
+        "color": {
+          "r": 128,
+          "g": 128,
+          "b": 128
+        },
+        "text": "n000-n002",
+        "opacity": 0.2
+      }
+    },
+    {
+      "nodes": [
+        {
+          "edges": [],
           "id": "n001",
           "name": "WTF",
           "color": {
@@ -49,6 +185,7 @@
               "g": 255,
               "b": 128
             },
+            "text": "WTF",
             "opacity": 0.2
           },
           "castShadows": true,
@@ -56,6 +193,7 @@
           "shape": "sphere"
         },
         {
+          "edges": [],
           "id": "n002",
           "name": "Wonder",
           "color": {
@@ -71,17 +209,111 @@
           "opacity": 0.5,
           "label": {
             "color": {
-              "r": 128,
-              "g": 128,
+              "r": 0,
+              "g": 0,
               "b": 255
             },
+            "text": "Wonder",
             "opacity": 0.2
           },
           "castShadows": true,
           "radius": 0.5,
           "shape": "sphere"
         }
-      ]
+      ],
+      "id": "n001-n002",
+      "color": {
+        "r": 128,
+        "g": 128,
+        "b": 128
+      },
+      "opacity": 0.5,
+      "label": {
+        "color": {
+          "r": 128,
+          "g": 128,
+          "b": 128
+        },
+        "text": "n001-n002",
+        "opacity": 0.2
+      }
+    },
+    {
+      "nodes": [
+        {
+          "edges": [],
+          "id": "n001",
+          "name": "WTF",
+          "color": {
+            "r": 128,
+            "g": 255,
+            "b": 128
+          },
+          "position": {
+            "x": -8.50651,
+            "y": 10,
+            "z": 5.25731
+          },
+          "opacity": 0.5,
+          "label": {
+            "color": {
+              "r": 128,
+              "g": 255,
+              "b": 128
+            },
+            "text": "WTF",
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "edges": [],
+          "id": "n000",
+          "name": "superduper",
+          "color": {
+            "r": 255,
+            "g": 128,
+            "b": 128
+          },
+          "position": {
+            "x": 0,
+            "y": 15.25731,
+            "z": 8.50651
+          },
+          "opacity": 0.5,
+          "label": {
+            "color": {
+              "r": 255,
+              "g": 128,
+              "b": 128
+            },
+            "text": "superduper",
+            "opacity": 0.2
+          },
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n001-n000",
+      "color": {
+        "r": 128,
+        "g": 128,
+        "b": 128
+      },
+      "opacity": 0.5,
+      "label": {
+        "color": {
+          "r": 128,
+          "g": 128,
+          "b": 128
+        },
+        "text": "n001-n000",
+        "opacity": 0.2
+      }
     }
-  ]
+  ],
+  "groups": []
 }

@@ -243,7 +243,7 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 						
 						if ( ALTSELECTED.length === 2 ){
 							
-							addEdge( groupsInScene.groups[0], ALTSELECTED[0], ALTSELECTED[1] );
+							addEdge( ALTSELECTED[0], ALTSELECTED[1] );
 							ALTSELECTED = [];
 						}
 											
@@ -262,7 +262,7 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 							
 							if ( ALTSELECTED.length === 2 ){
 								
-								addEdge( groupsInScene.groups[0], ALTSELECTED[0], ALTSELECTED[1] );
+								addEdge( cognition.edges, ALTSELECTED[0], ALTSELECTED[1] );
 								ALTSELECTED = [];
 							}		
 				

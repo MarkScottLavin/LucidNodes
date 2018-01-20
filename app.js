@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.10
+	* Version 0.1.11
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -13,7 +13,11 @@
 ****************************************************/
 
 // Create a global groups object to hold the groups that are in the scene.
-var cognition = {};
+var cognition = {
+	nodes: [],
+	edges: [],
+	groups: []
+};
 
 window.onload = function(){
 	
@@ -25,7 +29,7 @@ var initUI = function(){
 
 	document.getElementById('fileInput').addEventListener( 'change', loadFileFromInput, false );
 	document.getElementById('saveBtn').addEventListener( 'click' , function() { saveFile( "./userfiles", SELECTEDFILE.name , cognition ) } );
-	document.getElementById('createCompleteGraph').addEventListener( 'click', function() { if ( SELECTED ) { completeGraph( cognition.groups[0], SELECTED ) } } );
+	document.getElementById('createCompleteGraph').addEventListener( 'click', function() { if ( SELECTED ) { completeGraph( SELECTED ) } } );
 	document.getElementById('showCenterPoints').addEventListener( 'click', function() { LUCIDNODES.showAllGroupCenterPoints() } );
 	document.getElementById('colorPicker').addEventListener('change', function () {
 																					var s = filterArrayForNodes( SELECTED );
@@ -44,39 +48,31 @@ var initUI = function(){
  * parameters:
  * 		json <JSON OBJECT> - structured to be parsible by LucidNodes. Must include Groups and Nodes
  *
- * assigns each graph object in the JSON to an element of the cognition object.
- * then for each graph called in, calls the renderGroup function 
+ * assigns each graphElement in the JSON to an element of the cognition object.
  *
 */
 
 var cognitionFromJson = function( json ){
 	
-	var loadedGroups = json.groups;
-	cognition.groups = [];
-	 
-	if ( loadedGroups ){ 
+	var loadedCognition = json;
 	
-		for ( g = 0; g < loadedGroups.length; g++ ){
-			cognition.groups[g] = new LUCIDNODES.Group( loadedGroups[g].id );
-			renderGroup( cognition.groups[g], loadedGroups[g].nodes );
+	if ( loadedCognition ){
+	
+		if ( loadedCognition.nodes ){
+			nodesFromJson( loadedCognition.nodes );
 		}
+
+		if ( loadedCognition.edges ){
+			edgesFromJson( loadedCognition.edges );
+		}
+		
+		if ( loadedCognition.groups ){
+			for ( var g = 0; g < loadedCognition.groups.length; g++ ){
+				// Load all the group info
+			}
+		}
+		
 	}
-
-};
-
-var renderGroup = function( graph , graphData ){
-	 
-	nodesFromJson( graph, graphData );
-
-	graphLog( graph );
-	
-/*	for ( var i = 0; i < graph.nodes.length; i++ ){
-		getNodeEdges({ graph: graph, node: graph.nodes[i] });
-		getNodesAdjacentToNode( graph.nodes[i] );
-	}
-	
-	graphLog( graph ); */
-	
-};
+}
 
 //LUCIDNODES.nodePositionComparison( cognition.graph1.nodes.n00, cognition.graph1.nodes.n01 );
