@@ -70,8 +70,8 @@ function onMouseMove( event, intersects ){
 		// and transform it accordingly.
 		transformGraphElementOnMouseOver( INTERSECTED );							
 		}
-
-	if ( SELECTED.length > 0 ){
+	
+	if ( event.shiftKey && SELECTED.length > 0 ){
 		
 		entities.browserControls.enabled = false;	
 
@@ -79,17 +79,23 @@ function onMouseMove( event, intersects ){
 		var helperPlaneIntersectPoint = ray.intersectObject( entities.helperPlane );
 		console.log( 'helperPlaneIntersectPoint: ', helperPlaneIntersectPoint[0] );				
 		
-		// Reposition the object based on the intersection point with the plane					
-		SELECTED[0].position.x = helperPlaneIntersectPoint[0].point.x;
-		SELECTED[0].position.y = helperPlaneIntersectPoint[0].point.y;
-		SELECTED[0].position.z = helperPlaneIntersectPoint[0].point.z; 					
-
-		console.log( 'after: ', SELECTED[0].position );
-
-		// SELECTED[0].position = helperPlaneIntersectPoint[0].point.sub(lesson10.offset) */ );
-		moveNode( SELECTED[0], SELECTED[0].position );
-	}
+		var vecRelativePosition = [];
 		
+		for ( var n = 0; n < SELECTED.length; n++ ){	
+			vecRelativePosition.push( _Math.vecRelativePosition( SELECTED[0], SELECTED[n] ) );
+		}
+		
+		for ( var n = 0; n < SELECTED.length; n++ ){
+			
+			SELECTED[n].position.x = helperPlaneIntersectPoint[0].point.x + vecRelativePosition[n].x;
+			SELECTED[n].position.y = helperPlaneIntersectPoint[0].point.y + vecRelativePosition[n].y;
+			SELECTED[n].position.z = helperPlaneIntersectPoint[0].point.z + vecRelativePosition[n].z; 
+			
+			moveNode( SELECTED[n], SELECTED[n].position );
+
+			console.log( 'after: ', SELECTED[n].position );			
+		}
+	}
 }
 
 function onMouseDown( event, camera ){
@@ -306,9 +312,8 @@ function onMouseDown( event, camera ){
 
 
 function onMouseUp( event ){
-	entities.browserControls.enabled = true;
-	// Reposition the object based on the intersection point with the plane					
-	unSelectAll();			
+	entities.browserControls.enabled = true;			
+	//unSelectAll();			
 	
 }
 
