@@ -55,7 +55,11 @@ Refactor so that we don't need "graph" references in functions. Replacing top-do
 		- Generalized showGraphCenterPoints() to showNodeArrayCenterPoints() - now this function can show centerpoint for any node array. Groups can be passed....
 	- Changing JSON structures
 		- Started by renaming "graphs" to "groups"
-	
+
+Bugs noted:
+	- ALTSELECTED sometimes errors out.
+	- When edges are loaded from a saved file, the original source/target order should be preserved.
+	- Need to assure no extraneous info is saved in files (edges->nodes especially)
 	
 Node.inGroups = [];
 Edge.inGroups = [];

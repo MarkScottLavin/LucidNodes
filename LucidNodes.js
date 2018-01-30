@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.11
+	* Version 0.1.12
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -129,7 +129,7 @@ _drawGroup = {
 var nodeCounter = 0;
 var groupCounter = 0;
 
-var idEncode = function( type, counter ){
+var encodeId = function( type, counter ){
 	
 	var prefix, b36string;
 	
@@ -151,6 +151,48 @@ var idEncode = function( type, counter ){
 	id = prefix + id;
 	return id;
 };
+
+var parseGraphElementId = function( graphElement ){
+	
+	if ( graphElement ){
+		var b36string = graphElement.id.substr( 1 );
+		var idNumVal = parseInt( b36string , 36 );
+		return idNumVal;
+	}
+	
+	else {
+		console.err( 'parseGraphElementId(): No Node!' );
+	}
+};
+
+var getMaxGraphElementId = function( type ){
+	
+	var currElementId;
+	var maxId = 0;
+	
+	for ( var c = 0; c < cognition[type].length; c++ ){
+		
+		currElementId = parseGraphElementId( cognition[type][c] );
+		if ( currElementId > maxId ){
+			maxId = currElementId;
+		}
+	}
+	
+	console.log( maxId );
+	return maxId;
+};
+
+var bumpCounterToMax = function( type ){
+	
+	if ( type === "nodes" ){
+		nodeCounter = nodeCounter + getMaxGraphElementId( type ) +1;
+	}
+	
+	if ( type === "groups" ){
+		groupCounter = groupCounter + getMaxGraphElementId( type ) +1;
+	}
+};
+
 
 // Setup some global defaults for initial testing
 var globalAppSettings = {
@@ -307,7 +349,7 @@ var LUCIDNODES = {
 		
 		/* Identification */ 
 		
-		this.id = parameters.id || idEncode( "node", nodeCounter );  // If the Node already has an ID on load, use that
+		this.id = parameters.id || encodeId( "node", nodeCounter );  // If the Node already has an ID on load, use that
 		this.id.referent = this;
 		this.name = parameters.name; 
 		
@@ -389,7 +431,11 @@ var LUCIDNODES = {
 			this.displayEntity.scale.set( 1, 1, 1 );			
 		};
 		
-		this.transformOnWheel = function(){ changeGraphElementColor( this, { r: 255, g: 0, b: 0 } )};
+		this.transformOnWheel = function(){ 
+
+			offset = new THREE.Vector3 ( 0, 0.5, 0 ); 
+			moveNodeByOffset( this, offset ); 
+		}; 		
 		
 		/* Playing Nice with Others */
 		
@@ -444,8 +490,7 @@ var LUCIDNODES = {
 	 * @author Mark Scott Lavin /
 	 *
 	 * parameters = {
-	 *  sourceNode: <obj> var representing source node,
-	 *  targetNode: <obj> var representing target node,
+	 *  nodes: <array>\ [ node[0], node[1] ]
 	 * 	id: <string>
 	 *  label: <string>
 	 *  color: <obj> {r: <integer>, g: <integer>, b: <integer> },
@@ -464,11 +509,13 @@ var LUCIDNODES = {
 		this.isEdge = true;
 		
 		/* What nodes are connected by this edge? */
-		this.nodes = [ parameters.sourceNode, parameters.targetNode ];
+		this.nodes = parameters.nodes;
 		
-		// These values will often be set by external system variables.
-		this.sourcePosition = { x: this.nodes[0].position.x, y: this.nodes[0].position.y, z: this.nodes[0].position.z };
-		this.targetPosition = { x: this.nodes[1].position.x, y: this.nodes[1].position.y, z: this.nodes[1].position.z };
+		this.ends = [ 
+			{ x: this.nodes[0].position.x, y: this.nodes[0].position.y, z: this.nodes[0].position.z },
+			{ x: this.nodes[1].position.x, y: this.nodes[1].position.y, z: this.nodes[1].position.z }
+		];		
+		
 		this.id = parameters.id;
 		this.id.referent = this;
 		this.color = parameters.color || globalAppSettings.defaultEdgeColor;
@@ -489,9 +536,10 @@ var LUCIDNODES = {
 		this.recieveShadows = parameters.recieveShadows; /* Set to global default */
 		
 		this.geom = new THREE.Geometry();
+		this.geom.dynamic = true;
 		this.geom.vertices.push(
-			new THREE.Vector3( this.sourcePosition.x, this.sourcePosition.y, this.sourcePosition.z ),
-			new THREE.Vector3( this.targetPosition.x, this.targetPosition.y, this.targetPosition.z ),
+			new THREE.Vector3( this.ends[0].x, this.ends[0].y, this.ends[0].z ),
+			new THREE.Vector3( this.ends[1].x, this.ends[1].y, this.ends[1].z ),
 		);		
 		
 		this.displayEntity = new THREE.Line( this.geom, this.material );
@@ -702,6 +750,8 @@ var LUCIDNODES = {
 		
 		this.transformOnWheel = function(){
 			
+			var offset = new THREE.Vector3( 0, 0.5, 0 );
+			moveNodeByOffset( this.node, offset );
 		};		
 		
 		scene.add( this.displayEntity );
@@ -740,9 +790,7 @@ var LUCIDNODES = {
 		this.displayEntity.isGraphElement = true;		
 		this.displayEntity.referent = this;
 		
-		this.displayEntity.position.x = this.edge.centerPoint.x;
-		this.displayEntity.position.y = this.edge.centerPoint.y;
-		this.displayEntity.position.z = this.edge.centerPoint.z;
+		centerEdgeLabel( this );
 		
 		this.transformOnMouseOver = function(){
 			var color = globalAppSettings.edgeColorOnMouseOver;
@@ -828,7 +876,7 @@ var LUCIDNODES = {
 	 
 	Group: function( name, type, meaningSystem = globalAppSettings.defaultMeaningSystem, centerTechnique = globalAppSettings.centerTechnique ){
 		
-		this.id = idEncode( "group", groupCounter );
+		this.id = encodeId( "group", groupCounter );
 		this.id.referent = this;
 		this.name = name;
 		this.type = [];
@@ -876,8 +924,7 @@ function edgesFromJson( arr ){
 	for ( var e = 0; e < arr.length; e++ ){
 			cognition.edges[e] = new LUCIDNODES.Edge( { id: arr[e].id,
 														name: arr[e].name,
-														sourceNode: ( getEdgeNodesFromEdgeId( arr[e].id )[0] ),
-														targetNode: ( getEdgeNodesFromEdgeId( arr[e].id )[1] ),
+														nodes: [ getEdgeNodesFromEdgeId( arr[e].id )[0], getEdgeNodesFromEdgeId( arr[e].id )[1] ],
 														opacity: arr[e].opacity,
 														color: arr[e].color,
 														label: { 
@@ -954,10 +1001,10 @@ function getEdgeById( edgeId ){
 	
 	for ( var e = 0; e < cognition.edges.length; e++ ){
 		
-		if ( edgeId === cognition.edge[n].id ){
+		if ( edgeId === cognition.edges[e].id ){
 			
 			found = true;
-			edge = cognition.edges[n];
+			edge = cognition.edges[e];
 			break;
 		}
 	}
@@ -1000,11 +1047,10 @@ function connectNodeToArrayOfNodes( sourceNode, targetNodes ){
 			if ( nIdentical && !eExists ){
 				
 				cognition.edges.push( new LUCIDNODES.Edge({
-														sourceNode: sourceNode,
-														targetNode: targetNodes[i],
+														nodes: [ sourceNode, targetNodes[i] ],
 														opacity: 0.5,
 														color: { r: 128, g: 128, b:128 },
-														id: edgeAssignId( sourceNode, targetNodes[i] )
+														id: edgeAssignId( [ sourceNode, targetNodes[i] ] )
 													}));
 			}
 		}	
@@ -1018,37 +1064,146 @@ function connectNodeToArrayOfNodes( sourceNode, targetNodes ){
 	 * @author Mark Scott Lavin /
 	 *
 	 * parameters = {
-	 *	graph: <Group> // Soon to be deprecated
-	 *  sourceNode: <Node>	first node
-	 *  targetNode: <Node>  second node
+	 *  nodes: <array> 		two Nodes in an array
 	 *  edgeParams: <obj>   object describing Edge parameters. 
 	 * }
 	*/	
 
-function addEdge( sourceNode, targetNode, edgeParams ){
+function addEdge( nodes, edgeParams ){
 	
-	var nIdentical = nodesIdentical( sourceNode, targetNode );
-	var eExists = edgeExistsInGroup( { node1: sourceNode, node2: targetNode } );
+	var nIdentical = nodesIdentical( nodes[0], nodes[1] );
+	var eExists = edgeExistsInGroup( { node1: nodes[0], node2: nodes[0] } );
 
 	if ( !nIdentical && !eExists ){
 		
 		cognition.edges.push( new LUCIDNODES.Edge({
-												sourceNode: sourceNode,
-												targetNode: targetNode,
+												nodes: nodes,
 												opacity: globalAppSettings.defaultEdgeOpacity,
 												color: { r: 128, g: 128, b:128 },
-												id: edgeAssignId( sourceNode, targetNode )
+												id: edgeAssignId( nodes )
 											}));
 	}	
 } 
 
-function onAddEdgeKey(){
+	/* addNode();
+	 *
+	 * Creates a new node.
+	 *
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters:
+	 *   position: <Vector3> or <Object> ( x, y, z );
+	 *
+	 * }
+	*/	
+
+function addNode( position ){
 	
-	// Should be a duplicate 
+	cognition.nodes.push( new LUCIDNODES.Node( { 	
+												position: { x: position.x, y: position.y, z: position.z }, 
+												radius: 0.5, 
+												shape: "sphere", 
+												color: globalAppSettings.defaultNodeColor,
+												opacity: globalAppSettings.defaultNodeOpacity, 														
+												labelColor: globalAppSettings.defaultNodeLabel,
+												labelOpacity: globalAppSettings.defaultNodeLabelOpacity
+											}));
+} 
+
+	/* moveNode();
+	 *
+	 * moves a node to a specified position.
+	 *
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters: 
+	 *  node: <Node> 			the node to move 
+	 *  position: <Vector3> 	the new position
+	 * }
+	*/	
+
+function moveNode( node, position ){
 	
+	if ( position ){
+		// Move the object by the offset amount
+		node.displayEntity.position.x = position.x;
+		node.displayEntity.position.y = position.y;
+		node.displayEntity.position.z = position.z;
+		node.position = node.displayEntity.position;
+
+		// Move the object's label
+		if ( node.label ){
+			
+			node.label.displayEntity.position.x = position.x;
+			node.label.displayEntity.position.y = position.y;
+			node.label.displayEntity.position.z = position.z;
+		}
+		
+		pullAllNodeEdges( node );
+	}
+	
+	else console.err( 'moveNode(): NO position provided!' );
+}
+
+	/* moveNodeByOffset();
+	 *
+	 * moves a node relative to current position by a Vector3 offset.
+	 *
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters: 
+	 *  node: <Node> 			the node to move 
+	 *  offset: <Vector3> 	 	the offset used to calculate the new position
+	 * }
+	*/	
+
+function moveNodeByOffset( node, offset ){
+	
+	// Set the new position by the offset amount	
+	var newPosition = node.displayEntity.position.sub( offset );
+	
+	moveNode( node, newPosition )
+	
+	//node.position = node.displayEntity.position;
 	
 }
 
+function pullEdge( edge ){
+	
+	// Move the object's ends by the offset amount
+	edge.ends[0] = edge.nodes[0].position;
+	edge.ends[1] = edge.nodes[1].position;
+	
+	edge.geom.vertices[0].x = edge.ends[0].x; 
+	edge.geom.vertices[0].y = edge.ends[0].y; 
+	edge.geom.vertices[0].z = edge.ends[0].z;
+
+	edge.geom.vertices[1].x = edge.ends[1].x; 
+	edge.geom.vertices[1].y = edge.ends[1].y; 
+	edge.geom.vertices[1].z = edge.ends[1].z;
+	
+	edge.geom.verticesNeedUpdate = true;
+	
+	edge.centerPoint = _Math.avgPosition( edge.nodes[0], edge.nodes[1] );	
+	centerEdgeLabel( edge.label );
+	
+}
+
+function pullAllNodeEdges( node ){
+
+	getNodeEdges( node );
+	for ( var n = 0; n < node.edges.length; n++ ){	
+		pullEdge( node.edges[n] ); 
+	}
+	node.edges = [];
+}
+
+function centerEdgeLabel( edgeLabel ){
+	
+	edgeLabel.displayEntity.position.x = edgeLabel.edge.centerPoint.x;
+	edgeLabel.displayEntity.position.y = edgeLabel.edge.centerPoint.y;
+	edgeLabel.displayEntity.position.z = edgeLabel.edge.centerPoint.z;
+}
 
 	/* edgeAssignId();
 	 *
@@ -1057,15 +1212,14 @@ function onAddEdgeKey(){
 	 * @author Mark Scott Lavin /
 	 *
 	 * parameters = {
-	 *  sourceNode: <Node>	first node
-	 *  targetNode: <Node>  second node
+	 *  nodes: <array> 		two Nodes in an array
 	 * }
 	*/	
 
-function edgeAssignId( sourceNode, targetNode ){
+function edgeAssignId( nodes ){
 	
 	var operator = '-'; /*We'll add more operators when we start adding directionality later */
-	var id = sourceNode.id + operator + targetNode.id;
+	var id = nodes[0].id + operator + nodes[1].id;
 	
 	return id;
 };

@@ -14,6 +14,8 @@
 var container = document.getElementById('visualizationContainer');
 
 var scene = new THREE.Scene();
+var clock = new THREE.Clock();
+var stats = new Stats();
 
 var utils = {
 	entity: { 
@@ -63,12 +65,18 @@ function init() {
 	cameras();
 	// Renderer
 	initRenderer();
+	// SkyGeo
+	skyGeo();
 	// Lights
 	lights();
 	// Axes
 	var globalAxes = new Axes( 300, true, 0.1, { x: 0, y: 0, z: 0 } );	
+	// HelperPlane
+	helperPlane();
 	// Materials
 	materials();
+	// Stats
+	initStats();
 	
 	/* Initialize the event listeners */
 	initEventListeners();
@@ -86,8 +94,11 @@ function init() {
 
 function render() {
 
-	requestAnimationFrame( render );
+	stats.begin();
 	renderer.render(scene, entities.cameras.perspCamera );
+	stats.end();
+	
+	requestAnimationFrame( render );
 } 
 
 	
@@ -105,7 +116,7 @@ function initEventListeners() {
 function cameras() {
 	
 	entities.cameras = {
-		perspCamera: new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, 1000 ),
+		perspCamera: new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, 3000 ),
 		init: function( camera ) {
 				camera.position.set( 0, 15, -20 );
 				camera.lookAt(new THREE.Vector3( 0, 15, 0 ));
@@ -144,8 +155,6 @@ function initbrowserControls() {
 	// Create the Mouse-Based Controls - Hold down left mouse button and move around the window...
 	
 	var camera = entities.cameras.perspCamera;
-	
-	var controls;
 
 	entities.browserControls = new THREE.OrbitControls ( camera , container );
 	
@@ -172,6 +181,61 @@ function initVRControls() {
 	
 	container.addEventListener( 'click', fullscreen, false);
 	container.removeEventListener( 'deviceorientation', setOrientationControls, true);
+}
+
+function initStats(){
+	
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.left = '25px';
+    stats.domElement.style.bottom = '50px';
+    stats.domElement.style.zIndex = 1;
+    container.appendChild( stats.domElement );	
+}
+
+function skyGeo( topColor, bottomColor, radius ){
+
+	this.topColor = topColor || 0x0077ff;
+	this.bottomColor = bottomColor || 0xffffff;
+	
+	this.vertexShader = [
+		"varying vec3 vWorldPosition;", 
+		"void main() {", 
+			"  vec4 worldPosition = modelMatrix * vec4( position, 1.0 );" , 
+			"  vWorldPosition = worldPosition.xyz ;",
+			"  gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+			"}",
+		].join("\n");
+	this.fragmentShader = [
+		"uniform vec3 topColor;",
+		"uniform vec3 bottomColor;", 
+		"uniform float offset;", 
+		"uniform float exponent;", 
+		"varying vec3 vWorldPosition;", 
+		"void main() {",
+			"  float h = normalize( vWorldPosition + offset ).y;", 
+			"  gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( h, exponent ), 0.0 ) ), 1.0 );", 
+			"}",
+		].join("\n");	
+
+	this.radius = radius || 2000;
+	
+	this.geo = new THREE.SphereGeometry( this.radius, 32, 32 );
+    this.uniforms = {
+      topColor: {type: "c", value: new THREE.Color( this.topColor )}, 
+	  bottomColor: {type: "c", value: new THREE.Color( this.bottomColor )},
+      offset: {type: "f", value: this.radius }, 
+	  exponent: { type: "f", value: 1.5 },
+    };
+	this.material = new THREE.ShaderMaterial({ vertexShader: this.vertexShader, fragmentShader: this.fragmentShader, uniforms: this.uniforms, side: THREE.DoubleSide, fog: false });
+    this.mesh = new THREE.Mesh( this.geo, this.material );
+	this.mesh.rotation.order = 'XZY';
+	this.mesh.renderDepth = 3000;
+	this.mesh.scale.set( -1, 1, 1 );
+	
+	entities.skyGeo = this.mesh;
+	
+    this.scene.add( this.mesh );	
+	
 }
 
 function lights() {
@@ -317,6 +381,15 @@ function Axes( extents, rulers, opacity = 0.5, originPoint = { x: 0, y: 0, z: 0 
 	
 	debug.master && debug.axes && console.log ( 'axes(): ', this );  
 };
+
+function helperPlane( visible = false, xLimit = 2000, yLimit = 2000 ){
+
+    entities.helperPlane = new THREE.Mesh(new THREE.PlaneBufferGeometry( xLimit, yLimit, 8, 8), new THREE.MeshBasicMaterial( { color: 0xffffff, alphaTest: 0, visible: visible }));
+	entities.helperPlane.xLimit = xLimit;
+	entities.helperPlane.yLimit = yLimit;
+
+    scene.add( entities.helperPlane );
+}
 
 /******* COLOR & MATERIALS HANDLING */
 

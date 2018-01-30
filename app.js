@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.11
+	* Version 0.1.12
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -38,6 +38,7 @@ var initUI = function(){
 																					
 																					console.log( 'color changed!' );
 																				} );
+	document.getElementById('addNode').addEventListener('click', function() { addNode( { x: 0, y: 0.5, z: 0 } ) } );
 																					
 };
 
@@ -60,6 +61,7 @@ var cognitionFromJson = function( json ){
 	
 		if ( loadedCognition.nodes ){
 			nodesFromJson( loadedCognition.nodes );
+			bumpCounterToMax( "nodes" );
 		}
 
 		if ( loadedCognition.edges ){
@@ -70,6 +72,7 @@ var cognitionFromJson = function( json ){
 			for ( var g = 0; g < loadedCognition.groups.length; g++ ){
 				// Load all the group info
 			}
+			bumpCounterToMax( "groups" );
 		}
 		
 	}
