@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.13
+	* Version 0.1.14
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -213,6 +213,7 @@ var globalAppSettings = {
 	defaultMeaningSystem: { /* Meaning of Edges and Nodes */ },
 	nodeScaleOnMouseOver: 1.5,
 	nodeColorOnSelect: 0x0000ff,
+	nodeColorOnAltSelect: 0xff0000,
 	nodeScaleOnSelect: 1.5,
 	edgeColorOnMouseOver: 0x000000,
 	edgeColorOnSelect: 0x0000ff,
@@ -426,6 +427,10 @@ var LUCIDNODES = {
 			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );						
 		};
 		
+		this.transformOnAltClick = function(){
+			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnAltSelect );
+		};
+		
 		this.unTransformOnClickOutside = function(){
 			this.displayEntity.material.color.set( this.colorAsHex() );
 			this.displayEntity.scale.set( 1, 1, 1 );			
@@ -625,7 +630,7 @@ var LUCIDNODES = {
 	 * }
 	 */	
 	
-	Label: function( message, parameters ){
+	Label: function( text, parameters ){
 		if ( parameters === undefined ) parameters = {};
 		
 		this.fontface = parameters.hasOwnProperty("fontface") ? parameters["fontface"] : "Arial";
@@ -641,12 +646,12 @@ var LUCIDNODES = {
 		this.context.font = "Bold " + this.fontsize + "px " + this.fontface;
 		
 		// get size data (height depends only on font size)
-		this.metrics = this.context.measureText( message );
+		this.metrics = this.context.measureText( text );
 		this.textWidth = this.metrics.width;
 		
 		// text color
 		this.context.fillStyle = "rgba(" + this.color.r + "," + this.color.g + "," + this.color.b + "," + this.opacity + " )";
-		this.context.fillText( message, this.textLineThickness, this.fontsize + this.textLineThickness );
+		this.context.fillText( text, this.textLineThickness, this.fontsize + this.textLineThickness );
 		
 		// canvas contents will be used for a texture
 		this.texture = new THREE.Texture( this.canvas ); 
@@ -738,6 +743,10 @@ var LUCIDNODES = {
 		
 		this.unTransformOnClickOutside = function(){
 			this.displayEntity.material.color.set( this.colorAsHex() );						
+		};
+		
+		this.transformOnAltClick = function(){
+			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnAltSelect );
 		};
 		
 		this.transformOnDblClick = function(){
@@ -962,6 +971,7 @@ function getEdgeNodesFromEdgeId( edgeId ){
 function getNodeById( nodeId ){
 	
 	var found = false;
+	var foundInDeleted = false;
 	var node;
 	
 	for ( var n = 0; n < cognition.nodes.length; n++ ){
@@ -974,14 +984,27 @@ function getNodeById( nodeId ){
 		}
 	}
 	
-	if ( found === false ){
-		console.err( 'getNodeById( ', nodeId ,' ): Node not found.' );
-		return;
+	if ( found ) { return node };
+	
+	if ( !found ){
+		
+		if ( DELETED.nodes.length > 0 ){
+			
+			for ( var d = 0; d < DELETED.nodes.length; d++ ){
+				
+				if ( nodeId === DELETED.nodes[d].id ){
+					
+					foundInDeleted = true;	
+					node = DELETED.nodes[d];
+					console.error( 'getNodeById( ', nodeId ,' ): Node was deleted.' );					
+					break;
+				}
+			}	
+		}
 	}
 	
-	if ( found === true ){
-		return node;
-	}
+	!foundInDeleted && console.error( 'getNodeById( ', nodeId ,' ): Node not found.' );
+
 }
 
 	/**
@@ -997,6 +1020,7 @@ function getNodeById( nodeId ){
 function getEdgeById( edgeId ){
 	
 	var found = false;
+	var foundInDeleted = false;
 	var edge;
 	
 	for ( var e = 0; e < cognition.edges.length; e++ ){
@@ -1008,15 +1032,27 @@ function getEdgeById( edgeId ){
 			break;
 		}
 	}
+
+	if ( found ){ return edge; } 
 	
-	if ( found === false ){
-		console.err( 'getEdgeById( ', edgeId ,' ): Edge not found.' );
-		return;
+	if ( !found ){
+		
+		if ( DELETED.edges.length > 0 ){
+			
+			for ( var d = 0; d < DELETED.edges.length; d++ ){
+				
+				if ( edgeId === DELETED.edges[d].id ){
+					
+					foundInDeleted = true;	
+					edge = DELETED.edges[d];
+					console.error( 'getEdgeById( ', edgeId ,' ): Edge was deleted.' );					
+					break;
+				}
+			}	
+		}
 	}
 	
-	if ( found === true ){
-		return edge;
-	}
+	!foundInDeleted && console.error( 'getEdgeById( ', edgeId ,' ): Edge not found.' );
 }
 
 	/**
@@ -1072,7 +1108,7 @@ function connectNodeToArrayOfNodes( sourceNode, targetNodes ){
 function addEdge( nodes, edgeParams ){
 	
 	var nIdentical = nodesIdentical( nodes[0], nodes[1] );
-	var eExists = edgeExistsInGroup( { node1: nodes[0], node2: nodes[0] } );
+	var eExists = edgeExistsInGroup( { node1: nodes[0], node2: nodes[1] } );
 
 	if ( !nIdentical && !eExists ){
 		
@@ -1568,3 +1604,7 @@ var changeGraphElementColor = function( graphElement, color ){
 	graphElement.displayEntity.material.color.set( graphElement.colorAsHex() );
 	
 };
+
+function getPlaneIntersectPoint( plane ){
+	return ray.intersectObject( plane )[0];
+}

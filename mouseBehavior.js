@@ -1,8 +1,16 @@
 var ray = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
 var INTERSECTED;  // Object closest to the camera
-var SELECTED = [];	  // Objects selected via click (single) and//or CTRL-click (multiple)
+var SELECTED = {
+	nodes:[],
+	edges:[]
+	};	  // Objects selected via click (single) and//or CTRL-click (multiple)
 var ALTSELECTED = [];  // Objects selected via ALT-Click ( Temporary solution for explicitly adding edges )
+var keyPressed = {
+	isPressed: false,
+	key: null
+};
+var DELETED = { nodes:[], edges:[] };
 
 function onMouse( event ) {
 
@@ -48,9 +56,13 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 			onMouseUp( event );
 		}
 		
+		if ( event.type === 'click' ){
+			onClick( event ); 
+		} 
+		
 		// Check if the mouse event is a wheel event (This is temporary, just to see if we can save a file with the change. We're also going to make it so that the change happens at the level of the graphElement itself, and not just the displayObject )
 		if ( event.type === 'wheel' ){
-			onMouseWheel( event, intersected );
+			onMouseWheel( event, intersects );
 		}
 		
 	INTERSECTED && console.log( 'INTERSECTED.isGraphElement: ', INTERSECTED.isGraphElement, 'MouseEvent: ', event.type );			
@@ -71,35 +83,37 @@ function onMouseMove( event, intersects ){
 		transformGraphElementOnMouseOver( INTERSECTED );							
 		}
 	
-	if ( event.shiftKey && SELECTED.length > 0 ){
+	if ( event.shiftKey && SELECTED.nodes.length > 0 ){
 		
 		entities.browserControls.enabled = false;	
 
 		// Get the position where the helperPlane is intersected
-		var helperPlaneIntersectPoint = ray.intersectObject( entities.helperPlane );
-		console.log( 'helperPlaneIntersectPoint: ', helperPlaneIntersectPoint[0] );				
+		var helperPlaneIntersectPoint = getPlaneIntersectPoint( entities.helperPlane );
+		console.log( 'helperPlaneIntersectPoint: ', helperPlaneIntersectPoint );				
 		
 		var vecRelativePosition = [];
 		
-		for ( var n = 0; n < SELECTED.length; n++ ){	
-			vecRelativePosition.push( _Math.vecRelativePosition( SELECTED[0], SELECTED[n] ) );
+		for ( var n = 0; n < SELECTED.nodes.length; n++ ){	
+			vecRelativePosition.push( _Math.vecRelativePosition( SELECTED.nodes[0], SELECTED.nodes[n] ) );
 		}
 		
-		for ( var n = 0; n < SELECTED.length; n++ ){
+		for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 			
-			SELECTED[n].position.x = helperPlaneIntersectPoint[0].point.x + vecRelativePosition[n].x;
-			SELECTED[n].position.y = helperPlaneIntersectPoint[0].point.y + vecRelativePosition[n].y;
-			SELECTED[n].position.z = helperPlaneIntersectPoint[0].point.z + vecRelativePosition[n].z; 
+			SELECTED.nodes[n].position.x = helperPlaneIntersectPoint.point.x + vecRelativePosition[n].x;
+			SELECTED.nodes[n].position.y = helperPlaneIntersectPoint.point.y + vecRelativePosition[n].y;
+			SELECTED.nodes[n].position.z = helperPlaneIntersectPoint.point.z + vecRelativePosition[n].z; 
 			
-			moveNode( SELECTED[n], SELECTED[n].position );
+			moveNode( SELECTED.nodes[n], SELECTED.nodes[n].position );
 
-			console.log( 'after: ', SELECTED[n].position );			
+			console.log( 'after: ', SELECTED.nodes[n].position );			
 		}
 	}
 }
 
 function onMouseDown( event, camera ){
-	if ( event.ctrlKey ){
+	if ( event.ctrlKey && !event.altKey ){
+		
+		unAltSelectAll();
 
 		// If there's an INTERSECTED object that's a GraphElement 			
 		if ( !INTERSECTED || !INTERSECTED.isGraphElement ){				
@@ -108,20 +122,20 @@ function onMouseDown( event, camera ){
 		
 		if ( INTERSECTED && INTERSECTED.isGraphElement ) { 
 			
-			if ( INTERSECTED.referent.isNode || INTERSECTED.referent.isEdge ) {
+			if ( INTERSECTED.referent.isNode ) {
 				// If SELECTED includes INTERSECTED, leave it alone.
-				if ( SELECTED && SELECTED.includes( INTERSECTED.referent ) ) { 
+				if ( SELECTED.nodes.length > 0 && SELECTED.nodes.includes( INTERSECTED.referent ) ) { 
 					
-					var intersectedIndex = SELECTED.indexOf( INTERSECTED.referent );
+					var intersectedIndex = SELECTED.nodes.indexOf( INTERSECTED.referent );
 					unTransformGraphElementOnUnselect( INTERSECTED.referent );
-					SELECTED.splice( intersectedIndex, 1 ); 
+					SELECTED.nodes.splice( intersectedIndex, 1 ); 
 					console.log( SELECTED );
 					//return; 
 					}
 				
 				// If SELECTED doesn't include INTERSECTED, transform it and add it.
-				else if ( SELECTED && !SELECTED.includes( INTERSECTED.referent ) ) { 
-					SELECTED.push( INTERSECTED.referent );
+				else if ( SELECTED.nodes && !SELECTED.nodes.includes( INTERSECTED.referent ) ) { 
+					SELECTED.nodes.push( INTERSECTED.referent );
 					transformGraphElementOnSelect( INTERSECTED.referent );
 					console.log( SELECTED );
 					}
@@ -129,45 +143,67 @@ function onMouseDown( event, camera ){
 			
 			else if ( INTERSECTED.referent.isNodeLabel ){
 				// If SELECTED includes INTERSECTED, leave it alone.
-				if ( SELECTED && SELECTED.includes( INTERSECTED.referent.node ) ) { 
+				if ( SELECTED.nodes.length > 0 && SELECTED.nodes.includes( INTERSECTED.referent.node ) ) { 
 					
-					var intersectedIndex = SELECTED.indexOf( INTERSECTED.referent.node );
+					var intersectedIndex = SELECTED.nodes.indexOf( INTERSECTED.referent.node );
 					unTransformGraphElementOnUnselect( INTERSECTED.referent.node );
-					SELECTED.splice( intersectedIndex, 1 ); 
+					SELECTED.nodes.splice( intersectedIndex, 1 ); 
 					console.log( SELECTED );
 					//return; 
 					}
 				
 				// If SELECTED doesn't include INTERSECTED, transform it and add it.
-				else if ( SELECTED && !SELECTED.includes( INTERSECTED.referent.node ) ) { 
-					SELECTED.push( INTERSECTED.referent.node );
+				else if ( SELECTED.nodes && !SELECTED.nodes.includes( INTERSECTED.referent.node ) ) { 
+					SELECTED.nodes.push( INTERSECTED.referent.node );
 					transformGraphElementOnSelect( INTERSECTED.referent.node );
 					console.log( SELECTED );
 					}						
 			}
 			
-			else if ( INTERSECTED.referent.isEdgeLabel ){
+			else if ( INTERSECTED.referent.isEdge ){
+				
 				// If SELECTED includes INTERSECTED, leave it alone.
-				if ( SELECTED && SELECTED.includes( INTERSECTED.referent.edge ) ) { 
+				if ( SELECTED.edges.length > 0 && SELECTED.edges.includes( INTERSECTED.referent ) ) { 
 					
-					var intersectedIndex = SELECTED.indexOf( INTERSECTED.referent.edge );
-					unTransformGraphElementOnUnselect( INTERSECTED.referent.edge );
-					SELECTED.splice( intersectedIndex, 1 ); 
-					console.log( SELECTED.referent.edge );
+					var intersectedIndex = SELECTED.edges.indexOf( INTERSECTED.referent );
+					unTransformGraphElementOnUnselect( INTERSECTED.referent );
+					SELECTED.edges.splice( intersectedIndex, 1 ); 
+					console.log( SELECTED );
 					//return; 
 					}
 				
 				// If SELECTED doesn't include INTERSECTED, transform it and add it.
-				else if ( SELECTED && !SELECTED.includes( INTERSECTED.referent.edge ) ) { 
-					SELECTED.push( INTERSECTED.referent.edge );
+				else if ( SELECTED.edges.length > 0 && !SELECTED.edges.includes( INTERSECTED.referent ) ) { 
+					SELECTED.edges.push( INTERSECTED.referent );
+					transformGraphElementOnSelect( INTERSECTED.referent );
+					console.log( SELECTED );
+					}
+			} 
+			
+			else if ( INTERSECTED.referent.isEdgeLabel ){
+				// If SELECTED includes INTERSECTED, leave it alone.
+				if ( SELECTED.edges.length > 0 && SELECTED.includes( INTERSECTED.referent.edge ) ) { 
+					
+					var intersectedIndex = SELECTED.edges.indexOf( INTERSECTED.referent.edge );
+					unTransformGraphElementOnUnselect( INTERSECTED.referent.edge );
+					SELECTED.edges.splice( intersectedIndex, 1 ); 
+					console.log( SELECTED.edges.referent.edge );
+					//return; 
+					}
+				
+				// If SELECTED doesn't include INTERSECTED, transform it and add it.
+				else if ( SELECTED.edges.length > 0 && !SELECTED.edges.includes( INTERSECTED.referent.edge ) ) { 
+					SELECTED.edges.push( INTERSECTED.referent.edge );
 					transformGraphElementOnSelect( INTERSECTED.referent.edge );
-					console.log( SELECTED.referent.edge );
+					console.log( SELECTED.edges.referent.edge );
 					}						
 			}							
 		}
 	}
 
-	else if ( !event.ctrlKey ){  // If CTRL isn't clicked
+	else if ( !event.ctrlKey && !event.altKey ){  // If CTRL isn't clicked
+	
+		unAltSelectAll();
 
 		// If there's no INTERSECTED or the INTERSECTED isn't a GraphElement
 		if ( !INTERSECTED || !INTERSECTED.isGraphElement ){				
@@ -178,20 +214,20 @@ function onMouseDown( event, camera ){
 		// IF there's an INTERSECTED and it's a GraphElement
 		if ( INTERSECTED && INTERSECTED.isGraphElement ){
 
-			if ( INTERSECTED.referent.isNode || INTERSECTED.referent.isEdge ){
+			if ( INTERSECTED.referent.isNode ){
 				// If there's a SELECTED array
-				if ( SELECTED ){
+				if ( SELECTED.nodes ){
 					
 					// If that SELECTED array includes the currently INTERSECTED object
-					if ( SELECTED.includes ( INTERSECTED.referent ) ) { 
+					if ( SELECTED.nodes.includes ( INTERSECTED.referent ) ) { 
 						// Negative for loop -- untransform and remove from SELECTED everything but the INTERSECTED object
-						for ( var s = 0; s < SELECTED.length; s++ ){
+						for ( var s = 0; s < SELECTED.nodes.length; s++ ){
 							
-							if ( SELECTED[ s ] !== INTERSECTED.referent ){
-								unTransformGraphElementOnUnselect( SELECTED[ s ] );								
+							if ( SELECTED.nodes[ s ] !== INTERSECTED.referent ){
+								unTransformGraphElementOnUnselect( SELECTED.nodes[ s ] );								
 							}
 						}
-						SELECTED = [ INTERSECTED.referent ];
+						SELECTED.nodes = [ INTERSECTED.referent ];
 						console.log( SELECTED );
 					}
 				
@@ -200,25 +236,52 @@ function onMouseDown( event, camera ){
 						unSelectAll();
 						
 						transformGraphElementOnSelect( INTERSECTED.referent );
-						SELECTED.push( INTERSECTED.referent );							
+						SELECTED.nodes.push( INTERSECTED.referent );							
 					}
 				}
 			}
 			
 			if ( INTERSECTED.referent.isNodeLabel ){
 				// If there's a SELECTED array
-				if ( SELECTED ){
+				if ( SELECTED.nodes.length > 0 ){
 					
 					// If that SELECTED array includes the currently INTERSECTED object
-					if ( SELECTED.includes ( INTERSECTED.referent.node ) ) { 
+					if ( SELECTED.nodes.includes ( INTERSECTED.referent.node ) ) { 
 						// Negative for loop -- untransform and remove from SELECTED everything but the INTERSECTED object
-						for ( var s = 0; s < SELECTED.length; s++ ){
+						for ( var s = 0; s < SELECTED.nodes.length; s++ ){
 							
-							if ( SELECTED[ s ] !== INTERSECTED.referent.node ){
-								unTransformGraphElementOnUnselect( SELECTED[ s ] );								
+							if ( SELECTED.nodes[ s ] !== INTERSECTED.referent.node ){
+								unTransformGraphElementOnUnselect( SELECTED.nodes[ s ] );								
 							}
 						}
-						SELECTED = [ INTERSECTED.referent.node ];
+						SELECTED.nodes = [ INTERSECTED.referent.node ];
+						console.log( SELECTED.nodes );
+					}
+				
+					else { 
+					
+						unSelectAll();
+						
+						transformGraphElementOnSelect( INTERSECTED.referent );
+						SELECTED.nodes.push( INTERSECTED.referent.node );							
+					}
+				}
+			}
+			
+			if ( INTERSECTED.referent.isEdge ){
+				// If there's a SELECTED array
+				if ( SELECTED.edges ){
+					
+					// If that SELECTED array includes the currently INTERSECTED object
+					if ( SELECTED.edges.includes ( INTERSECTED.referent ) ) { 
+						// Negative for loop -- untransform and remove from SELECTED everything but the INTERSECTED object
+						for ( var s = 0; s < SELECTED.edges.length; s++ ){
+							
+							if ( SELECTED.edges[ s ] !== INTERSECTED.referent ){
+								unTransformGraphElementOnUnselect( SELECTED.edges[ s ] );								
+							}
+						}
+						SELECTED.edges = [ INTERSECTED.referent ];
 						console.log( SELECTED );
 					}
 				
@@ -227,25 +290,25 @@ function onMouseDown( event, camera ){
 						unSelectAll();
 						
 						transformGraphElementOnSelect( INTERSECTED.referent );
-						SELECTED.push( INTERSECTED.referent.node );							
+						SELECTED.edges.push( INTERSECTED.referent );							
 					}
 				}
-			}
+			}				
 
 			if ( INTERSECTED.referent.isEdgeLabel ){
 				// If there's a SELECTED array
-				if ( SELECTED ){
+				if ( SELECTED.edges.length > 0 ){
 					
 					// If that SELECTED array includes the currently INTERSECTED object
-					if ( SELECTED.includes ( INTERSECTED.referent.edge ) ) { 
+					if ( SELECTED.edges.includes ( INTERSECTED.referent.edge ) ) { 
 						// Negative for loop -- untransform and remove from SELECTED everything but the INTERSECTED object
 						for ( var s = 0; s < SELECTED.length; s++ ){
 							
-							if ( SELECTED[ s ] !== INTERSECTED.referent.edge ){
-								unTransformGraphElementOnUnselect( SELECTED[ s ] );								
+							if ( SELECTED.edges[ s ] !== INTERSECTED.referent.edge ){
+								unTransformGraphElementOnUnselect( SELECTED.edges[ s ] );								
 							}
 						}
-						SELECTED = [ INTERSECTED.referent.edge ];
+						SELECTED.edges = [ INTERSECTED.referent.edge ];
 						console.log( SELECTED );
 					}
 				
@@ -253,7 +316,7 @@ function onMouseDown( event, camera ){
 						unSelectAll();
 					
 						transformGraphElementOnSelect( INTERSECTED.referent );
-						SELECTED.push( INTERSECTED.referent.edge );							
+						SELECTED.edges.push( INTERSECTED.referent.edge );							
 					}
 				}
 			}					
@@ -262,68 +325,188 @@ function onMouseDown( event, camera ){
 	if ( event.altKey && !event.ctrlKey ){
 
 		if ( INTERSECTED && INTERSECTED.isGraphElement ){
-
-			if ( INTERSECTED.referent.isNode ){ 
-
-				if ( ( ALTSELECTED.length <= 1 ) && ( !ALTSELECTED.includes ( INTERSECTED.referent ) ) ){
-					
-					ALTSELECTED.push( INTERSECTED.referent ); 
-					console.log( ALTSELECTED );
-				}
-				
-				if ( ALTSELECTED.length === 2 ){
-					
-					addEdge( [ ALTSELECTED[0], ALTSELECTED[1] ] );
-					ALTSELECTED = [];
-				}
-									
-
-				// NOTE: Escape conditions necessary ( ie if click-event without ALT, ALTSELECTED = [] )
-
-			}
-
-			if ( INTERSECTED.referent.isNodeLabel ){ 
 			
-				if ( ( ALTSELECTED.length <= 1 ) && ( !ALTSELECTED.includes ( INTERSECTED.referent.node ) ) ){
-						
-						ALTSELECTED.push( INTERSECTED.referent.node ); 
-						console.log( ALTSELECTED );
-					}
-					
-					if ( ALTSELECTED.length === 2 ){
-						
-						addEdge( [ ALTSELECTED[0], ALTSELECTED[1] ] );
-						ALTSELECTED = [];
-					}		
-		
-				}						
+			var altSel;
+			
+			if ( INTERSECTED.referent.isNode ){
+				altSel = INTERSECTED.referent;
 			}
+			else if ( INTERSECTED.referent.isNodeLabel ){
+				altSel = INTERSECTED.referent.node;
+			}
+
+			
+			if ( ( ALTSELECTED.length <= 1 ) && ( !ALTSELECTED.includes ( altSel ) ) ){
+				
+				ALTSELECTED.push( altSel ); 
+				altSel.transformOnAltClick();
+				console.log( ALTSELECTED );
+			}
+			
+			if ( ALTSELECTED.length === 2 ){
+				
+				addEdge( [ ALTSELECTED[0], ALTSELECTED[1] ] );
+				
+				unAltSelectAll();
+				
+			}
+								
+			// NOTE: Escape conditions necessary ( ie if click-event without ALT, ALTSELECTED = [] )
+
+		}
 	}
 
 	else if ( !event.altKey ){ ALTSELECTED = []; }
+	
+	//if ( event. )
 
-	if ( SELECTED.length > 0 ){
+	if ( SELECTED.nodes.length > 0 ){
 		// update the helperPlane to be perpendicular to the current camera position
 		entities.helperPlane.lookAt( camera.position );	
 		// position the helperPlane to match that of the selected node...
-		entities.helperPlane.position.copy( SELECTED[0].position );
+		entities.helperPlane.position.copy( SELECTED.nodes[0].position );
 	}
 }
 
 
 function onMouseUp( event ){
 	entities.browserControls.enabled = true;			
-	//unSelectAll();			
-	
 }
 
-function onMouseWheel( event ){
+function onClick( event ){
+	
+	if ( keyPressed.isPressed === true ){
+		onClickWithKey();
+	}
+}
+
+function onMouseWheel( event, intersects ){
 	if ( intersects[ 0 ].object.isGraphElement && intersects[ 0 ].object === INTERSECTED ){
 		// transform on wheel.
 		transformGraphElementOnWheel( INTERSECTED.referent );							
 	}			
 }
+
+function onClickWithKey(){
+
+	// Click+"a" = Add a Node at the Click position
+	if ( keyPressed.key === "a" ){
+		var helperPlaneIntersectPoint = getPlaneIntersectPoint( entities.helperPlane );
+		var position = {};
+			
+		position.x = helperPlaneIntersectPoint.point.x;
+		position.y = helperPlaneIntersectPoint.point.y;
+		position.z = helperPlaneIntersectPoint.point.z; 
+			
+		addNode( position );	
+	}
+	
+	if ( keyPressed.key === "Delete"){
 		
+		if ( SELECTED.nodes.length > 0 ){
+			for ( var s = 0; s < SELECTED.nodes.length; s++ ){
+				
+				deleteNode( SELECTED.nodes[s] );
+			}
+		}
+		if ( SELECTED.edges.length > 0 ){
+			for ( var e = 0; e < SELECTED.edges.length; e++ ){ 
+
+				deleteEdge( SELECTED.edges[e] );
+			}
+		}
+	}
+	
+	if ( keyPressed === "t" ){
+		
+		if ( SELECTED.nodes.length === 1 ){
+			
+		}
+		
+		
+	}
+}
+
+function changeGraphElementLabel( graphElement, string ){
+	
+	var label = graphElement.label;
+	
+	changeGraphElementName( graphElement, string );
+	
+	label.text = string;
+	label.displayEntity.context.fillText( string, label.displayEntity.textLineThickness, label.displayEntity.fontsize + label.displayEntity.textLineThickness );
+	
+}
+
+function changeGraphElementName( graphElement, string ){
+	
+	graphElement.name = string;
+	
+}
+
+function deleteNode( node ){
+	
+	var nodeIndex = cognition.nodes.indexOf( node );	
+	
+	scene.remove( node.displayEntity );	
+	cognition.nodes.splice( nodeIndex, 1 );	
+
+	deleteGraphElementLabel( node );
+	deleteNodeEdges( node );	
+	
+	DELETED.nodes.push( node );
+	
+	console.log( 'DELETED:', DELETED );
+
+}
+
+function deleteNodeEdges( node ){
+	
+	getNodeEdges( node );
+	
+	if ( node.edges.length > 0 ){	
+		for ( var e = 0; e < node.edges.length; e++ ){
+			deleteEdge( node.edges[e] );
+		}
+	}
+	
+	node.edges = [];
+}
+
+function deleteEdge( edge ){
+	
+	scene.remove( edge.displayEntity );
+	deleteGraphElementLabel( edge );
+	
+	var edgeCognitionIndex = cognition.edges.indexOf( edge );
+	var edgeNodeIndex;
+	
+	cognition.edges.splice( edgeCognitionIndex, 1 );
+
+	DELETED.edges.push( edge );	
+
+	console.log( 'DELETED:', DELETED );
+}
+
+function deleteGraphElementLabel( graphElement ){
+	
+	scene.remove( graphElement.label.displayEntity );
+	
+}
+	
+function onKeyDown( event ){
+
+	keyPressed.isPressed = true;
+	keyPressed.key = event.key
+	console.log( "onKeyDown(): ", keyPressed );
+}
+
+function onKeyUp( event ){
+	
+	keyPressed.isPressed = false;
+	keyPressed.key = null;
+	console.log( "onKeyUp(): ", keyPressed ); 
+}
 	
 
 function getCameraUnProjectedVector( camera ){
@@ -340,14 +523,35 @@ function getCameraUnProjectedVector( camera ){
 
 function unSelectAll(){
 	
-	if ( SELECTED.length > 0 ) {
-	for ( var s = 0; s < SELECTED.length; s++ ){ 
-		unTransformGraphElementOnUnselect( SELECTED[ s ] ); 
-		}
-	SELECTED = [];	
-	
+	if ( SELECTED.nodes.length > 0 ) {
+		unSelectAllOfType( "nodes" );
+	}
+	if ( SELECTED.edges.length > 0 ) {
+		unSelectAllOfType( "edges" );
 	}
 }
+
+function unSelectAllOfType( type ){
+	
+	if ( SELECTED[type].length > 0 ) {
+	for ( var s = 0; s < SELECTED[type].length; s++ ){ 
+		unTransformGraphElementOnUnselect( SELECTED[type][ s ] ); 
+		}
+	SELECTED[type] = [];	
+	
+	}	
+}
+
+function unAltSelectAll(){
+	
+	if ( ALTSELECTED.length > 0 ){
+		for ( var a = 0; a < ALTSELECTED.length; a++ ){
+			unTransformGraphElementOnUnselect( ALTSELECTED[a] );
+		}
+		ALTSELECTED = [];
+	}
+}
+
 
 function transformGraphElementOnMouseOver( obj ){
 	if ( obj.isGraphElement ) { obj.referent.transformOnMouseOver(); }	
@@ -410,6 +614,9 @@ function listenFor(){
 	document.getElementById('visualizationContainer').addEventListener( 'dblclick', onMouse, false );
 	document.getElementById('visualizationContainer').addEventListener( 'wheel', onMouse, false );
 	document.getElementById('visualizationContainer').addEventListener( 'contextmenu', onMouse, false );
+	document.addEventListener( 'keydown', function (e) { onKeyDown(e); }, false );
+	document.addEventListener( 'keyup', function (e) { onKeyUp(e); }, false );	
+	
 }
 
 listenFor();

@@ -57,9 +57,14 @@ Refactor so that we don't need "graph" references in functions. Replacing top-do
 		- Started by renaming "graphs" to "groups"
 
 Bugs noted:
-	- ALTSELECTED sometimes errors out.
+	- ALTSELECTED sometimes errors out. - Two bugs, shallow one FIXED, still another, much rarer fail.
 	- When edges are loaded from a saved file, the original source/target order should be preserved.
 	- Need to assure no extraneous info is saved in files (edges->nodes especially)
+	
+Version 0.1.13
+
+	- Working on Deleting nodes and related edges. Splicing the node.edges array shortcircuits the deleting for-loop, but we want to preserve the complete functionality on the
+	  deleteEdge function. Not sure how to handle.
 	
 Node.inGroups = [];
 Edge.inGroups = [];
