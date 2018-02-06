@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.14
+	* Version 0.1.15
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -352,7 +352,7 @@ var LUCIDNODES = {
 		
 		this.id = parameters.id || encodeId( "node", nodeCounter );  // If the Node already has an ID on load, use that
 		this.id.referent = this;
-		this.name = parameters.name; 
+		this.name = parameters.name || this.id; 
 		
 		/* Position */
 		
@@ -380,7 +380,7 @@ var LUCIDNODES = {
 		/* Text */
 		
 		this.label = new LUCIDNODES.NodeLabel( {
-				text: this.name || this.id,
+				text: this.name,
 				node: this,
 				fontsize: parameters.labelFontsize || globalAppSettings.defaultNodeLabelFontSize,
 				color: parameters.labelColor || this.color,
@@ -497,7 +497,7 @@ var LUCIDNODES = {
 	 * parameters = {
 	 *  nodes: <array>\ [ node[0], node[1] ]
 	 * 	id: <string>
-	 *  label: <string>
+	 *  name: <string>
 	 *  color: <obj> {r: <integer>, g: <integer>, b: <integer> },
 	 *  lineweight: <float>,
 	 *  opacity: <float> between 0 & 1,
@@ -523,6 +523,7 @@ var LUCIDNODES = {
 		
 		this.id = parameters.id;
 		this.id.referent = this;
+		this.name = parameters.name || this.id; 
 		this.color = parameters.color || globalAppSettings.defaultEdgeColor;
 		this.thickness = parameters.thickness || globalAppSettings.defaultEdgeThickness;
 		this.lineType = parameters.lineType || globalAppSettings.defaultEdgeLineType;
@@ -593,7 +594,7 @@ var LUCIDNODES = {
 			};
 		this.centerPoint = _Math.avgPosition( this.nodes[0], this.nodes[1] );
 		this.label = new LUCIDNODES.EdgeLabel( {
-				text: this.label || this.id,
+				text: this.name,
 				edge: this,
 				fontsize: parameters.fontsize || globalAppSettings.defaultEdgeLabelFontSize,
 				color: parameters.labelcolor || this.color,
@@ -614,7 +615,7 @@ var LUCIDNODES = {
 	},	
 	
 	/**
-	 * Label();
+	 * NodeLabel();
 	 * 
 	 * @author Mark Scott Lavin /
 	 * modified from http://stemkoski.github.io/Three.js/Labeled-Geometry.html
@@ -630,76 +631,40 @@ var LUCIDNODES = {
 	 * }
 	 */	
 	
-	Label: function( text, parameters ){
-		if ( parameters === undefined ) parameters = {};
-		
-		this.fontface = parameters.hasOwnProperty("fontface") ? parameters["fontface"] : "Arial";
-		this.fontsize = parameters.hasOwnProperty("fontsize") ? parameters["fontsize"] : 10;
-		this.color = parameters.hasOwnProperty("color") ? {	r: parameters["color"].r, g: parameters["color"].g, b: parameters["color"].b } : { r: 0, g: 0, b: 0 };
-		this.opacity = parameters.hasOwnProperty("opacity") ? parameters["opacity"] : 0.5;
-		this.textLineThickness = parameters.hasOwnProperty("textLineThickness") ? parameters["textLineThickness"] : 6;
-//		this.spriteAlignment = THREE.SpriteAlignment.topLeft;
-
-		// create a nested canvas & context
-		this.canvas = document.createElement('canvas');
-		this.context = this.canvas.getContext('2d');
-		this.context.font = "Bold " + this.fontsize + "px " + this.fontface;
-		
-		// get size data (height depends only on font size)
-		this.metrics = this.context.measureText( text );
-		this.textWidth = this.metrics.width;
-		
-		// text color
-		this.context.fillStyle = "rgba(" + this.color.r + "," + this.color.g + "," + this.color.b + "," + this.opacity + " )";
-		this.context.fillText( text, this.textLineThickness, this.fontsize + this.textLineThickness );
-		
-		// canvas contents will be used for a texture
-		this.texture = new THREE.Texture( this.canvas ); 
-		this.texture.needsUpdate = true;
-		this.texture.minFilter = THREE.LinearFilter;
-
-		this.material = new THREE.SpriteMaterial( { map: this.texture } );
-		this.sprite = new THREE.Sprite( this.material );
-		this.sprite.scale.set( globalAppSettings.defaultLabelScale.x, globalAppSettings.defaultLabelScale.y, globalAppSettings.defaultLabelScale.z );
-		return this.sprite;	
-	},	
-	
-	/**
-	 * NodeLabel();
-	 * 
-	 * @author Mark Scott Lavin /
-	 *
-	 * parameters = {
-	 *  node: <Node>,
-	 *  fontsize: <int>,
-	 *  color: <obj> {r: <integer>, g: <integer>, b: <integer> },
-	 *  opacity: <float> between 0 & 1,
-	 * }
-	 */	
-	 
 	NodeLabel: function( parameters ){
 		
 		this.isNodeLabel = true;
 		
 		this.text = parameters.text;
 		this.node = parameters.node;
+		this.fontface = parameters.fontface || "Arial";
 		this.fontsize = parameters.fontsize || globalAppSettings.defaultNodeLabelFontSize;
-		this.color =  parameters.color || this.node.color;
+		this.color = parameters.color || this.node.color;
 		this.colorAsHex = function(){
 			
 			return colorUtils.decRGBtoHexRGB( this.color.r, this.color.g, this.color.b );
 						
 			};
-		this.opacity = parameters.opacity || parameters.node.opacity || globalAppSettings.defaultNodeLabelOpacity;
-		
-		this.displayEntity = new LUCIDNODES.Label( this.text, { fontsize: this.fontsize, color: this.color, opacity: this.opacity } );
+		this.opacity = parameters.opacity || parameters.node.opacity || globalAppSettings.defaultNodeLabelOpacity;		
+		this.textLineThickness = parameters.textLineThickness || 6;
+
+		labelText( this, this.text );
+
+		this.texture = new THREE.Texture( this.canvas ); 
+		this.texture.needsUpdate = true;
+		this.texture.minFilter = THREE.LinearFilter;
+
+		this.material = new THREE.SpriteMaterial( { map: this.texture } );
+		this.displayEntity = new THREE.Sprite( this.material );
+		this.displayEntity.scale.set( globalAppSettings.defaultLabelScale.x, globalAppSettings.defaultLabelScale.y, globalAppSettings.defaultLabelScale.z );
+				
 		this.displayEntity.isGraphElement = true;
-		this.displayEntity.referent = this;
+		this.displayEntity.referent = this;		
 		
 		this.displayEntity.position.x = this.node.position.x;
 		this.displayEntity.position.y = this.node.position.y;
-		this.displayEntity.position.z = this.node.position.z;
-		
+		this.displayEntity.position.z = this.node.position.z;		
+
 		this.transformOnMouseOver = function(){
 			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
 			var scale = this.displayEntity.scale;
@@ -761,12 +726,12 @@ var LUCIDNODES = {
 			
 			var offset = new THREE.Vector3( 0, 0.5, 0 );
 			moveNodeByOffset( this.node, offset );
-		};		
+		};
 		
 		scene.add( this.displayEntity );
-	},
+		//return this.sprite;	
+	},	
 	
-
 	/**
 	 * EdgeLabel();
 	 * 
@@ -786,6 +751,7 @@ var LUCIDNODES = {
 		
 		this.text = parameters.text;
 		this.edge = parameters.edge;
+		this.fontface = parameters.fontface || "Arial";
 		this.fontsize = parameters.fontsize || globalAppSettings.defaultEdgeLabelFontSize;
 		this.color = parameters.color || this.edge.color;
 		this.colorAsHex = function(){
@@ -795,7 +761,24 @@ var LUCIDNODES = {
 			};
 		this.opacity = parameters.opacity || parameters.edge.opacity || globalAppSettings.defaultEdgeLabelOpacity;
 
-		this.displayEntity = new LUCIDNODES.Label( this.text, { fontsize: this.fontsize, color: this.color, opacity: this.opacity } );
+		
+		
+		
+		
+		this.textLineThickness = parameters.textLineThickness || 6;
+
+		labelText( this, this.text ); 
+		
+		// canvas contents will be used for a texture
+		this.texture = new THREE.Texture( this.canvas ); 
+		this.texture.needsUpdate = true;
+		this.texture.minFilter = THREE.LinearFilter;
+
+		this.material = new THREE.SpriteMaterial( { map: this.texture } );
+		this.displayEntity = new THREE.Sprite( this.material );
+		this.displayEntity.scale.set( globalAppSettings.defaultLabelScale.x, globalAppSettings.defaultLabelScale.y, globalAppSettings.defaultLabelScale.z );		
+		
+		
 		this.displayEntity.isGraphElement = true;		
 		this.displayEntity.referent = this;
 		
@@ -863,7 +846,7 @@ var LUCIDNODES = {
 		
 		this.transformOnWheel = function(){
 			
-		};		
+		};			
 		
 		scene.add( this.displayEntity );
 	},
@@ -902,6 +885,68 @@ var LUCIDNODES = {
 		if ( this.type.includes( "mindmap") ){    } 
 	},	
 };
+
+
+function clearLabelText( label ){
+	
+	var rect = {
+		x: 0,
+		y: 0,
+		width: label.canvas.width,
+		height: label.canvas.height
+	};
+	
+	label.context.clearRect( rect.x, rect.y, rect.width, rect.height ); 
+	label.displayEntity.material.map.needsUpdate = true; 
+	label.texture.needsUpdate = true;
+	
+}
+
+function changeLabelText ( label, string ){
+			
+	clearLabelText( label );
+
+	label.text = string;
+	label.metrics = label.context.measureText( label.text );
+	
+	//label.context.fillStyle = "rgba(" + label.color.r + "," + label.color.g + "," + label.color.b + "," + label.opacity + " )";	
+	label.context.fillText( label.text, label.textLineThickness, ( label.fontsize + label.textLineThickness ) );
+	label.displayEntity.material.map.needsUpdate = true; 
+
+}
+
+function labelText( label, text ){
+
+	// create a nested canvas & context
+	label.canvas = document.createElement('canvas');
+	label.context = label.canvas.getContext('2d');
+	label.context.font = "Bold " + label.fontsize + "px " + label.fontface;
+	label.fillTextX = label.textLineThickness;
+	label.fillTextY = label.fontsize + label.textLineThickness;
+	
+	// get size data (height depends only on font size)
+	label.metrics = label.context.measureText( text );
+	label.textWidth = label.metrics.width;
+	label.textHeight = label.fontsize;
+	
+	// text color
+	label.context.fillStyle = "rgba(" + label.color.r + "," + label.color.g + "," + label.color.b + "," + label.opacity + " )";
+	label.context.fillText( text, label.fillTextX, label.fillTextY );
+
+}
+
+function changeNodeName( node, string ){
+	
+	node.name = string;
+	changeLabelText( node.label, node.name );
+	
+}
+
+function changeEdgeName( edge, string ){
+	
+	edge.name = string;
+	changeLabelText( edge.label, edge.name ); 
+}
 
 function nodesFromJson( arr ){
 	

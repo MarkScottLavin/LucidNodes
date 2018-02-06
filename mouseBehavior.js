@@ -121,204 +121,78 @@ function onMouseDown( event, camera ){
 		}
 		
 		if ( INTERSECTED && INTERSECTED.isGraphElement ) { 
+		
+			var n;
+			var e;
 			
-			if ( INTERSECTED.referent.isNode ) {
+			if ( INTERSECTED.referent.isNode ){ n = INTERSECTED.referent }
+			else if ( INTERSECTED.referent.isNodeLabel ){ n = INTERSECTED.referent.node }
+			else if ( INTERSECTED.referent.isEdge ){ e = INTERSECTED.referent }
+			else if ( INTERSECTED.referent.isEdgeLabel ){ e = INTERSECTED.referent.edge }			
+			
+			if ( n ) {
 				// If SELECTED includes INTERSECTED, leave it alone.
-				if ( SELECTED.nodes.length > 0 && SELECTED.nodes.includes( INTERSECTED.referent ) ) { 
+				if ( SELECTED.nodes.length > 0 && SELECTED.nodes.includes( n ) ) { 
 					
-					var intersectedIndex = SELECTED.nodes.indexOf( INTERSECTED.referent );
-					unTransformGraphElementOnUnselect( INTERSECTED.referent );
+					var intersectedIndex = SELECTED.nodes.indexOf( n );
+					unTransformGraphElementOnUnselect( n );
 					SELECTED.nodes.splice( intersectedIndex, 1 ); 
 					console.log( SELECTED );
-					//return; 
 					}
 				
-				// If SELECTED doesn't include INTERSECTED, transform it and add it.
-				else if ( SELECTED.nodes && !SELECTED.nodes.includes( INTERSECTED.referent ) ) { 
-					SELECTED.nodes.push( INTERSECTED.referent );
-					transformGraphElementOnSelect( INTERSECTED.referent );
+				// If SELECTED Nodes doesn't include INTERSECTED, transform it and add it.
+				else if ( !SELECTED.nodes.includes( n ) ) { 
+					SELECTED.nodes.push( n );
+					transformGraphElementOnSelect( n );
 					console.log( SELECTED );
 					}
 			}
 			
-			else if ( INTERSECTED.referent.isNodeLabel ){
-				// If SELECTED includes INTERSECTED, leave it alone.
-				if ( SELECTED.nodes.length > 0 && SELECTED.nodes.includes( INTERSECTED.referent.node ) ) { 
-					
-					var intersectedIndex = SELECTED.nodes.indexOf( INTERSECTED.referent.node );
-					unTransformGraphElementOnUnselect( INTERSECTED.referent.node );
-					SELECTED.nodes.splice( intersectedIndex, 1 ); 
-					console.log( SELECTED );
-					//return; 
-					}
+			else if ( e ){
 				
-				// If SELECTED doesn't include INTERSECTED, transform it and add it.
-				else if ( SELECTED.nodes && !SELECTED.nodes.includes( INTERSECTED.referent.node ) ) { 
-					SELECTED.nodes.push( INTERSECTED.referent.node );
-					transformGraphElementOnSelect( INTERSECTED.referent.node );
-					console.log( SELECTED );
-					}						
-			}
-			
-			else if ( INTERSECTED.referent.isEdge ){
-				
-				// If SELECTED includes INTERSECTED, leave it alone.
-				if ( SELECTED.edges.length > 0 && SELECTED.edges.includes( INTERSECTED.referent ) ) { 
+				// If SELECTED Edges includes INTERSECTED, leave it alone.
+				if ( SELECTED.edges.includes( e ) ) { 
 					
-					var intersectedIndex = SELECTED.edges.indexOf( INTERSECTED.referent );
-					unTransformGraphElementOnUnselect( INTERSECTED.referent );
+					var intersectedIndex = SELECTED.edges.indexOf( e );
+					unTransformGraphElementOnUnselect( e );
 					SELECTED.edges.splice( intersectedIndex, 1 ); 
 					console.log( SELECTED );
-					//return; 
 					}
 				
-				// If SELECTED doesn't include INTERSECTED, transform it and add it.
-				else if ( SELECTED.edges.length > 0 && !SELECTED.edges.includes( INTERSECTED.referent ) ) { 
-					SELECTED.edges.push( INTERSECTED.referent );
-					transformGraphElementOnSelect( INTERSECTED.referent );
+				// If SELECTED Edges doesn't include INTERSECTED, transform it and add it.
+				else if ( !SELECTED.edges.includes( e ) ) { 
+					SELECTED.edges.push( e );
+					transformGraphElementOnSelect( e );
 					console.log( SELECTED );
 					}
-			} 
-			
-			else if ( INTERSECTED.referent.isEdgeLabel ){
-				// If SELECTED includes INTERSECTED, leave it alone.
-				if ( SELECTED.edges.length > 0 && SELECTED.includes( INTERSECTED.referent.edge ) ) { 
-					
-					var intersectedIndex = SELECTED.edges.indexOf( INTERSECTED.referent.edge );
-					unTransformGraphElementOnUnselect( INTERSECTED.referent.edge );
-					SELECTED.edges.splice( intersectedIndex, 1 ); 
-					console.log( SELECTED.edges.referent.edge );
-					//return; 
-					}
-				
-				// If SELECTED doesn't include INTERSECTED, transform it and add it.
-				else if ( SELECTED.edges.length > 0 && !SELECTED.edges.includes( INTERSECTED.referent.edge ) ) { 
-					SELECTED.edges.push( INTERSECTED.referent.edge );
-					transformGraphElementOnSelect( INTERSECTED.referent.edge );
-					console.log( SELECTED.edges.referent.edge );
-					}						
-			}							
+			} 			
 		}
 	}
 
 	else if ( !event.ctrlKey && !event.altKey ){  // If CTRL isn't clicked
-	
+		
+		unSelectAll();
 		unAltSelectAll();
-
-		// If there's no INTERSECTED or the INTERSECTED isn't a GraphElement
-		if ( !INTERSECTED || !INTERSECTED.isGraphElement ){				
-			// If there's a SELECTED Array
-			if ( SELECTED ){ unSelectAll();	}
-		}
 
 		// IF there's an INTERSECTED and it's a GraphElement
 		if ( INTERSECTED && INTERSECTED.isGraphElement ){
 
-			if ( INTERSECTED.referent.isNode ){
-				// If there's a SELECTED array
-				if ( SELECTED.nodes ){
-					
-					// If that SELECTED array includes the currently INTERSECTED object
-					if ( SELECTED.nodes.includes ( INTERSECTED.referent ) ) { 
-						// Negative for loop -- untransform and remove from SELECTED everything but the INTERSECTED object
-						for ( var s = 0; s < SELECTED.nodes.length; s++ ){
-							
-							if ( SELECTED.nodes[ s ] !== INTERSECTED.referent ){
-								unTransformGraphElementOnUnselect( SELECTED.nodes[ s ] );								
-							}
-						}
-						SELECTED.nodes = [ INTERSECTED.referent ];
-						console.log( SELECTED );
-					}
-				
-					else { 
-					
-						unSelectAll();
-						
-						transformGraphElementOnSelect( INTERSECTED.referent );
-						SELECTED.nodes.push( INTERSECTED.referent );							
-					}
-				}
-			}
+			var n;
+			var e;
 			
-			if ( INTERSECTED.referent.isNodeLabel ){
-				// If there's a SELECTED array
-				if ( SELECTED.nodes.length > 0 ){
-					
-					// If that SELECTED array includes the currently INTERSECTED object
-					if ( SELECTED.nodes.includes ( INTERSECTED.referent.node ) ) { 
-						// Negative for loop -- untransform and remove from SELECTED everything but the INTERSECTED object
-						for ( var s = 0; s < SELECTED.nodes.length; s++ ){
-							
-							if ( SELECTED.nodes[ s ] !== INTERSECTED.referent.node ){
-								unTransformGraphElementOnUnselect( SELECTED.nodes[ s ] );								
-							}
-						}
-						SELECTED.nodes = [ INTERSECTED.referent.node ];
-						console.log( SELECTED.nodes );
-					}
-				
-					else { 
-					
-						unSelectAll();
-						
-						transformGraphElementOnSelect( INTERSECTED.referent );
-						SELECTED.nodes.push( INTERSECTED.referent.node );							
-					}
-				}
+			if ( INTERSECTED.referent.isNode ){ n = INTERSECTED.referent }
+			else if ( INTERSECTED.referent.isNodeLabel ){ n = INTERSECTED.referent.node }
+			else if ( INTERSECTED.referent.isEdge ){ e = INTERSECTED.referent }
+			else if ( INTERSECTED.referent.isEdgeLabel ){ e = INTERSECTED.referent.edge }
+		
+			if ( n ){
+				transformGraphElementOnSelect( n );
+				SELECTED.nodes.push( n );							
 			}
-			
-			if ( INTERSECTED.referent.isEdge ){
-				// If there's a SELECTED array
-				if ( SELECTED.edges ){
-					
-					// If that SELECTED array includes the currently INTERSECTED object
-					if ( SELECTED.edges.includes ( INTERSECTED.referent ) ) { 
-						// Negative for loop -- untransform and remove from SELECTED everything but the INTERSECTED object
-						for ( var s = 0; s < SELECTED.edges.length; s++ ){
-							
-							if ( SELECTED.edges[ s ] !== INTERSECTED.referent ){
-								unTransformGraphElementOnUnselect( SELECTED.edges[ s ] );								
-							}
-						}
-						SELECTED.edges = [ INTERSECTED.referent ];
-						console.log( SELECTED );
-					}
-				
-					else { 
-					
-						unSelectAll();
-						
-						transformGraphElementOnSelect( INTERSECTED.referent );
-						SELECTED.edges.push( INTERSECTED.referent );							
-					}
-				}
-			}				
 
-			if ( INTERSECTED.referent.isEdgeLabel ){
-				// If there's a SELECTED array
-				if ( SELECTED.edges.length > 0 ){
-					
-					// If that SELECTED array includes the currently INTERSECTED object
-					if ( SELECTED.edges.includes ( INTERSECTED.referent.edge ) ) { 
-						// Negative for loop -- untransform and remove from SELECTED everything but the INTERSECTED object
-						for ( var s = 0; s < SELECTED.length; s++ ){
-							
-							if ( SELECTED.edges[ s ] !== INTERSECTED.referent.edge ){
-								unTransformGraphElementOnUnselect( SELECTED.edges[ s ] );								
-							}
-						}
-						SELECTED.edges = [ INTERSECTED.referent.edge ];
-						console.log( SELECTED );
-					}
-				
-					else { 
-						unSelectAll();
-					
-						transformGraphElementOnSelect( INTERSECTED.referent );
-						SELECTED.edges.push( INTERSECTED.referent.edge );							
-					}
-				}
+			if ( e ){
+				transformGraphElementOnSelect( e );
+				SELECTED.edges.push( e );
 			}					
 		}
 	}
@@ -326,20 +200,16 @@ function onMouseDown( event, camera ){
 
 		if ( INTERSECTED && INTERSECTED.isGraphElement ){
 			
-			var altSel;
+			var n;
 			
-			if ( INTERSECTED.referent.isNode ){
-				altSel = INTERSECTED.referent;
-			}
-			else if ( INTERSECTED.referent.isNodeLabel ){
-				altSel = INTERSECTED.referent.node;
-			}
+			if ( INTERSECTED.referent.isNode ){ n = INTERSECTED.referent }
+			else if ( INTERSECTED.referent.isNodeLabel ){ n = INTERSECTED.referent.node }
 
 			
-			if ( ( ALTSELECTED.length <= 1 ) && ( !ALTSELECTED.includes ( altSel ) ) ){
+			if ( ( ALTSELECTED.length <= 1 ) && ( !ALTSELECTED.includes ( n ) ) ){
 				
-				ALTSELECTED.push( altSel ); 
-				altSel.transformOnAltClick();
+				ALTSELECTED.push( n ); 
+				n.transformOnAltClick();
 				console.log( ALTSELECTED );
 			}
 			
@@ -350,9 +220,6 @@ function onMouseDown( event, camera ){
 				unAltSelectAll();
 				
 			}
-								
-			// NOTE: Escape conditions necessary ( ie if click-event without ALT, ALTSELECTED = [] )
-
 		}
 	}
 
@@ -427,14 +294,14 @@ function onClickWithKey(){
 	}
 }
 
-function changeGraphElementLabel( graphElement, string ){
+function changeGraphElementLabelText( graphElement, string ){
 	
 	var label = graphElement.label;
 	
 	changeGraphElementName( graphElement, string );
 	
-	label.text = string;
-	label.displayEntity.context.fillText( string, label.displayEntity.textLineThickness, label.displayEntity.fontsize + label.displayEntity.textLineThickness );
+	label.displayEntity.text = string;
+	label.displayEntity.changeText( string );
 	
 }
 
