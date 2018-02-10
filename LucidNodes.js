@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.15
+	* Version 0.1.16
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -554,27 +554,42 @@ var LUCIDNODES = {
 		
 		this.transformOnMouseOver = function(){
 			
-			var color = globalAppSettings.edgeColorOnMouseOver;
-			this.displayEntity.material.color.set( globalAppSettings.edgeColorOnMouseOver );
+			if ( !SELECTED.edges.includes( this ) ){
+			
+				var color = globalAppSettings.edgeColorOnMouseOver;
+				this.displayEntity.material.color.set( globalAppSettings.edgeColorOnMouseOver );
+			
+			}
 			
 			this.label.transformOnMouseOverEdge();
 		};
 		
 		this.transformOnMouseOut = function(){
-			var color = this.colorAsHex();
-			this.displayEntity.material.color.set( color );
+			
+			if ( !SELECTED.edges.includes( this ) ){
+			
+				var color = this.colorAsHex();
+				this.displayEntity.material.color.set( color );
+			
+			}
 			
 			this.label.transformOnEdgeMouseOut();
 		};
 		
 		this.transformOnMouseOverLabel = function(){
-			var color = globalAppSettings.edgeColorOnMouseOver;
-			this.displayEntity.material.color.set( globalAppSettings.edgeColorOnMouseOver );
+			
+			if ( !SELECTED.edges.includes( this ) ){
+				var color = globalAppSettings.edgeColorOnMouseOver;
+				this.displayEntity.material.color.set( globalAppSettings.edgeColorOnMouseOver );
+			}
 		};
 		
 		this.transformOnLabelMouseOut = function(){
-			var color = this.colorAsHex();
-			this.displayEntity.material.color.set( color );				
+			
+			if ( !SELECTED.edges.includes( this ) ){
+				var color = this.colorAsHex();
+				this.displayEntity.material.color.set( color );
+			}
 		};
 
 		this.transformOnClick = function(){
@@ -761,10 +776,6 @@ var LUCIDNODES = {
 			};
 		this.opacity = parameters.opacity || parameters.edge.opacity || globalAppSettings.defaultEdgeLabelOpacity;
 
-		
-		
-		
-		
 		this.textLineThickness = parameters.textLineThickness || 6;
 
 		labelText( this, this.text ); 
@@ -777,7 +788,6 @@ var LUCIDNODES = {
 		this.material = new THREE.SpriteMaterial( { map: this.texture } );
 		this.displayEntity = new THREE.Sprite( this.material );
 		this.displayEntity.scale.set( globalAppSettings.defaultLabelScale.x, globalAppSettings.defaultLabelScale.y, globalAppSettings.defaultLabelScale.z );		
-		
 		
 		this.displayEntity.isGraphElement = true;		
 		this.displayEntity.referent = this;
@@ -805,7 +815,7 @@ var LUCIDNODES = {
 			this.displayEntity.material.color.set ( this.colorAsHex() );
 			this.displayEntity.scale.set( scale.x , scale.y , scale.z );
 			
-			this.edge.transformOnLabelMouseOut();
+			this.edge.transformOnLabelMouseOut();			
 		};
 
 		this.transformOnMouseOverEdge = function(){
@@ -850,11 +860,7 @@ var LUCIDNODES = {
 		
 		scene.add( this.displayEntity );
 	},
-		
-	// SUBGRAPHS
-	
-	SubGroup: {},
-	
+			
 	// WHOLE GROUP
 	
 	/* 
@@ -1652,4 +1658,96 @@ var changeGraphElementColor = function( graphElement, color ){
 
 function getPlaneIntersectPoint( plane ){
 	return ray.intersectObject( plane )[0];
+}
+
+
+function changeGraphElementLabelText( graphElement, string ){
+	
+	var label = graphElement.label;
+	
+	changeGraphElementName( graphElement, string );
+	
+	label.displayEntity.text = string;
+	label.displayEntity.changeText( string );
+	
+}
+
+function changeGraphElementName( graphElement, string ){
+	
+	graphElement.name = string;
+	
+}
+
+function deleteNode( node ){
+	
+	var nodeIndex = cognition.nodes.indexOf( node );	
+	
+	scene.remove( node.displayEntity );	
+	cognition.nodes.splice( nodeIndex, 1 );	
+
+	deleteGraphElementLabel( node );
+	deleteNodeEdges( node );	
+	
+	DELETED.nodes.push( node );
+	
+	console.log( 'DELETED:', DELETED );
+
+}
+
+function deleteNodeEdges( node ){
+	
+	getNodeEdges( node );
+	
+	if ( node.edges.length > 0 ){	
+		for ( var e = 0; e < node.edges.length; e++ ){
+			deleteEdge( node.edges[e] );
+		}
+	}
+	
+	node.edges = [];
+}
+
+function deleteEdge( edge ){
+	
+	scene.remove( edge.displayEntity );
+	deleteGraphElementLabel( edge );
+	
+	var edgeCognitionIndex = cognition.edges.indexOf( edge );
+	var edgeNodeIndex;
+	
+	cognition.edges.splice( edgeCognitionIndex, 1 );
+
+	DELETED.edges.push( edge );	
+
+	console.log( 'DELETED:', DELETED );
+}
+
+function deleteNodeArray( nodeArr ){
+	
+	if ( nodeArr ){
+		for ( var n = 0; n < nodeArr.length; n++ ){
+			deleteNode( nodeArr[n] );
+		}
+	}	
+}
+
+function deleteEdgeArray( edgeArr ){
+	
+	if ( edgeArr ){
+		for ( var e = 0; e < edgeArr.length; e++ ){
+			deleteEdge( edgeArr[e] );
+		}
+	}
+}
+
+function deleteAllSelected(){
+	
+	SELECTED.nodes.length > 0 && deleteNodeArray( SELECTED.nodes );
+	SELECTED.edges.length > 0 && deleteEdgeArray( SELECTED.edges );
+} 
+
+function deleteGraphElementLabel( graphElement ){
+	
+	scene.remove( graphElement.label.displayEntity );
+	
 }

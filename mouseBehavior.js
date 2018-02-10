@@ -60,6 +60,10 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 			onClick( event ); 
 		} 
 		
+		if ( event.type === 'dblclick' ){
+			onDblClick( event );
+		} 
+		
 		// Check if the mouse event is a wheel event (This is temporary, just to see if we can save a file with the change. We're also going to make it so that the change happens at the level of the graphElement itself, and not just the displayObject )
 		if ( event.type === 'wheel' ){
 			onMouseWheel( event, intersects );
@@ -247,6 +251,25 @@ function onClick( event ){
 	}
 }
 
+function onDblClick( event ){
+	
+	if ( INTERSECTED && INTERSECTED.isGraphElement ){
+
+		var n;
+		var e;
+		
+		if ( INTERSECTED.referent.isNode ){ n = INTERSECTED.referent }
+		else if ( INTERSECTED.referent.isNodeLabel ){ n = INTERSECTED.referent.node }
+		else if ( INTERSECTED.referent.isEdge ){ e = INTERSECTED.referent }
+		else if ( INTERSECTED.referent.isEdgeLabel ){ e = INTERSECTED.referent.edge }
+	
+		if ( n && SELECTED.nodes.includes( n ) ){ changeLabelText( n.label, "testNodeChg" ) }
+
+		if ( e && SELECTED.edges.includes( e ) ){ changeLabelText( e.label, "testEdgeChg" )	 } 
+
+		}						
+}
+
 function onMouseWheel( event, intersects ){
 	if ( intersects[ 0 ].object.isGraphElement && intersects[ 0 ].object === INTERSECTED ){
 		// transform on wheel.
@@ -268,107 +291,25 @@ function onClickWithKey(){
 		addNode( position );	
 	}
 	
-	if ( keyPressed.key === "Delete"){
-		
-		if ( SELECTED.nodes.length > 0 ){
-			for ( var s = 0; s < SELECTED.nodes.length; s++ ){
-				
-				deleteNode( SELECTED.nodes[s] );
-			}
-		}
-		if ( SELECTED.edges.length > 0 ){
-			for ( var e = 0; e < SELECTED.edges.length; e++ ){ 
-
-				deleteEdge( SELECTED.edges[e] );
-			}
-		}
-	}
-	
 	if ( keyPressed === "t" ){
 		
 		if ( SELECTED.nodes.length === 1 ){
 			
 		}
-		
-		
 	}
-}
-
-function changeGraphElementLabelText( graphElement, string ){
-	
-	var label = graphElement.label;
-	
-	changeGraphElementName( graphElement, string );
-	
-	label.displayEntity.text = string;
-	label.displayEntity.changeText( string );
-	
-}
-
-function changeGraphElementName( graphElement, string ){
-	
-	graphElement.name = string;
-	
-}
-
-function deleteNode( node ){
-	
-	var nodeIndex = cognition.nodes.indexOf( node );	
-	
-	scene.remove( node.displayEntity );	
-	cognition.nodes.splice( nodeIndex, 1 );	
-
-	deleteGraphElementLabel( node );
-	deleteNodeEdges( node );	
-	
-	DELETED.nodes.push( node );
-	
-	console.log( 'DELETED:', DELETED );
-
-}
-
-function deleteNodeEdges( node ){
-	
-	getNodeEdges( node );
-	
-	if ( node.edges.length > 0 ){	
-		for ( var e = 0; e < node.edges.length; e++ ){
-			deleteEdge( node.edges[e] );
-		}
-	}
-	
-	node.edges = [];
-}
-
-function deleteEdge( edge ){
-	
-	scene.remove( edge.displayEntity );
-	deleteGraphElementLabel( edge );
-	
-	var edgeCognitionIndex = cognition.edges.indexOf( edge );
-	var edgeNodeIndex;
-	
-	cognition.edges.splice( edgeCognitionIndex, 1 );
-
-	DELETED.edges.push( edge );	
-
-	console.log( 'DELETED:', DELETED );
-}
-
-function deleteGraphElementLabel( graphElement ){
-	
-	scene.remove( graphElement.label.displayEntity );
-	
 }
 	
 function onKeyDown( event ){
 
 	keyPressed.isPressed = true;
-	keyPressed.key = event.key
+	keyPressed.key = event.key;
 	console.log( "onKeyDown(): ", keyPressed );
+	
 }
 
 function onKeyUp( event ){
+	
+	keyPressed.key === "Delete" && deleteAllSelected();	
 	
 	keyPressed.isPressed = false;
 	keyPressed.key = null;
@@ -418,7 +359,6 @@ function unAltSelectAll(){
 		ALTSELECTED = [];
 	}
 }
-
 
 function transformGraphElementOnMouseOver( obj ){
 	if ( obj.isGraphElement ) { obj.referent.transformOnMouseOver(); }	
@@ -475,7 +415,6 @@ function transformGraphElementOnWheel( obj ){
 function listenFor(){
 	document.getElementById('visualizationContainer').addEventListener( 'click', onMouse, false );
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', onMouse, false );
-//	document.getElementById('visualizationContainer').addEventListener( 'mousemove', mouseMoveWithSelection, false );
 	document.getElementById('visualizationContainer').addEventListener( 'mousedown', onMouse, false );
 	document.getElementById('visualizationContainer').addEventListener( 'mouseup', onMouse, false );
 	document.getElementById('visualizationContainer').addEventListener( 'dblclick', onMouse, false );

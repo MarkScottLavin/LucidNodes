@@ -1,6 +1,6 @@
 /* SCENEETUP.JS
  * Name: Scene Setup
- * version 0.1.15
+ * version 0.1.16
  * Author: Mark Scott Lavin 
  * License: MIT
  * For Changelog see README.txt
