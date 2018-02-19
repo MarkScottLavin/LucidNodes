@@ -12,10 +12,15 @@
 	<script src="js/OrbitControls.js"></script>
 	
 	<link rel="stylesheet" href="css/stylesheet.css">
+	<link rel="stylesheet" href="css/contextMenu.css">
 	
 </header>
 
 <body>
+
+<nav class="topMenu">
+Tools
+</nav>
 
 <div id="visualizationContainer">
 	<script src="mouseBehavior.js"></script>
@@ -24,6 +29,7 @@
 	<script src="LucidNodes.js"></script>
 	<script src="js/fileHandlingUtils.js"></script>
 	<script src="app.js"></script>	
+	<script src="lucidNodes-modules/treeClimber.js"></script>
 </div>
 
 <div class="container-fluid" id="browserUI"><!--
@@ -62,4 +68,43 @@
 	</div>
 </div>
 
+	<nav class="context-menu" id="context-menu">
+	  <ul class="context-menu__items">
+		<li class="context-menu__item">
+		  <a href="#" class="context-menu__link" id="selectAll">
+		  </a>
+		</li>
+		<li class="context-menu__item">
+		  <a href="#" class="context-menu__link" id="rename">
+		  </a>
+		</li>
+		<li class="context-menu__item">
+		  <a href="#" class="context-menu__link" id="delete">
+		  </a>
+		</li>	
+		<li class="context-menu__item">
+		  <a href="#" class="context-menu__link" id="changeType">
+		  </a>
+		</li>
+		<li class="context-menu__item">
+		  <a href="#" class="context-menu__link" id="group">
+		  </a>
+		</li>	
+		<li class="context-menu__item">
+		  <a href="#" class="context-menu__link" id="selectAllOfSame">
+		  </a>
+		</li>
+		<li class="context-menu__item">
+		  <a href="#" class="context-menu__link" id="scale">
+		  </a>
+		</li>
+		<li class="context-menu__item">
+		  <a href="#" class="context-menu__link" id="properties">
+		  </a>
+		</li>		
+	  </ul>
+	</nav>
+
+	<script src="js/contextMenu.js"></script>
+	
 </body>

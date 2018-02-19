@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.16
+	* Version 0.1.17
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -11,6 +11,10 @@
 	* mindmapping
 	* etc.
 ****************************************************/
+
+Array.prototype.clone = function() {
+	return this.slice(0);
+};
 
 var _Math = {
 	
@@ -377,26 +381,17 @@ var LUCIDNODES = {
 		this.castShadows = parameters.castShadows || globalAppSettings.castShadows;  /* Set to global default */
 		this.recieveShadows = parameters.recieveShadows || globalAppSettings.recieveShadows; /* Set to global default */
 		
-		/* Text */
+		/* Label */
 		
-		this.label = new LUCIDNODES.NodeLabel( {
-				text: this.name,
-				node: this,
-				fontsize: parameters.labelFontsize || globalAppSettings.defaultNodeLabelFontSize,
-				color: parameters.labelColor || this.color,
-				opacity: parameters.labelOpacity || globalAppSettings.defaultNodeLabelOpacity
-			});
-			
+		this.labelFontsize = parameters.labelFontsize;
+		this.labelColor = parameters.labelColor;
+		this.labelOpacity = parameters.labelOpacity;
+		
+		createNodeLabel( this );
+		
 		/* THREE.js Object genesis */
 		
-		this.bufferGeom = new THREE.SphereBufferGeometry( this.radius, 32, 32 );
-		this.displayEntity = new THREE.Mesh( this.bufferGeom, this.material );
-		this.displayEntity.isGraphElement = true;
-		this.displayEntity.referent = this;
-		
-		this.displayEntity.position.x = this.position.x;
-		this.displayEntity.position.y = this.position.y;
-		this.displayEntity.position.z = this.position.z;
+		createNodeDisplayEntity( this );
 
 		/* UI Behaviors */
 		
@@ -414,7 +409,7 @@ var LUCIDNODES = {
 		
 		this.transformOnMouseOverLabel = function(){
 			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
-			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );			
+			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );
 		};
 		
 		this.transformOnLabelMouseOut = function(){
@@ -441,6 +436,10 @@ var LUCIDNODES = {
 			offset = new THREE.Vector3 ( 0, 0.5, 0 ); 
 			moveNodeByOffset( this, offset ); 
 		}; 		
+		
+		/* Createing a hidden user input for changing text labels */
+		
+		createHiddenInput( this );
 		
 		/* Playing Nice with Others */
 		
@@ -482,7 +481,7 @@ var LUCIDNODES = {
 		this.edges = []; /* What are the edges extending to/from this object? Initialize as empty */
 		this.adjacentNodes = []; /* What other nodes are connected to this object via edges? Initialize as empty */
 		
-		scene.add( this.displayEntity );
+		//scene.add( this.displayEntity );
 		
 		console.log( 'LUCIDNODES.Node(): ', this );
 	},
@@ -536,22 +535,17 @@ var LUCIDNODES = {
 		this.material = new THREE.LineBasicMaterial( { color: this.colorAsHex(), linewidth: this.thickness } );
 		this.material.opacity = this.opacity;
 		
+		this.fontsize = parameters.fontsize || globalAppSettings.defaultEdgeLabelFontSize;
+		this.color = parameters.labelcolor || this.color;
+		this.labelOpacity = parameters.labelOpacity;		
+		
 		toggleGraphElementTransparency( this );
 		
 		this.castShadows = parameters.castShadows;  /* Set to global default */
 		this.recieveShadows = parameters.recieveShadows; /* Set to global default */
-		
-		this.geom = new THREE.Geometry();
-		this.geom.dynamic = true;
-		this.geom.vertices.push(
-			new THREE.Vector3( this.ends[0].x, this.ends[0].y, this.ends[0].z ),
-			new THREE.Vector3( this.ends[1].x, this.ends[1].y, this.ends[1].z ),
-		);		
-		
-		this.displayEntity = new THREE.Line( this.geom, this.material );
-		this.displayEntity.isGraphElement = true;
-		this.displayEntity.referent = this;				
-		
+
+		createEdgeDisplayEntity( this );
+				
 		this.transformOnMouseOver = function(){
 			
 			if ( !SELECTED.edges.includes( this ) ){
@@ -608,13 +602,9 @@ var LUCIDNODES = {
 				};
 			};
 		this.centerPoint = _Math.avgPosition( this.nodes[0], this.nodes[1] );
-		this.label = new LUCIDNODES.EdgeLabel( {
-				text: this.name,
-				edge: this,
-				fontsize: parameters.fontsize || globalAppSettings.defaultEdgeLabelFontSize,
-				color: parameters.labelcolor || this.color,
-				opacity: parameters.labelOpacity || globalAppSettings.defaultEdgeLabelOpacity
-			});
+		
+		createEdgeLabel( this );
+
 		this.isdirectional = function( meaningSystem, meaning ){ 
 				// set by meaning;
 			};
@@ -623,8 +613,9 @@ var LUCIDNODES = {
 			/* return or do something with the Edge direction (pointing toward one node, away from the other node in a binary pair */
 			}
 		};
-
-		scene.add( this.displayEntity );
+		
+		/* Create a hidden user input for changing labels */
+		createHiddenInput( this );
 		
 		console.log( 'LUCIDNODES.Edge(): ', this );
 	},	
@@ -892,6 +883,119 @@ var LUCIDNODES = {
 	},	
 };
 
+function createNodeDisplayEntity( node ){
+	
+	node.bufferGeom = new THREE.SphereBufferGeometry( node.radius, 32, 32 );
+	node.displayEntity = new THREE.Mesh( node.bufferGeom, node.material );
+	node.displayEntity.isGraphElement = true;
+	node.displayEntity.referent = node;
+	
+	node.displayEntity.position.x = node.position.x;
+	node.displayEntity.position.y = node.position.y;
+	node.displayEntity.position.z = node.position.z;
+
+	scene.add( node.displayEntity ); 
+	
+}
+
+function removeNodeDisplayEntity( node ){
+	
+	scene.remove( node.displayEntity );
+
+}
+
+function createEdgeDisplayEntity( edge ){
+
+	edge.geom = new THREE.Geometry();
+	edge.geom.dynamic = true;
+	edge.geom.vertices.push(
+		new THREE.Vector3( edge.ends[0].x, edge.ends[0].y, edge.ends[0].z ),
+		new THREE.Vector3( edge.ends[1].x, edge.ends[1].y, edge.ends[1].z ),
+	);		
+	
+	edge.displayEntity = new THREE.Line( edge.geom, edge.material );
+	edge.displayEntity.isGraphElement = true;
+	edge.displayEntity.referent = edge;				
+	
+	scene.add( edge.displayEntity );
+
+}
+
+function removeEdgeDisplayEntity( edge ){
+	
+	scene.remove( edge.displayEntity );
+} 
+ 
+function createNodeLabel( node ){
+
+	node.label = new LUCIDNODES.NodeLabel( {
+			text: node.name,
+			node: node,
+			fontsize: node.labelFontsize || globalAppSettings.defaultNodeLabelFontSize,
+			color: node.labelColor || node.color,
+			opacity: node.labelOpacity || globalAppSettings.defaultNodeLabelOpacity
+		});
+	
+}
+
+function createEdgeLabel( edge ){
+
+	edge.label = new LUCIDNODES.EdgeLabel( {
+			text: edge.name,
+			edge: edge,
+			fontsize: edge.fontsize || globalAppSettings.defaultEdgeLabelFontSize,
+			color: edge.labelcolor || edge.color,
+			opacity: edge.labelOpacity || globalAppSettings.defaultEdgeLabelOpacity
+		});
+
+}
+
+	/*
+	 * createHiddenInput();
+	 *
+	 * Description: Creates a new hidden input that can then get called up when the app is taking user input
+	 *
+	 * author: Mark Scott Lavin
+	 *
+	 */
+
+function createHiddenInput( graphElement ){
+
+	// Let's create a hidden HTML5 Input to handle user input
+	graphElement.hiddenInput = document.createElement( "input" );
+	graphElement.hiddenInput.type = "text";
+	graphElement.hiddenInput.style.opacity = 0;
+	graphElement.hiddenInput.style.width = 0;
+	graphElement.hiddenInput.style.height = 0;
+	graphElement.hiddenInput.style.position = "absolute";
+	//graphElement.hiddenInput.style.left = "0px";
+	//graphElement.hiddenInput.style.top = "0px";
+	graphElement.hiddenInput.style.overflow = "hidden";
+	document.body.appendChild( graphElement.hiddenInput );
+	
+	graphElement.hiddenInput.onkeyup = function() { 
+	
+		graphElement.isNode && changeNodeName( graphElement, this.value );
+		graphElement.isEdge && changeEdgeName( graphElement, this.value );
+		
+	}
+}
+
+/*
+ * destroyHiddenInput();
+ *
+ * Description: Removes the hidden user input from a graphElement if needed.
+ *
+ * author: Mark Scott Lavin
+ *
+ */
+
+function destroyHiddenInput( graphElement ){
+
+	if ( graphElement.hiddenInput ){
+		document.body.removeChild( graphElement.hiddenInput );
+	}
+}
 
 function clearLabelText( label ){
 	
@@ -1255,6 +1359,115 @@ function moveNodeByOffset( node, offset ){
 	
 }
 
+function scaleNode( node, scaleFactor ){
+	
+	node.radius = node.radius * scaleFactor;
+	removeNodeDisplayEntity( node );
+	createNodeDisplayEntity( node );
+
+}
+
+// !!! Unfinished Function 
+function restoreDeletedNode( node ){
+	
+	var nodeDeletedIndex = DELETED.nodes.indexOf( node );	
+	
+	// Move the node from the DELETED Array back to the cognition Array
+	DELETED.nodes.splice( nodeDeletedIndex, 1 );
+	cognition.nodes.push( node ); // Need to insert node back in its place in the cognition array? Or at end?
+
+	// Recreate the displayEntity and the node's label
+	createNodeDisplayEntity( node );
+	createNodeLabel( node );
+	
+	// Restore any edges associated to the node. 
+	restoreDeletedNodeEdges( node ); 
+	
+	console.log( 'DELETED:', DELETED );
+	console.log( 'Cognition: ', cognition.nodes );
+} 
+
+function restoreDeletedEdge( edge ){
+	
+	var edgeDeletedIndex = DELETED.edges.indexOf( edge );
+	
+	// Move the edge from the DELETED Array back to the cognition Array	
+	DELETED.edges.splice( edgeDeletedIndex, 1 );
+	cognition.edges.push( edge );	
+	
+	// Recreate the displayEntity and the edge's label
+	createEdgeDisplayEntity( edge );
+	createEdgeLabel( edge );
+
+	console.log( 'DELETED:', DELETED );
+	console.log( 'Cognition: ', cognition.edges );
+	
+}
+
+function restoreDeletedNodeEdges( node ){
+
+	var edgeId;
+	var testString;
+	var edgesToRestore = [];
+	
+	if ( DELETED.edges.length > 0 ){
+	
+		for ( var i = 0; i < DELETED.edges.length; i++ ){
+			
+			edgeId = DELETED.edges[i].id; 
+			testString = edgeId.indexOf( node.id );
+
+			if ( testString != -1 && cognition.nodes.includes( getEdgeOtherNode( DELETED.edges[i], node ) ) ){
+				edgesToRestore.push( DELETED.edges[i] );
+			}
+		}
+		
+		for ( var r = 0; r < edgesToRestore.length; r++ ){
+			restoreDeletedEdge( edgesToRestore[r] );
+		}
+
+	}
+}
+
+function getEdgeOtherNode( edge, node ){
+	
+	var otherNode;
+	var passedNodeIndex = edge.nodes.indexOf( node );
+
+	if ( passedNodeIndex === 0 ){ otherNode = edge.nodes[1]; }
+	if ( passedNodeIndex === 1 ){ otherNode = edge.nodes[0]; }
+	
+	return otherNode;
+}
+
+function nodeGetOtherEdges( node, edge ){
+	
+	if ( node && !edge ){
+		console.error( 'nodeGetOtherEdges(): Parameter 2, the edge, is required.' );
+	}
+	if ( !node && !edge ){
+		console.error( 'nodeGetOtherEdges(): Node and edge are required.' );
+	}	
+	
+	if ( node && node.isNode && edge && edge.isEdge ){
+	
+		getNodeEdges( node );
+		var otherEdges = node.edges.clone();
+		var index = otherEdges.indexOf( edge );
+		
+		otherEdges.splice( index, 1 );
+		
+		node.edges = [];
+		
+		if ( otherEdges.length > 0 ){
+			return otherEdges;
+		}
+		
+		else { return false; }
+		
+	}
+}
+
 function pullEdge( edge ){
 	
 	// Move the object's ends by the offset amount
@@ -1407,6 +1620,26 @@ function getNodeEdges( node ){
 			node.edges.push( cognition.edges[i] );
 		}
 	}
+}
+
+function getNodeEdges2( node ){
+	
+	var nodeId = node.id;
+	var edgeId;
+	var testString;
+	var edges = [];
+	
+	for ( var i = 0; i < cognition.edges.length; i++ ){
+		
+		edgeId = cognition.edges[i].id; 
+		testString = edgeId.indexOf( nodeId );
+
+		if ( testString != -1 ){
+			edges.push( cognition.edges[i] );
+		}
+	}
+	
+	return edges;
 }
 
 	/* getEdgesFromNodeToNodeArray() 
@@ -1682,7 +1915,7 @@ function deleteNode( node ){
 	
 	var nodeIndex = cognition.nodes.indexOf( node );	
 	
-	scene.remove( node.displayEntity );	
+	removeNodeDisplayEntity( node );	
 	cognition.nodes.splice( nodeIndex, 1 );	
 
 	deleteGraphElementLabel( node );
@@ -1709,7 +1942,7 @@ function deleteNodeEdges( node ){
 
 function deleteEdge( edge ){
 	
-	scene.remove( edge.displayEntity );
+	removeEdgeDisplayEntity( edge );
 	deleteGraphElementLabel( edge );
 	
 	var edgeCognitionIndex = cognition.edges.indexOf( edge );

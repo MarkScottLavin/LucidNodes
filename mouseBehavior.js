@@ -11,6 +11,7 @@ var keyPressed = {
 	key: null
 };
 var DELETED = { nodes:[], edges:[] };
+var ACTIVEHIDDENINPUT;
 
 function onMouse( event ) {
 
@@ -115,6 +116,10 @@ function onMouseMove( event, intersects ){
 }
 
 function onMouseDown( event, camera ){
+	
+	// If there are are any active hidden user inputs, disable them
+	blurActiveHiddenInput();
+	
 	if ( event.ctrlKey && !event.altKey ){
 		
 		unAltSelectAll();
@@ -146,8 +151,7 @@ function onMouseDown( event, camera ){
 				
 				// If SELECTED Nodes doesn't include INTERSECTED, transform it and add it.
 				else if ( !SELECTED.nodes.includes( n ) ) { 
-					SELECTED.nodes.push( n );
-					transformGraphElementOnSelect( n );
+					selectNode( n );
 					console.log( SELECTED );
 					}
 			}
@@ -165,8 +169,7 @@ function onMouseDown( event, camera ){
 				
 				// If SELECTED Edges doesn't include INTERSECTED, transform it and add it.
 				else if ( !SELECTED.edges.includes( e ) ) { 
-					SELECTED.edges.push( e );
-					transformGraphElementOnSelect( e );
+					selectEdge( e );
 					console.log( SELECTED );
 					}
 			} 			
@@ -190,13 +193,11 @@ function onMouseDown( event, camera ){
 			else if ( INTERSECTED.referent.isEdgeLabel ){ e = INTERSECTED.referent.edge }
 		
 			if ( n ){
-				transformGraphElementOnSelect( n );
-				SELECTED.nodes.push( n );							
+				selectNode( n );
 			}
 
 			if ( e ){
-				transformGraphElementOnSelect( e );
-				SELECTED.edges.push( e );
+				selectEdge( e );
 			}					
 		}
 	}
@@ -263,10 +264,16 @@ function onDblClick( event ){
 		else if ( INTERSECTED.referent.isEdge ){ e = INTERSECTED.referent }
 		else if ( INTERSECTED.referent.isEdgeLabel ){ e = INTERSECTED.referent.edge }
 	
-		if ( n && SELECTED.nodes.includes( n ) ){ changeLabelText( n.label, "testNodeChg" ) }
+		if ( n && SELECTED.nodes.includes( n ) && n.hiddenInput ){ 
+			ACTIVEHIDDENINPUT = n.hiddenInput;
+			ACTIVEHIDDENINPUT.focus();
+			changeLabelText( n.label, ACTIVEHIDDENINPUT.value ) 
+		}
 
-		if ( e && SELECTED.edges.includes( e ) ){ changeLabelText( e.label, "testEdgeChg" )	 } 
-
+		if ( e && SELECTED.edges.includes( e ) && e.hiddenInput ){
+			ACTIVEHIDDENINPUT = e.hiddenInput;
+			ACTIVEHIDDENINPUT.focus();
+			changeLabelText( n.label, ACTIVEHIDDENINPUT.value ) }
 		}						
 }
 
@@ -329,6 +336,51 @@ function getCameraUnProjectedVector( camera ){
 	return vector;
 }
 
+function selectNodeArray( nodeArr ){
+	
+	unSelectAll();
+	for ( var n = 0; n < nodeArr.length; n++ ){
+		selectNode( nodeArr[n] );
+	}
+}
+
+function selectNode( node ){
+	
+	if ( node ){
+		SELECTED.nodes.push( node );
+		transformGraphElementOnSelect( node );	
+	}
+	else { console.error( 'selectNode(): Node not found.' ) }
+}
+
+function selectEdge( edge ){
+	
+	if ( edge ){
+		SELECTED.edges.push( edge );
+		transformGraphElementOnSelect( edge );		
+	}
+	else { console.error( 'selectEdge(): Edge not found.' )}
+}
+
+function selectAllNodes(){
+	
+	selectNodeArray( cognition.nodes );
+
+};
+
+function selectEdgeArray( edgeArr ){
+
+	unSelectAll();
+	for ( var e = 0; e < edgeArr.length; e++ ){
+		selectEdge( edgeArr[e] );
+	}
+}
+
+function selectAllEdges(){
+	
+	selectEdgeArray( cognition.edges );
+}
+
 function unSelectAll(){
 	
 	if ( SELECTED.nodes.length > 0 ) {
@@ -348,6 +400,119 @@ function unSelectAllOfType( type ){
 	SELECTED[type] = [];	
 	
 	}	
+}
+
+function selectAllNodesInArrayWithPropVal( node, property, nodeArr ){
+	
+	var p = null;
+	var propVal;
+	
+	if ( node[property] ){ 
+		p = node[property];
+		unSelectAll();
+	}
+	
+	else { 
+		console.error( "selectAllNodesInArrayWithPropVal: No such property exists for the node passed." );
+		return; 
+		}
+	
+	for ( var n = 0; n < nodeArr.length; n++ ){	
+		propVal = null;
+		if ( nodeArr[n][property] ){ 
+			
+			propVal = nodeArr[n][property];
+			if ( propVal === p ) {
+				selectNode( nodeArr[n] );
+			}
+	/*		else if ( objectsAreIdentical( [ propVal, p ] ) ){
+				selectNode( nodeArr[n] );
+			}*/
+			else if ( propValIsObj( propVal ) && propValIsObj( p ) ){
+				if ( objectsAreIdentical( [ propVal, p ] ) ){
+					selectNode( nodeArr[n] );
+				}
+			}
+		}  
+	}
+}
+
+function propValIsObj( propVal ){
+	
+	var isObj;
+	
+	if ( typeof propVal === 'object' && propVal !== null ){
+		isObj = true;
+	}
+	else { isObj = false };
+	
+	console.log( 'propValIsObj: ', propVal, " is object: " , isObj );
+	return isObj;
+	
+}
+
+function getObjectLength( obj ){
+
+	var counter = 0;
+	
+	for ( var y in obj ) {
+		if ( obj.hasOwnProperty( y )) {
+			counter++;
+		}
+	}
+	
+	return counter;
+}
+
+/*
+ * objectsAreIdentical( );
+ * author: Mark Scott Lavin 
+ *
+ * parameters: 
+ * objs: <array> 	an array of two objects.
+ *
+ * This function compare the contents of two Javascript objects. If it identifies that they're identical, then it returns true, otherwise it returns false.
+ *
+ * Notes: untested with situations where one of the key/value pairs inside the passed objects being compared is itself a nested object. 
+ *
+ */
+
+function objectsAreIdentical( objs ){
+	
+	var identical = true; 
+	var length0 = getObjectLength( objs[0] );
+	var length1 = getObjectLength( objs[1] );
+	var isObj0, isObj1;
+	
+	if ( length0 !== length1 ){
+		identical = false;
+	}
+	
+	else {
+		for ( var k in objs[0] ){
+			if ( !objs[1].hasOwnProperty( k ) ){
+				identical = false;
+				break;
+			}
+		}
+		
+		for ( var k in objs[1] ){
+			if ( !objs[0].hasOwnProperty( k ) ){
+				identical = false;
+				break;
+			}
+		}
+		
+		for ( var k in objs[0] ){
+			if ( objs[0][k] !== objs[1][k] ){
+				identical = false;
+				break;
+			}
+		}
+	}
+	
+	console.log( 'objectsAreIdentical(): ', identical  );
+	return identical;
 }
 
 function unAltSelectAll(){
@@ -412,6 +577,13 @@ function transformGraphElementOnWheel( obj ){
 	if ( obj.displayEntity.isGraphElement ) { obj.transformOnWheel(); }	
 }
 
+function blurActiveHiddenInput(){
+
+	ACTIVEHIDDENINPUT && ACTIVEHIDDENINPUT.blur();
+	ACTIVEHIDDENINPUT = null;
+	
+}
+
 function listenFor(){
 	document.getElementById('visualizationContainer').addEventListener( 'click', onMouse, false );
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', onMouse, false );
@@ -419,7 +591,7 @@ function listenFor(){
 	document.getElementById('visualizationContainer').addEventListener( 'mouseup', onMouse, false );
 	document.getElementById('visualizationContainer').addEventListener( 'dblclick', onMouse, false );
 	document.getElementById('visualizationContainer').addEventListener( 'wheel', onMouse, false );
-	document.getElementById('visualizationContainer').addEventListener( 'contextmenu', onMouse, false );
+	//document.getElementById('visualizationContainer').addEventListener( 'contextmenu', onMouse, false );
 	document.addEventListener( 'keydown', function (e) { onKeyDown(e); }, false );
 	document.addEventListener( 'keyup', function (e) { onKeyUp(e); }, false );	
 	
