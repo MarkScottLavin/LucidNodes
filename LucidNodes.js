@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.17
+	* Version 0.1.18
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -478,7 +478,6 @@ var LUCIDNODES = {
 			/* etc... */
 		};
 		
-		this.edges = []; /* What are the edges extending to/from this object? Initialize as empty */
 		this.adjacentNodes = []; /* What other nodes are connected to this object via edges? Initialize as empty */
 		
 		//scene.add( this.displayEntity );
@@ -1451,13 +1450,11 @@ function nodeGetOtherEdges( node, edge ){
 	
 	if ( node && node.isNode && edge && edge.isEdge ){
 	
-		getNodeEdges( node );
-		var otherEdges = node.edges.clone();
+		var edges = getNodeEdges( node );
+		var otherEdges = edges.clone();
 		var index = otherEdges.indexOf( edge );
 		
 		otherEdges.splice( index, 1 );
-		
-		node.edges = [];
 		
 		if ( otherEdges.length > 0 ){
 			return otherEdges;
@@ -1491,11 +1488,10 @@ function pullEdge( edge ){
 
 function pullAllNodeEdges( node ){
 
-	getNodeEdges( node );
-	for ( var n = 0; n < node.edges.length; n++ ){	
-		pullEdge( node.edges[n] ); 
+	var edges = getNodeEdges( node );
+	for ( var n = 0; n < edges.length; n++ ){	
+		pullEdge( edges[n] ); 
 	}
-	node.edges = [];
 }
 
 function centerEdgeLabel( edgeLabel ){
@@ -1610,23 +1606,6 @@ function getNodeEdges( node ){
 	var nodeId = node.id;
 	var edgeId;
 	var testString;
-	
-	for ( var i = 0; i < cognition.edges.length; i++ ){
-		
-		edgeId = cognition.edges[i].id; 
-		testString = edgeId.indexOf( nodeId );
-
-		if ( testString != -1 ){
-			node.edges.push( cognition.edges[i] );
-		}
-	}
-}
-
-function getNodeEdges2( node ){
-	
-	var nodeId = node.id;
-	var edgeId;
-	var testString;
 	var edges = [];
 	
 	for ( var i = 0; i < cognition.edges.length; i++ ){
@@ -1661,11 +1640,12 @@ function getEdgesFromNodeToNodeArray( node, nodeArray ){
 
 	var nodeArrayNoDups = removeDupsFromGraphElementArray( nodeArray ); 
 	var nodeArrayNoIdenticals = removeIdenticalGraphElementsFromArray( nodeArrayNoDups, node ); 
+	var edges = getNodeEdges( node );
 	var edgeArray = []; 
 	
-	for ( var e = 0; e < node.edges.length; e++ ){
+	for ( var e = 0; e < edges.length; e++ ){
 	
-		edgeId = node.edges[e].id
+		edgeId = edges[e].id
 		
 		for ( var n = 0; n < nodeArrayNoIdenticals.length; n++ ){
 		
@@ -1673,7 +1653,7 @@ function getEdgesFromNodeToNodeArray( node, nodeArray ){
 				var testString = nodeArrayNoIdenticals[n].id;
 				testString = edgeId.indexOf( nodeArrayNoIdenticals[n].id );
 
-				if ( testString !== -1 ) { edgeArray.push( node.edges[e] ); }
+				if ( testString !== -1 ) { edgeArray.push( edges[e] ); }
 			}
 		}
 	}
@@ -1763,18 +1743,21 @@ function isCompleteGraph( nodeArray ){
 function getNodesAdjacentToNode( node ){
 	
 	var nodeId = node.id;
-	var edges = node.edges;
+	var edges = getNodeEdges( node );
+	var adjacentNodes = [];
 	var nIdentical;
 	
-	for ( var i = 0; i < node.edges.length; i++ ){
+	for ( var i = 0; i < edges.length; i++ ){
 		
-		for ( var j = 0; j < node.edges[i].nodes.length; j++ ){	
-			nIdentical = nodesIdentical( node, node.edges[i].nodes[j] );
+		for ( var j = 0; j < edges[i].nodes.length; j++ ){	
+			nIdentical = nodesIdentical( node, edges[i].nodes[j] );
 			if ( !nIdentical ) {
-				node.adjacentNodes.push( node.edges[i].nodes[j] );
+				adjacentNodes.push( edges[i].nodes[j] );
 			}
 		}
 	}
+	
+	return adjacentNodes;
 	
 }
 
@@ -1929,15 +1912,14 @@ function deleteNode( node ){
 
 function deleteNodeEdges( node ){
 	
-	getNodeEdges( node );
+	var edges = getNodeEdges( node );
 	
-	if ( node.edges.length > 0 ){	
-		for ( var e = 0; e < node.edges.length; e++ ){
-			deleteEdge( node.edges[e] );
+	if ( edges.length > 0 ){	
+		for ( var e = 0; e < edges.length; e++ ){
+			deleteEdge( edges[e] );
 		}
 	}
-	
-	node.edges = [];
+
 }
 
 function deleteEdge( edge ){
