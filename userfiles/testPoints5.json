@@ -1,7 +1,6 @@
 {
   "nodes": [
     {
-      "edges": [],
       "id": "n000",
       "name": "superduper",
       "color": {
@@ -24,12 +23,12 @@
         "text": "superduper",
         "opacity": 0.2
       },
+      "labelOpacity": null,
       "castShadows": true,
       "radius": 0.5,
       "shape": "sphere"
     },
     {
-      "edges": [],
       "id": "n001",
       "name": "WTF",
       "color": {
@@ -52,12 +51,12 @@
         "text": "WTF",
         "opacity": 0.2
       },
+      "labelOpacity": null,
       "castShadows": true,
       "radius": 0.5,
       "shape": "sphere"
     },
     {
-      "edges": [],
       "id": "n002",
       "name": "Working!",
       "color": {
@@ -80,12 +79,12 @@
         "text": "Working!",
         "opacity": 0.2
       },
+      "labelOpacity": null,
       "castShadows": true,
       "radius": 0.5,
       "shape": "sphere"
     },
     {
-      "edges": [],
       "id": "n003",
       "name": "n003",
       "color": {
@@ -108,6 +107,35 @@
         "text": "n003",
         "opacity": 0.2
       },
+      "labelOpacity": null,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "id": "n004",
+      "name": "n004",
+      "color": {
+        "r": 128,
+        "g": 128,
+        "b": 128
+      },
+      "position": {
+        "x": -7.2763006398414305,
+        "y": 8.012445550353561,
+        "z": -5.7904970953336345
+      },
+      "opacity": 0.75,
+      "label": {
+        "color": {
+          "r": 128,
+          "g": 128,
+          "b": 128
+        },
+        "text": "n004",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
       "castShadows": true,
       "radius": 0.5,
       "shape": "sphere"
@@ -117,7 +145,6 @@
     {
       "nodes": [
         {
-          "edges": [],
           "id": "n000",
           "name": "superduper",
           "color": {
@@ -140,12 +167,12 @@
             "text": "superduper",
             "opacity": 0.2
           },
+          "labelOpacity": null,
           "castShadows": true,
           "radius": 0.5,
           "shape": "sphere"
         },
         {
-          "edges": [],
           "id": "n002",
           "name": "Working!",
           "color": {
@@ -168,6 +195,7 @@
             "text": "Working!",
             "opacity": 0.2
           },
+          "labelOpacity": null,
           "castShadows": true,
           "radius": 0.5,
           "shape": "sphere"
@@ -194,7 +222,6 @@
     {
       "nodes": [
         {
-          "edges": [],
           "id": "n001",
           "name": "WTF",
           "color": {
@@ -217,12 +244,12 @@
             "text": "WTF",
             "opacity": 0.2
           },
+          "labelOpacity": null,
           "castShadows": true,
           "radius": 0.5,
           "shape": "sphere"
         },
         {
-          "edges": [],
           "id": "n002",
           "name": "Working!",
           "color": {
@@ -245,6 +272,7 @@
             "text": "Working!",
             "opacity": 0.2
           },
+          "labelOpacity": null,
           "castShadows": true,
           "radius": 0.5,
           "shape": "sphere"
@@ -271,7 +299,6 @@
     {
       "nodes": [
         {
-          "edges": [],
           "id": "n001",
           "name": "WTF",
           "color": {
@@ -294,12 +321,12 @@
             "text": "WTF",
             "opacity": 0.2
           },
+          "labelOpacity": null,
           "castShadows": true,
           "radius": 0.5,
           "shape": "sphere"
         },
         {
-          "edges": [],
           "id": "n000",
           "name": "superduper",
           "color": {
@@ -322,6 +349,7 @@
             "text": "superduper",
             "opacity": 0.2
           },
+          "labelOpacity": null,
           "castShadows": true,
           "radius": 0.5,
           "shape": "sphere"
@@ -348,7 +376,6 @@
     {
       "nodes": [
         {
-          "edges": [],
           "id": "n003",
           "name": "n003",
           "color": {
@@ -371,12 +398,12 @@
             "text": "n003",
             "opacity": 0.2
           },
+          "labelOpacity": null,
           "castShadows": true,
           "radius": 0.5,
           "shape": "sphere"
         },
         {
-          "edges": [],
           "id": "n002",
           "name": "Working!",
           "color": {
@@ -399,6 +426,7 @@
             "text": "Working!",
             "opacity": 0.2
           },
+          "labelOpacity": null,
           "castShadows": true,
           "radius": 0.5,
           "shape": "sphere"
@@ -425,7 +453,6 @@
     {
       "nodes": [
         {
-          "edges": [],
           "id": "n001",
           "name": "WTF",
           "color": {
@@ -448,12 +475,12 @@
             "text": "WTF",
             "opacity": 0.2
           },
+          "labelOpacity": null,
           "castShadows": true,
           "radius": 0.5,
           "shape": "sphere"
         },
         {
-          "edges": [],
           "id": "n003",
           "name": "n003",
           "color": {
@@ -476,6 +503,7 @@
             "text": "n003",
             "opacity": 0.2
           },
+          "labelOpacity": null,
           "castShadows": true,
           "radius": 0.5,
           "shape": "sphere"

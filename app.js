@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.18
+	* Version 0.1.19
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -28,7 +28,12 @@ window.onload = function(){
 var initUI = function(){
 
 	document.getElementById('fileInput').addEventListener( 'change', loadFileFromInput, false );
-	document.getElementById('saveBtn').addEventListener( 'click' , function() { saveFile( "./userfiles", SELECTEDFILE.name , cognition ) } );
+	document.getElementById('saveBtn').addEventListener( 'click' , function() { saveFile( SELECTEDFILE.name , cognition, "./userfiles" ) } );
+	document.getElementById('saveAsBtnOpener').addEventListener( 'click' , function() { toggleSaveAsBoxOn(); } );
+	document.getElementById('saveAsBtn').addEventListener( 'click', function(){ 
+																					saveFile( ( fileNameFromInput() + ".json" ) , cognition, "./userfiles" );
+																					toggleSaveAsBoxOff(); } );
+	document.getElementById('cancelSaveAsBtn').addEventListener( 'click', function(){ toggleSaveAsBoxOff(); } );
 	document.getElementById('createCompleteGraph').addEventListener( 'click', function() { if ( SELECTED.nodes.length > 0 ) { completeGraph( SELECTED.nodes ) } } );
 	document.getElementById('showCenterPoints').addEventListener( 'click', function() { LUCIDNODES.showAllGroupCenterPoints() } );
 	document.getElementById('colorPicker').addEventListener('change', function () {
@@ -79,3 +84,23 @@ var cognitionFromJson = function( json ){
 }
 
 //LUCIDNODES.nodePositionComparison( cognition.graph1.nodes.n00, cognition.graph1.nodes.n01 );
+
+function saveJsonAs(filename, text) {
+    var pom = document.createElement('a');
+    pom.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(text));
+    pom.setAttribute('download', filename);
+    
+	if (document.createEvent) {
+        var event = document.createEvent('MouseEvents');
+        event.initEvent('click', true, true);
+        pom.dispatchEvent(event);
+    }
+    else {
+        pom.click();
+    }
+}
+
+function fileNameFromInput(){
+
+	return document.getElementById( 'filenameInput' ).value;
+}

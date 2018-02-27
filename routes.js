@@ -13,14 +13,12 @@ router.use(function timeLog(req, res, next) {
 //app.use(express.bodyParser());
 //initialize the file handling routes
 
-//router.post('/save', function(req, res ) { res.send('save the current file!'); } );
-router.get('/saveas', function(req, res ) { res.send('save the file as filename!'); } );
 router.get('/load', function(req, res ) { res.send('load the file!'); } );
 
 router.post('/save', function( req, res, next ) { console.log( 'accessing the Save route...' );
 						next(); 
 					},
-					 function( req, res, next ) { 
+					function( req, res, next ) { 
 						req.on( 'data', function( data ) {
 							console.log( 'data at router.post: ', data );
 							
@@ -31,9 +29,46 @@ router.post('/save', function( req, res, next ) { console.log( 'accessing the Sa
 						});
 						next();
 					},
-					 function( req, res ) {
+					function( req, res ) {
 						res.send('save the current file!'); 
 					} 
+					); 
+					
+router.post('/saveas', function( req, res, next ) { 
+						console.log( 'accessing the Save As route...' );
+						next(); 
+					},
+/*					function( req, res, next ) {
+						res.set({
+							'Content-Type': 'application/json',
+							'Access-Control-Allow-Origin': '*',
+							'Content-Disposition': 'attachment; filename=out.json'
+						});							
+						next();
+					},  */
+					function( req, res, next ) { 
+						req.on( 'data', function( data ) {
+							console.log( 'data at router.post: ', data );
+							
+							var jParsed = JSON.parse( data );
+							console.log( 'data parsed: ', jParsed );
+
+/*							res.set({
+								'Content-Type': 'application/json',
+								'Access-Control-Allow-Origin': '*',
+								'Content-Disposition': 'attachment; filename=out.json'
+							});							*/								
+														
+							jsonMethods.saveJson( jParsed.filename, jParsed.data );
+						});
+						next();
+
+					},					
+					function( req, res ) {
+						res.send('save the file as filename!');							
+					}
 					);
+					
+
 
 module.exports = router;

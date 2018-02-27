@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.18
+	* Version 0.1.19
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -666,9 +666,7 @@ var LUCIDNODES = {
 		this.displayEntity.isGraphElement = true;
 		this.displayEntity.referent = this;		
 		
-		this.displayEntity.position.x = this.node.position.x;
-		this.displayEntity.position.y = this.node.position.y;
-		this.displayEntity.position.z = this.node.position.z;		
+		positionLabel( this, this.node.position ); 
 
 		this.transformOnMouseOver = function(){
 			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
@@ -782,7 +780,7 @@ var LUCIDNODES = {
 		this.displayEntity.isGraphElement = true;		
 		this.displayEntity.referent = this;
 		
-		centerEdgeLabel( this );
+		positionLabel( this, this.edge.centerPoint );
 		
 		this.transformOnMouseOver = function(){
 			var color = globalAppSettings.edgeColorOnMouseOver;
@@ -884,7 +882,14 @@ var LUCIDNODES = {
 
 function createNodeDisplayEntity( node ){
 	
-	node.bufferGeom = new THREE.SphereBufferGeometry( node.radius, 32, 32 );
+	if ( node.shape === "sphere" ){ 
+		node.bufferGeom = new THREE.SphereBufferGeometry( node.radius, 32, 32 );
+	}
+	if ( node.shape === "cube" ){
+		var cubeEdge = cubeEdgeInscribeInSphere( node.radius );
+		node.bufferGeom = new THREE.BoxBufferGeometry( cubeEdge, cubeEdge, cubeEdge );
+	}	
+	
 	node.displayEntity = new THREE.Mesh( node.bufferGeom, node.material );
 	node.displayEntity.isGraphElement = true;
 	node.displayEntity.referent = node;
@@ -892,8 +897,55 @@ function createNodeDisplayEntity( node ){
 	node.displayEntity.position.x = node.position.x;
 	node.displayEntity.position.y = node.position.y;
 	node.displayEntity.position.z = node.position.z;
-
+	
+	applyNodeRotationByShape( node );
+	
 	scene.add( node.displayEntity ); 
+	
+}
+
+function applyNodeRotationByShape( node ){
+
+	var rot;
+
+	if ( node.shape === "sphere" ){
+		node.displayEntity.rotation.set( 0, 0, 0 ); 
+	}	
+	
+	if ( node.shape === "cube" ){
+		rot = degToRad( 45 );
+		node.displayEntity.rotation.set( rot, 0, rot ); 
+	}
+}
+
+function changeNodeShape( node, shape ){
+	
+	node.shape = shape;
+	removeNodeDisplayEntity( node );
+	createNodeDisplayEntity( node );
+}
+
+function changeShapeAllNodesInArray( nodeArr, shape ){
+	
+	for ( var n = 0; n < nodeArr.length; n++ ){
+		
+		changeNodeShape( nodeArr[n], shape );
+	}
+}
+
+function cubeEdgeInscribeInSphere( r ){
+	
+	var cubeEdge = ( ( r * 2 ) / Math.pow( 3, 0.5 ) );
+	return cubeEdge;
+}
+
+function degToRad( deg ){
+	
+	var radians = ( 2 * Math.PI );
+	var degConv = ( 360 / deg );
+	var degAsRad = radians / degConv;
+	
+	return degAsRad;
 	
 }
 
@@ -947,6 +999,14 @@ function createEdgeLabel( edge ){
 			opacity: edge.labelOpacity || globalAppSettings.defaultEdgeLabelOpacity
 		});
 
+}
+
+function positionLabel( label, position ){
+	
+	label.displayEntity.position.x = position.x;
+	label.displayEntity.position.y = position.y;
+	label.displayEntity.position.z = position.z;					
+	
 }
 
 	/*
@@ -1016,7 +1076,9 @@ function changeLabelText ( label, string ){
 	clearLabelText( label );
 
 	label.text = string;
-	label.metrics = label.context.measureText( label.text );
+	//label.metrics = label.context.measureText( label.text );
+	
+	labelSize( label, string );
 	
 	//label.context.fillStyle = "rgba(" + label.color.r + "," + label.color.g + "," + label.color.b + "," + label.opacity + " )";	
 	label.context.fillText( label.text, label.textLineThickness, ( label.fontsize + label.textLineThickness ) );
@@ -1033,15 +1095,21 @@ function labelText( label, text ){
 	label.fillTextX = label.textLineThickness;
 	label.fillTextY = label.fontsize + label.textLineThickness;
 	
-	// get size data (height depends only on font size)
-	label.metrics = label.context.measureText( text );
-	label.textWidth = label.metrics.width;
-	label.textHeight = label.fontsize;
+	labelSize( label, text );
 	
 	// text color
 	label.context.fillStyle = "rgba(" + label.color.r + "," + label.color.g + "," + label.color.b + "," + label.opacity + " )";
 	label.context.fillText( text, label.fillTextX, label.fillTextY );
 
+}
+
+function labelSize( label, text ){
+
+	// get size data (height depends only on font size)
+	label.metrics = label.context.measureText( text );
+	label.textWidth = label.metrics.width;
+	label.textHeight = label.fontsize;	
+	
 }
 
 function changeNodeName( node, string ){
@@ -1073,7 +1141,7 @@ function nodesFromJson( arr ){
 															z: parseFloat ( arr[n].position[2] )
 														}, */ 
 														radius: parseFloat( arr[n].radius ), 
-														shape: "sphere", 
+														shape: arr[n].shape, 
 														color: arr[n].color,
 														opacity: parseFloat( arr[n].opacity ), 														
 														labelColor: arr[n].labelColor,
@@ -1482,7 +1550,7 @@ function pullEdge( edge ){
 	edge.geom.verticesNeedUpdate = true;
 	
 	edge.centerPoint = _Math.avgPosition( edge.nodes[0], edge.nodes[1] );	
-	centerEdgeLabel( edge.label );
+	positionLabel( edge.label, edge.centerPoint );
 	
 }
 
@@ -1492,13 +1560,6 @@ function pullAllNodeEdges( node ){
 	for ( var n = 0; n < edges.length; n++ ){	
 		pullEdge( edges[n] ); 
 	}
-}
-
-function centerEdgeLabel( edgeLabel ){
-	
-	edgeLabel.displayEntity.position.x = edgeLabel.edge.centerPoint.x;
-	edgeLabel.displayEntity.position.y = edgeLabel.edge.centerPoint.y;
-	edgeLabel.displayEntity.position.z = edgeLabel.edge.centerPoint.z;
 }
 
 	/* edgeAssignId();

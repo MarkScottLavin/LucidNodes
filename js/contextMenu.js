@@ -18,24 +18,24 @@
 	var clickCoordsY;
   
   // Helper Punctions
-	function clickInVisualizationContainer( e, className ){
+	function clickInVisualizationContainer( e, intersected ){
 		
-		var el = e.srcElement || e.target;
+		var container = e.srcElement || e.target;
 		
 		/*
-		if ( el.classList.contains( className ) ){
-			return el;
+		if ( container.classList.contains( intersected ) ){
+			return container;
 		}
 		else {
-			while ( el = el.parentNode ){
-				if ( el.classList && el.classList.contains( className ) ){
-					return el;
+			while ( container = container.parentNode ){
+				if ( container.classList && container.classList.contains( intersected ) ){
+					return container;
 				}
 			}
 		}*/
 		
-		if ( el === document.getElementById( "renderSpace" ) ){
-			return el;
+		if ( container === document.getElementById( "renderSpace" ) ){
+			return container;
 		}
 		
 		return false;

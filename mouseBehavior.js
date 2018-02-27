@@ -1,3 +1,13 @@
+/****************************************************
+	* MOUSEBEHAVIOR.JS: 
+	* Version 0.1.19
+	* Author Mark Scott Lavin
+	* License: MIT
+	*
+	* This file handles mouse and keyboard interactions
+
+****************************************************/
+
 var ray = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
 var INTERSECTED;  // Object closest to the camera
@@ -38,15 +48,16 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 	// update the helperPlane to be perpendicular to the current camera position
 	entities.helperPlane.lookAt( camera.position );
 	
-	// calculate objects intersecting the picking ray
-	var intersects = ray.intersectObjects( scene.children );
+	// get the nearest object intersected by the picking ray
+	var nearestIntersected = nearestIntersectedObj();
 
 	// if there's at least one intersected object...
-	if ( intersects && intersects[0] && intersects[0].object ){
-
+	//if ( intersects && intersects[0] && intersects[0].object ){
+	if ( nearestIntersected ){
+	
 		// Check if the event is a mouse move, INTERSECTED exists and we're sitting on the same INTERSECTED object as the last time this function ran...		
 		if ( event.type === 'mousemove' ){
-			onMouseMove( event, intersects );
+			onMouseMove( event, nearestIntersected );
 		}
 		
 		if ( event.type === 'mousedown' ){
@@ -67,23 +78,27 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 		
 		// Check if the mouse event is a wheel event (This is temporary, just to see if we can save a file with the change. We're also going to make it so that the change happens at the level of the graphElement itself, and not just the displayObject )
 		if ( event.type === 'wheel' ){
-			onMouseWheel( event, intersects );
+			onMouseWheel( event, nearestIntersected );
 		}
 		
-	INTERSECTED && console.log( 'INTERSECTED.isGraphElement: ', INTERSECTED.isGraphElement, 'MouseEvent: ', event.type );			
+		if ( event.type === 'contextmenu' ){
+			contextMenuActivate( event, nearestIntersected );
+		}
+		
+		INTERSECTED && console.log( 'INTERSECTED.isGraphElement: ', INTERSECTED.isGraphElement, 'MouseEvent: ', event.type );			
 	}
 }
 
-function onMouseMove( event, intersects ){
+function onMouseMove( event, nearestIntersected ){
 	// Check if the current top-level intersected object is the previous INTERSECTED		
-	if ( intersects[ 0 ].object != INTERSECTED ){
+	if ( nearestIntersected != INTERSECTED ){
 		// ... if there is a previous INTERSECTED
 		if ( INTERSECTED ) {	
 			// restore the previous INTERSECTED to it's previous state.
 			unTransformGraphElementOnMouseOut( INTERSECTED );									
 		} 						
 		// set the currently intersected object to INTERSECTED	
-		INTERSECTED = intersects[ 0 ].object;   	
+		INTERSECTED = nearestIntersected;   	
 		// and transform it accordingly.
 		transformGraphElementOnMouseOver( INTERSECTED );							
 		}
@@ -129,47 +144,41 @@ function onMouseDown( event, camera ){
 			return;
 		}
 		
-		if ( INTERSECTED && INTERSECTED.isGraphElement ) { 
+		var x = chooseElementOnIntersect();
 		
-			var n;
-			var e;
+		if ( x ) { 
 			
-			if ( INTERSECTED.referent.isNode ){ n = INTERSECTED.referent }
-			else if ( INTERSECTED.referent.isNodeLabel ){ n = INTERSECTED.referent.node }
-			else if ( INTERSECTED.referent.isEdge ){ e = INTERSECTED.referent }
-			else if ( INTERSECTED.referent.isEdgeLabel ){ e = INTERSECTED.referent.edge }			
-			
-			if ( n ) {
+			if ( x.isNode ) {
 				// If SELECTED includes INTERSECTED, leave it alone.
-				if ( SELECTED.nodes.length > 0 && SELECTED.nodes.includes( n ) ) { 
+				if ( SELECTED.nodes.length > 0 && SELECTED.nodes.includes( x ) ) { 
 					
-					var intersectedIndex = SELECTED.nodes.indexOf( n );
-					unTransformGraphElementOnUnselect( n );
+					var intersectedIndex = SELECTED.nodes.indexOf( x );
+					unTransformGraphElementOnUnselect( x );
 					SELECTED.nodes.splice( intersectedIndex, 1 ); 
 					console.log( SELECTED );
 					}
 				
 				// If SELECTED Nodes doesn't include INTERSECTED, transform it and add it.
-				else if ( !SELECTED.nodes.includes( n ) ) { 
-					selectNode( n );
+				else if ( !SELECTED.nodes.includes( x ) ) { 
+					selectNode( x );
 					console.log( SELECTED );
 					}
 			}
 			
-			else if ( e ){
+			else if ( x.isEdge ){
 				
 				// If SELECTED Edges includes INTERSECTED, leave it alone.
-				if ( SELECTED.edges.includes( e ) ) { 
+				if ( SELECTED.edges.includes( x ) ) { 
 					
-					var intersectedIndex = SELECTED.edges.indexOf( e );
-					unTransformGraphElementOnUnselect( e );
+					var intersectedIndex = SELECTED.edges.indexOf( x );
+					unTransformGraphElementOnUnselect( x );
 					SELECTED.edges.splice( intersectedIndex, 1 ); 
 					console.log( SELECTED );
 					}
 				
 				// If SELECTED Edges doesn't include INTERSECTED, transform it and add it.
-				else if ( !SELECTED.edges.includes( e ) ) { 
-					selectEdge( e );
+				else if ( !SELECTED.edges.includes( x ) ) { 
+					selectEdge( x );
 					console.log( SELECTED );
 					}
 			} 			
@@ -182,24 +191,12 @@ function onMouseDown( event, camera ){
 		unAltSelectAll();
 
 		// IF there's an INTERSECTED and it's a GraphElement
-		if ( INTERSECTED && INTERSECTED.isGraphElement ){
-
-			var n;
-			var e;
-			
-			if ( INTERSECTED.referent.isNode ){ n = INTERSECTED.referent }
-			else if ( INTERSECTED.referent.isNodeLabel ){ n = INTERSECTED.referent.node }
-			else if ( INTERSECTED.referent.isEdge ){ e = INTERSECTED.referent }
-			else if ( INTERSECTED.referent.isEdgeLabel ){ e = INTERSECTED.referent.edge }
+		var x = chooseElementOnIntersect();
 		
-			if ( n ){
-				selectNode( n );
-			}
-
-			if ( e ){
-				selectEdge( e );
-			}					
-		}
+		if ( x ){
+			x.isNode && selectNode( x );
+			x.isEdge && selectEdge( x );
+		}			
 	}
 	if ( event.altKey && !event.ctrlKey ){
 
@@ -247,38 +244,45 @@ function onMouseUp( event ){
 
 function onClick( event ){
 	
+	var button = event.which || event.button;
+	if ( button === 1 ) {
+		toggleContextMenuOff();
+	}
+	
 	if ( keyPressed.isPressed === true ){
 		onClickWithKey();
 	}
 }
 
-function onDblClick( event ){
+function chooseElementOnIntersect(){
 	
 	if ( INTERSECTED && INTERSECTED.isGraphElement ){
 
-		var n;
-		var e;
+		var x;
 		
-		if ( INTERSECTED.referent.isNode ){ n = INTERSECTED.referent }
-		else if ( INTERSECTED.referent.isNodeLabel ){ n = INTERSECTED.referent.node }
-		else if ( INTERSECTED.referent.isEdge ){ e = INTERSECTED.referent }
-		else if ( INTERSECTED.referent.isEdgeLabel ){ e = INTERSECTED.referent.edge }
-	
-		if ( n && SELECTED.nodes.includes( n ) && n.hiddenInput ){ 
-			ACTIVEHIDDENINPUT = n.hiddenInput;
-			ACTIVEHIDDENINPUT.focus();
-			changeLabelText( n.label, ACTIVEHIDDENINPUT.value ) 
-		}
-
-		if ( e && SELECTED.edges.includes( e ) && e.hiddenInput ){
-			ACTIVEHIDDENINPUT = e.hiddenInput;
-			ACTIVEHIDDENINPUT.focus();
-			changeLabelText( n.label, ACTIVEHIDDENINPUT.value ) }
-		}						
+		if ( INTERSECTED.referent.isNode ){ x = INTERSECTED.referent }
+		else if ( INTERSECTED.referent.isNodeLabel ){ x = INTERSECTED.referent.node }
+		else if ( INTERSECTED.referent.isEdge ){ x = INTERSECTED.referent }
+		else if ( INTERSECTED.referent.isEdgeLabel ){ x = INTERSECTED.referent.edge }
+		
+		return x;
+	}
 }
 
-function onMouseWheel( event, intersects ){
-	if ( intersects[ 0 ].object.isGraphElement && intersects[ 0 ].object === INTERSECTED ){
+function onDblClick( event ){
+	
+	var x = chooseElementOnIntersect();
+	
+	if ( x && x.hiddenInput ){ 
+			ACTIVEHIDDENINPUT = x.hiddenInput;
+			positionInput( event, ACTIVEHIDDENINPUT );
+			ACTIVEHIDDENINPUT.focus();
+			changeLabelText( x.label, ACTIVEHIDDENINPUT.value ) 
+	}
+}
+
+function onMouseWheel( event, nearestIntersected ){
+	if ( nearestIntersected.isGraphElement && nearestIntersected === INTERSECTED ){
 		// transform on wheel.
 		transformGraphElementOnWheel( INTERSECTED.referent );							
 	}			
@@ -317,12 +321,25 @@ function onKeyDown( event ){
 function onKeyUp( event ){
 	
 	keyPressed.key === "Delete" && deleteAllSelected();	
+	keyPressed.key === "Escape" && toggleContextMenuOff();
 	
 	keyPressed.isPressed = false;
 	keyPressed.key = null;
 	console.log( "onKeyUp(): ", keyPressed ); 
 }
 	
+	
+function nearestIntersectedObj(){
+	
+	// Get the array of obects that was intersected by the ray cast on the mouseEvent
+	var intersects = ray.intersectObjects( scene.children );		
+	
+	// if there's at least one intersected element and it's an object...
+	if ( intersects && intersects[0] && intersects[0].object ){
+		// return that object.
+		return intersects[0].object;
+	}
+}
 
 function getCameraUnProjectedVector( camera ){
 	
@@ -367,6 +384,17 @@ function selectAllNodes(){
 	selectNodeArray( cognition.nodes );
 
 };
+
+function selectAll(){
+	
+	unSelectAll();
+	for ( var n = 0; n < cognition.nodes.length; n++ ){
+		selectNode( cognition.nodes[n] );
+	}	
+	for ( var e = 0; e < cognition.edges.length; e++ ){
+		selectEdge( cognition.edges[e] );
+	}
+}
 
 function selectEdgeArray( edgeArr ){
 
@@ -584,6 +612,14 @@ function blurActiveHiddenInput(){
 	
 }
 
+function positionInput( event, input ){
+	
+	clickCoords = getPosition( event );
+	
+	input.style.left = clickCoords.x + "px";
+	input.style.top = clickCoords.y + "px";
+}
+
 function listenFor(){
 	document.getElementById('visualizationContainer').addEventListener( 'click', onMouse, false );
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', onMouse, false );
@@ -591,10 +627,225 @@ function listenFor(){
 	document.getElementById('visualizationContainer').addEventListener( 'mouseup', onMouse, false );
 	document.getElementById('visualizationContainer').addEventListener( 'dblclick', onMouse, false );
 	document.getElementById('visualizationContainer').addEventListener( 'wheel', onMouse, false );
-	//document.getElementById('visualizationContainer').addEventListener( 'contextmenu', onMouse, false );
+	document.getElementById('visualizationContainer').addEventListener( 'contextmenu', onMouse, false );
 	document.addEventListener( 'keydown', function (e) { onKeyDown(e); }, false );
 	document.addEventListener( 'keyup', function (e) { onKeyUp(e); }, false );	
 	
 }
 
 listenFor();
+
+
+
+
+	var menu = document.querySelector("#context-menu");
+	var menuState = 0;
+	var menuActiveClassName = "context-menu--active";
+	var menuPosition;
+	var menuPositionX;
+	var menuPositionY;
+	var menuWidth;
+	var menuHeight;
+	var windowWidth;
+	var windowHeight;
+	var clickCoords;
+  
+  // Helper Punctions
+
+	
+	function getPosition( event ) {
+	  var pos = { x: 0, y: 0 }
+
+	  if (!event) var event = window.event;
+
+	  if (event.pageX || event.pageY) {
+		pos.x = event.pageX;
+		pos.y = event.pageY;
+	  } else if (event.clientX || event.clientY) {
+		pos.x = event.clientX + document.body.scrollLeft + 
+						   document.documentElement.scrollLeft;
+		pos.y = event.clientY + document.body.scrollTop + 
+						   document.documentElement.scrollTop;
+	  }
+
+	  return pos;
+	}	
+
+	// Menu Content Handling
+	
+	function contextMenuActions(){
+		
+		document.getElementById( "delete" ).addEventListener( "click", function( event ){ 
+			if ( INTERSECTED.referent.isEdge ){ deleteEdge( INTERSECTED.referent ) }
+			if ( INTERSECTED.referent.isNode ){ deleteNode( INTERSECTED.referent ) }
+			toggleContextMenuOff();
+			} );
+			
+		document.getElementById( "selectAll" ).addEventListener( "click", function( event ){ 
+			selectAll(); 
+			toggleContextMenuOff();
+			} );
+
+		document.getElementById( "selectAllEdges" ).addEventListener( "click", function( event ){ 
+			selectAllEdges(); 
+			toggleContextMenuOff();
+			} );			
+		
+		document.getElementById( "selectAllNodes" ).addEventListener( "click", function( event ){ 
+			selectAllNodes(); 
+			toggleContextMenuOff();
+			} );
+		document.getElementById( "selectAllOfSameShape").addEventListener( "click", function( event ){
+			var x = chooseElementOnIntersect();
+			if ( x && x.isNode ){ selectAllNodesInArrayWithPropVal( x, "shape", cognition.nodes ) }
+			toggleContextMenuOff();
+		} );
+		document.getElementById( "selectAllOfSameColor").addEventListener( "click", function( event ){
+			var x = chooseElementOnIntersect();
+			if ( x && x.isNode ){ selectAllNodesInArrayWithPropVal( x, "color", cognition.nodes ) }
+			toggleContextMenuOff();
+		} );
+	}
+	
+	function contextMenuItems( forObj ){
+
+		document.getElementById( "selectAll" ).textContent = "Select All";
+		document.getElementById( "selectAllEdges").textContent = "Select All Edges";
+		document.getElementById( "selectAllNodes").textContent = "Select All Nodes";
+		document.getElementById( "rename" ).innerHTML = "Rename " + forObj;		
+		document.getElementById( "delete" ).innerHTML = "Delete " + forObj;
+		document.getElementById( "changeType" ).innerHTML = "Change To..."; 
+		document.getElementById( "group" ).innerHTML = "Group";
+		document.getElementById( "selectAllOfSameColor" ).innerHTML = "Select All " + forObj + " of Same Color";
+		document.getElementById( "selectAllOfSameShape" ).innerHTML = "Select All " + forObj + " of Same Shape";
+		document.getElementById( "scale" ).innerHTML = "Scale";
+		document.getElementById( "properties" ).innerHTML = forObj + " Properties";
+		
+	}
+  
+	// Core Functions
+  
+	function initContextMenu(){
+	  
+	  contextMenuActions();
+	  menuOffOnWindowResize();
+	}
+  
+	function menuOffOnWindowResize() {
+		window.onresize = function(event) {
+			toggleContextMenuOff();
+		};
+	}
+
+  function contextMenuActivate( event ){
+		
+		event.preventDefault();
+		
+		var x = chooseElementOnIntersect();
+		
+		if ( x ){
+
+			if ( x.isNode ){ contextMenuItems( "Node" );  }
+			else if ( x.isEdge ){ contextMenuItems( "Edge" ); }
+			
+		}
+		
+		else if ( INTERSECTED && !INTERSECTED.isGraphElement ){
+			
+			contextMenuItems( "Background" ); 
+		}
+
+		positionMenu( event );
+		toggleContextMenuOn();
+	} 
+	
+	function toggleContextMenuOn(){
+		if ( menuState !== 1 ){
+			menuState = 1;
+			menu.classList.add(menuActiveClassName);
+		}
+	}
+	
+	function toggleContextMenuOff() {
+	  if ( menuState !== 0 ) {
+		menuState = 0;
+		menu.classList.remove(menuActiveClassName);
+	  }
+	}
+	
+	function positionMenu(event){
+		
+		clickCoords = getPosition(event);
+		
+		menuWidth = menu.offsetWidth + 4;
+		menuHeight = menu.offsetHeight + 4;		
+		
+		windowWidth = window.innerWidth;
+		windowHeight = window.innerHeight;
+		
+		if ( ( windowWidth - clickCoords.x ) < menuWidth ) {
+			menu.style.left = windowWidth - menuWidth + "px";
+			} 
+		else {
+			menu.style.left = clickCoords.x + "px";
+		}
+
+		if ( ( windowHeight - clickCoords.y ) < menuHeight ) {
+			menu.style.top = windowHeight - menuHeight + "px";
+		} 
+		else {
+			menu.style.top = clickCoords.y + "px";
+		}		
+	}
+	
+	initContextMenu();
+
+/* saveAsBox */
+
+	var saveAsBox = document.getElementById('saveAsBox')
+	var saveAsBoxState = 0;
+	var saveAsBoxActiveClassName = "saveAsBox--active";
+	var saveAsBoxPosition;
+	var saveAsBoxWidth;
+	var saveAsBoxHeight;
+
+
+	function initSaveAsBox(){
+		
+		positionSaveAsBox();
+
+	}
+	
+	function toggleSaveAsBoxOn(){
+		if ( saveAsBoxState !== 1 ){
+			saveAsBoxState = 1;
+			saveAsBox.classList.add(saveAsBoxActiveClassName);
+		}
+	}
+	
+	function toggleSaveAsBoxOff() {
+	  if ( saveAsBoxState !== 0 ) {
+		saveAsBoxState = 0;
+		saveAsBox.classList.remove(saveAsBoxActiveClassName);
+	  }
+	}
+	
+	function positionSaveAsBox(){
+		
+		saveAsBoxWidth = saveAsBox.offsetWidth;
+		saveAsBoxHeight = saveAsBox.offsetHeight;		
+		
+		windowWidth = window.innerWidth;
+		windowHeight = window.innerHeight;
+		
+		var windowCenter = { x: ( windowWidth / 2 ), y: ( windowHeight / 2 ) };
+		var saveAsBoxHalf = { x: ( saveAsBoxWidth / 2 ), y: ( saveAsBoxHeight / 2 ) };
+		
+		var left = windowCenter.x - saveAsBoxHalf.x;
+		var top = windowCenter.y - saveAsBoxHalf.y;		
+		
+		saveAsBox.style.left = left + "px";
+		saveAsBox.style.top = top + "px";	
+	}
+	
+	initSaveAsBox();

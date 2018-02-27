@@ -131,20 +131,47 @@ var circularRefs = [ 		/* Toplevel File Admin Paramas */
 							'shape' 
 					];
 
-var saveFile = function( url, filename, content ){
+var saveFile = function( filename, content, url ){
+	
+	var httpRequest = new XMLHttpRequest();
+	
+	var body = {};
+	var jBody;
+	
+	if ( url ){
+		body.fullpath = url + '/' + filename;  		// filename includes ext		
+	}			
+	else if ( !url || url === "" ){
+		body.fullpath = filename; 
+	}
+	
+	body.data = content;
+
+	jBody = JSON.stringify( body, circularRefs );
+	
+	// Send the request
+	httpRequest.open("POST", '/save', true);
+    httpRequest.setRequestHeader( "Content-Type", "application/json;charset=UTF-8" );
+	httpRequest.send( jBody );	
+
+	console.log( httpRequest );
+}; 
+
+var saveFileAs = function( filename, content ){
 	
 	var httpRequest = new XMLHttpRequest();
 	
 	var body = { 
-		fullpath: url + '/' + filename,  		// filename includes ext
+		filename: filename,  		// filename includes ext
 		data: content   						// file contents		
 	};
 	
 	var jBody = JSON.stringify( body, circularRefs );
 	
 	// Send the request
-	httpRequest.open("POST", '/save', true);
-    httpRequest.setRequestHeader( "Content-Type", "application/json;charset=UTF-8" );
+	httpRequest.open("POST", '/saveas', true);
+    httpRequest.setRequestHeader( 'Content-Type', 'application/json;charset=UTF-8' );
+	httpRequest.setRequestHeader( 'Content-Disposition: attachment; filename="', filename , '"' );
 	httpRequest.send( jBody );	
 
 	console.log( httpRequest );

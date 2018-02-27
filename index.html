@@ -22,8 +22,17 @@
 Tools
 </nav>
 
+<div class="saveAsBox" id="saveAsBox">
+	<h3>Save File Name</h1>
+	<div id="saveAsBoxInner">
+		<input type="text" id="filenameInput"></input>.json
+		<input type="button" id="saveAsBtn" value="save"></input>
+		<input type="button" id="cancelSaveAsBtn" value="cancel"></input>
+	</div>
+</div>
+
 <div id="visualizationContainer">
-	<script src="mouseBehavior.js"></script>
+
 	<script src="scenesetup.js"></script>
 	<script src="js/colorUtils.js"></script>
 	<script src="LucidNodes.js"></script>
@@ -51,6 +60,9 @@ Tools
 			<div class="btn btn-center">
 				<input type="button" name="saveBtn" id="saveBtn" value="Save File">
 			</div>
+			<div class="btn btn-center">
+				<input type="button" name="saveAsBtnOpener" id="saveAsBtnOpener" value="Save File As">
+			</div>			
 		</form>	
 	</div>
 	<div class="middle">
@@ -68,43 +80,57 @@ Tools
 	</div>
 </div>
 
-	<nav class="context-menu" id="context-menu">
-	  <ul class="context-menu__items">
-		<li class="context-menu__item">
-		  <a href="#" class="context-menu__link" id="selectAll">
-		  </a>
-		</li>
-		<li class="context-menu__item">
-		  <a href="#" class="context-menu__link" id="rename">
-		  </a>
-		</li>
-		<li class="context-menu__item">
-		  <a href="#" class="context-menu__link" id="delete">
-		  </a>
-		</li>	
-		<li class="context-menu__item">
-		  <a href="#" class="context-menu__link" id="changeType">
-		  </a>
-		</li>
-		<li class="context-menu__item">
-		  <a href="#" class="context-menu__link" id="group">
-		  </a>
-		</li>	
-		<li class="context-menu__item">
-		  <a href="#" class="context-menu__link" id="selectAllOfSame">
-		  </a>
-		</li>
-		<li class="context-menu__item">
-		  <a href="#" class="context-menu__link" id="scale">
-		  </a>
-		</li>
-		<li class="context-menu__item">
-		  <a href="#" class="context-menu__link" id="properties">
-		  </a>
-		</li>		
-	  </ul>
-	</nav>
+<nav class="context-menu" id="context-menu">
+  <ul class="context-menu__items">
+	<li class="context-menu__item">
+	  <a href="#" class="context-menu__link" id="selectAll">
+	  </a>
+	</li>
+	<li class="context-menu__item">
+	  <a href="#" class="context-menu__link" id="selectAllEdges">
+	  </a>
+	</li>
+	<li class="context-menu__item">
+	  <a href="#" class="context-menu__link" id="selectAllNodes">
+	  </a>
+	</li>
+	<li class="context-menu__item">
+	  <a href="#" class="context-menu__link" id="rename">
+	  </a>
+	</li>
+	<li class="context-menu__item">
+	  <a href="#" class="context-menu__link" id="delete">
+	  </a>
+	</li>	
+	<li class="context-menu__item">
+	  <a href="#" class="context-menu__link" id="changeType">
+	  </a>
+	</li>
+	<li class="context-menu__item">
+	  <a href="#" class="context-menu__link" id="group">
+	  </a>
+	</li>	
+	<li class="context-menu__item">
+	  <a href="#" class="context-menu__link" id="selectAllOfSameColor">
+	  </a>
+	</li>
+	<li class="context-menu__item">
+	  <a href="#" class="context-menu__link" id="selectAllOfSameShape">
+	  </a>
+	</li>
+	<li class="context-menu__item">
+	  <a href="#" class="context-menu__link" id="scale">
+	  </a>
+	</li>
+	<li class="context-menu__item">
+	  <a href="#" class="context-menu__link" id="properties">
+	  </a>
+	</li>		
+  </ul>
+</nav>
 
-	<script src="js/contextMenu.js"></script>
+	
+	
+	<script src="mouseBehavior.js"></script>
 	
 </body>
