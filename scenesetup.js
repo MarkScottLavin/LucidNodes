@@ -1,6 +1,6 @@
 /* SCENEETUP.JS
  * Name: Scene Setup
- * version 0.1.17
+ * version 0.1.20
  * Author: Mark Scott Lavin 
  * License: MIT
  * For Changelog see README.txt
@@ -71,8 +71,11 @@ function init() {
 	lights();
 	// Axes
 	var globalAxes = new Axes( 300, true, 0.1, { x: 0, y: 0, z: 0 } );	
-	// HelperPlane
-	helperPlane();
+	// GuidePlane
+	guidePlane();
+	// GuideLines along axes
+	guideLinesAlongAxes();	
+	
 	// Materials
 	materials();
 	// Stats
@@ -277,9 +280,9 @@ function Axes( extents, rulers, opacity = 0.5, originPoint = { x: 0, y: 0, z: 0 
 	this.z = new THREE.Geometry();
 	this.originPoint = originPoint;
 	this.color = {
-		x: 0x880000,
-		y: 0x008800,
-		z: 0x000088
+		x: 0x880000, // x is red
+		y: 0x008800, // y is green;
+		z: 0x000088	 // z is blue; 
 		};
 	this.linewidth = 1;
 	this.material = {
@@ -382,14 +385,108 @@ function Axes( extents, rulers, opacity = 0.5, originPoint = { x: 0, y: 0, z: 0 
 	debug.master && debug.axes && console.log ( 'axes(): ', this );  
 };
 
-function helperPlane( visible = false, xLimit = 2000, yLimit = 2000 ){
+function guidePlane( visible = false, xLimit = 2000, yLimit = 2000 ){
 
-    entities.helperPlane = new THREE.Mesh(new THREE.PlaneBufferGeometry( xLimit, yLimit, 8, 8), new THREE.MeshBasicMaterial( { color: 0xffffff, alphaTest: 0, visible: visible }));
-	entities.helperPlane.xLimit = xLimit;
-	entities.helperPlane.yLimit = yLimit;
+    entities.guidePlane = new THREE.Mesh(new THREE.PlaneBufferGeometry( xLimit, yLimit, 8, 8), new THREE.MeshBasicMaterial( { color: 0xffffff, alphaTest: 0, visible: visible }));
+	entities.guidePlane.xLimit = xLimit;
+	entities.guidePlane.yLimit = yLimit;
 
-    scene.add( entities.helperPlane );
+    scene.add( entities.guidePlane );
 }
+
+function moveGuidePlaneToEntityPosition( guidePlane, entity ){
+	guidePlane.position.copy( entity.position );
+}
+
+
+// GuideLines
+
+function guideLinesAlongAxes( limit = 2000 ){
+	
+	entities.guideLines = {
+		x: new guideLine( limit, "x" ),
+		y: new guideLine( limit, "y" ),
+		z: new guideLine( limit, "z" )
+	};	
+}
+
+function guideLine( limit = 2000, direction ){
+	
+	this.direction = direction;
+	this.geometry = new THREE.Geometry();
+	this.linewidth = 1;		
+	
+	if ( this.direction === "x" ){
+		this.color = 0x880000; // x is red
+		this.geometry.vertices.push(
+			new THREE.Vector3( -( limit / 2 ) , 0 , 0 ),
+			new THREE.Vector3( ( limit / 2 ) , 0, 0 )
+		);
+	}
+	if ( this.direction === "y" ){
+		this.color = 0x008800; // y is green
+		this.geometry.vertices.push(
+			new THREE.Vector3( 0 , -( limit / 2 ), 0 ),
+			new THREE.Vector3( 0, ( limit / 2 ), 0 )
+		);
+	}
+	if ( this.direction === "z" ){
+		this.color = 0x000088; // z is blue
+		this.geometry.vertices.push(
+			new THREE.Vector3( 0 , 0 , -( limit / 2 ) ),
+			new THREE.Vector3( 0, 0 , ( limit / 2 ) )
+		);
+	}		
+	
+	this.material = new THREE.LineBasicMaterial ({ color: this.color, linewidth: this.linewidth, visible: false });	
+	
+	this.line = new THREE.Line( this.geometry, this.material );
+	
+	hideGuideLine( this );
+	
+	scene.add( this.line );
+}
+
+function showGuideLine( guideLine ){
+	
+	guideLine.material.visible = true;
+}
+
+function hideGuideLine( guideLine ){
+	
+	guideLine.material.visible = false;
+}
+
+function guideLineAtEntityPosition( entity, guideLine ){
+	// position the guide to match that of an entity...
+	guideLine.line.position.copy( entity.position );
+
+}
+
+function moveAxialGuideLinesToEntityPosition( entity ){
+	
+	guideLineAtEntityPosition( entity, entities.guideLines.x );
+	guideLineAtEntityPosition( entity, entities.guideLines.y );
+	guideLineAtEntityPosition( entity, entities.guideLines.z );
+
+}
+
+function showAxialGuideLines(){
+	
+	showGuideLine( entities.guideLines.x );
+	showGuideLine( entities.guideLines.y );
+	showGuideLine( entities.guideLines.z );
+};
+
+function hideAxialGuideLines(){
+
+	hideGuideLine( entities.guideLines.x );
+	hideGuideLine( entities.guideLines.y );
+	hideGuideLine( entities.guideLines.z );
+	
+}
+
+// End GuideLines
 
 /******* COLOR & MATERIALS HANDLING */
 

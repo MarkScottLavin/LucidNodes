@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.19
+	* Version 0.1.20
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -45,8 +45,8 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 	ray.setFromCamera( mouse, camera );
 	//ray.set ( camera.position, vector.sub( camera.position ).normalize() );
 	
-	// update the helperPlane to be perpendicular to the current camera position
-	entities.helperPlane.lookAt( camera.position );
+	// update the guidePlane to be perpendicular to the current camera position
+	entities.guidePlane.lookAt( camera.position );
 	
 	// get the nearest object intersected by the picking ray
 	var nearestIntersected = nearestIntersectedObj();
@@ -107,25 +107,84 @@ function onMouseMove( event, nearestIntersected ){
 		
 		entities.browserControls.enabled = false;	
 
-		// Get the position where the helperPlane is intersected
-		var helperPlaneIntersectPoint = getPlaneIntersectPoint( entities.helperPlane );
-		console.log( 'helperPlaneIntersectPoint: ', helperPlaneIntersectPoint );				
-		
+		// Get the position where the guidePlane is intersected
+		var planeIntersection = getPlaneIntersectPoint( entities.guidePlane );		
 		var vecRelativePosition = [];
+		var origPosition = { 
+			x: SELECTED.nodes[0].position.x,
+			y: SELECTED.nodes[0].position.y,
+			z: SELECTED.nodes[0].position.z
+		};
 		
 		for ( var n = 0; n < SELECTED.nodes.length; n++ ){	
 			vecRelativePosition.push( _Math.vecRelativePosition( SELECTED.nodes[0], SELECTED.nodes[n] ) );
 		}
 		
-		for ( var n = 0; n < SELECTED.nodes.length; n++ ){
-			
-			SELECTED.nodes[n].position.x = helperPlaneIntersectPoint.point.x + vecRelativePosition[n].x;
-			SELECTED.nodes[n].position.y = helperPlaneIntersectPoint.point.y + vecRelativePosition[n].y;
-			SELECTED.nodes[n].position.z = helperPlaneIntersectPoint.point.z + vecRelativePosition[n].z; 
-			
-			moveNode( SELECTED.nodes[n], SELECTED.nodes[n].position );
+		if ( keyPressed.key !== "X" && keyPressed.key !== "Y" && keyPressed.key !== "Z" ){
+		
+			for ( var n = 0; n < SELECTED.nodes.length; n++ ){
+				
+				SELECTED.nodes[n].position.x = planeIntersection.point.x + vecRelativePosition[n].x;
+				SELECTED.nodes[n].position.y = planeIntersection.point.y + vecRelativePosition[n].y;
+				SELECTED.nodes[n].position.z = planeIntersection.point.z + vecRelativePosition[n].z; 
+				
+				moveNode( SELECTED.nodes[n], SELECTED.nodes[n].position );
 
-			console.log( 'after: ', SELECTED.nodes[n].position );			
+				console.log( 'after: ', SELECTED.nodes[n].position );			
+			}
+		}
+		
+		else {
+			
+			moveAxialGuideLinesToEntityPosition( SELECTED.nodes[0] );					
+
+			if ( keyPressed.key === "X" ){
+				
+				showGuideLine( entities.guideLines.x );
+			
+				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
+					
+					SELECTED.nodes[n].position.x = planeIntersection.point.x + vecRelativePosition[n].x;
+					SELECTED.nodes[n].position.y = origPosition.y + vecRelativePosition[n].y;
+					SELECTED.nodes[n].position.z = origPosition.z + vecRelativePosition[n].z;					
+					
+					moveNode( SELECTED.nodes[n], SELECTED.nodes[n].position );
+
+					console.log( 'after: ', SELECTED.nodes[n].position );			
+				}			
+			}
+			
+			if ( keyPressed.key === "Y" ){
+
+				showGuideLine( entities.guideLines.y );
+			
+				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
+					
+					SELECTED.nodes[n].position.x = origPosition.x + vecRelativePosition[n].x;					
+					SELECTED.nodes[n].position.y = planeIntersection.point.y + vecRelativePosition[n].y;
+					SELECTED.nodes[n].position.z = origPosition.z + vecRelativePosition[n].z;					
+					
+					moveNode( SELECTED.nodes[n], SELECTED.nodes[n].position );
+
+					console.log( 'after: ', SELECTED.nodes[n].position );			
+				}			
+			}		
+			
+			if ( keyPressed.key === "Z" ){
+				
+				showGuideLine( entities.guideLines.z );				
+
+				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
+
+					SELECTED.nodes[n].position.x = origPosition.x + vecRelativePosition[n].x;
+					SELECTED.nodes[n].position.y = origPosition.y + vecRelativePosition[n].y;					
+					SELECTED.nodes[n].position.z = planeIntersection.point.z + vecRelativePosition[n].z;
+					
+					moveNode( SELECTED.nodes[n], SELECTED.nodes[n].position );
+
+					console.log( 'after: ', SELECTED.nodes[n].position );			
+				}			
+			}
 		}
 	}
 }
@@ -230,10 +289,11 @@ function onMouseDown( event, camera ){
 	//if ( event. )
 
 	if ( SELECTED.nodes.length > 0 ){
-		// update the helperPlane to be perpendicular to the current camera position
-		entities.helperPlane.lookAt( camera.position );	
-		// position the helperPlane to match that of the selected node...
-		entities.helperPlane.position.copy( SELECTED.nodes[0].position );
+		// update the guidePlane to be perpendicular to the current camera position
+		entities.guidePlane.lookAt( camera.position );	
+		// position the guidePlane to match that of the selected node...
+		moveGuidePlaneToEntityPosition( entities.guidePlane, SELECTED.nodes[0] );
+		moveAxialGuideLinesToEntityPosition( SELECTED.nodes[0] );
 	}
 }
 
@@ -292,17 +352,17 @@ function onClickWithKey(){
 
 	// Click+"a" = Add a Node at the Click position
 	if ( keyPressed.key === "a" ){
-		var helperPlaneIntersectPoint = getPlaneIntersectPoint( entities.helperPlane );
+		var planeIntersection = getPlaneIntersectPoint( entities.guidePlane );
 		var position = {};
 			
-		position.x = helperPlaneIntersectPoint.point.x;
-		position.y = helperPlaneIntersectPoint.point.y;
-		position.z = helperPlaneIntersectPoint.point.z; 
+		position.x = planeIntersection.point.x;
+		position.y = planeIntersection.point.y;
+		position.z = planeIntersection.point.z; 
 			
 		addNode( position );	
 	}
 	
-	if ( keyPressed === "t" ){
+	if ( keyPressed.key === "t" ){
 		
 		if ( SELECTED.nodes.length === 1 ){
 			
@@ -321,11 +381,20 @@ function onKeyDown( event ){
 function onKeyUp( event ){
 	
 	keyPressed.key === "Delete" && deleteAllSelected();	
-	keyPressed.key === "Escape" && toggleContextMenuOff();
+	keyPressed.key === "Escape" && onEscapeKey();
+	keyPressed.key === "X" && hideGuideLine( entities.guideLines.x );
+	keyPressed.key === "Y" && hideGuideLine( entities.guideLines.y );
+	keyPressed.key === "Z" && hideGuideLine( entities.guideLines.z );	
 	
 	keyPressed.isPressed = false;
 	keyPressed.key = null;
 	console.log( "onKeyUp(): ", keyPressed ); 
+}
+
+function onEscapeKey(){
+	
+	toggleContextMenuOff();
+	unSelectAll();
 }
 	
 	
