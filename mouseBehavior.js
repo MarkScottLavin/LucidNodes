@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.20
+	* Version 0.1.21
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -17,9 +17,10 @@ var SELECTED = {
 	};	  // Objects selected via click (single) and//or CTRL-click (multiple)
 var ALTSELECTED = [];  // Objects selected via ALT-Click ( Temporary solution for explicitly adding edges )
 var keyPressed = {
-	isPressed: false,
+	keysPressed: false,
 	key: null
 };
+var origPosition;
 var DELETED = { nodes:[], edges:[] };
 var ACTIVEHIDDENINPUT;
 
@@ -90,6 +91,7 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 }
 
 function onMouseMove( event, nearestIntersected ){
+	
 	// Check if the current top-level intersected object is the previous INTERSECTED		
 	if ( nearestIntersected != INTERSECTED ){
 		// ... if there is a previous INTERSECTED
@@ -109,24 +111,17 @@ function onMouseMove( event, nearestIntersected ){
 
 		// Get the position where the guidePlane is intersected
 		var planeIntersection = getPlaneIntersectPoint( entities.guidePlane );		
-		var vecRelativePosition = [];
-		var origPosition = { 
-			x: SELECTED.nodes[0].position.x,
-			y: SELECTED.nodes[0].position.y,
-			z: SELECTED.nodes[0].position.z
-		};
+		var nodeRelativePositions = [];
 		
 		for ( var n = 0; n < SELECTED.nodes.length; n++ ){	
-			vecRelativePosition.push( _Math.vecRelativePosition( SELECTED.nodes[0], SELECTED.nodes[n] ) );
+			nodeRelativePositions.push( _Math.vecRelativePosition( SELECTED.nodes[0], SELECTED.nodes[n] ) );
 		}
 		
 		if ( keyPressed.key !== "X" && keyPressed.key !== "Y" && keyPressed.key !== "Z" ){
 		
 			for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 				
-				SELECTED.nodes[n].position.x = planeIntersection.point.x + vecRelativePosition[n].x;
-				SELECTED.nodes[n].position.y = planeIntersection.point.y + vecRelativePosition[n].y;
-				SELECTED.nodes[n].position.z = planeIntersection.point.z + vecRelativePosition[n].z; 
+				SELECTED.nodes[n].position.addVectors( planeIntersection.point, nodeRelativePositions[n] );
 				
 				moveNode( SELECTED.nodes[n], SELECTED.nodes[n].position );
 
@@ -144,9 +139,9 @@ function onMouseMove( event, nearestIntersected ){
 			
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 					
-					SELECTED.nodes[n].position.x = planeIntersection.point.x + vecRelativePosition[n].x;
-					SELECTED.nodes[n].position.y = origPosition.y + vecRelativePosition[n].y;
-					SELECTED.nodes[n].position.z = origPosition.z + vecRelativePosition[n].z;					
+					SELECTED.nodes[n].position.x = planeIntersection.point.x + nodeRelativePositions[n].x;
+					SELECTED.nodes[n].position.y = origPosition.y + nodeRelativePositions[n].y;
+					SELECTED.nodes[n].position.z = origPosition.z + nodeRelativePositions[n].z;					
 					
 					moveNode( SELECTED.nodes[n], SELECTED.nodes[n].position );
 
@@ -160,9 +155,9 @@ function onMouseMove( event, nearestIntersected ){
 			
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 					
-					SELECTED.nodes[n].position.x = origPosition.x + vecRelativePosition[n].x;					
-					SELECTED.nodes[n].position.y = planeIntersection.point.y + vecRelativePosition[n].y;
-					SELECTED.nodes[n].position.z = origPosition.z + vecRelativePosition[n].z;					
+					SELECTED.nodes[n].position.x = origPosition.x + nodeRelativePositions[n].x;					
+					SELECTED.nodes[n].position.y = planeIntersection.point.y + nodeRelativePositions[n].y;
+					SELECTED.nodes[n].position.z = origPosition.z + nodeRelativePositions[n].z;					
 					
 					moveNode( SELECTED.nodes[n], SELECTED.nodes[n].position );
 
@@ -176,9 +171,9 @@ function onMouseMove( event, nearestIntersected ){
 
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 
-					SELECTED.nodes[n].position.x = origPosition.x + vecRelativePosition[n].x;
-					SELECTED.nodes[n].position.y = origPosition.y + vecRelativePosition[n].y;					
-					SELECTED.nodes[n].position.z = planeIntersection.point.z + vecRelativePosition[n].z;
+					SELECTED.nodes[n].position.x = origPosition.x + nodeRelativePositions[n].x;
+					SELECTED.nodes[n].position.y = origPosition.y + nodeRelativePositions[n].y;					
+					SELECTED.nodes[n].position.z = planeIntersection.point.z + nodeRelativePositions[n].z;
 					
 					moveNode( SELECTED.nodes[n], SELECTED.nodes[n].position );
 
@@ -253,8 +248,8 @@ function onMouseDown( event, camera ){
 		var x = chooseElementOnIntersect();
 		
 		if ( x ){
-			x.isNode && selectNode( x );
-			x.isEdge && selectEdge( x );
+			if ( x.isNode ){ selectNode( x ); origPosition = new THREE.Vector3(); origPosition.copy( x.position ); }
+			else if ( x.isEdge ){ selectEdge( x ); }
 		}			
 	}
 	if ( event.altKey && !event.ctrlKey ){
@@ -285,8 +280,6 @@ function onMouseDown( event, camera ){
 	}
 
 	else if ( !event.altKey ){ ALTSELECTED = []; }
-	
-	//if ( event. )
 
 	if ( SELECTED.nodes.length > 0 ){
 		// update the guidePlane to be perpendicular to the current camera position
@@ -299,6 +292,7 @@ function onMouseDown( event, camera ){
 
 
 function onMouseUp( event ){
+	
 	entities.browserControls.enabled = true;			
 }
 
@@ -309,7 +303,7 @@ function onClick( event ){
 		toggleContextMenuOff();
 	}
 	
-	if ( keyPressed.isPressed === true ){
+	if ( keyPressed.keysPressed === true ){
 		onClickWithKey();
 	}
 }
@@ -352,13 +346,12 @@ function onClickWithKey(){
 
 	// Click+"a" = Add a Node at the Click position
 	if ( keyPressed.key === "a" ){
+		
 		var planeIntersection = getPlaneIntersectPoint( entities.guidePlane );
-		var position = {};
-			
-		position.x = planeIntersection.point.x;
-		position.y = planeIntersection.point.y;
-		position.z = planeIntersection.point.z; 
-			
+		var position = new THREE.Vector3();
+
+		position.copy( planeIntersection.point );
+
 		addNode( position );	
 	}
 	
@@ -372,7 +365,7 @@ function onClickWithKey(){
 	
 function onKeyDown( event ){
 
-	keyPressed.isPressed = true;
+	keyPressed.keysPressed = true;
 	keyPressed.key = event.key;
 	console.log( "onKeyDown(): ", keyPressed );
 	
@@ -385,10 +378,15 @@ function onKeyUp( event ){
 	keyPressed.key === "X" && hideGuideLine( entities.guideLines.x );
 	keyPressed.key === "Y" && hideGuideLine( entities.guideLines.y );
 	keyPressed.key === "Z" && hideGuideLine( entities.guideLines.z );	
-	
-	keyPressed.isPressed = false;
+	if ( keyPressed.key === "Shift" ){ 
+		if ( SELECTED.nodes.length > 0 ){
+			origPosition.copy( SELECTED.nodes[0].position ); 
+			}
+		}
+
+	console.log( "onKeyUp(): ", keyPressed.key ); 		
+	keyPressed.keysPressed = false;
 	keyPressed.key = null;
-	console.log( "onKeyUp(): ", keyPressed ); 
 }
 
 function onEscapeKey(){
@@ -413,13 +411,13 @@ function nearestIntersectedObj(){
 function getCameraUnProjectedVector( camera ){
 	
 	// Get 3D vector from 3D mouse position using 'unproject' function
-	var vector = new THREE.Vector3( event.clientX, event.clientY, 1);
-	console.log( 'getCameraUnProjectedVector() before Unproject: ', vector );
+	var vec3 = new THREE.Vector3( event.clientX, event.clientY, 1);
+	console.log( 'getCameraUnProjectedVector() before Unproject: ', vec3 );
 	
-	vector.unproject( camera );
-	console.log( 'getCameraUnProjectedVector() after Unproject: ', vector );	
+	vec3.unproject( camera );
+	console.log( 'getCameraUnProjectedVector() after Unproject: ', vec3 );	
 	
-	return vector;
+	return vec3;
 }
 
 function selectNodeArray( nodeArr ){

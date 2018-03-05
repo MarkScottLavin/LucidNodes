@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.20
+	* Version 0.1.21
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -20,25 +20,30 @@ var _Math = {
 	
 	vecRelativePosition: function ( node1, node2 ) {
 		
-		var dist = {};
+		var dist = new THREE.Vector3();
 		
-		dist.x = node2.position.x - node1.position.x || 0;
-		dist.y = node2.position.y - node1.position.y || 0;
-		dist.z = node2.position.z - node1.position.z || 0;
-		// console.log( "_Math.vecRelativePosition( ", node1.id, ", ", node2.id, "  ): ", dist.x, ", ", dist.y, ", ", dist.z );
+		dist.subVectors ( node2.position, node1.position );
 		
 		return dist;
 	},
 	
+	vec3AbsVal: function ( vec3 ){
+		
+		var abs = new THREE.Vector3();
+		
+		abs.x = _Math.absVal( vec3.x ) || 0;
+		abs.y = _Math.absVal( vec3.y ) || 0;
+		abs.z = _Math.absVal( vec3.z ) || 0;
+		
+		return abs;
+	},
+	
 	vecAbsDistance: function ( node1, node2 ) {
 		
-		var dist = {};
+		var dist = new THREE.Vector3();
 		
-		dist.x = _Math.absVal( node2.position.x - node1.position.x ) || 0;
-		dist.y = _Math.absVal( node2.position.y - node1.position.y ) || 0;
-		dist.z = _Math.absVal( node2.position.z - node1.position.z ) || 0;
+		dist.copy( _Math.vec3AbsVal ( _Math.vecRelativePosition( node1, node2 ) ) );
 		
-		// console.log( "_Math.vecAbsDistance( ", node1.id, ", ", node2.id, "  ): ", dist.x, ", ", dist.y, ", ", dist.z );
 		return dist;
 	},
 	
@@ -67,14 +72,14 @@ var _Math = {
 	
 	avgPosition: function ( node1, node2 ) {
 		
-		var avgPos = {};
+		var addPos = new THREE.Vector3();		
+		var avgPos = new THREE.Vector3();
 		
-		avgPos.x = ( ( node1.position.x + node2.position.x ) / 2 ) || 0;
-		avgPos.y = ( ( node1.position.y + node2.position.y ) / 2 ) || 0; 
-		avgPos.z = ( ( node1.position.z + node2.position.z ) / 2 ) || 0;
-		
+		addPos.addVectors( node1.position, node2.position );
+		avgPos = addPos.divideScalar( 2 );
+				
 		// console.log( "_Math.avgPosition( ", node1.id, ", ", node2.id, "  ): ", avgPos.x, ", ", avgPos.y, ", ", avgPos.z );
-		return avgPos;
+		return addPos;
 	},	
 	
 	distanceFromGroupCenter: function(){
@@ -102,29 +107,6 @@ var _Math = {
 		return pEdges;
 		
 	}
-
-}
-
-_drawGroup = {
-
-	nodeDraw: function (){},	
-	edgeDraw: function ( Edge /* properties of the edge */, node1, node2 ){
-		
-		var geometry = new THREE.Geometry();
-		geometry.vertices.push(new THREE.Vector3( node1.position.x , node1.position.y, node1.position.z ));
-		
-		var line = new THREE.Line( geometry, material /* get the material from the properties of Edge */ );
-		scene.add( line );
-		
-		},
-	nodeUndraw: function ( Node ){},
-	edgeUndraw: function ( Edge ){
-		
-		scene.remove( Edge );
-		
-	},
-	nodeRemove: function(){},
-	edgeRemove: function(){},
 
 }
 
@@ -231,13 +213,8 @@ var LUCIDNODES = {
 	
 	computeNodeArrayCenter: function( nodeArray /* nodeArray, subgraph or series of graphs */ , technique = "average" ){
 		
-		var center = {
-		};
-		var sum = {
-			x: 0,
-			y: 0,
-			z: 0
-		};
+		var center = new THREE.Vector3();
+		var sum = new THREE.Vector3();
 		
 		/* average (average of all values alonng each axis) */
 		if ( technique === "average" ) { 
@@ -245,14 +222,10 @@ var LUCIDNODES = {
 			
 			for ( var n = 0; n < nodeArray.length; n++ ){
 			
-				sum.x = ( sum.x + nodeArray[n].position.x );
-				sum.y = ( sum.y + nodeArray[n].position.y );
-				sum.z = ( sum.z + nodeArray[n].position.z );
+				sum.addVectors( sum, nodeArray[n].position );
 			}
 			
-			center.x = ( sum.x / nodeArray.length );
-			center.y = ( sum.y / nodeArray.length );
-			center.z = ( sum.z / nodeArray.length );
+			center = sum.divideScalar( nodeArray.length );
 			
 			console.log( "computeNodeArrayCenter( ", nodeArray , ", ", technique , " ) ", center );
 			return center;
@@ -360,7 +333,7 @@ var LUCIDNODES = {
 		
 		/* Position */
 		
-		this.position = parameters.position || { x: 0, y: -2, z: -2 };
+		this.position = new THREE.Vector3( parameters.position.x, parameters.position.y, parameters.position.z ) || new THREE.Vector3( 0, -2, -2 );
 		
 		/* Appearance */
 		
@@ -514,10 +487,8 @@ var LUCIDNODES = {
 		/* What nodes are connected by this edge? */
 		this.nodes = parameters.nodes;
 		
-		this.ends = [ 
-			{ x: this.nodes[0].position.x, y: this.nodes[0].position.y, z: this.nodes[0].position.z },
-			{ x: this.nodes[1].position.x, y: this.nodes[1].position.y, z: this.nodes[1].position.z }
-		];		
+		this.ends = [ 	new THREE.Vector3( this.nodes[0].position.x, this.nodes[0].position.y, this.nodes[0].position.z ), 
+						new THREE.Vector3( this.nodes[1].position.x, this.nodes[1].position.y, this.nodes[1].position.z ) ]; 
 		
 		this.id = parameters.id;
 		this.id.referent = this;
@@ -894,9 +865,7 @@ function createNodeDisplayEntity( node ){
 	node.displayEntity.isGraphElement = true;
 	node.displayEntity.referent = node;
 	
-	node.displayEntity.position.x = node.position.x;
-	node.displayEntity.position.y = node.position.y;
-	node.displayEntity.position.z = node.position.z;
+	node.displayEntity.position.copy( node.position );
 	
 	applyNodeRotationByShape( node );
 	
@@ -960,8 +929,10 @@ function createEdgeDisplayEntity( edge ){
 	edge.geom = new THREE.Geometry();
 	edge.geom.dynamic = true;
 	edge.geom.vertices.push(
-		new THREE.Vector3( edge.ends[0].x, edge.ends[0].y, edge.ends[0].z ),
+	/*	new THREE.Vector3( edge.ends[0].x, edge.ends[0].y, edge.ends[0].z ),
 		new THREE.Vector3( edge.ends[1].x, edge.ends[1].y, edge.ends[1].z ),
+	*/	
+		edge.ends[0], edge.ends[1]	
 	);		
 	
 	edge.displayEntity = new THREE.Line( edge.geom, edge.material );
@@ -1002,11 +973,7 @@ function createEdgeLabel( edge ){
 }
 
 function positionLabel( label, position ){
-	
-	label.displayEntity.position.x = position.x;
-	label.displayEntity.position.y = position.y;
-	label.displayEntity.position.z = position.z;					
-	
+	label.displayEntity.position.copy( position );					
 }
 
 	/*
@@ -1135,11 +1102,6 @@ function nodesFromJson( arr ){
 															y: parseFloat ( arr[n].position.y ),
 															z: parseFloat ( arr[n].position.z ) 
 														},  
-													/*	position: {   // When Position is array - based
-															x: parseFloat ( arr[n].position[0] ),
-															y: parseFloat ( arr[n].position[1] ),
-															z: parseFloat ( arr[n].position[2] )
-														}, */ 
 														radius: parseFloat( arr[n].radius ), 
 														shape: arr[n].shape, 
 														color: arr[n].color,
@@ -1350,7 +1312,7 @@ function addEdge( nodes, edgeParams ){
 	 * @author Mark Scott Lavin /
 	 *
 	 * parameters:
-	 *   position: <Vector3> or <Object> ( x, y, z );
+	 *   position: <Vector3>;
 	 *
 	 * }
 	*/	
@@ -1384,17 +1346,12 @@ function moveNode( node, position ){
 	
 	if ( position ){
 		// Move the object by the offset amount
-		node.displayEntity.position.x = position.x;
-		node.displayEntity.position.y = position.y;
-		node.displayEntity.position.z = position.z;
-		node.position = node.displayEntity.position;
+		node.displayEntity.position.copy( position );
+		node.position.copy( position );
 
 		// Move the object's label
-		if ( node.label ){
-			
-			node.label.displayEntity.position.x = position.x;
-			node.label.displayEntity.position.y = position.y;
-			node.label.displayEntity.position.z = position.z;
+		if ( node.label ){	
+			positionLabel( node.label, node.position );
 		}
 		
 		pullAllNodeEdges( node );
@@ -1420,7 +1377,7 @@ function moveNodeByOffset( node, offset ){
 	// Set the new position by the offset amount	
 	var newPosition = node.displayEntity.position.sub( offset );
 	
-	moveNode( node, newPosition )
+	moveNode( node, newPosition );
 	
 	//node.position = node.displayEntity.position;
 	
@@ -1536,16 +1493,11 @@ function nodeGetOtherEdges( node, edge ){
 function pullEdge( edge ){
 	
 	// Move the object's ends by the offset amount
-	edge.ends[0] = edge.nodes[0].position;
-	edge.ends[1] = edge.nodes[1].position;
+	edge.ends[0].copy( edge.nodes[0].position );
+	edge.ends[1].copy( edge.nodes[1].position );
 	
-	edge.geom.vertices[0].x = edge.ends[0].x; 
-	edge.geom.vertices[0].y = edge.ends[0].y; 
-	edge.geom.vertices[0].z = edge.ends[0].z;
-
-	edge.geom.vertices[1].x = edge.ends[1].x; 
-	edge.geom.vertices[1].y = edge.ends[1].y; 
-	edge.geom.vertices[1].z = edge.ends[1].z;
+	edge.geom.vertices[0].copy( edge.ends[0] );
+	edge.geom.vertices[1].copy( edge.ends[1] );
 	
 	edge.geom.verticesNeedUpdate = true;
 	
