@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.21
+	* Version 0.1.21.1
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -17,6 +17,25 @@ Array.prototype.clone = function() {
 };
 
 var _Math = {
+	
+	isEven: function( num ){
+		
+		if ( num === 0 || num % 2 === 0 ){
+			return true;
+		}
+		
+		else { return false; }
+
+	},
+	
+	isMultipleOf: function( num, factor ){
+		
+		if ( num % factor === 0 ){
+			return true;
+		}
+		
+		else { return false };
+	},
 	
 	vecRelativePosition: function ( node1, node2 ) {
 		
@@ -113,6 +132,7 @@ var _Math = {
 // We'll auto-generate Node Id's as Base 36 integers. 
 
 var nodeCounter = 0;
+var paneCounter = 0;
 var groupCounter = 0;
 
 var encodeId = function( type, counter ){
@@ -123,6 +143,10 @@ var encodeId = function( type, counter ){
 		prefix = "n"; 
 		b36string = nodeCounter.toString( 36 );
 		nodeCounter++; }
+	else if ( type === "pane" ){
+		prefix = "p";
+		b36string = paneCounter.toString( 36 );
+		paneCounter++ }
 	else if ( type === "group" ){ 
 		prefix = "g";
 		b36string = groupCounter.toString( 36 );
@@ -177,6 +201,25 @@ var bumpCounterToMax = function( type ){
 	if ( type === "groups" ){
 		groupCounter = groupCounter + getMaxGraphElementId( type ) +1;
 	}
+};
+
+	/* edgeAssignId();
+	 *
+	 * Names Edge using convention: [sourceNode.id + operator + targetNode.id]
+	 *
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters = {
+	 *  nodes: <array> 		two Nodes in an array
+	 * }
+	*/	
+
+function edgeAssignId( nodes ){
+	
+	var operator = '-'; /*We'll add more operators when we start adding directionality later */
+	var id = nodes[0].id + operator + nodes[1].id;
+	
+	return id;
 };
 
 
@@ -299,6 +342,25 @@ var LUCIDNODES = {
 		return this.relativePosition;	
 	},
 	
+	Pane: function( parameters ){
+		
+		this.isPane = true;
+		this.id = parameters.id || encodeId( "pane" , paneCounter );
+		this.id.referent = this;
+		
+		this.position = new THREE.Vector3( parameters.position.x, parameters.position.y, parameters.position.z ) || new THREE.Vector3( 0, -2, -2 );
+		
+		this.color = parameters.color || globalAppSettings.defaultNodeColor;
+		this.colorAsHex = function(){
+			
+			return colorUtils.decRGBtoHexRGB( this.color.r, this.color.g, this.color.b );
+						
+			};
+		this.opacity = parameters.opacity || globalAppSettings.defaultNodeOpacity;
+		this.material = new THREE.MeshPhongMaterial( {color: this.colorAsHex() } );
+		this.material.opacity = this.opacity;			
+	},
+	
 	// SINGLE NODE
 	
 	/**
@@ -397,6 +459,7 @@ var LUCIDNODES = {
 		
 		this.transformOnAltClick = function(){
 			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnAltSelect );
+			this.label.transformOnAltClick(); 
 		};
 		
 		this.unTransformOnClickOutside = function(){
@@ -602,7 +665,7 @@ var LUCIDNODES = {
 	 *  opacity: <float> between 0 & 1,
 	 *  textLineThickness <int>,
 	 *  spriteAlignment <THREE.SpriteAlignment>
-	 *  color: <object> { r: <integer>, g: <integer>, b: <integer> }
+	 *  textColor: <object> { r: <integer>, g: <integer>, b: <integer> }
 	 *  opacity: <float> between 0 & 1,
 	 * }
 	 */	
@@ -610,15 +673,15 @@ var LUCIDNODES = {
 	NodeLabel: function( parameters ){
 		
 		this.isNodeLabel = true;
+		this.node = parameters.node;
 		
 		this.text = parameters.text;
-		this.node = parameters.node;
 		this.fontface = parameters.fontface || "Arial";
 		this.fontsize = parameters.fontsize || globalAppSettings.defaultNodeLabelFontSize;
-		this.color = parameters.color || this.node.color;
+		this.textColor = parameters.textColor || this.node.color;
 		this.colorAsHex = function(){
 			
-			return colorUtils.decRGBtoHexRGB( this.color.r, this.color.g, this.color.b );
+			return colorUtils.decRGBtoHexRGB( this.textColor.r, this.textColor.g, this.textColor.b );
 						
 			};
 		this.opacity = parameters.opacity || parameters.node.opacity || globalAppSettings.defaultNodeLabelOpacity;		
@@ -638,6 +701,8 @@ var LUCIDNODES = {
 		this.displayEntity.referent = this;		
 		
 		positionLabel( this, this.node.position ); 
+		
+		/* NodeLabel Transformations */
 
 		this.transformOnMouseOver = function(){
 			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
@@ -702,6 +767,8 @@ var LUCIDNODES = {
 			moveNodeByOffset( this.node, offset );
 		};
 		
+		/* End NodeLabel Transformations */
+		
 		scene.add( this.displayEntity );
 		//return this.sprite;	
 	},	
@@ -714,7 +781,7 @@ var LUCIDNODES = {
 	 * parameters = {
 	 *  edge: <Edge> the Edge,
 	 *  fontsize: <int>,
-	 *  color: <obj> {r: <integer>, g: <integer>, b: <integer> },
+	 *  textColor: <obj> {r: <integer>, g: <integer>, b: <integer> },
 	 *  opacity: <float> between 0 & 1,
 	 * }
 	 */	
@@ -727,10 +794,10 @@ var LUCIDNODES = {
 		this.edge = parameters.edge;
 		this.fontface = parameters.fontface || "Arial";
 		this.fontsize = parameters.fontsize || globalAppSettings.defaultEdgeLabelFontSize;
-		this.color = parameters.color || this.edge.color;
+		this.textColor = parameters.textColor || this.edge.color;
 		this.colorAsHex = function(){
 			
-			return colorUtils.decRGBtoHexRGB( this.color.r, this.color.g, this.color.b );
+			return colorUtils.decRGBtoHexRGB( this.textColor.r, this.textColor.g, this.textColor.b );
 						
 			};
 		this.opacity = parameters.opacity || parameters.edge.opacity || globalAppSettings.defaultEdgeLabelOpacity;
@@ -928,12 +995,7 @@ function createEdgeDisplayEntity( edge ){
 
 	edge.geom = new THREE.Geometry();
 	edge.geom.dynamic = true;
-	edge.geom.vertices.push(
-	/*	new THREE.Vector3( edge.ends[0].x, edge.ends[0].y, edge.ends[0].z ),
-		new THREE.Vector3( edge.ends[1].x, edge.ends[1].y, edge.ends[1].z ),
-	*/	
-		edge.ends[0], edge.ends[1]	
-	);		
+	edge.geom.vertices.push( edge.ends[0], edge.ends[1]	);		
 	
 	edge.displayEntity = new THREE.Line( edge.geom, edge.material );
 	edge.displayEntity.isGraphElement = true;
@@ -954,7 +1016,7 @@ function createNodeLabel( node ){
 			text: node.name,
 			node: node,
 			fontsize: node.labelFontsize || globalAppSettings.defaultNodeLabelFontSize,
-			color: node.labelColor || node.color,
+			textColor: node.labelColor || node.color,
 			opacity: node.labelOpacity || globalAppSettings.defaultNodeLabelOpacity
 		});
 	
@@ -966,7 +1028,7 @@ function createEdgeLabel( edge ){
 			text: edge.name,
 			edge: edge,
 			fontsize: edge.fontsize || globalAppSettings.defaultEdgeLabelFontSize,
-			color: edge.labelcolor || edge.color,
+			textColor: edge.labelcolor || edge.color,
 			opacity: edge.labelOpacity || globalAppSettings.defaultEdgeLabelOpacity
 		});
 
@@ -1047,8 +1109,11 @@ function changeLabelText ( label, string ){
 	
 	labelSize( label, string );
 	
-	//label.context.fillStyle = "rgba(" + label.color.r + "," + label.color.g + "," + label.color.b + "," + label.opacity + " )";	
+	//label.context.fillStyle = "rgba(" + label.textColor.r + "," + label.textColor.g + "," + label.textColor.b + "," + label.opacity + " )";	
 	label.context.fillText( label.text, label.textLineThickness, ( label.fontsize + label.textLineThickness ) );
+	
+	//labelBackgroundForDebug( label );
+	
 	label.displayEntity.material.map.needsUpdate = true; 
 
 }
@@ -1064,10 +1129,11 @@ function labelText( label, text ){
 	
 	labelSize( label, text );
 	
-	// text color
-	label.context.fillStyle = "rgba(" + label.color.r + "," + label.color.g + "," + label.color.b + "," + label.opacity + " )";
+	// text textColor
+	label.context.fillStyle = "rgba(" + label.textColor.r + "," + label.textColor.g + "," + label.textColor.b + "," + label.opacity + " )";
 	label.context.fillText( text, label.fillTextX, label.fillTextY );
-
+	
+	//labelBackgroundForDebug( label );
 }
 
 function labelSize( label, text ){
@@ -1076,6 +1142,19 @@ function labelSize( label, text ){
 	label.metrics = label.context.measureText( text );
 	label.textWidth = label.metrics.width;
 	label.textHeight = label.fontsize;	
+	
+	var safetyBuffer = 4;
+	
+	//var width = label.textWidth + safetyBuffer;
+	//var height = label.textHeight + safetyBuffer;
+	
+	//label.canvas.width = width;
+	//label.canvas.height = height;
+}
+
+function labelBackgroundForDebug( label ){	
+	// Fill the label to see size during debugging
+	label.context.fillRect(0, 0, label.canvas.width, label.canvas.height);
 	
 }
 
@@ -1122,7 +1201,7 @@ function edgesFromJson( arr ){
 														color: arr[e].color,
 														label: { 
 															text: arr[e].label.text,
-															color: arr[e].label.color 
+															color: arr[e].label.textColor 
 															}
 														} );
 	}
@@ -1391,7 +1470,6 @@ function scaleNode( node, scaleFactor ){
 
 }
 
-// !!! Unfinished Function 
 function restoreDeletedNode( node ){
 	
 	var nodeDeletedIndex = DELETED.nodes.indexOf( node );	
@@ -1513,25 +1591,6 @@ function pullAllNodeEdges( node ){
 		pullEdge( edges[n] ); 
 	}
 }
-
-	/* edgeAssignId();
-	 *
-	 * Names Edge using convention: [sourceNode.id + operator + targetNode.id]
-	 *
-	 * @author Mark Scott Lavin /
-	 *
-	 * parameters = {
-	 *  nodes: <array> 		two Nodes in an array
-	 * }
-	*/	
-
-function edgeAssignId( nodes ){
-	
-	var operator = '-'; /*We'll add more operators when we start adding directionality later */
-	var id = nodes[0].id + operator + nodes[1].id;
-	
-	return id;
-};
 
 	/* nodesIdentical();
 	 *
@@ -1825,7 +1884,7 @@ function filterArrayForEdges( arr ){
 	return edgeArray;
 };
 
-function filterArrayFrorNodeLabels( arr ){
+function filterArrayForNodeLabels( arr ){
 	
 	var nodeLabelArray = arr.filter( includes => includes.isNodeLabel );
 	return nodeLabelArray;
@@ -1880,9 +1939,11 @@ function mapAcrossGraphElementArray( fn, arr, param ) {
 
 var changeGraphElementColor = function( graphElement, color ){
 	
-	graphElement.color = color;
-	graphElement.displayEntity.material.color.set( graphElement.colorAsHex() );
-	
+	if ( graphElement.displayEntity.isGraphElement ){
+		
+		graphElement.color = color;
+		graphElement.displayEntity.material.color.set( graphElement.colorAsHex() );
+	}
 };
 
 function getPlaneIntersectPoint( plane ){
@@ -1906,6 +1967,8 @@ function changeGraphElementName( graphElement, string ){
 	graphElement.name = string;
 	
 }
+
+// Deletion Handling
 
 function deleteNode( node ){
 	
@@ -1978,4 +2041,17 @@ function deleteGraphElementLabel( graphElement ){
 	
 	scene.remove( graphElement.label.displayEntity );
 	
+}
+
+// End Deletion Handling
+
+function createPaneDisplayEntity( pane ){
+	
+	pane.displayEntity = new THREE.Mesh(new THREE.PlaneBufferGeometry( pane.size.x, pane.size.y, 8, 8), new THREE.MeshBasicMaterial( { color: 0xffffff, alphaTest: 0 }));
+	pane.displayEntity.isGraphElement = true;
+	pane.displayEntity.referent = pane;
+	
+	pane.displayEntity.position.copy( pane.position );
+	
+	scene.add( pane.displayEntity ); 	
 }

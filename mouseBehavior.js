@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.21
+	* Version 0.1.21.1
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
