@@ -49,7 +49,7 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 	// update the guidePlane to be perpendicular to the current camera position
 	entities.guidePlane.lookAt( camera.position );
 	
-	// get the nearest object intersected by the picking ray
+	// get the nearest graphElement intersected by the picking ray. If no graphElement, return the nearest object
 	var nearestIntersected = nearestIntersectedObj();
 
 	// if there's at least one intersected object...
@@ -86,7 +86,7 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 			contextMenuActivate( event, nearestIntersected );
 		}
 		
-		INTERSECTED && console.log( 'INTERSECTED.isGraphElement: ', INTERSECTED.isGraphElement, 'MouseEvent: ', event.type );			
+		INTERSECTED && console.log( "mouseEventHandler(): INTERSECTED: ", INTERSECTED, " isGraphElement: " , INTERSECTED.isGraphElement, " isLabel: ", INTERSECTED.isLabel, "INTERSECTED.uv: ", INTERSECTED.uv , ' MouseEvent: ', event.type );			
 	}
 }
 
@@ -193,7 +193,7 @@ function onMouseDown( event, camera ){
 		
 		unAltSelectAll();
 
-		// If there's an INTERSECTED object that's a GraphElement 			
+		// If there's no INTERSECTED object or if INTERSECTED is not a GraphElement, do nothing.			
 		if ( !INTERSECTED || !INTERSECTED.isGraphElement ){				
 			return;
 		}
@@ -307,7 +307,7 @@ function onClick( event ){
 		onClickWithKey();
 	}
 }
-
+/*
 function chooseElementOnIntersect(){
 	
 	if ( INTERSECTED && INTERSECTED.isGraphElement ){
@@ -321,7 +321,28 @@ function chooseElementOnIntersect(){
 		
 		return x;
 	}
+}*/
+
+function chooseElementOnIntersect(){
+	
+	var x;	
+	
+	if ( INTERSECTED && INTERSECTED.isGraphElement && !INTERSECTED.isLabel ){
+		
+		if ( INTERSECTED.referent.isNode ){ x = INTERSECTED.referent }
+		else if ( INTERSECTED.referent.isEdge ){ x = INTERSECTED.referent }
+	}
+	
+	else if ( INTERSECTED && INTERSECTED.isLabel ){
+
+		if ( INTERSECTED.referent.isNodeLabel ){ x = INTERSECTED.referent.node }
+		else if ( INTERSECTED.referent.isEdgeLabel ){ x = INTERSECTED.referent.edge }		
+	}
+	
+	return x;
 }
+
+
 
 function onDblClick( event ){
 	
@@ -394,19 +415,88 @@ function onEscapeKey(){
 	toggleContextMenuOff();
 	unSelectAll();
 }
-	
-	
+
 function nearestIntersectedObj(){
 	
 	// Get the array of obects that was intersected by the ray cast on the mouseEvent
-	var intersects = ray.intersectObjects( scene.children );		
+	var intersects = ray.intersectObjects( scene.children );
 	
-	// if there's at least one intersected element and it's an object...
-	if ( intersects && intersects[0] && intersects[0].object ){
-		// return that object.
-		return intersects[0].object;
+	if ( intersects.length > 0 ){
+		
+		var intersectedGraphElements = [];
+		
+		// Check the intersected array for graphElements
+		for ( var i = 0; i < intersects.length; i++ ){	
+		
+			if ( intersects[i].object && intersects[i].object.isGraphElement ){
+		
+				// Return the closest object if it doesn't contain a canvas with an image texture.
+				if ( !intersects[i].object.material.map.image ) { 
+					//return intersects[i].object;
+					intersectedGraphElements.push( intersects[i].object )
+				}		
+		
+				// Otherwise if the intersected object is a canvas with a path...
+				else if ( intersects[i].object.material.map.image ){ 
+				
+					var geometry = intersects[i].object.geometry;
+					var canvas = intersects[i].object.material.map.image;
+					var context = intersects[i].object.referent.context;
+					var uv = intersects[i].uv;
+					
+					var canvasIntersectPt = getPointOnCanvasInCanvasUnits( uv, geometry, canvas );
+					var xy = new THREE.Vector2(
+						canvasIntersectPt.x.valueInNewUnits,
+						canvasIntersectPt.y.valueInNewUnits
+					);
+					
+					// ... and if the user hits within the path, return the object...
+					if ( isPointInContextFillPath( context, xy )){
+						//return intersects[i].object;
+						intersectedGraphElements.push( intersects[i].object );
+						}
+				}
+			}
+		}
+		
+		// If we have intersected graphElements, return the closest one.
+		if ( intersectedGraphElements.length > 0 ){
+			return intersectedGraphElements[0];
+		}
+		// Otherwise, return the closest intersected object, whatever it is. 
+		else {
+			return intersects[0].object;
+		}
 	}
 }
+
+function getPointOnCanvasInCanvasUnits( ptInGlobalUnits, geometry, canvas ){
+	
+	var sizeInGlobalUnits = {
+		x: geometry.parameters.width,
+		y: geometry.parameters.height
+	}
+	
+	var sizeInLocalUnits = {
+		x: canvas.width,
+		y: canvas.height
+	}
+
+	var convertFactor = { 
+		x: ( sizeInLocalUnits.x / sizeInGlobalUnits.x ),
+		y: ( sizeInLocalUnits.y / sizeInGlobalUnits.y )
+	};
+	
+	var pointInLocalUnits = new THREE.Vector2( 
+		/* x */ _Math.convertValue( convertFactor.x, "global", "px", ptInGlobalUnits.x ),
+		/* y */	_Math.convertValue( convertFactor.y, "global", "px", ptInGlobalUnits.y )
+			);	
+
+	console.log( "getPointOnCanvasInLocalUnits() :" , pointInLocalUnits );
+	
+	return pointInLocalUnits;
+}
+
 
 function getCameraUnProjectedVector( camera ){
 	
@@ -671,6 +761,20 @@ function unTransformGraphElementOnUnselect( obj ){
 function transformGraphElementOnWheel( obj ){
 	if ( obj.displayEntity.isGraphElement ) { obj.transformOnWheel(); }	
 }
+
+
+function isPointInContextFillPath( context, point ){
+	
+	var inPath;
+	
+	if ( context.isPointInPath( point.x, point.y ) ){ 
+		inPath = true; 
+	}	
+	else { inPath = false; }
+	
+	return inPath;
+};
+
 
 function blurActiveHiddenInput(){
 

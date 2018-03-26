@@ -1,19 +1,26 @@
-var defaultWidthForText = 450;
-var canvasMinSize = 300;
-var textMultiplier = 1.2;
+/*---------------------------------------------------------------------*/
 
 
-function getMaxWidth( context, texts )
-{
+var defaultTextCanvasWidth = 450;
+var textCanvasMinSize = 300;
+var textHeightMultiplier = 1.2;
+
+
+function getMaxTextWidth( context, textLines ){
     let maxWidth = 0;
-    for(let i in texts)
-        maxWidth = Math.max(maxWidth, context.measureText(texts[i]).width);
+    for( let i in textLines )
+        maxWidth = Math.max(maxWidth, context.measureText(textLines[i]).width);
     return maxWidth;
 }
 
-function makeTextSprite(message, parameters, transparent, opaque) {
-    message = " " + message + " ";
+function makeTextSprite( parameters ) {
+	
+	/* Parameters Handling */
+	
     if (parameters === undefined) parameters = {};
+	
+	var text = parameters.hasOwnProperty("text") ?
+		" " + parameters["text"] + " " : "no text";
 
     var fontface = parameters.hasOwnProperty("fontface") ?
         parameters["fontface"] : "Arial";
@@ -28,74 +35,78 @@ function makeTextSprite(message, parameters, transparent, opaque) {
         parameters["borderColor"] : { r: 0, g: 0, b: 0, a: 1.0 };
 
     var backgroundColor = parameters.hasOwnProperty("backgroundColor") ?
-        parameters["backgroundColor"] : { r: 255, g: 255, b: 255, a: 1.0 };
+        parameters["backgroundColor"] : { r: 255, g: 255, b: 255 };
 
     var textColor = parameters.hasOwnProperty("textColor") ?
         parameters["textColor"] : { r: 0, g: 0, b: 0, a: 1.0 };
+		
+	var opacity = parameters.hasOwnProperty("opacity") ?
+		parameters["opacity"] : 1 ;
+		
+	var textLineThickness = parameters.hasOwnProperty("textLineThickness") ?
+		parameters["textLineThickness"] : borderThickness;
 
-    // setting opaque
-    if( opaque === undefined ) backgroundColor.a = 0.3;
-    else backgroundColor.a = opaque;
+    backgroundColor.a = opacity;
 
+	/* End Parameters Handling */
+	
+	/* Create the Canvas & Context */
+	
     var canvas = document.createElement('canvas');
     var context = canvas.getContext('2d');
     context.font = "Bold " + fontsize + "px " + fontface;
 
-    var texts = message.split('\n');
-    var totalLine = texts.length;
-    var textWidth = getMaxWidth(context, texts);
+	// Split the text up into an array of separate lines whenever we have a return.
+    var textLines = text.split('\n');
+	// Get the width of the text (px) from the width of the longest line
+    var textWidth = getMaxTextWidth(context, textLines);
 
-    // setting canvas size
-    var size = Math.max( canvasMinSize, textWidth + 2 * borderThickness );
-    canvas.width = size;
-    canvas.height = size;
+    // Set the canvas size
+    var canvasSize = Math.max( textCanvasMinSize, textWidth + 2 * borderThickness );
+    canvas.width = canvasSize;
+    canvas.height = canvasSize;
+	
     context.font = "Bold " + fontsize + "px " + fontface;
 
     // background color
-    context.fillStyle = "rgba(" + backgroundColor.r + "," + backgroundColor.g + ","
-        + backgroundColor.b + "," + backgroundColor.a + ")";
+    context.fillStyle = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
     // border color
-    context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + ","
-        + borderColor.b + "," + borderColor.a + ")";
+    context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
     // border width
-    context.lineWidth = borderThickness;
+    context.lineWidth = textLineThickness;
 
-    let totalTextHeight = fontsize * textMultiplier * totalLine;
-    roundRect(context, (size/2 - textWidth / 2) - borderThickness/2, size / 2 - fontsize/2 - totalTextHeight/2, textWidth + borderThickness, totalTextHeight + fontsize/2 , 6);
-
+    let totalTextHeight = fontsize * textHeightMultiplier * textLines.length;
+    roundRect(context, (canvasSize/2 - textWidth / 2) - borderThickness/2, canvasSize / 2 - fontsize/2 - totalTextHeight/2, textWidth + borderThickness, totalTextHeight + fontsize/2 , 6);
 
     // text color
     context.fillStyle = "rgba(" + textColor.r + "," + textColor.g + ","
         + textColor.b + "," + textColor.a + ")";
 
-    let startY = size / 2  - totalTextHeight/2 + fontsize/2 ;
-    for(var i = 0; i < totalLine; i++) {
-        let curWidth = context.measureText(texts[i]).width;
-        context.fillText(texts[i], size/2 - curWidth/2, startY + fontsize * i * textMultiplier);
+    let startY = canvasSize / 2  - totalTextHeight/2 + fontsize/2 ;
+    for(var i = 0; i < textLines.length; i++) {
+        let curWidth = context.measureText(textLines[i]).width;
+        context.fillText(textLines[i], canvasSize/2 - curWidth/2, startY + fontsize * i * textHeightMultiplier);
     }
 
-    // canvas contents will be used for a texture
+    // canvas contents will be used as a texture
     var texture = new THREE.Texture(canvas);
     texture.needsUpdate = true;
 
     var spriteMaterial = new THREE.SpriteMaterial(
         { map: texture, transparent: true, depthTest: false, depthWrite: false });
 
-
-    if (transparent !== undefined && transparent === true) {
-        spriteMaterial.transparent = true;
-        spriteMaterial.depthWrite = false;
-        spriteMaterial.depthTest = false;
-    }
+	spriteMaterial.transparent = true;
+	spriteMaterial.depthWrite = false;
+	spriteMaterial.depthTest = false;
 	
 	spriteMaterial.map.minFilter = THREE.LinearFilter;
 	spriteMaterial.map.magFilter = THREE.LinearFilter;
 
-    var sprite = new THREE.Sprite(spriteMaterial);
+    var displayEntity = new THREE.Sprite(spriteMaterial);
 	
-	sprite.scale.set( 30, 30, 2 );
+	displayEntity.scale.set( 30, 30, 2 );
 	
-    return sprite;
+	scene.add( displayEntity );
 }
 
 function roundRect(ctx, x, y, w, h, r) {
@@ -115,7 +126,7 @@ function roundRect(ctx, x, y, w, h, r) {
 }
 
 
-var newSprite = new makeTextSprite( "xfsfdfe;fdfsefdfedasweawdaweasaweadaawd\nsrfs;ers;fef;seeseerserserer\nsersdfsfeesfseesefsfes" , { fontsize: 64 }, true );
+var newSprite = new makeTextSprite( { text: "xfsfdfe;fdfsefdfedasweawdaweasaweadaawd\nsrfs;ers;fef;seeseerserserer\nsersdfsfeesfseesefsfes" , fontsize: 64, opacity: 0.4 } );
 newSprite.position = new THREE.Vector3( 7, 11, 8 );
 
-scene.add( newSprite );
+/*---------------------------------------------------------------------*/

@@ -37,6 +37,35 @@ var _Math = {
 		else { return false };
 	},
 	
+	cubeEdgeInscribeInSphere: function( r ){
+		
+		var cubeEdge = ( ( r * 2 ) / Math.pow( 3, 0.5 ) );
+		return cubeEdge;
+	},
+
+	degToRad: function( deg ){
+		
+		var radians = ( 2 * Math.PI );
+		var degConv = ( 360 / deg );
+		var degAsRad = radians / degConv;
+		
+		return degAsRad;
+		
+	},	
+	
+	convertValue( convertFactor, fromUnits, toUnits, value ){
+		
+		var converted = {
+			convertFactor: convertFactor,
+			valueInNewUnits: convertFactor * value,
+			valueInOriginalUnits: value,
+			oldUnits: fromUnits || null,
+			newUnits: toUnits || null
+		}
+		
+		return converted;
+	},
+	
 	vecRelativePosition: function ( node1, node2 ) {
 		
 		var dist = new THREE.Vector3();
@@ -249,6 +278,18 @@ var globalAppSettings = {
 	showGroupCenterPoints: true,
 	centerTechnique: "average",
 	centerPointMaterial: material = new THREE.PointsMaterial( { size: 0.25, color: 0x008800 } )
+}
+
+var defaultTextCanvasWidth = 450;
+var textCanvasMinSize = 300;
+var textHeightMultiplier = 1.2;
+
+
+function getMaxTextWidth( context, textLines ){
+    let maxWidth = 0;
+    for( let i in textLines )
+        maxWidth = Math.max(maxWidth, context.measureText(textLines[i]).width);
+    return maxWidth;
 }
 
 // THE LUCIDNODE MASTER OBJECT
@@ -664,7 +705,6 @@ var LUCIDNODES = {
 	 *  fontsize: <int>,
 	 *  opacity: <float> between 0 & 1,
 	 *  textLineThickness <int>,
-	 *  spriteAlignment <THREE.SpriteAlignment>
 	 *  textColor: <object> { r: <integer>, g: <integer>, b: <integer> }
 	 *  opacity: <float> between 0 & 1,
 	 * }
@@ -698,6 +738,7 @@ var LUCIDNODES = {
 		this.displayEntity.scale.set( globalAppSettings.defaultLabelScale.x, globalAppSettings.defaultLabelScale.y, globalAppSettings.defaultLabelScale.z );
 				
 		this.displayEntity.isGraphElement = true;
+		this.displayEntity.isLabel = true;
 		this.displayEntity.referent = this;		
 		
 		positionLabel( this, this.node.position ); 
@@ -815,7 +856,8 @@ var LUCIDNODES = {
 		this.displayEntity = new THREE.Sprite( this.material );
 		this.displayEntity.scale.set( globalAppSettings.defaultLabelScale.x, globalAppSettings.defaultLabelScale.y, globalAppSettings.defaultLabelScale.z );		
 		
-		this.displayEntity.isGraphElement = true;		
+		this.displayEntity.isGraphElement = true;
+		this.displayEntity.isLabel = true;
 		this.displayEntity.referent = this;
 		
 		positionLabel( this, this.edge.centerPoint );
@@ -886,7 +928,185 @@ var LUCIDNODES = {
 		
 		scene.add( this.displayEntity );
 	},
+
+/*---------------------------------------------------------------------*/
+
+	newLabelType: function( parameters ) {
+		
+		this.isNewLabelType = true;
+		
+		/* Parameters Handling */
+		
+		if (parameters === undefined) parameters = {};
+		
+		var text = parameters.hasOwnProperty("text") ?
+			" " + parameters["text"] + " " : "no text";
+
+		var fontface = parameters.hasOwnProperty("fontface") ?
+			parameters["fontface"] : "Arial";
+
+		var fontsize = parameters.hasOwnProperty("fontsize") ?
+			parameters["fontsize"] : 24 ;
+
+		var borderThickness = parameters.hasOwnProperty("borderThickness") ?
+			parameters["borderThickness"] : 0;
+
+		var borderColor = parameters.hasOwnProperty("borderColor") ?
+			parameters["borderColor"] : { r: 0, g: 0, b: 0, a: 1.0 };
+
+		var backgroundColor = parameters.hasOwnProperty("backgroundColor") ?
+			parameters["backgroundColor"] : { r: 255, g: 255, b: 255 };
+
+		var textColor = parameters.hasOwnProperty("textColor") ?
+			parameters["textColor"] : { r: 0, g: 0, b: 0, a: 1.0 };
 			
+		var opacity = parameters.hasOwnProperty("opacity") ?
+			parameters["opacity"] : 1 ;
+			
+		var textLineThickness = parameters.hasOwnProperty("textLineThickness") ?
+			parameters["textLineThickness"] : borderThickness;
+
+		backgroundColor.a = opacity;
+
+		/* End Parameters Handling */
+		
+		/* Create the Canvas & Context */
+		
+		this.canvas = document.createElement('canvas');
+		this.context = this.canvas.getContext('2d');
+		this.context.font = "Bold " + fontsize + "px " + fontface;
+
+		// Split the text up into an array of separate lines whenever we have a return.
+		var textLines = text.split('\n');
+		// Get the width of the text (px) from the width of the longest line
+		var textWidth = getMaxTextWidth(this.context, textLines);
+
+		// Set the canvas size
+		var canvasSize = Math.max( textCanvasMinSize, textWidth + 2 * borderThickness );
+		this.canvas.width = canvasSize;
+		this.canvas.height = canvasSize;
+		
+		this.context.font = "Bold " + fontsize + "px " + fontface;
+
+		// background color
+		this.context.fillStyle = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
+		// border color
+		this.context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
+		// border width
+		this.context.lineWidth = textLineThickness;
+
+		let totalTextHeight = fontsize * textHeightMultiplier * textLines.length;
+		
+		this.context.fillPath = new roundRect(this.context, (canvasSize/2 - textWidth / 2) - borderThickness/2, canvasSize / 2 - fontsize/2 - totalTextHeight/2, textWidth + borderThickness, totalTextHeight + fontsize/2 , 6);
+
+		// text color
+		this.context.fillStyle = "rgba(" + textColor.r + "," + textColor.g + ","
+			+ textColor.b + "," + textColor.a + ")";
+
+		let startY = canvasSize / 2  - totalTextHeight/2 + fontsize/2 ;
+		for(var i = 0; i < textLines.length; i++) {
+			let curWidth = this.context.measureText(textLines[i]).width;
+			this.context.fillText(textLines[i], canvasSize/2 - curWidth/2, startY + fontsize * i * textHeightMultiplier);
+		}
+
+		// canvas contents will be used as a texture
+		this.texture = new THREE.Texture( this.canvas , THREE.UVMapping );
+		this.texture.needsUpdate = true;
+
+		this.material = new THREE./*SpriteMaterial*/MeshBasicMaterial(
+			{ map: this.texture, transparent: true, side: THREE.DoubleSide, depthTest: false, depthWrite: false });
+		
+		this.material.map.minFilter = THREE.LinearFilter;
+
+		//this.displayEntity = new THREE.Sprite( this.material );
+		this.bufferGeom = new THREE.PlaneBufferGeometry( 1, 1, 1, 1 );
+		this.displayEntity = new THREE.Mesh( this.bufferGeom, this.material );
+		this.displayEntity.isGraphElement = true;
+		this.displayEntity.isLabel = true;
+		this.displayEntity.referent = this;
+		
+		positionLabel( this, new THREE.Vector3( 2, 7, 8 ) ); 
+		
+		this.displayEntity.scale.set( 30, 30, 2 );
+		
+		/* Transformations */
+
+		this.transformOnMouseOver = function(){
+			//var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
+			//var scale = this.displayEntity.scale;
+
+		/*	var newScale = { 	x: scale.x * scaleFactor,
+								y: scale.y * scaleFactor,
+								z: scale.z * scaleFactor
+							}; */
+			this.displayEntity.scale.set( 40, 40, 2 );
+			
+			console.log( "newLabelType.transformOnMouseOver(): uv coords: ", this.displayEntity.uv );
+			console.log( "newLabelType.transformOnMouseOver(): ray: ", ray );
+			//isIntersectPointInContextFillPath( this.canvas.context );
+			
+			//this.node.transformOnMouseOverLabel();
+		}
+		
+		this.transformOnMouseOut = function(){
+			//var scale = globalAppSettings.defaultLabelScale;
+			this.displayEntity.scale.set( 30 , 30 , 2 );
+			
+			//this.node.transformOnLabelMouseOut();
+		}
+		
+		this.transformOnMouseOverNode = function(){
+			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
+			var scale = this.displayEntity.scale;
+
+			var newScale = { 	x: scale.x * scaleFactor,
+								y: scale.y * scaleFactor,
+								z: scale.z * scaleFactor
+							};
+			this.displayEntity.scale.set( newScale.x, newScale.y, newScale.z );			
+		};
+		
+		this.transformOnNodeMouseOut = function(){
+			var scale = globalAppSettings.defaultLabelScale;
+			this.displayEntity.scale.set( scale.x , scale.y , scale.z );
+			
+		};
+		
+		this.transformOnClick = function(){
+			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnSelect );			
+		};
+		
+		this.unTransformOnClickOutside = function(){
+			this.displayEntity.material.color.set( this.colorAsHex() );						
+		};
+		
+		this.transformOnAltClick = function(){
+			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnAltSelect );
+		};
+		
+		this.transformOnDblClick = function(){
+
+		};
+		
+		this.unTransformOnDblClickOutside = function(){
+
+		};
+		
+		this.transformOnWheel = function(){
+			
+		};
+		
+		/* End NodeLabel Transformations */
+				
+		
+		scene.add( this.displayEntity );
+	},
+
+
+	/*---------------------------------------------------------------------*/
+
+
+	
 	// WHOLE GROUP
 	
 	/* 
@@ -918,13 +1138,32 @@ var LUCIDNODES = {
 	},	
 };
 
+
+function roundRect( context, x, y, w, h, r) {
+	context.beginPath();
+	context.moveTo(x + r, y);
+	context.lineTo(x + w - r, y);
+	context.quadraticCurveTo(x + w, y, x + w, y + r);
+	context.lineTo(x + w, y + h - r);
+	context.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+	context.lineTo(x + r, y + h);
+	context.quadraticCurveTo(x, y + h, x, y + h - r);
+	context.lineTo(x, y + r);
+	context.quadraticCurveTo(x, y, x + r, y);
+	context.closePath();
+	context.fill();
+	context.stroke();
+}
+
+var newSprite = new LUCIDNODES.newLabelType( { text: "xfsfdfe;fdfsefdfedasweawdaweasaweadaawd\nsrfs;ers;fef;seeseerserserer\nsersdfsfeesfseesefsfes" , fontsize: 64, opacity: 0.4 } );
+
 function createNodeDisplayEntity( node ){
 	
 	if ( node.shape === "sphere" ){ 
 		node.bufferGeom = new THREE.SphereBufferGeometry( node.radius, 32, 32 );
 	}
 	if ( node.shape === "cube" ){
-		var cubeEdge = cubeEdgeInscribeInSphere( node.radius );
+		var cubeEdge = _Math.cubeEdgeInscribeInSphere( node.radius );
 		node.bufferGeom = new THREE.BoxBufferGeometry( cubeEdge, cubeEdge, cubeEdge );
 	}	
 	
@@ -949,7 +1188,7 @@ function applyNodeRotationByShape( node ){
 	}	
 	
 	if ( node.shape === "cube" ){
-		rot = degToRad( 45 );
+		rot = _Math.degToRad( 45 );
 		node.displayEntity.rotation.set( rot, 0, rot ); 
 	}
 }
@@ -967,22 +1206,6 @@ function changeShapeAllNodesInArray( nodeArr, shape ){
 		
 		changeNodeShape( nodeArr[n], shape );
 	}
-}
-
-function cubeEdgeInscribeInSphere( r ){
-	
-	var cubeEdge = ( ( r * 2 ) / Math.pow( 3, 0.5 ) );
-	return cubeEdge;
-}
-
-function degToRad( deg ){
-	
-	var radians = ( 2 * Math.PI );
-	var degConv = ( 360 / deg );
-	var degAsRad = radians / degConv;
-	
-	return degAsRad;
-	
 }
 
 function removeNodeDisplayEntity( node ){
