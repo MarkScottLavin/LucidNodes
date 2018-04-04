@@ -1,6 +1,6 @@
 /* SCENEETUP.JS
  * Name: Scene Setup
- * version 0.1.21
+ * version 0.1.21.3
  * Author: Mark Scott Lavin 
  * License: MIT
  * For Changelog see README.txt
@@ -98,6 +98,10 @@ function init() {
 function render() {
 
 	stats.begin();
+	
+	labelFaceCamera( newSprite, entities.cameras.perspCamera );
+	//objectFaceCamera( newSprite.displayEntity, entities.cameras.perspCamera );
+	
 	renderer.render(scene, entities.cameras.perspCamera );
 	stats.end();
 	

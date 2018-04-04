@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.21.1
+	* Version 0.1.21.3
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -280,18 +280,6 @@ var globalAppSettings = {
 	centerPointMaterial: material = new THREE.PointsMaterial( { size: 0.25, color: 0x008800 } )
 }
 
-var defaultTextCanvasWidth = 450;
-var textCanvasMinSize = 300;
-var textHeightMultiplier = 1.2;
-
-
-function getMaxTextWidth( context, textLines ){
-    let maxWidth = 0;
-    for( let i in textLines )
-        maxWidth = Math.max(maxWidth, context.measureText(textLines[i]).width);
-    return maxWidth;
-}
-
 // THE LUCIDNODE MASTER OBJECT
 var LUCIDNODES = {
 	
@@ -516,7 +504,7 @@ var LUCIDNODES = {
 		
 		/* Createing a hidden user input for changing text labels */
 		
-		createHiddenInput( this );
+		attachHiddenInputToGraphElement( this );
 		
 		/* Playing Nice with Others */
 		
@@ -689,7 +677,7 @@ var LUCIDNODES = {
 		};
 		
 		/* Create a hidden user input for changing labels */
-		createHiddenInput( this );
+		attachHiddenInputToGraphElement( this );
 		
 		console.log( 'LUCIDNODES.Edge(): ', this );
 	},	
@@ -727,7 +715,7 @@ var LUCIDNODES = {
 		this.opacity = parameters.opacity || parameters.node.opacity || globalAppSettings.defaultNodeLabelOpacity;		
 		this.textLineThickness = parameters.textLineThickness || 6;
 
-		labelText( this, this.text );
+		makeContextWithText( this, this.text );
 
 		this.texture = new THREE.Texture( this.canvas ); 
 		this.texture.needsUpdate = true;
@@ -845,7 +833,7 @@ var LUCIDNODES = {
 
 		this.textLineThickness = parameters.textLineThickness || 6;
 
-		labelText( this, this.text ); 
+		makeContextWithText( this, this.text ); 
 		
 		// canvas contents will be used for a texture
 		this.texture = new THREE.Texture( this.canvas ); 
@@ -929,183 +917,6 @@ var LUCIDNODES = {
 		scene.add( this.displayEntity );
 	},
 
-/*---------------------------------------------------------------------*/
-
-	newLabelType: function( parameters ) {
-		
-		this.isNewLabelType = true;
-		
-		/* Parameters Handling */
-		
-		if (parameters === undefined) parameters = {};
-		
-		var text = parameters.hasOwnProperty("text") ?
-			" " + parameters["text"] + " " : "no text";
-
-		var fontface = parameters.hasOwnProperty("fontface") ?
-			parameters["fontface"] : "Arial";
-
-		var fontsize = parameters.hasOwnProperty("fontsize") ?
-			parameters["fontsize"] : 24 ;
-
-		var borderThickness = parameters.hasOwnProperty("borderThickness") ?
-			parameters["borderThickness"] : 0;
-
-		var borderColor = parameters.hasOwnProperty("borderColor") ?
-			parameters["borderColor"] : { r: 0, g: 0, b: 0, a: 1.0 };
-
-		var backgroundColor = parameters.hasOwnProperty("backgroundColor") ?
-			parameters["backgroundColor"] : { r: 255, g: 255, b: 255 };
-
-		var textColor = parameters.hasOwnProperty("textColor") ?
-			parameters["textColor"] : { r: 0, g: 0, b: 0, a: 1.0 };
-			
-		var opacity = parameters.hasOwnProperty("opacity") ?
-			parameters["opacity"] : 1 ;
-			
-		var textLineThickness = parameters.hasOwnProperty("textLineThickness") ?
-			parameters["textLineThickness"] : borderThickness;
-
-		backgroundColor.a = opacity;
-
-		/* End Parameters Handling */
-		
-		/* Create the Canvas & Context */
-		
-		this.canvas = document.createElement('canvas');
-		this.context = this.canvas.getContext('2d');
-		this.context.font = "Bold " + fontsize + "px " + fontface;
-
-		// Split the text up into an array of separate lines whenever we have a return.
-		var textLines = text.split('\n');
-		// Get the width of the text (px) from the width of the longest line
-		var textWidth = getMaxTextWidth(this.context, textLines);
-
-		// Set the canvas size
-		var canvasSize = Math.max( textCanvasMinSize, textWidth + 2 * borderThickness );
-		this.canvas.width = canvasSize;
-		this.canvas.height = canvasSize;
-		
-		this.context.font = "Bold " + fontsize + "px " + fontface;
-
-		// background color
-		this.context.fillStyle = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
-		// border color
-		this.context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
-		// border width
-		this.context.lineWidth = textLineThickness;
-
-		let totalTextHeight = fontsize * textHeightMultiplier * textLines.length;
-		
-		this.context.fillPath = new roundRect(this.context, (canvasSize/2 - textWidth / 2) - borderThickness/2, canvasSize / 2 - fontsize/2 - totalTextHeight/2, textWidth + borderThickness, totalTextHeight + fontsize/2 , 6);
-
-		// text color
-		this.context.fillStyle = "rgba(" + textColor.r + "," + textColor.g + ","
-			+ textColor.b + "," + textColor.a + ")";
-
-		let startY = canvasSize / 2  - totalTextHeight/2 + fontsize/2 ;
-		for(var i = 0; i < textLines.length; i++) {
-			let curWidth = this.context.measureText(textLines[i]).width;
-			this.context.fillText(textLines[i], canvasSize/2 - curWidth/2, startY + fontsize * i * textHeightMultiplier);
-		}
-
-		// canvas contents will be used as a texture
-		this.texture = new THREE.Texture( this.canvas , THREE.UVMapping );
-		this.texture.needsUpdate = true;
-
-		this.material = new THREE./*SpriteMaterial*/MeshBasicMaterial(
-			{ map: this.texture, transparent: true, side: THREE.DoubleSide, depthTest: false, depthWrite: false });
-		
-		this.material.map.minFilter = THREE.LinearFilter;
-
-		//this.displayEntity = new THREE.Sprite( this.material );
-		this.bufferGeom = new THREE.PlaneBufferGeometry( 1, 1, 1, 1 );
-		this.displayEntity = new THREE.Mesh( this.bufferGeom, this.material );
-		this.displayEntity.isGraphElement = true;
-		this.displayEntity.isLabel = true;
-		this.displayEntity.referent = this;
-		
-		positionLabel( this, new THREE.Vector3( 2, 7, 8 ) ); 
-		
-		this.displayEntity.scale.set( 30, 30, 2 );
-		
-		/* Transformations */
-
-		this.transformOnMouseOver = function(){
-			//var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
-			//var scale = this.displayEntity.scale;
-
-		/*	var newScale = { 	x: scale.x * scaleFactor,
-								y: scale.y * scaleFactor,
-								z: scale.z * scaleFactor
-							}; */
-			this.displayEntity.scale.set( 40, 40, 2 );
-			
-			console.log( "newLabelType.transformOnMouseOver(): uv coords: ", this.displayEntity.uv );
-			console.log( "newLabelType.transformOnMouseOver(): ray: ", ray );
-			//isIntersectPointInContextFillPath( this.canvas.context );
-			
-			//this.node.transformOnMouseOverLabel();
-		}
-		
-		this.transformOnMouseOut = function(){
-			//var scale = globalAppSettings.defaultLabelScale;
-			this.displayEntity.scale.set( 30 , 30 , 2 );
-			
-			//this.node.transformOnLabelMouseOut();
-		}
-		
-		this.transformOnMouseOverNode = function(){
-			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
-			var scale = this.displayEntity.scale;
-
-			var newScale = { 	x: scale.x * scaleFactor,
-								y: scale.y * scaleFactor,
-								z: scale.z * scaleFactor
-							};
-			this.displayEntity.scale.set( newScale.x, newScale.y, newScale.z );			
-		};
-		
-		this.transformOnNodeMouseOut = function(){
-			var scale = globalAppSettings.defaultLabelScale;
-			this.displayEntity.scale.set( scale.x , scale.y , scale.z );
-			
-		};
-		
-		this.transformOnClick = function(){
-			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnSelect );			
-		};
-		
-		this.unTransformOnClickOutside = function(){
-			this.displayEntity.material.color.set( this.colorAsHex() );						
-		};
-		
-		this.transformOnAltClick = function(){
-			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnAltSelect );
-		};
-		
-		this.transformOnDblClick = function(){
-
-		};
-		
-		this.unTransformOnDblClickOutside = function(){
-
-		};
-		
-		this.transformOnWheel = function(){
-			
-		};
-		
-		/* End NodeLabel Transformations */
-				
-		
-		scene.add( this.displayEntity );
-	},
-
-
-	/*---------------------------------------------------------------------*/
-
-
 	
 	// WHOLE GROUP
 	
@@ -1137,25 +948,6 @@ var LUCIDNODES = {
 		if ( this.type.includes( "mindmap") ){    } 
 	},	
 };
-
-
-function roundRect( context, x, y, w, h, r) {
-	context.beginPath();
-	context.moveTo(x + r, y);
-	context.lineTo(x + w - r, y);
-	context.quadraticCurveTo(x + w, y, x + w, y + r);
-	context.lineTo(x + w, y + h - r);
-	context.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-	context.lineTo(x + r, y + h);
-	context.quadraticCurveTo(x, y + h, x, y + h - r);
-	context.lineTo(x, y + r);
-	context.quadraticCurveTo(x, y, x + r, y);
-	context.closePath();
-	context.fill();
-	context.stroke();
-}
-
-var newSprite = new LUCIDNODES.newLabelType( { text: "xfsfdfe;fdfsefdfedasweawdaweasaweadaawd\nsrfs;ers;fef;seeseerserserer\nsersdfsfeesfseesefsfes" , fontsize: 64, opacity: 0.4 } );
 
 function createNodeDisplayEntity( node ){
 	
@@ -1262,7 +1054,7 @@ function positionLabel( label, position ){
 }
 
 	/*
-	 * createHiddenInput();
+	 * attachHiddenInputToGraphElement();
 	 *
 	 * Description: Creates a new hidden input that can then get called up when the app is taking user input
 	 *
@@ -1270,19 +1062,10 @@ function positionLabel( label, position ){
 	 *
 	 */
 
-function createHiddenInput( graphElement ){
+function attachHiddenInputToGraphElement( graphElement ){
 
 	// Let's create a hidden HTML5 Input to handle user input
-	graphElement.hiddenInput = document.createElement( "input" );
-	graphElement.hiddenInput.type = "text";
-	graphElement.hiddenInput.style.opacity = 0;
-	graphElement.hiddenInput.style.width = 0;
-	graphElement.hiddenInput.style.height = 0;
-	graphElement.hiddenInput.style.position = "absolute";
-	//graphElement.hiddenInput.style.left = "0px";
-	//graphElement.hiddenInput.style.top = "0px";
-	graphElement.hiddenInput.style.overflow = "hidden";
-	document.body.appendChild( graphElement.hiddenInput );
+	appendHiddenTextInputToObjInScene( graphElement );
 	
 	graphElement.hiddenInput.onkeyup = function() { 
 	
@@ -1290,6 +1073,28 @@ function createHiddenInput( graphElement ){
 		graphElement.isEdge && changeEdgeName( graphElement, this.value );
 		
 	}
+}
+
+	/*
+	 * appendHiddenTextInputToObjInScene();
+	 *
+	 * Description: Creates a new hidden input and attaches it to an object in the Scene that can get called up when the app is taking user input
+	 *
+	 * author: Mark Scott Lavin
+	 *
+	 */
+
+function appendHiddenTextInputToObjInScene( obj ){
+	
+	obj.hiddenInput = document.createElement( "input" );
+	obj.hiddenInput.type = "text";
+	obj.hiddenInput.style.opacity = 0;
+	obj.hiddenInput.style.width = 0;
+	obj.hiddenInput.style.height = 0;
+	obj.hiddenInput.style.position = "absolute";
+	obj.hiddenInput.style.overflow = "hidden";
+	document.body.appendChild( obj.hiddenInput );
+	
 }
 
 /*
@@ -1331,9 +1136,7 @@ function changeLabelText ( label, string ){
 	//label.metrics = label.context.measureText( label.text );
 	
 	labelSize( label, string );
-	
-	//label.context.fillStyle = "rgba(" + label.textColor.r + "," + label.textColor.g + "," + label.textColor.b + "," + label.opacity + " )";	
-	label.context.fillText( label.text, label.textLineThickness, ( label.fontsize + label.textLineThickness ) );
+	labelText( label, string );
 	
 	//labelBackgroundForDebug( label );
 	
@@ -1342,21 +1145,33 @@ function changeLabelText ( label, string ){
 }
 
 function labelText( label, text ){
+	
+	label.context.fillStyle = "rgba(" + label.textColor.r + "," + label.textColor.g + "," + label.textColor.b + "," + label.opacity + " )";	
+	label.context.fillText( label.text, label.textLineThickness, ( label.fontsize + label.textLineThickness ) );
+}
+
+function makeContextWithText( label, text ){
 
 	// create a nested canvas & context
 	label.canvas = document.createElement('canvas');
 	label.context = label.canvas.getContext('2d');
 	label.context.font = "Bold " + label.fontsize + "px " + label.fontface;
-	label.fillTextX = label.textLineThickness;
-	label.fillTextY = label.fontsize + label.textLineThickness;
+	
+	positionTextInContext( label, { x: label.textLineThickness, y: ( label.fontsize + label.textLineThickness ) } );
 	
 	labelSize( label, text );
 	
-	// text textColor
-	label.context.fillStyle = "rgba(" + label.textColor.r + "," + label.textColor.g + "," + label.textColor.b + "," + label.opacity + " )";
-	label.context.fillText( text, label.fillTextX, label.fillTextY );
+	labelText( label, text );
 	
 	//labelBackgroundForDebug( label );
+}
+
+function positionTextInContext( label, xy ){
+	
+	label.textPos = {
+		x: xy.x,
+		y: xy.y
+	}
 }
 
 function labelSize( label, text ){
@@ -2277,4 +2092,12 @@ function createPaneDisplayEntity( pane ){
 	pane.displayEntity.position.copy( pane.position );
 	
 	scene.add( pane.displayEntity ); 	
+}
+
+// Enable objects to aways face the camera
+
+function objectFaceCamera( obj3D, camera ){
+	
+	obj3D.quaternion.copy( camera.quaternion );
+
 }

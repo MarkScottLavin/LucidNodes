@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.21.1
+	* Version 0.1.21.3
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -431,13 +431,12 @@ function nearestIntersectedObj(){
 			if ( intersects[i].object && intersects[i].object.isGraphElement ){
 		
 				// Return the closest object if it doesn't contain a canvas with an image texture.
-				if ( !intersects[i].object.material.map.image ) { 
-					//return intersects[i].object;
-					intersectedGraphElements.push( intersects[i].object )
+				if ( !intersects[i].object.isNewLabelType ){
+					intersectedGraphElements.push( intersects[i].object );
 				}		
 		
 				// Otherwise if the intersected object is a canvas with a path...
-				else if ( intersects[i].object.material.map.image ){ 
+				else if ( intersects[i].object.isNewLabelType && intersects[i].object.material.map.image ){ 
 				
 					var geometry = intersects[i].object.geometry;
 					var canvas = intersects[i].object.material.map.image;
@@ -452,7 +451,6 @@ function nearestIntersectedObj(){
 					
 					// ... and if the user hits within the path, return the object...
 					if ( isPointInContextFillPath( context, xy )){
-						//return intersects[i].object;
 						intersectedGraphElements.push( intersects[i].object );
 						}
 				}
@@ -464,7 +462,7 @@ function nearestIntersectedObj(){
 			return intersectedGraphElements[0];
 		}
 		// Otherwise, return the closest intersected object, whatever it is. 
-		else {
+		else if ( intersectedGraphElements.length === 0 ){
 			return intersects[0].object;
 		}
 	}
