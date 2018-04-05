@@ -744,8 +744,8 @@ function applyNodeRotationByShape( node ){
 	}	
 	
 	if ( node.shape === "cube" ){
-		rot = _Math.degToRad( 45 );
-		node.displayEntity.rotation.set( rot, 0, rot ); 
+//		rot = _Math.degToRad( 45 );
+//		node.displayEntity.rotation.set( rot, 0, rot ); 
 	}
 }
 

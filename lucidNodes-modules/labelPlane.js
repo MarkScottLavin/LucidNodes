@@ -12,7 +12,24 @@ globalAppSettings.labelCanvasMinPxSize = 300;
 
 
 /*---------------------------------------------------------------------*/
-var newNodeLabel = function( parameters ) {
+
+	/**
+	 * NodeLabel();
+	 * 
+	 * @author Mark Scott Lavin /
+	 * modified from http://stemkoski.github.io/Three.js/Labeled-Geometry.html
+	 *
+	 * parameters = {
+	 *  fontface: <string>,
+	 *  fontsize: <int>,
+	 *  opacity: <float> between 0 & 1,
+	 *  textLineThickness <int>,
+	 *  textColor: <object> { r: <integer>, g: <integer>, b: <integer> }
+	 *  opacity: <float> between 0 & 1,
+	 * }
+	 */	
+
+LUCIDNODES.nodeLabel = function( parameters ) {
 		
 	this.isNewLabelType = true;
 	this.isNodeLabel = true;
@@ -91,7 +108,6 @@ var newNodeLabel = function( parameters ) {
 	this.scaleFactor = getDynamicScaleFactor( this );	
 	labelScale( this, this.scaleFactor );
 	
-	//positionLabel( this, this.node.position ); 
 	positionLabelWithAlignment( this, this.alignment, ( this.node.radius + ( getScaledLabelWidth( this ) / 2 ) ) );
 	
 	/* Transformations */
@@ -104,14 +120,13 @@ var newNodeLabel = function( parameters ) {
 		console.log( "newLabelType.transformOnMouseOver(): ray: ", ray );
 		//isIntersectPointInContextFillPath( this.canvas.context );
 		
-		//this.node.transformOnMouseOverLabel();
+		this.node.transformOnMouseOverLabel();
 	}
 	
 	this.transformOnMouseOut = function(){
-		//var scale = globalAppSettings.defaultLabelScale;
-		labelScale( this, this.scaleFactor );
-		
-		//this.node.transformOnLabelMouseOut();
+
+		labelScale( this, this.scaleFactor );		
+		this.node.transformOnLabelMouseOut();
 	}
 	
 	this.transformOnMouseOverNode = function(){};
@@ -120,7 +135,7 @@ var newNodeLabel = function( parameters ) {
 	
 	this.transformOnClick = function(){
 		
-		//this.displayEntity.material.color.set( globalAppSettings.nodeColorOnSelect );	
+		//var bgOnClick = { r: 0, g: 0, b: 255, a: this.opacity };
 		this.backgroundColor = { r: 0, g: 0, b: 255, a: this.opacity };
 		
 		clearLabelText( this );			
@@ -130,7 +145,7 @@ var newNodeLabel = function( parameters ) {
 	
 	this.unTransformOnClickOutside = function(){
 		
-		//this.displayEntity.material.color.set( globalAppSettings.nodeColorOnSelect );	
+		//this.displayEntity.material.color.set( this.backgroundColor );	
 		this.backgroundColor = { r: 255, g: 255, b: 255, a: this.opacity };
 		
 		clearLabelText( this );			
@@ -367,127 +382,8 @@ function labelFaceCamera( label, camera ){
 }
 
 
-
-
-	/**
-	 * NodeLabel();
-	 * 
-	 * @author Mark Scott Lavin /
-	 * modified from http://stemkoski.github.io/Three.js/Labeled-Geometry.html
-	 *
-	 * parameters = {
-	 *  fontface: <string>,
-	 *  fontsize: <int>,
-	 *  opacity: <float> between 0 & 1,
-	 *  textLineThickness <int>,
-	 *  textColor: <object> { r: <integer>, g: <integer>, b: <integer> }
-	 *  opacity: <float> between 0 & 1,
-	 * }
-	 */	
 	
-LUCIDNODES.NodeLabel = function( parameters ){
-		
-		this.isNodeLabel = true;
-		this.node = parameters.node;
-		
-		this.text = parameters.text;
-		this.fontface = parameters.fontface || "Arial";
-		this.fontsize = parameters.fontsize || globalAppSettings.defaultNodeLabelFontSize;
-		this.textColor = parameters.textColor || this.node.color;
-		this.colorAsHex = function(){
-			
-			return colorUtils.decRGBtoHexRGB( this.textColor.r, this.textColor.g, this.textColor.b );
-						
-			};
-		this.opacity = parameters.opacity || parameters.node.opacity || globalAppSettings.defaultNodeLabelOpacity;		
-		this.textLineThickness = parameters.textLineThickness || 6;
 
-		makeContextWithText( this, this.text );
-
-		this.texture = new THREE.Texture( this.canvas ); 
-		this.texture.needsUpdate = true;
-		this.texture.minFilter = THREE.LinearFilter;
-
-		this.material = new THREE.SpriteMaterial( { map: this.texture } );
-		this.displayEntity = new THREE.Sprite( this.material );
-		this.displayEntity.scale.set( globalAppSettings.defaultLabelScale.x, globalAppSettings.defaultLabelScale.y, globalAppSettings.defaultLabelScale.z );
-				
-		this.displayEntity.isGraphElement = true;
-		this.displayEntity.isLabel = true;
-		this.displayEntity.referent = this;		
-		
-		positionLabel( this, this.node.position ); 
-		
-		/* NodeLabel Transformations */
-
-		this.transformOnMouseOver = function(){
-			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
-			var scale = this.displayEntity.scale;
-
-			var newScale = { 	x: scale.x * scaleFactor,
-								y: scale.y * scaleFactor,
-								z: scale.z * scaleFactor
-							};
-			this.displayEntity.scale.set( newScale.x, newScale.y, newScale.z );
-			
-			this.node.transformOnMouseOverLabel();
-		}
-		
-		this.transformOnMouseOut = function(){
-			var scale = globalAppSettings.defaultLabelScale;
-			this.displayEntity.scale.set( scale.x , scale.y , scale.z );
-			
-			this.node.transformOnLabelMouseOut();
-		}
-		
-		this.transformOnMouseOverNode = function(){
-			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
-			var scale = this.displayEntity.scale;
-
-			var newScale = { 	x: scale.x * scaleFactor,
-								y: scale.y * scaleFactor,
-								z: scale.z * scaleFactor
-							};
-			this.displayEntity.scale.set( newScale.x, newScale.y, newScale.z );			
-		};
-		
-		this.transformOnNodeMouseOut = function(){
-			var scale = globalAppSettings.defaultLabelScale;
-			this.displayEntity.scale.set( scale.x , scale.y , scale.z );
-			
-		};
-		
-		this.transformOnClick = function(){
-			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnSelect );			
-		};
-		
-		this.unTransformOnClickOutside = function(){
-			this.displayEntity.material.color.set( this.colorAsHex() );						
-		};
-		
-		this.transformOnAltClick = function(){
-			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnAltSelect );
-		};
-		
-		this.transformOnDblClick = function(){
-
-		};
-		
-		this.unTransformOnDblClickOutside = function(){
-
-		};
-		
-		this.transformOnWheel = function(){
-			
-			var offset = new THREE.Vector3( 0, 0.5, 0 );
-			moveNodeByOffset( this.node, offset );
-		};
-		
-		/* End NodeLabel Transformations */
-		
-		scene.add( this.displayEntity );
-		//return this.sprite;	
-	};
 	
 	/**
 	 * EdgeLabel();
@@ -607,7 +503,7 @@ LUCIDNODES.EdgeLabel = function( parameters ){
 	
 function createNodeLabel( node ){
 
-	node.label = new newNodeLabel( {
+	node.label = new LUCIDNODES.nodeLabel( {
 			text: node.name,
 			node: node,
 			fontsize: node.labelFontsize || globalAppSettings.defaultNodeLabelFontSize,
