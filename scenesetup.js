@@ -1,6 +1,6 @@
 /* SCENEETUP.JS
  * Name: Scene Setup
- * version 0.1.21.3
+ * version 0.1.21.4
  * Author: Mark Scott Lavin 
  * License: MIT
  * For Changelog see README.txt
@@ -99,15 +99,15 @@ function render() {
 
 	stats.begin();
 	
-	labelFaceCamera( newSprite, entities.cameras.perspCamera );
+	labelArrayFaceCamera( getLabels ( cognition.nodes ), entities.cameras.perspCamera );
+	//labelFaceCamera( newSprite, entities.cameras.perspCamera );
 	//objectFaceCamera( newSprite.displayEntity, entities.cameras.perspCamera );
 	
 	renderer.render(scene, entities.cameras.perspCamera );
 	stats.end();
 	
 	requestAnimationFrame( render );
-} 
-
+}
 	
 /****** Event Listeners ******/
 

@@ -104,3 +104,7 @@ function fileNameFromInput(){
 
 	return document.getElementById( 'filenameInput' ).value;
 }
+
+
+
+//var newSprite = new LUCIDNODES.newLabelType( { text: "yes;", fontsize: 64, opacity: 0.4, paddingX: 10, faceCamera: true } );

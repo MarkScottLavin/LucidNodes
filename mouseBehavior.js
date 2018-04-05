@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.21.3
+	* Version 0.1.21.4
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -352,7 +352,7 @@ function onDblClick( event ){
 			ACTIVEHIDDENINPUT = x.hiddenInput;
 			positionInput( event, ACTIVEHIDDENINPUT );
 			ACTIVEHIDDENINPUT.focus();
-			changeLabelText( x.label, ACTIVEHIDDENINPUT.value ) 
+			changeLabelText2( x.label, ACTIVEHIDDENINPUT.value ) 
 	}
 }
 
@@ -419,7 +419,7 @@ function onEscapeKey(){
 function nearestIntersectedObj(){
 	
 	// Get the array of obects that was intersected by the ray cast on the mouseEvent
-	var intersects = ray.intersectObjects( scene.children );
+	var intersects = ray.intersectObjects( scene.children, true );
 	
 	if ( intersects.length > 0 ){
 		

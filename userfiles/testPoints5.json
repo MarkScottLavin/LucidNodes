@@ -2,7 +2,7 @@
   "nodes": [
     {
       "id": "n000",
-      "name": "superduper",
+      "name": "Wow I think this is totally working! \nThat's amazing!!!!",
       "color": {
         "r": 255,
         "g": 128,
@@ -15,12 +15,7 @@
       },
       "opacity": 0.5,
       "label": {
-        "color": {
-          "r": 255,
-          "g": 128,
-          "b": 128
-        },
-        "text": "superduper",
+        "text": "Wow I think this is totally working! \nThat's amazing!!!!",
         "opacity": 0.2
       },
       "labelOpacity": null,
@@ -43,11 +38,6 @@
       },
       "opacity": 0.5,
       "label": {
-        "color": {
-          "r": 128,
-          "g": 255,
-          "b": 128
-        },
         "text": "WTF",
         "opacity": 0.2
       },
@@ -71,11 +61,6 @@
       },
       "opacity": 0.5,
       "label": {
-        "color": {
-          "r": 0,
-          "g": 0,
-          "b": 255
-        },
         "text": "Working!",
         "opacity": 0.2
       },
@@ -99,11 +84,6 @@
       },
       "opacity": 0.75,
       "label": {
-        "color": {
-          "r": 255,
-          "g": 128,
-          "b": 64
-        },
         "text": "n003",
         "opacity": 0.2
       },
@@ -127,11 +107,6 @@
       },
       "opacity": 0.75,
       "label": {
-        "color": {
-          "r": 128,
-          "g": 128,
-          "b": 128
-        },
         "text": "n004",
         "opacity": 0.2
       },
@@ -146,7 +121,7 @@
       "nodes": [
         {
           "id": "n000",
-          "name": "superduper",
+          "name": "Wow I think this is totally working! \nThat's amazing!!!!",
           "color": {
             "r": 255,
             "g": 128,
@@ -159,12 +134,7 @@
           },
           "opacity": 0.5,
           "label": {
-            "color": {
-              "r": 255,
-              "g": 128,
-              "b": 128
-            },
-            "text": "superduper",
+            "text": "Wow I think this is totally working! \nThat's amazing!!!!",
             "opacity": 0.2
           },
           "labelOpacity": null,
@@ -187,11 +157,6 @@
           },
           "opacity": 0.5,
           "label": {
-            "color": {
-              "r": 0,
-              "g": 0,
-              "b": 255
-            },
             "text": "Working!",
             "opacity": 0.2
           },
@@ -210,12 +175,7 @@
       },
       "opacity": 0.5,
       "label": {
-        "color": {
-          "r": 128,
-          "g": 128,
-          "b": 128
-        },
-        "text": "Working Too!",
+        "text": "",
         "opacity": 0.2
       }
     },
@@ -236,11 +196,6 @@
           },
           "opacity": 0.5,
           "label": {
-            "color": {
-              "r": 128,
-              "g": 255,
-              "b": 128
-            },
             "text": "WTF",
             "opacity": 0.2
           },
@@ -264,11 +219,6 @@
           },
           "opacity": 0.5,
           "label": {
-            "color": {
-              "r": 0,
-              "g": 0,
-              "b": 255
-            },
             "text": "Working!",
             "opacity": 0.2
           },
@@ -287,11 +237,6 @@
       },
       "opacity": 0.5,
       "label": {
-        "color": {
-          "r": 128,
-          "g": 128,
-          "b": 128
-        },
         "text": "n001-n002",
         "opacity": 0.2
       }
@@ -313,11 +258,6 @@
           },
           "opacity": 0.5,
           "label": {
-            "color": {
-              "r": 128,
-              "g": 255,
-              "b": 128
-            },
             "text": "WTF",
             "opacity": 0.2
           },
@@ -328,7 +268,7 @@
         },
         {
           "id": "n000",
-          "name": "superduper",
+          "name": "Wow I think this is totally working! \nThat's amazing!!!!",
           "color": {
             "r": 255,
             "g": 128,
@@ -341,12 +281,7 @@
           },
           "opacity": 0.5,
           "label": {
-            "color": {
-              "r": 255,
-              "g": 128,
-              "b": 128
-            },
-            "text": "superduper",
+            "text": "Wow I think this is totally working! \nThat's amazing!!!!",
             "opacity": 0.2
           },
           "labelOpacity": null,
@@ -364,11 +299,6 @@
       },
       "opacity": 0.5,
       "label": {
-        "color": {
-          "r": 128,
-          "g": 128,
-          "b": 128
-        },
         "text": "n001-n000",
         "opacity": 0.2
       }
@@ -390,11 +320,6 @@
           },
           "opacity": 0.75,
           "label": {
-            "color": {
-              "r": 255,
-              "g": 128,
-              "b": 64
-            },
             "text": "n003",
             "opacity": 0.2
           },
@@ -418,11 +343,6 @@
           },
           "opacity": 0.5,
           "label": {
-            "color": {
-              "r": 0,
-              "g": 0,
-              "b": 255
-            },
             "text": "Working!",
             "opacity": 0.2
           },
@@ -441,11 +361,6 @@
       },
       "opacity": 0.5,
       "label": {
-        "color": {
-          "r": 128,
-          "g": 128,
-          "b": 128
-        },
         "text": "n003-n002",
         "opacity": 0.2
       }
@@ -467,11 +382,6 @@
           },
           "opacity": 0.5,
           "label": {
-            "color": {
-              "r": 128,
-              "g": 255,
-              "b": 128
-            },
             "text": "WTF",
             "opacity": 0.2
           },
@@ -495,11 +405,6 @@
           },
           "opacity": 0.75,
           "label": {
-            "color": {
-              "r": 255,
-              "g": 128,
-              "b": 64
-            },
             "text": "n003",
             "opacity": 0.2
           },
@@ -518,11 +423,6 @@
       },
       "opacity": 0.5,
       "label": {
-        "color": {
-          "r": 128,
-          "g": 128,
-          "b": 128
-        },
         "text": "n001-n003",
         "opacity": 0.2
       }
