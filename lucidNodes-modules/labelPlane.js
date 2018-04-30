@@ -135,7 +135,6 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	
 	this.transformOnClick = function(){
 		
-		//var bgOnClick = { r: 0, g: 0, b: 255, a: this.opacity };
 		this.backgroundColor = { r: 0, g: 0, b: 255, a: this.opacity };
 		
 		clearLabelText( this );			
@@ -145,7 +144,6 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	
 	this.unTransformOnClickOutside = function(){
 		
-		//this.displayEntity.material.color.set( this.backgroundColor );	
 		this.backgroundColor = { r: 255, g: 255, b: 255, a: this.opacity };
 		
 		clearLabelText( this );			
@@ -167,7 +165,7 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	
 	/* End NodeLabel Transformations */		
 	
-	this.node.pivotPoint.add( this.displayEntity );
+	this.node.labelPivot.add( this.displayEntity );
 }
 
 
@@ -377,7 +375,7 @@ function labelArrayFaceCamera( labelArr, camera ){
 function labelFaceCamera( label, camera ){
 	
 	if ( label.faceCamera ){
-		objectFaceCamera( label.node.pivotPoint, camera );
+		objectFaceCamera( label.node.labelPivot, camera );
 	} 
 }
 

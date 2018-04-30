@@ -1,6 +1,6 @@
 /* SCENEETUP.JS
  * Name: Scene Setup
- * version 0.1.21.4
+ * version 0.1.22
  * Author: Mark Scott Lavin 
  * License: MIT
  * For Changelog see README.txt
@@ -34,6 +34,8 @@ var utils = {
 };
 
 var renderer;
+
+var activeGuidePlane;
 
 // Debug obj - if debug.master = true, we'll flags what areas o the code to debug.
 var debug = { 
@@ -69,12 +71,6 @@ function init() {
 	skyGeo();
 	// Lights
 	lights();
-	// Axes
-	var globalAxes = new Axes( 300, true, 0.1, { x: 0, y: 0, z: 0 } );	
-	// GuidePlane
-	guidePlane();
-	// GuideLines along axes
-	guideLinesAlongAxes();	
 	
 	// Materials
 	materials();
@@ -261,236 +257,6 @@ function lights() {
 	
 	debug.master && debug.lights && console.log ( 'lights(): ', entities.lights );
 };
-
-/* AXES  */
-
-/**
- * Axes
- *
- * @author Mark Scott Lavin
- *
- * 	parameters = {
- *  	extents: <integer>,
- *		rulers: <bool>,
- *  	opacity: <float> between 0 and 1
- *		originPoint <object> { x: <integer>, y: <integer>, z: <integer>  } 
- * }
- */
-
-function Axes( extents, rulers, opacity = 0.5, originPoint = { x: 0, y: 0, z: 0 } ) {
-	
-	this.x = new THREE.Geometry();
-	this.y = new THREE.Geometry();
-	this.z = new THREE.Geometry();
-	this.originPoint = originPoint;
-	this.color = {
-		x: 0x880000, // x is red
-		y: 0x008800, // y is green;
-		z: 0x000088	 // z is blue; 
-		};
-	this.linewidth = 1;
-	this.material = {
-		x: new THREE.LineBasicMaterial ({ 
-			color: this.color.x,  
-			linewidth: this.linewidth }),
-		y: new THREE.LineBasicMaterial ({ 
-			color: this.color.y,  
-			linewidth: this.linewidth }),
-		z: new THREE.LineBasicMaterial ({ 
-			color: this.color.z,  
-			linewidth: this.linewidth })
-		};
-	this.opacity = function( material ){ 
-			material.transparent = true; 
-			material.opacity = opacity || 0;
-			return material.opacity;
-		};
-	this.rulers = function( axis, extents = this.extents ) {
-			
-			this.rulers[axis] = new THREE.BufferGeometry();
-			
-			var positions = new Float32Array( ( extents * 2 + 1 ) * 3 ); 
-			
-			for ( var i = 0; i < positions.length; i += 3 ) {	
-					
-					var currAxPos = ( this.originPoint[axis] - extents ) + i/3;
-					
-					if ( axis === 'x' ) {
-						positions[i] = currAxPos;
-						positions[i + 1] = this.originPoint.y;
-						positions[i + 2] = this.originPoint.z;
-					}
-					
-					if ( axis === 'y' ) {
-						positions[i] = this.originPoint.x;
-						positions[i + 1] = currAxPos;
-						positions[i + 2] = this.originPoint.z;
-					}
-					
-					if ( axis === 'z' ) { 
-						positions[i] = this.originPoint.x;
-						positions[i + 1] = this.originPoint.y;
-						positions[i + 2] = currAxPos;
-					}
-				}
-				
-			this.rulers[axis].addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-			this.rulers[axis].computeBoundingSphere();
-			
-			this.rulerPointMaterial = new THREE.PointsMaterial( { size: 0.1, color: this.color[axis] } );
-			this.opacity( this.rulerPointMaterial );
-			
-			this.rulerPoints = new THREE.Points( this.rulers[axis], this.rulerPointMaterial );
-			scene.add( this.rulerPoints );
-		},
-		this.draw = function( axis ) {
-			
-			this.x.vertices.push(
-				new THREE.Vector3( this.originPoint.x - extents, this.originPoint.y, this.originPoint.z ),
-				new THREE.Vector3( this.originPoint.x + extents, this.originPoint.y, this.originPoint.z )
-			);
-			
-			this.y.vertices.push(
-				new THREE.Vector3( this.originPoint.x, this.originPoint.y - extents, this.originPoint.z ),
-				new THREE.Vector3( this.originPoint.x, this.originPoint.y + extents, this.originPoint.z )
-			);
-			
-			this.z.vertices.push(
-				new THREE.Vector3( this.originPoint.x, this.originPoint.y, this.originPoint.z - extents ),
-				new THREE.Vector3( this.originPoint.x, this.originPoint.y, this.originPoint.z + extents )
-			);
-			
-			// Set Axis Line Opacity
-			this.opacity( this.material.x );
-			this.opacity( this.material.y );
-			this.opacity( this.material.z );
-			
-			// Draw the Axes with their Materials
-			this.displayAxis = { 
-				x: new THREE.Line( this.x, this.material.x ),
-				y: new THREE.Line( this.y, this.material.y ),
-				z: new THREE.Line( this.z, this.material.z ),
-			};
-			
-			scene.add( this.displayAxis.x );
-			scene.add( this.displayAxis.y );
-			scene.add( this.displayAxis.z );
-			
-			if (rulers === true ) {
-				this.rulers( 'x' , extents, 1 );
-				this.rulers( 'y' , extents, 1 );
-				this.rulers( 'z' , extents, 1 );
-			}			
-		}
-
-	
-	this.draw();
-	
-	debug.master && debug.axes && console.log ( 'axes(): ', this );  
-};
-
-function guidePlane( visible = false, xLimit = 2000, yLimit = 2000 ){
-
-    entities.guidePlane = new THREE.Mesh(new THREE.PlaneBufferGeometry( xLimit, yLimit, 8, 8), new THREE.MeshBasicMaterial( { color: 0xffffff, alphaTest: 0, visible: visible }));
-	entities.guidePlane.xLimit = xLimit;
-	entities.guidePlane.yLimit = yLimit;
-
-    scene.add( entities.guidePlane );
-}
-
-function moveGuidePlaneToEntityPosition( guidePlane, entity ){
-	guidePlane.position.copy( entity.position );
-}
-
-
-// GuideLines
-
-function guideLinesAlongAxes( limit = 2000 ){
-	
-	entities.guideLines = {
-		x: new guideLine( limit, "x" ),
-		y: new guideLine( limit, "y" ),
-		z: new guideLine( limit, "z" )
-	};	
-}
-
-function guideLine( limit = 2000, direction ){
-	
-	this.direction = direction;
-	this.geometry = new THREE.Geometry();
-	this.linewidth = 1;		
-	
-	if ( this.direction === "x" ){
-		this.color = 0x880000; // x is red
-		this.geometry.vertices.push(
-			new THREE.Vector3( -( limit / 2 ) , 0 , 0 ),
-			new THREE.Vector3( ( limit / 2 ) , 0, 0 )
-		);
-	}
-	if ( this.direction === "y" ){
-		this.color = 0x008800; // y is green
-		this.geometry.vertices.push(
-			new THREE.Vector3( 0 , -( limit / 2 ), 0 ),
-			new THREE.Vector3( 0, ( limit / 2 ), 0 )
-		);
-	}
-	if ( this.direction === "z" ){
-		this.color = 0x000088; // z is blue
-		this.geometry.vertices.push(
-			new THREE.Vector3( 0 , 0 , -( limit / 2 ) ),
-			new THREE.Vector3( 0, 0 , ( limit / 2 ) )
-		);
-	}		
-	
-	this.material = new THREE.LineBasicMaterial ({ color: this.color, linewidth: this.linewidth, visible: false });	
-	
-	this.line = new THREE.Line( this.geometry, this.material );
-	
-	hideGuideLine( this );
-	
-	scene.add( this.line );
-}
-
-function showGuideLine( guideLine ){
-	
-	guideLine.material.visible = true;
-}
-
-function hideGuideLine( guideLine ){
-	
-	guideLine.material.visible = false;
-}
-
-function guideLineAtEntityPosition( entity, guideLine ){
-	// position the guide to match that of an entity...
-	guideLine.line.position.copy( entity.position );
-
-}
-
-function moveAxialGuideLinesToEntityPosition( entity ){
-	
-	guideLineAtEntityPosition( entity, entities.guideLines.x );
-	guideLineAtEntityPosition( entity, entities.guideLines.y );
-	guideLineAtEntityPosition( entity, entities.guideLines.z );
-
-}
-
-function showAxialGuideLines(){
-	
-	showGuideLine( entities.guideLines.x );
-	showGuideLine( entities.guideLines.y );
-	showGuideLine( entities.guideLines.z );
-};
-
-function hideAxialGuideLines(){
-
-	hideGuideLine( entities.guideLines.x );
-	hideGuideLine( entities.guideLines.y );
-	hideGuideLine( entities.guideLines.z );
-	
-}
-
-// End GuideLines
 
 /******* COLOR & MATERIALS HANDLING */
 
