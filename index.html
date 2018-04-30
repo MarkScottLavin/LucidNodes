@@ -5,13 +5,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- THREE.JS AND RELATED LIBRARY MODULES -->
-	<script src="js/three.min.js"></script>
+	<script src="js/three.js"></script>
     <script src="js/stats.js"></script>
 	<script src="js/StereoEffect.js"></script>
 	<script src="js/DeviceOrientationControls.js"></script>
 	<script src="js/OrbitControls.js"></script>
 	
-	<link rel="stylesheet" href="css/stylesheet.css">
+	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/contextMenu.css">
 	
 </header>
@@ -35,10 +35,14 @@ Tools
 
 	<script src="scenesetup.js"></script>
 	<script src="js/colorUtils.js"></script>
+	<script src="js/mathUtils.js"></script>	
 	<script src="LucidNodes.js"></script>
+	<script src="lucidNodes-modules/axes.js"></script>
+	<script src="lucidNodes-modules/guides.js"></script>
 	<script src="lucidNodes-modules/labelPlane.js"></script>	
 	<script src="js/fileHandlingUtils.js"></script>
 	<script src="app.js"></script>	
+	<script src="lucidNodes-modules/detectAlignments.js"></script>	
 	<script src="lucidNodes-modules/treeClimber.js"></script>
 </div>
 
@@ -55,30 +59,34 @@ Tools
 	<div class="left">
 		<form method="GET" id="temp2" enctype="multipart/form-data">
 			<div>
-			   <label for="fileInput">Choose a file to open</label>
+			   <label for="fileInput">Open File</label>
 			   <input type="file" id="fileInput" name="fileInput" accept=".json">
 			</div>
 			<div class="btn btn-center">
-				<input type="button" name="saveBtn" id="saveBtn" value="Save File">
+				<input type="button" name="saveBtn" id="saveBtn" value="Save">
 			</div>
 			<div class="btn btn-center">
-				<input type="button" name="saveAsBtnOpener" id="saveAsBtnOpener" value="Save File As">
+				<input type="button" name="saveAsBtnOpener" id="saveAsBtnOpener" value="Save As">
 			</div>			
 		</form>	
 	</div>
-	<div class="middle">
-		<div><strong>Tools</strong></div>
-		<div><img id="paintBucket" src="assets/imported_icons/bucket.png"></div>
-		<input type="color" id="colorPicker" name="colorPicker" value="#ff0000">
-		<div><img width="32px" id="createCompleteGraph" src="assets/mindmap_symbols/Influencing-Network.png"></div>
-		<div id="showCenterPoints">Show Center Points</div>
-		<div id="addNode">Add Node</div>
-	</div>
 	
-	<div class="row">
-		<div id="tempdisplay">
-		</div>
-	</div>
+</div>
+
+<div class="toolbar">
+	<div class="toolbar-title"><strong>Tools</strong></div>
+	<input class="toolbar-cell" type="color" id="colorPicker" name="colorPicker" value="#ff0000">
+	<div class="toolbar-cell"><img id="createCompleteGraph" alt="Make a complete graph from the selected nodes" src="assets/mindmap_symbols/Influencing-Network.png"></div>
+	<div class="toolbar-cell"><img id="showCenterPoints" alt="Show the center point among all the selected nodes" src="assets/mindmap_symbols/Center-Point.png"></div>
+	<div class="toolbar-cell"><img id="addNode" alt="Add node" src="assets/mindmap_symbols/Positive.png"></div>
+	<div class="toolbar-cell"><img id="deleteSelected" alt="Delete selected items" src="assets/mindmap_symbols/Negative.png"></div>
+	<div class="toolbar-cell"><img id="lockToXYPlane" alt="Lock node add, move & copy to XY plane" src="assets/mindmap_symbols/Square-xy.png"></div>
+	<div class="toolbar-cell"><img id="lockToXZPlane" alt="Lock node add, move & copy to XZ plane" src="assets/mindmap_symbols/Square-xz.png"></div>
+	<div class="toolbar-cell"><img id="lockToYZPlane" alt="Lock node add, move & copy to YZ plane" src="assets/mindmap_symbols/Square-yz.png"></div>
+	<div class="toolbar-cell"><img id="unLockToPlane" alt="Unlock node add, move & copy" src="assets/mindmap_symbols/Cube.png"></div>	
+</div>
+
+<div class="panel" id="panel1">
 </div>
 
 <nav class="context-menu" id="context-menu">

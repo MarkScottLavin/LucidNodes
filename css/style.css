@@ -1,0 +1,55 @@
+/* 
+ * STYLESHEET.CSS 
+ * Stylesheet for LucidChart Experiment Application
+ * Author: Mark Scott Lavin
+ * Version 0.1
+ * 
+*/
+
+/* Desktop/Mobile UI Styles */
+
+#visualizationContainer {
+	height: 95%;
+	overflow: hidden;
+	}
+
+.panels{
+	position:absolute;
+	z-index: 10;
+}
+
+.toolbar{
+	position: absolute;
+	z-index: 20;
+	max-width: 960px;
+	left: 10px; 
+	top:10px;
+	background-color: #ddd;
+	box-shadow: -1px 1px 2px 1px #888;
+	cursor: pointer;
+	border-radius:2px;
+}
+
+.toolbar-title{
+	background-color:#888;
+	color:#fff;
+	border-radius:2px 2px 0 0;
+	text-align: center;
+}
+
+.toolbar-cell{
+/*	width:auto;  */
+	width: 40px;
+	height: 40px;
+	padding: 1px;
+	display: inline-block;
+	border: 1px #888 solid;
+	background-color:#fff;
+	border-radius: 2px;
+}
+
+.toolbar-cell img{
+	width: 32px;
+	height: 32px;
+	
+}

@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.21.3
+	* Version 0.1.22
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -35,7 +35,7 @@ var initUI = function(){
 																					toggleSaveAsBoxOff(); } );
 	document.getElementById('cancelSaveAsBtn').addEventListener( 'click', function(){ toggleSaveAsBoxOff(); } );
 	document.getElementById('createCompleteGraph').addEventListener( 'click', function() { if ( SELECTED.nodes.length > 0 ) { completeGraph( SELECTED.nodes ) } } );
-	document.getElementById('showCenterPoints').addEventListener( 'click', function() { LUCIDNODES.showAllGroupCenterPoints() } );
+	document.getElementById('showCenterPoints').addEventListener( 'click', function() { LUCIDNODES.showGlobalCenterPoint() } );
 	document.getElementById('colorPicker').addEventListener('change', function () {
 																					var s = filterArrayForNodes( SELECTED.nodes );
 																					var c = colorUtils.splitHexIntoDecChannels ( document.getElementById('colorPicker').value );
@@ -44,6 +44,11 @@ var initUI = function(){
 																					console.log( 'color changed!' );
 																				} );
 	document.getElementById('addNode').addEventListener('click', function() { addNode( { x: 0, y: 0.5, z: 0 } ) } );
+	document.getElementById('deleteSelected').addEventListener('click', function() { deleteAllSelected() } );
+	document.getElementById('lockToXYPlane').addEventListener('click', function() { setActiveGuidePlane( guides.planes.xy ) });
+	document.getElementById('lockToXZPlane').addEventListener('click', function() { setActiveGuidePlane( guides.planes.xz ) });
+	document.getElementById('lockToYZPlane').addEventListener('click', function() { setActiveGuidePlane( guides.planes.yz ) });
+	document.getElementById('unLockToPlane').addEventListener('click', function() { setActiveGuidePlane( guides.planes.camPerpendicular ) });
 																					
 };
 

@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.21.4
+	* Version 0.1.22
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -18,11 +18,12 @@ var SELECTED = {
 var ALTSELECTED = [];  // Objects selected via ALT-Click ( Temporary solution for explicitly adding edges )
 var keyPressed = {
 	keysPressed: false,
-	key: null
+//	key: null
+	keys:[]
 };
 var origPosition;
 var DELETED = { nodes:[], edges:[] };
-var ACTIVEHIDDENINPUT;
+var ACTIVEHIDDENINPUT;		 
 
 function onMouse( event ) {
 
@@ -47,7 +48,7 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 	//ray.set ( camera.position, vector.sub( camera.position ).normalize() );
 	
 	// update the guidePlane to be perpendicular to the current camera position
-	entities.guidePlane.lookAt( camera.position );
+	guides.planes.camPerpendicular.plane.lookAt( camera.position );
 	
 	// get the nearest graphElement intersected by the picking ray. If no graphElement, return the nearest object
 	var nearestIntersected = nearestIntersectedObj();
@@ -110,14 +111,15 @@ function onMouseMove( event, nearestIntersected ){
 		entities.browserControls.enabled = false;	
 
 		// Get the position where the guidePlane is intersected
-		var planeIntersection = getPlaneIntersectPoint( entities.guidePlane );		
+		var planeIntersection = getPlaneIntersectPointRecursive( activeGuidePlane );
 		var nodeRelativePositions = [];
 		
 		for ( var n = 0; n < SELECTED.nodes.length; n++ ){	
 			nodeRelativePositions.push( _Math.vecRelativePosition( SELECTED.nodes[0], SELECTED.nodes[n] ) );
 		}
 		
-		if ( keyPressed.key !== "X" && keyPressed.key !== "Y" && keyPressed.key !== "Z" ){
+		// If none of the axial keys are selected, move freely in three dimensions along the camera facing guidePlane.
+		if ( !keyPressed.keys.includes( "X" ) && !keyPressed.keys.includes ( "Y" ) && !keyPressed.keys.includes ( "Z" ) ){
 		
 			for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 				
@@ -133,9 +135,10 @@ function onMouseMove( event, nearestIntersected ){
 			
 			moveAxialGuideLinesToEntityPosition( SELECTED.nodes[0] );					
 
-			if ( keyPressed.key === "X" ){
+			// If only "X" is down, constrain to x-axis.
+			if ( keyPressed.keys.includes ( "X" ) && !keyPressed.keys.includes( "Y" ) && !keyPressed.keys.includes( "Z" ) ){
 				
-				showGuideLine( entities.guideLines.x );
+				showGuideLine( guides.lines.x );
 			
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 					
@@ -149,9 +152,10 @@ function onMouseMove( event, nearestIntersected ){
 				}			
 			}
 			
-			if ( keyPressed.key === "Y" ){
+			// If only "Y" is down, constrain to y-axis.
+			if ( keyPressed.keys.includes( "Y" ) && !keyPressed.keys.includes( "X" ) && !keyPressed.keys.includes( "Z" ) ){
 
-				showGuideLine( entities.guideLines.y );
+				showGuideLine( guides.lines.y );
 			
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 					
@@ -165,9 +169,10 @@ function onMouseMove( event, nearestIntersected ){
 				}			
 			}		
 			
-			if ( keyPressed.key === "Z" ){
+			// If only "Z" is down, constrain to z-axis.
+			if ( keyPressed.keys.includes( "Z" ) && !keyPressed.keys.includes( "X" ) && !keyPressed.keys.includes( "Y" ) ){
 				
-				showGuideLine( entities.guideLines.z );				
+				showGuideLine( guides.lines.z );				
 
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 
@@ -189,6 +194,7 @@ function onMouseDown( event, camera ){
 	// If there are are any active hidden user inputs, disable them
 	blurActiveHiddenInput();
 	
+	// If CTRL but not ALT
 	if ( event.ctrlKey && !event.altKey ){
 		
 		unAltSelectAll();
@@ -283,9 +289,9 @@ function onMouseDown( event, camera ){
 
 	if ( SELECTED.nodes.length > 0 ){
 		// update the guidePlane to be perpendicular to the current camera position
-		entities.guidePlane.lookAt( camera.position );	
+		guides.planes.camPerpendicular.plane.lookAt( camera.position );	
 		// position the guidePlane to match that of the selected node...
-		moveGuidePlaneToEntityPosition( entities.guidePlane, SELECTED.nodes[0] );
+		moveGuidePlaneToEntityPosition( guides.planes.camPerpendicular.plane, SELECTED.nodes[0] );
 		moveAxialGuideLinesToEntityPosition( SELECTED.nodes[0] );
 	}
 }
@@ -349,10 +355,13 @@ function onDblClick( event ){
 	var x = chooseElementOnIntersect();
 	
 	if ( x && x.hiddenInput ){ 
-			ACTIVEHIDDENINPUT = x.hiddenInput;
-			positionInput( event, ACTIVEHIDDENINPUT );
-			ACTIVEHIDDENINPUT.focus();
-			changeLabelText2( x.label, ACTIVEHIDDENINPUT.value ) 
+			
+		Axes( ( x.radius * 1.5 ) , false, 0.8, { x: 0, y: 0, z: 0 }, x.displayEntity );
+		
+		ACTIVEHIDDENINPUT = x.hiddenInput;
+		positionInput( event, ACTIVEHIDDENINPUT );
+		ACTIVEHIDDENINPUT.focus();
+		changeLabelText2( x.label, ACTIVEHIDDENINPUT.value ) 
 	}
 }
 
@@ -366,17 +375,17 @@ function onMouseWheel( event, nearestIntersected ){
 function onClickWithKey(){
 
 	// Click+"a" = Add a Node at the Click position
-	if ( keyPressed.key === "a" ){
+	if ( keyPressed.keys.includes( "a" )){
 		
-		var planeIntersection = getPlaneIntersectPoint( entities.guidePlane );
+		var planeIntersection = getPlaneIntersectPointRecursive( activeGuidePlane );
 		var position = new THREE.Vector3();
 
 		position.copy( planeIntersection.point );
 
-		addNode( position );	
+		addNode( position );		
 	}
 	
-	if ( keyPressed.key === "t" ){
+	if ( keyPressed.keys.includes( "t" )){
 		
 		if ( SELECTED.nodes.length === 1 ){
 			
@@ -387,27 +396,33 @@ function onClickWithKey(){
 function onKeyDown( event ){
 
 	keyPressed.keysPressed = true;
-	keyPressed.key = event.key;
+	if ( !keyPressed.keys.includes( event.key ) ){
+		keyPressed.keys.push( event.key );		
+	}
 	console.log( "onKeyDown(): ", keyPressed );
 	
 }
 
 function onKeyUp( event ){
 	
-	keyPressed.key === "Delete" && deleteAllSelected();	
-	keyPressed.key === "Escape" && onEscapeKey();
-	keyPressed.key === "X" && hideGuideLine( entities.guideLines.x );
-	keyPressed.key === "Y" && hideGuideLine( entities.guideLines.y );
-	keyPressed.key === "Z" && hideGuideLine( entities.guideLines.z );	
-	if ( keyPressed.key === "Shift" ){ 
+	keyPressed.keys[0] === "Delete" && deleteAllSelected();	
+	keyPressed.keys[0] === "Escape" && onEscapeKey();
+	
+	if ( keyPressed.keys.includes( "Shift" ) ){
+		event.key === "X" && hideGuideLine( guides.lines.x );
+		event.key === "Y" && hideGuideLine( guides.lines.y );
+		event.key === "Z" && hideGuideLine( guides.lines.z );
+
 		if ( SELECTED.nodes.length > 0 ){
 			origPosition.copy( SELECTED.nodes[0].position ); 
-			}
-		}
+			}		
+	}
 
-	console.log( "onKeyUp(): ", keyPressed.key ); 		
-	keyPressed.keysPressed = false;
-	keyPressed.key = null;
+	console.log( "onKeyUp(): ", keyPressed.keys ); 		
+	if (keyPressed.keys.length < 2 ){ 
+		keyPressed.keysPressed = false; 
+	}
+	keyPressed.keys.splice( keyPressed.keys.indexOf( event.key ), 1 );
 }
 
 function onEscapeKey(){
@@ -716,6 +731,36 @@ function unTransformGraphElementOnMouseOut( obj ){
 	if ( obj.isGraphElement ) { obj.referent.transformOnMouseOut(); }
 }
 
+/* RECURSIVE CLIMBING */
+
+function callMethodOnParent( obj, method ) {
+
+	var parentWithMethod = recursiveFindParentWithProp( obj, method );
+	
+	if ( parentWithMethod ){
+		parentWithMethod[method]();
+	}	
+	else { 
+		console.log( "callMethodOnParent(): No Parent with that method found" );
+		return false;
+	}
+}
+
+function recursiveFindParentWithProp( obj, prop ){
+	
+	if ( obj.parent ){
+		if ( obj.parent.hasOwnProperty( prop ) ){
+			return obj.parent;
+		}
+		else { recursiveFindParentWithProp( obj.parent, prop ); }
+	}
+	else { 
+		console.log( "recursiveFindParentWithProp(): No parent with that property was found" ); 
+		return false;
+	}	
+}
+
+/* END RECURSIVE CLIMBING */												  
 function transformGraphElementOnSelect( obj ){
 	if ( obj.displayEntity.isGraphElement ) { 
 		

@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.21.4
+	* Version 0.1.22
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -16,147 +16,6 @@ Array.prototype.clone = function() {
 	return this.slice(0);
 };
 
-var _Math = {
-	
-	isEven: function( num ){
-		
-		if ( num === 0 || num % 2 === 0 ){
-			return true;
-		}
-		
-		else { return false; }
-
-	},
-	
-	isMultipleOf: function( num, factor ){
-		
-		if ( num % factor === 0 ){
-			return true;
-		}
-		
-		else { return false };
-	},
-	
-	cubeEdgeInscribeInSphere: function( r ){
-		
-		var cubeEdge = ( ( r * 2 ) / Math.pow( 3, 0.5 ) );
-		return cubeEdge;
-	},
-
-	degToRad: function( deg ){
-		
-		var radians = ( 2 * Math.PI );
-		var degConv = ( 360 / deg );
-		var degAsRad = radians / degConv;
-		
-		return degAsRad;
-		
-	},	
-	
-	convertValue( convertFactor, fromUnits, toUnits, value ){
-		
-		var converted = {
-			convertFactor: convertFactor,
-			valueInNewUnits: convertFactor * value,
-			valueInOriginalUnits: value,
-			oldUnits: fromUnits || null,
-			newUnits: toUnits || null
-		}
-		
-		return converted;
-	},
-	
-	vecRelativePosition: function ( node1, node2 ) {
-		
-		var dist = new THREE.Vector3();
-		
-		dist.subVectors ( node2.position, node1.position );
-		
-		return dist;
-	},
-	
-	vec3AbsVal: function ( vec3 ){
-		
-		var abs = new THREE.Vector3();
-		
-		abs.x = _Math.absVal( vec3.x ) || 0;
-		abs.y = _Math.absVal( vec3.y ) || 0;
-		abs.z = _Math.absVal( vec3.z ) || 0;
-		
-		return abs;
-	},
-	
-	vecAbsDistance: function ( node1, node2 ) {
-		
-		var dist = new THREE.Vector3();
-		
-		dist.copy( _Math.vec3AbsVal ( _Math.vecRelativePosition( node1, node2 ) ) );
-		
-		return dist;
-	},
-	
-	linearDistance: function ( node1, node2 ) {
-		
-		var vecDist = _Math.vecAbsDistance( node1, node2 );
-		var threeVec = new THREE.Vector3( vecDist.x, vecDist.y, vecDist.z );
-		
-		// console.log( threeVec );
-		// console.log( "_Math.linearDistance( ", node1.id, ", ", node2.id, "  ): ", threeVec.length() );
-		return threeVec.length();
-	},
-	
-	absVal: function( val ) {
-		
-		var absVal;
-		
-		if ( val < 0 ) {
-			absVal = -val;
-		} 
-		else { absVal = val || 0; }
-		
-		// console.log( "_Math.absVal( ", val, " ): ", absVal );
-		return absVal;
-	},
-	
-	avgPosition: function ( node1, node2 ) {
-		
-		var addPos = new THREE.Vector3();		
-		var avgPos = new THREE.Vector3();
-		
-		addPos.addVectors( node1.position, node2.position );
-		avgPos = addPos.divideScalar( 2 );
-				
-		// console.log( "_Math.avgPosition( ", node1.id, ", ", node2.id, "  ): ", avgPos.x, ", ", avgPos.y, ", ", avgPos.z );
-		return addPos;
-	},	
-	
-	distanceFromGroupCenter: function(){
-		
-	},
-	
-	
-	/*
-	 * possibleEdges()
-	 * 
-	 * author: @markscottlavin
-	 *
-	 * parameters: 
-	 * n: <number> 
-	 * numTypes: <number>. Default = 1
-	 *
-	 * pass a number or an array.length for a group of nodes to determine how many edges are possible amongst those nodes assuming one edge between every node and every other node.  
-	 *
-	 */
-		
-
-	possibleEdges: function( n, numTypes = 1 ){ 
-		
-		pEdges = ( ( n * ( n - 1 )) / 2 ) * numTypes;
-		return pEdges;
-		
-	}
-
-}
 
 // We'll auto-generate Node Id's as Base 36 integers. 
 
@@ -353,6 +212,12 @@ var LUCIDNODES = {
 		}
 	},
 	
+	showGlobalCenterPoint(){
+		if ( cognition.nodes && cognition.nodes.length > 0 ){
+			LUCIDNODES.showNodeArrayCenterPoint( cognition.nodes );
+		}		
+	},
+	
 	nodePositionComparison: function( node1, node2 ){
 		
 		this.relativePosition = {
@@ -446,8 +311,8 @@ var LUCIDNODES = {
 		createNodeDisplayEntity( this );
 		
 		/* And creating a pivot point around which will revolve dependent objects like labels and annotations-nodes */
-		this.pivotPoint = new THREE.Object3D();
-		this.displayEntity.add( this.pivotPoint );
+		this.labelPivot = new THREE.Object3D();
+		this.displayEntity.add( this.labelPivot );
 
 		/* Label */
 		
@@ -483,7 +348,7 @@ var LUCIDNODES = {
 		this.transformOnClick = function(){
 			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnSelect );
 			var scaleFactor = globalAppSettings.nodeScaleOnSelect;
-			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );						
+			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );	
 		};
 		
 		this.transformOnAltClick = function(){
@@ -493,7 +358,8 @@ var LUCIDNODES = {
 		
 		this.unTransformOnClickOutside = function(){
 			this.displayEntity.material.color.set( this.colorAsHex() );
-			this.displayEntity.scale.set( 1, 1, 1 );			
+			this.displayEntity.scale.set( 1, 1, 1 );
+			removeAxes ( this.displayEntity );
 		};
 		
 		this.transformOnWheel = function(){ 
@@ -729,13 +595,36 @@ function createNodeDisplayEntity( node ){
 	
 	node.displayEntity.position.copy( node.position );
 	
-	applyNodeRotationByShape( node );
+	rotationByShape( node );
 	
 	scene.add( node.displayEntity ); 
 	
 }
 
-function applyNodeRotationByShape( node ){
+function createNodeDisplayEntity2( node ){
+	
+	if ( node.shape === "sphere" ){ 
+		node.bufferGeom = new THREE.SphereBufferGeometry( node.radius, 32, 32 );
+	}
+	if ( node.shape === "cube" ){
+		var cubeEdge = _Math.cubeEdgeInscribeInSphere( node.radius );
+		node.bufferGeom = new THREE.BoxBufferGeometry( cubeEdge, cubeEdge, cubeEdge );
+	}	
+	
+	node.displayEntity = new THREE.Mesh( node.bufferGeom, node.material );
+	node.displayEntity.isGraphElement = true;  // This can be simplified...
+	node.displayEntity.referent = node;			// This simply becomes "parent"
+	
+	//node.displayEntity.position.copy( node.position ); This defaults to { 0, 0, 0 }
+	
+	//applyNodeRotationByShape( node );
+	rotationByShape( node ); // This ok as is.
+	
+	node.add( node.displayEntity ); 	
+	
+}
+
+function rotationByShape( node ){
 
 	var rot;
 
@@ -744,8 +633,8 @@ function applyNodeRotationByShape( node ){
 	}	
 	
 	if ( node.shape === "cube" ){
-//		rot = _Math.degToRad( 45 );
-//		node.displayEntity.rotation.set( rot, 0, rot ); 
+		rot = _Math.degToRad( 45 );
+		node.displayEntity.rotation.set( rot, 0, rot ); 
 	}
 }
 
@@ -758,9 +647,10 @@ function changeNodeShape( node, shape ){
 
 function changeShapeAllNodesInArray( nodeArr, shape ){
 	
-	for ( var n = 0; n < nodeArr.length; n++ ){
-		
-		changeNodeShape( nodeArr[n], shape );
+	if ( nodeArr & nodeArr.length > 0 ){
+		for ( var n = 0; n < nodeArr.length; n++ ){			
+			changeNodeShape( nodeArr[n], shape );
+		}
 	}
 }
 
@@ -1015,6 +905,193 @@ function addEdge( nodes, edgeParams ){
 	}	
 } 
 
+
+function addNode2( parameters ){
+	
+	var node = new THREE.Object3D();
+
+	node.isNode = true;
+	
+	/* PARAMETERS */
+			
+	/* Identification */ 
+	
+	node.id = parameters.id || encodeId( "node", nodeCounter );  // If the Node already has an ID on load, use that
+	node.id.referent = node;
+	node.name = parameters.name || node.id; 
+	
+	/* Position */
+	
+	node.position = new THREE.Vector3( parameters.position.x, parameters.position.y, parameters.position.z ) || new THREE.Vector3( 0, -2, -2 );
+	
+	/* Appearance */
+	
+	node.radius = parameters.radius || 0.5;
+	node.shape = parameters.shape || "sphere";
+	node.color = parameters.color || globalAppSettings.defaultNodeColor;
+	node.colorAsHex = function(){
+		
+		return colorUtils.decRGBtoHexRGB( node.color.r, node.color.g, node.color.b );
+					
+		};
+	node.opacity = parameters.opacity || globalAppSettings.defaultNodeOpacity;
+	node.material = new THREE.MeshPhongMaterial( {color: node.colorAsHex() } );
+	node.material.opacity = node.opacity;
+	
+	toggleGraphElementTransparency( node );
+	
+	node.castShadows = parameters.castShadows || globalAppSettings.castShadows;  /* Set to global default */
+	node.recieveShadows = parameters.recieveShadows || globalAppSettings.recieveShadows; /* Set to global default */
+
+	/* END PARAMETERS */
+
+	scene.add( node );
+
+
+		/* THREE.js Object genesis */	
+		//createNodeDisplayEntity( node );
+		createNodeDisplayEntity2( node );
+		
+		/* And creating a pivot point around which will revolve dependent objects like labels and annotations-nodes */
+		node.labelPivot = new THREE.Object3D();
+		node.displayEntity.add( node.labelPivot );
+
+		/* Label */
+		
+		node.labelFontsize = parameters.labelFontsize;
+		node.labelColor = parameters.labelColor;
+		node.labelOpacity = parameters.labelOpacity;
+		
+		createNodeLabel( node );		
+		
+		/* Interactive Transforms  */
+		
+		node.transformOnMouseOver = function(){
+			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
+			node.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );
+			
+			node.label.transformOnMouseOverNode();
+		};
+		
+		node.transformOnMouseOut = function(){
+			node.displayEntity.scale.set( 1, 1, 1 );
+			node.label.transformOnNodeMouseOut();
+		};
+		
+		node.transformOnMouseOverLabel = function(){
+			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
+			node.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );
+		};
+		
+		node.transformOnLabelMouseOut = function(){
+			node.displayEntity.scale.set( 1, 1, 1 );			
+		};
+		
+		node.transformOnClick = function(){
+			node.displayEntity.material.color.set( globalAppSettings.nodeColorOnSelect );
+			var scaleFactor = globalAppSettings.nodeScaleOnSelect;
+			node.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );						
+		};
+		
+		node.transformOnAltClick = function(){
+			node.displayEntity.material.color.set( globalAppSettings.nodeColorOnAltSelect );
+			node.label.transformOnAltClick(); 
+		};
+		
+		node.unTransformOnClickOutside = function(){
+			node.displayEntity.material.color.set( node.colorAsHex() );
+			node.displayEntity.scale.set( 1, 1, 1 );			
+		};
+		
+		node.transformOnWheel = function(){ 
+
+			offset = new THREE.Vector3 ( 0, 0.5, 0 ); 
+			moveNodeByOffset( node, offset ); 
+		}; 		
+		
+		/* Createing a hidden user input for changing text labels */
+		
+		attachHiddenInputToGraphElement( node );
+		
+		/* Playing Nice with Others */
+		
+		node.components = {
+			masterContainer: { /* obj */ }, /* The Master Object that parents all of the node contents  */ 
+			personalSpace: {
+				onionLayers: { /* obj */ }, /* A set of values that determines boundaries around the node */
+				rotatedPlanes: function(){}
+			},
+			boundingBox: function(){}, /* The bounding box... probably just imported from Three.JS for the displayEntity*/
+			textVal: { /* string */ },
+			description: { /* string */ },
+		};
+		
+		/* Physics (Later) */
+		
+		node.computedPhysicsBehavior = {
+			repeulsiveForce: {},		
+		};
+		node.computedSystemBehavior = {
+			weight: {},
+			bias: {},
+		};
+		node.heirarchy = {
+			priority: 		{ /* integer */ }, /* determines what the priority level of this node is in the system */
+			level: 			{ /* integer */ }, /* determines what the heirarchical level of the node is. */
+			sequenceVal:   	{ /* integar */ }, /* determines what the sequential value of the node is relative to other nodes in the group */ 
+		};
+		
+		/* Meaning Structure */
+		
+		node.meaning = function( meaningSystem, meaning ){
+			if ( meaningSystem === "generic" && meaning === "logic" ) {
+				/* visualizing logical operators */
+			} 
+			/* etc... */
+		};
+		
+		node.adjacentNodes = []; /* What other nodes are connected to this object via edges? Initialize as empty */
+		
+		//scene.add( this.displayEntity );
+		
+		console.log( 'LUCIDNODES.Node(): ', this );	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
+
+
 	/* addNode();
 	 *
 	 * Creates a new node.
@@ -1067,7 +1144,7 @@ function moveNode( node, position ){
 		pullAllNodeEdges( node );
 	}
 	
-	else console.err( 'moveNode(): NO position provided!' );
+	else { console.error( 'moveNode(): No position provided!' )};
 }
 
 	/* moveNodeByOffset();
@@ -1548,23 +1625,27 @@ function filterArrayForNodesWithPropVal( arr, prop, val ){
 /* END FILTER FUNCTIONS */
 
 	/**
-	 * mapAcrossGraphElementArray();
+	 * doToGraphElementArray();
 	 * 
 	 * @author Mark Scott Lavin
 	 *
-	 * Use this function to do something across all graph elements of a particular type in a graph, as in all Nodes, Edges, NodeLabels or EdgeLabels 
+	 * Use this function to do something across all graph elements of a particular type, as in all Nodes, Edges, NodeLabels or EdgeLabels 
 	 *
 	 * parameters = 
 	 *  arr: <array> Array of Nodes or Edges
-	 *  graphElementType: <string> Either "node" || "edge"
-	 *  fn: <function> the function to apply to the elements of type in the graph;
+	 *  callback: <function> the function to apply to the elements of type in the graph;
+	 *	params: <object> the parameters to pass to the callback function.
 	 * 
 	 */
 
-function mapAcrossGraphElementArray( fn, arr, param ) {
+function doToGraphElementArray( arr, callback, params ) {
 	
-	for ( var a = 0; a < arr.length; a++ ){
-		fn( arr[a], param ); 	
+	if ( !params ){ params = {} }
+	
+	if ( arr && arr.length > 0 ){ 	
+		for ( var a = 0; a < arr.length; a++ ){
+			callback( arr[a], params ); 
+		}
 	}
 };
 
@@ -1578,9 +1659,20 @@ var changeGraphElementColor = function( graphElement, color ){
 };
 
 function getPlaneIntersectPoint( plane ){
-	return ray.intersectObject( plane )[0];
+	return ray.intersectObject( plane, true )[0];
 }
 
+function getPlaneIntersectPointRecursive( plane ){
+	
+	var intPlane = ray.intersectObject( plane, true )[0];
+	var backup = ray.intersectObject( guides.planes.camPerpendicular.plane, true )[0];
+	
+	if ( intPlane ){
+		return intPlane;		
+	}
+
+	else { return backup }
+}
 
 function changeGraphElementLabelText( graphElement, string ){
 	
@@ -1646,7 +1738,7 @@ function deleteEdge( edge ){
 
 function deleteNodeArray( nodeArr ){
 	
-	if ( nodeArr ){
+	if ( nodeArr && nodeArr.length > 0 ){
 		for ( var n = 0; n < nodeArr.length; n++ ){
 			deleteNode( nodeArr[n] );
 		}
