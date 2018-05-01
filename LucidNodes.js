@@ -1117,7 +1117,7 @@ function addNode( position ){
 											}));
 } 
 
-	/* moveNode();
+	/* moveNodeTo();
 	 *
 	 * moves a node to a specified position.
 	 *
@@ -1129,7 +1129,7 @@ function addNode( position ){
 	 * }
 	*/	
 
-function moveNode( node, position ){
+function moveNodeTo( node, position ){
 	
 	if ( position ){
 		// Move the object by the offset amount
@@ -1144,7 +1144,7 @@ function moveNode( node, position ){
 		pullAllNodeEdges( node );
 	}
 	
-	else { console.error( 'moveNode(): No position provided!' )};
+	else { console.error( 'moveNodeTo(): No position provided!' )};
 }
 
 	/* moveNodeByOffset();
@@ -1164,11 +1164,70 @@ function moveNodeByOffset( node, offset ){
 	// Set the new position by the offset amount	
 	var newPosition = node.displayEntity.position.sub( offset );
 	
-	moveNode( node, newPosition );
-	
-	//node.position = node.displayEntity.position;
+	moveNodeTo( node, newPosition );
 	
 }
+
+/* Snapping to decimal grid */
+
+	/* snapNodeToGrid();
+	 *
+	 * rounds a node's position to the number of decimal places specificed in "precision" parameter, then moves the node into that position..
+	 *
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters: 
+	 *  node: <Node> 			the node to move 
+	 *  precision: <Integer> 	number of decimal places.
+	 * }
+	*/	
+
+function snapNodeToGrid( node, precision = decimalPlaces ){
+
+	var r = _Math.positionRound( node.position, precision );
+	moveNodeTo( node, r );
+
+}
+
+	/* snapNodesToGrid();
+	 *
+	 * snaps an array of nodes to the number of decimal places specified in the "precision" parameter, then moves the node into that position..
+	 *
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters: 
+	 *  nodeArr: <Array> 		an array of Nodes
+	 *  precision: <Integer> 	number of decimal places.
+	 * }
+	*/	
+
+function snapNodesToGrid( nodeArr, precision = decimalPlaces ){
+	if ( nodeArr && nodeArr.length > 0 ){
+		for ( var n = 0; n < nodeArr.length; n++ ){
+			snapNodeToGrid( nodeArr[n], precision );
+		}
+	}		
+}
+
+	/* snapAllNodesToGrid();
+	 *
+	 * snaps all the nodes in a scene of nodes to the number of decimal places specified in the "precision" parameter, then moves the node into that position..
+	 *
+	 * @author Mark Scott Lavin /
+	 *
+	 * parameters: 
+	 *  precision: <Integer> 	number of decimal places.
+	 * }
+	*/	
+
+
+function snapAllNodesToGrid( precision = decimalPlaces ){
+	
+	snapNodesToGrid( cognition.nodes, precision );
+	
+} 
+
+/* End Snapping to decimal grid */
 
 function scaleNode( node, scaleFactor ){
 	
@@ -1646,6 +1705,27 @@ function doToGraphElementArray( arr, callback, params ) {
 		for ( var a = 0; a < arr.length; a++ ){
 			callback( arr[a], params ); 
 		}
+	}
+};
+
+	/**
+	 * mapAcrossGraphElementArray();
+	 * 
+	 * @author Mark Scott Lavin
+	 *
+	 * Use this function to do something across all graph elements of a particular type in a graph, as in all Nodes, Edges, NodeLabels or EdgeLabels 
+	 *
+	 * parameters = 
+	 *  arr: <array> Array of Nodes or Edges
+	 *  graphElementType: <string> Either "node" || "edge"
+	 *  fn: <function> the function to apply to the elements of type in the graph;
+	 * 
+	 */
+
+function mapAcrossGraphElementArray( fn, arr, param ) {
+	
+	for ( var a = 0; a < arr.length; a++ ){
+		fn( arr[a], param ); 	
 	}
 };
 

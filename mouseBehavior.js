@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.22
+	* Version 0.1.23
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -125,7 +125,7 @@ function onMouseMove( event, nearestIntersected ){
 				
 				SELECTED.nodes[n].position.addVectors( planeIntersection.point, nodeRelativePositions[n] );
 				
-				moveNode( SELECTED.nodes[n], SELECTED.nodes[n].position );
+				moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );
 
 				console.log( 'after: ', SELECTED.nodes[n].position );			
 			}
@@ -146,7 +146,7 @@ function onMouseMove( event, nearestIntersected ){
 					SELECTED.nodes[n].position.y = origPosition.y + nodeRelativePositions[n].y;
 					SELECTED.nodes[n].position.z = origPosition.z + nodeRelativePositions[n].z;					
 					
-					moveNode( SELECTED.nodes[n], SELECTED.nodes[n].position );
+					moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );
 
 					console.log( 'after: ', SELECTED.nodes[n].position );			
 				}			
@@ -163,7 +163,7 @@ function onMouseMove( event, nearestIntersected ){
 					SELECTED.nodes[n].position.y = planeIntersection.point.y + nodeRelativePositions[n].y;
 					SELECTED.nodes[n].position.z = origPosition.z + nodeRelativePositions[n].z;					
 					
-					moveNode( SELECTED.nodes[n], SELECTED.nodes[n].position );
+					moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );
 
 					console.log( 'after: ', SELECTED.nodes[n].position );			
 				}			
@@ -180,7 +180,7 @@ function onMouseMove( event, nearestIntersected ){
 					SELECTED.nodes[n].position.y = origPosition.y + nodeRelativePositions[n].y;					
 					SELECTED.nodes[n].position.z = planeIntersection.point.z + nodeRelativePositions[n].z;
 					
-					moveNode( SELECTED.nodes[n], SELECTED.nodes[n].position );
+					moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );
 
 					console.log( 'after: ', SELECTED.nodes[n].position );			
 				}			

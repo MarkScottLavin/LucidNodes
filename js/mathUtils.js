@@ -99,6 +99,85 @@ var _Math = {
 		return dist;
 	},
 	
+	/*
+	 * vecComponentIdentifiersAsStringArray( vec )
+	 *
+	 * parameters: 
+	 * vec: <Vector>	- Vector with any number of components. Can be a THREE.js Vector2, Vector3, Vector4 or a custom vector. 
+	 *
+	 * returns an array of vector component names as an array of strings, for instance in the case of a THREE.js Vector3, it returns ["x","y","z"]
+	 *
+	 * This function is potengially useful in cases where multiple vectors must be compared to see if they have the same or different components, ie overlap in having
+	 * some or more of a set of dimensions.
+	 *
+	 */	
+	
+	vecComponentIdentifiersToStrArr: function( vec ){
+		
+		var captureKeys = [];
+		var keyAsString = '';
+		
+		for ( key in vec ){
+			
+			if ( vec.hasOwnProperty( key )){
+				keyAsString = key
+				captureKeys.push( keyAsString );
+			}
+		}
+		
+		return captureKeys;
+	},
+
+	/*
+	 * getVecSharedDimensions( vec )
+	 *
+	 * parameters: 
+	 * vectors: <Array>	- Array of vectors, each with any number of components. Vectors can be a THREE.js Vector(x)'s or custom vectors with any number of components. 
+	 *
+	 * returns the vector component names that all the vectors inputted into the function share, as an array of strings:
+	 * 		Example: 
+	 *			var a = { a: 17, b: 11, c: 1.0, x: 84, y: -22, z: 122.34, u: 8, v: 9 };
+	 *			var b = { a: 64, b: 17, x: 11, y: 80, z: 9 };
+	 *			var c = { a: 88, b: 18 };
+	 * 			_Math.getVecSharedDimensions( [ a, b, c ] );
+	 * // returns [ "a", "b" ];
+	 *
+	 * This function is potengially useful in cases where multiple vectors must be compared to see if they have the same or different components, ie overlap in having
+	 * some or more of a set of dimensions.
+	 *
+	 */		
+	
+	getVecSharedDimensions: function( vectors ){
+
+		var allDims = [];
+		var sharedDims = [];
+		var unSharedDims = [];
+		
+		for ( var k = 0; k < vectors.length; k++ ){
+			
+			let vecKeys = _Math.vecComponentIdentifiersToStrArr( vectors[k] );
+			allDims.push.apply( allDims, vecKeys );
+		}
+		
+		allDims = Array.from(new Set( allDims ));
+
+		sharedDims = allDims.slice();
+		
+		for ( var k = 0; k < vectors.length; k++ ){
+			
+			let vecKeys = _Math.vecComponentIdentifiersToStrArr( vectors[k] );
+			
+			for ( var a = 0; a < allDims.length; a++ ){
+				
+				if ( !vecKeys.includes( allDims[a] ) && sharedDims.includes( allDims[a] ) ) {
+					sharedDims.splice( sharedDims.indexOf( allDims[a] ) , 1 );
+				} 
+			}
+		}
+		
+		return sharedDims;
+	},
+	
 	linearDistance: function ( node1, node2 ) {
 		
 		var vecDist = _Math.vecAbsDistance( node1, node2 );
