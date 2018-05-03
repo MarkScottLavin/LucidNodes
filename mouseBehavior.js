@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.23
+	* Version 0.1.24
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -362,6 +362,7 @@ function onDblClick( event ){
 		positionInput( event, ACTIVEHIDDENINPUT );
 		ACTIVEHIDDENINPUT.focus();
 		changeLabelText2( x.label, ACTIVEHIDDENINPUT.value ) 
+		cursorInScene( "text" );
 	}
 }
 
@@ -1063,3 +1064,12 @@ listenFor();
 	}
 	
 	initSaveAsBox();
+	
+	
+/* Cursor Handling */
+
+function cursorInScene( cursor = "crosshair" ){
+	
+	document.getElementById("renderSpace").style.cursor = cursor;
+	
+}	

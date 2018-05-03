@@ -1,6 +1,6 @@
 /* SCENEETUP.JS
  * Name: Scene Setup
- * version 0.1.23
+ * version 0.1.24
  * Author: Mark Scott Lavin 
  * License: MIT
  * For Changelog see README.txt
@@ -63,6 +63,7 @@ document.addEventListener( "DOMContentLoaded", init );
 function init() {
 	
 	/* Initialize the scene framework */
+	
 	// Cameras
 	cameras();
 	// Renderer

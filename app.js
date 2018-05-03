@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.23
+	* Version 0.1.24
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -53,6 +53,9 @@ var initUI = function(){
 	document.getElementById('projectToXYPlane').addEventListener('click', function() { projectNodesToOrthoPlane( filterArrayForNodes( SELECTED.nodes ), "xy", 0 ) });
 	document.getElementById('projectToXZPlane').addEventListener('click', function() { projectNodesToOrthoPlane( filterArrayForNodes( SELECTED.nodes ), "xz", 0 ) });
 	document.getElementById('projectToYZPlane').addEventListener('click', function() { projectNodesToOrthoPlane( filterArrayForNodes( SELECTED.nodes ), "yz", 0 ) });	
+	
+	document.getElementById('showSmartGuides').addEventListener('click', function() { detectAllCommonOrthoLines(); });	
+	document.getElementById('snapAllNodesToGrid').addEventListener('click', function() { snapAllNodesToGrid(); });	
 																					
 };
 

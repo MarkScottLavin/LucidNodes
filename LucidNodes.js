@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.22
+	* Version 0.1.24
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -327,22 +327,25 @@ var LUCIDNODES = {
 		this.transformOnMouseOver = function(){
 			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
 			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );
-			
 			this.label.transformOnMouseOverNode();
+			cursorInScene( "default" );
 		};
 		
 		this.transformOnMouseOut = function(){
 			this.displayEntity.scale.set( 1, 1, 1 );
 			this.label.transformOnNodeMouseOut();
+			cursorInScene( "crosshair" );
 		};
 		
 		this.transformOnMouseOverLabel = function(){
 			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
 			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );
+			cursorInScene( "default" );
 		};
 		
 		this.transformOnLabelMouseOut = function(){
-			this.displayEntity.scale.set( 1, 1, 1 );			
+			this.displayEntity.scale.set( 1, 1, 1 );
+			cursorInScene( "crosshair" );
 		};
 		
 		this.transformOnClick = function(){
@@ -360,6 +363,7 @@ var LUCIDNODES = {
 			this.displayEntity.material.color.set( this.colorAsHex() );
 			this.displayEntity.scale.set( 1, 1, 1 );
 			removeAxes ( this.displayEntity );
+			cursorInScene( "crosshair" );
 		};
 		
 		this.transformOnWheel = function(){ 
@@ -484,6 +488,7 @@ var LUCIDNODES = {
 			}
 			
 			this.label.transformOnMouseOverEdge();
+			cursorInScene( "default" );
 		};
 		
 		this.transformOnMouseOut = function(){
@@ -496,6 +501,7 @@ var LUCIDNODES = {
 			}
 			
 			this.label.transformOnEdgeMouseOut();
+			cursorInScene( "crosshair" );
 		};
 		
 		this.transformOnMouseOverLabel = function(){
@@ -504,6 +510,8 @@ var LUCIDNODES = {
 				var color = globalAppSettings.edgeColorOnMouseOver;
 				this.displayEntity.material.color.set( globalAppSettings.edgeColorOnMouseOver );
 			}
+			
+			cursorInScene( "default" );
 		};
 		
 		this.transformOnLabelMouseOut = function(){
@@ -512,6 +520,8 @@ var LUCIDNODES = {
 				var color = this.colorAsHex();
 				this.displayEntity.material.color.set( color );
 			}
+			
+			cursorInScene( "crosshair" );
 		};
 
 		this.transformOnClick = function(){
@@ -520,6 +530,8 @@ var LUCIDNODES = {
 		
 		this.unTransformOnClickOutside = function(){
 			this.displayEntity.material.color.set( this.colorAsHex() );			
+			
+			cursorInScene( "crosshair" );
 		};
 		
 		this.transformOnWheel = function(){ changeGraphElementColor( this, { r: 255, g: 0, b: 0 } )};	
