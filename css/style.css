@@ -33,15 +33,15 @@ body {
 
 /* Main Navigation */
 
-.saveBar{
+.topMenu{
 	position: absolute;
-	z-index: 20;
+	z-index: 10;
 	width: 100%;
-	left:0px;
+	max-width: 100%;
 	top:0px;
 	background-color: #ddd;
-/*	box-shadow: -1px 1px 2px 1px #888; */
 	cursor: pointer;
+	box-shadow: -1px 1px 2px 1px #888;
 }
 
 .appTitle{ /*	width:auto;  */
@@ -76,6 +76,7 @@ body {
 	color:#fff;
 	border-radius:2px 2px 0 0;
 	text-align: center;
+	cursor: move;
 }
 
 .toolbar-cell{

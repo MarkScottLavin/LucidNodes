@@ -1,6 +1,6 @@
 /* SCENEETUP.JS
  * Name: Scene Setup
- * version 0.1.24
+ * version 0.1.25
  * Author: Mark Scott Lavin 
  * License: MIT
  * For Changelog see README.txt
@@ -170,6 +170,18 @@ function initbrowserControls() {
 	
 	entities.browserControls.noPan = true;
 	entities.browserControls.noZoom = true;
+}
+
+function toggleEnablePanInBrowser(){
+	
+	entities.browserControls.noPan = !entities.browserControls.noPan;
+	
+}
+
+function toggleEnableZoomInBrowser(){
+	
+	entities.browserControls.noZoom = !entities.browserControls.noZoom;
+	
 }
 
 function initVRControls() {
