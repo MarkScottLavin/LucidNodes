@@ -1,6 +1,6 @@
 /****************************************************
 	* MATHUTILS.JS: 
-	* Version 0.1
+	* Version 0.1.1
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -37,13 +37,15 @@ var _Math = {
 
 	degToRad: function( deg ){
 		
-		var radians = ( 2 * Math.PI );
-		var degConv = ( 360 / deg );
-		var degAsRad = radians / degConv;
-		
-		return degAsRad;
+		return ( deg * ( Math.PI / 180 ) );
 		
 	},	
+	
+	radToDeg: function( rad ){
+		
+		return ( 180 * rad ) / Math.PI;
+		
+	},
 	
 	convertValue: function( convertFactor, fromUnits, toUnits, value ){
 		
@@ -70,11 +72,11 @@ var _Math = {
 		else { return false; }
 	},
 	
-	vecRelativePosition: function ( node1, node2 ) {
+	distanceAsVec3: function ( v1, v2 ){
 		
 		var dist = new THREE.Vector3();
 		
-		dist.subVectors ( node2.position, node1.position );
+		dist.subVectors ( v2, v1 );
 		
 		return dist;
 	},
@@ -94,7 +96,7 @@ var _Math = {
 		
 		var dist = new THREE.Vector3();
 		
-		dist.copy( _Math.vec3AbsVal ( _Math.vecRelativePosition( node1, node2 ) ) );
+		dist.copy( _Math.vec3AbsVal ( _Math.distanceAsVec3( node1.position, node2.position ) ) );
 		
 		return dist;
 	},
@@ -382,5 +384,90 @@ var _Math = {
 		}
 		
 		return buckets;
+	},
+	
+	/* hypotenuse() 
+	 *
+	 * author: @markscottlavin
+	 *
+	 * parameters:
+	 * 	a: <Number> 
+	 * 	b: <Number>
+	 * 
+	 * Returns the absolute hypotenuse length of a triangle with shorter sides of length "a" and "b"
+	 * Note that the return value will always be positive, even if "a" and/or "b" are negative values.
+	 *
+	 */	
+	
+	hypotenuse: function( a, b ){
+	
+		return Math.sqrt( ( Math.pow( a, 2 ) + Math.pow( b, 2 ) ) );
+	
+	}
+}
+
+/* Some trig helper functions that are now not needed but might be useful in the future. */
+var _Trig = {
+
+	sinIsPositive: function( theta ){
+		
+		var baseAngle = forceAngleInDegWithin360( theta );
+		
+		if ( Math.sin( _Math.degToRad( baseAngle ) ) >= 0 ){ 
+			return true; 
+			}
+		
+		else { 
+			return false; 
+			}
+
+	},
+
+	cosIsPositive: function( theta ){
+		
+		var baseAngle = forceAngleInDegWithin360( theta );
+		
+		if ( Math.cos( _Math.degToRad( baseAngle ) ) >= 0 ){ 
+			return true; 
+			}
+		
+		else { return false; 
+			}
+	},
+
+	forceAngleInDegWithin360: function( theta ){
+		
+		if ( theta >= 360 ){ return angleGreaterThan360( theta ); }
+		if ( theta < 0 ){ return angleLessThanZero( theta ); }
+		else { return theta; }
+
+	},
+
+	angleGreaterThan360: function( theta ){
+		return theta % 360;
+	},
+
+	angleLessThanZero: function( theta ){
+		
+		var baseAngle; 
+		
+		if ( theta <= -360 ){ baseAngle = theta % 360 }
+		else { baseAngle = theta; }
+		
+		if ( baseAngle === 0 ){ return 0; }
+		else { return baseAngle += 360; }
+
+	},
+
+	detectAngleQuandrant: function( theta ){
+
+		var quadrant;
+		
+		if ( sinIsPositive( theta ) && cosIsPositive( theta ) ){ quadrant = 1; }
+		if ( sinIsPositive( theta ) && !cosIsPositive ( theta ) ){ quadrant = 2; }
+		if ( !sinIsPositive( theta ) && !cosIsPositive ( theta ) ){ quadrant = 3; }
+		if ( !sinIsPositive( theta ) && cosIsPositive ( theta ) ){ quadrant = 4; }
+		
+		return quadrant;
 	},
 }

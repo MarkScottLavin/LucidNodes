@@ -501,30 +501,28 @@ function projectNodesToOrthoPlane( nodeArr, planeAxes, offset ){
  *	nodeArr: <Array> - An array of Nodes
  *	pos: <Vector2> - position on 2 of 3 axes: example { x: -2, y: 2 }, { x: -2, z: 3} or { y: 9, z: 3 }
  *
- * moves all nodes in the array the line specified by the position vector, while preserving the unspecified axial position. 
+ * moves all nodes in the array the line specified by the position vector, while preserving the unspecified position vector component. 
  *
  */
 
 
-function projectNodesToOrthoLine( nodeArr, pos ){
+function projectNodesToOrthoLine( nodeArr, pos2D ){
 	
 	var dir;
 	
-	if ( ( pos.x || pos.x === 0 ) && ( pos.y || pos.y === 0 ) ){ 		
+	if ( ( pos2D.x || pos2D.x === 0 ) && ( pos2D.y || pos2D.y === 0 ) ){ 		
 		for ( var n = 0; n < nodeArr.length; n++ ){		
-			moveNodeTo( nodeArr[n], { x: pos.x, y: pos.y, z: nodeArr[n].position.z } );
+			moveNodeTo( nodeArr[n], { x: pos2D.x, y: pos2D.y, z: nodeArr[n].position.z } );
 		}			
 	}
-	if ( ( pos.x || pos.x === 0 ) && ( pos.z || pos.z === 0 ) ){ 
+	if ( ( pos2D.x || pos2D.x === 0 ) && ( pos2D.z || pos2D.z === 0 ) ){ 
 		for ( var n = 0; n < nodeArr.length; n++ ){		
-			moveNodeTo( nodeArr[n], { x: pos.x, y: nodeArr[n].position.y, z: pos.z } );
+			moveNodeTo( nodeArr[n], { x: pos2D.x, y: nodeArr[n].position.y, z: pos2D.z } );
 		}	
 	}
-	if ( ( pos.y || pos.y === 0 ) && ( pos.z || pos.z === 0 ) ){ 
+	if ( ( pos2D.y || pos2D.y === 0 ) && ( pos2D.z || pos2D.z === 0 ) ){ 
 		for ( var n = 0; n < nodeArr.length; n++ ){		
-			moveNodeTo( nodeArr[n], { x: nodeArr[n].position.x, y: pos.y, z: pos.z } );
+			moveNodeTo( nodeArr[n], { x: nodeArr[n].position.x, y: pos2D.y, z: pos2D.z } );
 		}	
 	}	
 }
-
-

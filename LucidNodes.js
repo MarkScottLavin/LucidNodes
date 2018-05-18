@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.25
+	* Version 0.1.26
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -133,7 +133,8 @@ var globalAppSettings = {
 	edgeColorOnSelect: 0x0000ff,
 	showGroupCenterPoints: true,
 	centerTechnique: "average",
-	centerPointMaterial: material = new THREE.PointsMaterial( { size: 0.25, color: 0x008800 } )
+	centerPointColor: 0x008800,
+	centerPointSize: 0.25
 }
 
 // THE LUCIDNODE MASTER OBJECT
@@ -189,10 +190,7 @@ var LUCIDNODES = {
 			
 			nodeArray.center = LUCIDNODES.computeNodeArrayCenter( nodeArray );
 			
-			nodeArray.center.point = new THREE.Geometry();
-			nodeArray.center.point.vertices.push( new THREE.Vector3( nodeArray.center.x, nodeArray.center.y, nodeArray.center.z ) );
-			nodeArray.center.displayEntity = new THREE.Points( nodeArray.center.point , material );
-			scene.add( nodeArray.center.displayEntity );
+			nodeArray.center.point = new Point( nodeArray.center, globalAppSettings.centerPointSize, globalAppSettings.centerPointColor );
 		}
 		
 		else { return; }
@@ -223,7 +221,7 @@ var LUCIDNODES = {
 		this.relativePosition = {
 			node1: node1,
 			toTarget: node2,
-			vecRelativePosition: _Math.vecRelativePosition( node1, node2 ),
+			distanceAsVec3: _Math.distanceAsVec3( node1.position, node2.position ),
 			vecAbsDistance: _Math.vecAbsDistance( node1, node2 ),
 			linearDistance: _Math.linearDistance( node1, node2 ),
 			avgPosition: _Math.avgPosition( node1, node2 )		
@@ -1858,6 +1856,19 @@ function deleteGraphElementLabel( graphElement ){
 	
 }
 
+function clearAll(){
+
+	var nodeArr = cognition.nodes.clone();
+	deleteNodeArray( nodeArr );
+	
+	DELETED.nodes = [];
+	DELETED.edges = [];
+	
+	nodeCounter = 0;
+	paneCounter = 0;
+	groupCounter = 0;	
+}
+
 // End Deletion Handling
 
 function createPaneDisplayEntity( pane ){
@@ -1877,4 +1888,26 @@ function objectFaceCamera( obj3D, camera ){
 	
 	obj3D.quaternion.copy( camera.quaternion );
 
+}
+
+/* Preseving position & rotation */
+
+/*
+ * getGlobalPosition();
+ *
+ * Author: @markscottlavin
+ *
+ * parameters: 
+ *  element: <THREEE.Object3D>
+ *
+ * returns a THREE.Vector3 containing the world-cooridinates of the submitted THREE.Object3D
+*/
+
+function getGlobalPosition( element ){
+	
+	scene.updateMatrixWorld();
+	var globalPosition = new THREE.Vector3();
+	globalPosition.setFromMatrixPosition( element.matrixWorld );
+	
+	return globalPosition;
 }

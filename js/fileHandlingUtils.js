@@ -23,6 +23,10 @@ var SELECTEDFILE, CURRENTFILE;
 
 var loadFile = function( parameters ){
 	
+	if ( cognition.nodes ){
+		clearAll();
+	}
+	
 	var url = parameters.url || '/userfiles';
 	var filename = parameters.filename;
 	

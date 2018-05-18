@@ -115,7 +115,7 @@ function onMouseMove( event, nearestIntersected ){
 		var nodeRelativePositions = [];
 		
 		for ( var n = 0; n < SELECTED.nodes.length; n++ ){	
-			nodeRelativePositions.push( _Math.vecRelativePosition( SELECTED.nodes[0], SELECTED.nodes[n] ) );
+			nodeRelativePositions.push( _Math.distanceAsVec3( SELECTED.nodes[0].position, SELECTED.nodes[n].position ) );
 		}
 		
 		// If none of the axial keys are selected, move freely in three dimensions along the camera facing guidePlane.

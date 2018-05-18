@@ -1,6 +1,23 @@
 var tools = {};
+var toolClasses = {};
+var SELECTEDTOOLCLASS;
 var SELECTEDTOOL;
 var SELECTEDCOLOR;
+
+function selectToolClass( toolClass = "default" ){
+	
+	if ( SELECTEDTOOLCLASS && toolClass !== SELECTEDTOOLCLASS ){
+		// Remove Tansform behaviors ( EventListener callbacks )
+		
+	} 
+	
+	SELECTEDTOOLCLASS = toolClass; 
+	
+	
+	
+}
+
+
 
 function selectTool( tool = "select" ){
 
@@ -35,6 +52,8 @@ function selectTool( tool = "select" ){
 
 	};
 	
+	
+	
 };
 
 function selectColor( color ){
@@ -43,6 +62,7 @@ function selectColor( color ){
 
 };
 
+/* 
 Tools
 
 Select Node
@@ -71,6 +91,7 @@ View
 OPERAND								OPERATION				OPERATOR
 
 Node								Add
+									Copy
 									Select
 									Delete
 									Move/Drag
@@ -102,3 +123,4 @@ Graph or "System"					Delete
 									
 Map (Entire file)
 
+*/
