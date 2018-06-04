@@ -13,9 +13,9 @@ router.use(function timeLog(req, res, next) {
 //app.use(express.bodyParser());
 //initialize the file handling routes
 
-router.get('/load', function(req, res ) { res.send('load the file!'); } );
+router.get('/loadCognition', function( req, res ) { res.send('Load cognition file!'); });
 
-router.post('/save', function( req, res, next ) { console.log( 'accessing the Save route...' );
+router.post('/saveCognition', function( req, res, next ) { console.log( 'Accessing the Save Cognition route...' );
 						next(); 
 					},
 					function( req, res, next ) { 
@@ -25,49 +25,35 @@ router.post('/save', function( req, res, next ) { console.log( 'accessing the Sa
 							var jParsed = JSON.parse( data );
 							console.log( 'data parsed: ', jParsed );
 							
-							jsonMethods.saveJson( jParsed.fullpath, jParsed.data );
+							jsonMethods.saveCognitionJson( jParsed.fullpath, jParsed.data );
 						});
 						next();
 					},
 					function( req, res ) {
-						res.send('save the current file!'); 
+						res.send('save the current cognition file!'); 
 					} 
 					); 
 					
-router.post('/saveas', function( req, res, next ) { 
-						console.log( 'accessing the Save As route...' );
+router.get('/loadTheme' , function( req, res ) { res.send( 'Loading Theme File!' ); });
+
+router.post('/saveTheme' , function( req, res, next ) { console.log( 'Accessing the Save Cognition route...' );
 						next(); 
-					},
-/*					function( req, res, next ) {
-						res.set({
-							'Content-Type': 'application/json',
-							'Access-Control-Allow-Origin': '*',
-							'Content-Disposition': 'attachment; filename=out.json'
-						});							
-						next();
-					},  */
+					}, 
 					function( req, res, next ) { 
 						req.on( 'data', function( data ) {
 							console.log( 'data at router.post: ', data );
 							
 							var jParsed = JSON.parse( data );
 							console.log( 'data parsed: ', jParsed );
-
-/*							res.set({
-								'Content-Type': 'application/json',
-								'Access-Control-Allow-Origin': '*',
-								'Content-Disposition': 'attachment; filename=out.json'
-							});							*/								
-														
-							jsonMethods.saveJson( jParsed.filename, jParsed.data );
+							
+							jsonMethods.saveThemeJson( jParsed.fullpath, jParsed.data );
 						});
 						next();
-
-					},					
+					},	
 					function( req, res ) {
-						res.send('save the file as filename!');							
-					}
-					);
+						res.send('save the current theme file!'); 
+					} 					
+					)
 					
 
 

@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.26
+	* Version 0.1.27
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -26,14 +26,19 @@ window.onload = function(){
 };
 
 var initUI = function(){
+	
+	/* LOADING & SAVING COGNITION */
 
-	document.getElementById('fileInput').addEventListener( 'change', loadFileFromInput, false );
-	document.getElementById('saveBtn').addEventListener( 'click' , function() { saveFile( SELECTEDFILE.name , cognition, "./userfiles" ) } );
-	document.getElementById('saveAsBtnOpener').addEventListener( 'click' , function() { toggleSaveAsBoxOn(); } );
+	document.getElementById('fileInput').addEventListener( 'change', loadCognitionFileFromInput, false );
+	document.getElementById('saveBtn').addEventListener( 'click' , function() { saveCognitionFile( SELECTEDFILE.name , cognition, "./userfiles" ) } );
+	document.getElementById('saveAsBtnOpener').addEventListener( 'click' , function() { toggleSaveAsBoxOn( saveAsBox ); } );
 	document.getElementById('saveAsBtn').addEventListener( 'click', function(){ 
-																					saveFile( ( fileNameFromInput() + ".json" ) , cognition, "./userfiles" );
-																					toggleSaveAsBoxOff(); } );
-	document.getElementById('cancelSaveAsBtn').addEventListener( 'click', function(){ toggleSaveAsBoxOff(); } );
+																					saveCognitionFile( ( fileNameFromInput( "filenameInput" ) + ".json" ) , cognition, "./userfiles" );
+																					toggleSaveAsBoxOff( saveAsBox ); } );
+	document.getElementById('cancelSaveAsBtn').addEventListener( 'click', function(){ toggleSaveAsBoxOff( saveAsBox ); } );
+
+	/* TOOLBAR */
+
 	document.getElementById('createCompleteGraph').addEventListener( 'click', function() { if ( SELECTED.nodes.length > 0 ) { completeGraph( SELECTED.nodes ) } } );
 	document.getElementById('showCenterPoints').addEventListener( 'click', function() { LUCIDNODES.showGlobalCenterPoint() } );
 	document.getElementById('colorPicker').addEventListener('change', function () {
@@ -56,7 +61,33 @@ var initUI = function(){
 	
 	document.getElementById('showSmartGuides').addEventListener('click', function() { detectAllCommonOrthoLines(); });	
 	document.getElementById('snapAllNodesToGrid').addEventListener('click', function() { snapAllNodesToGrid(); });	
-																					
+
+	/* SEARCH */
+	
+	document.getElementById('searchGo').addEventListener('click', function(){ if ( searchBox.value.length > 0 ){ selectAllWithPhrase( searchBox.value ); }});
+		
+	/* THEME */	
+		
+	document.getElementById('themeInput').addEventListener('change', loadThemeFileFromInput, false );
+	document.getElementById('saveThemeBtn').addEventListener( 'click' , function() { 
+		var themeState = getThemeState();
+		saveThemeFile( themeState.name + ".json" , themeState, "./themes" ) 
+		} );	
+	document.getElementById('skyColor1').addEventListener('change', function(e){ skyGeoColor( { topColor: e.target.value } ); });
+	document.getElementById('skyColor2').addEventListener('change', function(e){ skyGeoColor( { bottomColor: e.target.value } ); });
+	document.getElementById('groundColor').addEventListener('change', function(e){ groundColor( e.target.value ); });
+	document.getElementById('linearAxes').addEventListener('click', function(e){ if ( e.target.checked ){ showAxes(); } else { hideAxes(); } } );
+	document.getElementById('radialAxes').addEventListener('click', function(e){ if ( e.target.checked ){ showRadialAxes(); } else { hideRadialAxes(); } } );
+	
+	/* THEME SAVING */
+	
+	document.getElementById('saveThemeAsBtnOpener').addEventListener( 'click' , function() { toggleSaveAsBoxOn( saveThemeAsBox ); } );
+	document.getElementById('saveThemeAsBtn').addEventListener( 'click', function(){ 
+																					var themeState = getThemeState();
+																					themeState.name = fileNameFromInput( "themeFilenameInput" );
+																					saveThemeFile( themeState.name + ".json" , themeState, "./themes" );
+																					toggleSaveAsBoxOff( saveThemeAsBox ); } ); 
+	document.getElementById('cancelSaveThemeAsBtn').addEventListener( 'click', function(){ toggleSaveAsBoxOff( saveThemeAsBox ); } );	
 };
 
 /* cognitionFromJson( json )
@@ -94,29 +125,3 @@ var cognitionFromJson = function( json ){
 		
 	}
 }
-
-//LUCIDNODES.nodePositionComparison( cognition.graph1.nodes.n00, cognition.graph1.nodes.n01 );
-
-function saveJsonAs(filename, text) {
-    var pom = document.createElement('a');
-    pom.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(text));
-    pom.setAttribute('download', filename);
-    
-	if (document.createEvent) {
-        var event = document.createEvent('MouseEvents');
-        event.initEvent('click', true, true);
-        pom.dispatchEvent(event);
-    }
-    else {
-        pom.click();
-    }
-}
-
-function fileNameFromInput(){
-
-	return document.getElementById( 'filenameInput' ).value;
-}
-
-
-
-//var newSprite = new LUCIDNODES.newLabelType( { text: "yes;", fontsize: 64, opacity: 0.4, paddingX: 10, faceCamera: true } );

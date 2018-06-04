@@ -12,7 +12,6 @@
 	<script src="js/OrbitControls.js"></script>
 	
 	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/contextMenu.css">
 	
 </header>
 
@@ -20,7 +19,7 @@
 
 <div class="topMenu">
 	<form method="GET" id="temp2" enctype="multipart/form-data">
-		<div class="appTitle"><strong>LucidNodes Version 0.1.25</strong></div>
+		<div class="appTitle"><strong>LucidNodes Version 0.1.27</strong></div>
 		<div class="saveBar-cell">
 		   <label for="fileInput">Open File</label>
 		   <input type="file" id="fileInput" name="fileInput" accept=".json">
@@ -43,10 +42,20 @@
 	</div>
 </div>
 
+<div class="saveAsBox" id="saveThemeAsBox">
+	<h3>Save Theme Name</h1>
+	<div id="saveThemeAsBoxInner">
+		<input type="text" id="themeFilenameInput"></input>.json
+		<input type="button" id="saveThemeAsBtn" value="save"></input>
+		<input type="button" id="cancelSaveThemeAsBtn" value="cancel"></input>
+	</div>
+</div>
+
 <div id="visualizationContainer">
 
-	<script src="scenesetup.js"></script>
 	<script src="js/colorUtils.js"></script>
+	<script src="lucidNodes-modules/skyGeo.js"></script>
+	<script src="scenesetup.js"></script>
 	<script src="js/mathUtils.js"></script>	
 	<script src="lucidNodes-modules/helperShapes.js"></script>
 	<script src="LucidNodes.js"></script>
@@ -55,9 +64,11 @@
 	<script src="lucidNodes-modules/guides.js"></script>
 	<script src="lucidNodes-modules/labelPlane.js"></script>	
 	<script src="js/fileHandlingUtils.js"></script>
+	<script src="js/tools.js"></script>
 	<script src="app.js"></script>	
 	<script src="lucidNodes-modules/detectAlignments.js"></script>	
 	<script src="lucidNodes-modules/rotation.js"></script>
+	<script src="lucidNodes-modules/rotationTool.js"></script>
 	<script src="lucidNodes-modules/nodeThreeGroups.js"></script>
 	<script src="lucidNodes-modules/treeClimber.js"></script>
 </div>
@@ -80,7 +91,51 @@
 	<div class="toolbar-cell"><img id="snapAllNodesToGrid" title="Snap all nodes to grid" alt="Snap all nodes to grid" src="assets/tool_icons/Snap-All-To-Grid.png"></div>	
 </div>
 
-<div class="panel" id="panel1">
+<div class="panel" id="theme">
+	<div class="panel-title"><strong>Theme</strong></div>
+	
+	<form method="GET" id="temp2" enctype="multipart/form-data">
+		<div class="saveBar-cell">
+		   <label for="fileInput">Theme</label>
+		   <input type="file" id="themeInput" name="themeInput" accept=".json">
+		</div>
+		<div class="saveBar-cell">
+			<input type="button" name="saveThemeBtn" id="saveThemeBtn" value="Save">
+		</div>
+		<div class="saveBar-cell">
+			<input type="button" name="saveThemeAsBtnOpener" id="saveThemeAsBtnOpener" value="Save As">
+		</div>			
+	</form>		
+	
+	<div>
+		<div class="panel-cell-label">Sky 1</div>
+		<input class="panel-cell" type="color" id="skyColor1" title="Sky Color 1" name="skyColor1" value="#ff0000">
+	</div>
+	<div>
+		<div class="panel-cell-label">Sky 2</div>
+		<input class="panel-cell" type="color" id="skyColor2" title="Sky Color 2" name="skyColor2" value="#ff0000">	
+	</div>
+	<div>
+		<div class="panel-cell-label">Ground</div>
+		<input class="panel-cell" type="color" id="groundColor" title="Ground Color" name="groundColor" value="#ff0000">	
+	</div>	
+	<div>
+		<div class="panel-cell-label">Linear Axes</div>
+		<input type="checkbox" id="linearAxes" title="Linear Axes" name="linearAxes" checked="true">	
+	</div>		
+	<div>
+		<div class="panel-cell-label">Radial Axes</div>
+		<input type="checkbox" id="radialAxes" title="Radial Axes" name="radialAxes" checked="true">
+	</div>			
+</div>
+
+<div class="panel" id="search">
+	<div class="panel-title"><strong>Search</strong></div>
+	<div>
+		<div class="panel-cell-label">Search</div>
+		<input type="text" id="searchBox" title="Search" name="Search">
+		<input type="button" id="searchGo"  name="searchGo" title="Go" value="Go">
+	</div>		
 </div>
 
 <nav class="context-menu" id="context-menu">

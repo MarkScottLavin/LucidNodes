@@ -1,4 +1,5 @@
 // Axes
+
 Axes( 300, true, 0.2, { x: 0, y: 0, z: 0 } );	
 
 /* AXES  */
@@ -16,7 +17,7 @@ Axes( 300, true, 0.2, { x: 0, y: 0, z: 0 } );
  * }
  */
 
-function Axes( extents, rulers, opacity = 0.5, origin = { x: 0, y: 0, z: 0 }, parent = scene ) {
+function Axes( extents = 300, rulers = true, opacity = 0.5, origin = { x: 0, y: 0, z: 0 }, parent = scene ) {
 	
 	parent.axes = new THREE.Group();
 	parent.axes.position.set( origin.x, origin.y, origin.z );
@@ -136,4 +137,20 @@ function removeAxes( parent ){
 		parent.remove( parent.axes );
 		parent.axes = null;
 	}
+}
+
+function hideAxes( parent = scene ){
+	
+	if ( parent.axes ){
+		parent.axes.visible = false;
+	}
+	
+}
+
+function showAxes( parent = scene ){
+
+	if ( parent.axes ){
+		parent.axes.visible = true;
+	}	
+	
 }

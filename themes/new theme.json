@@ -1,0 +1,8 @@
+{
+  "name": "new theme",
+  "skyColor1": "#800080",
+  "skyColor2": "#ffff88",
+  "groundColor": "#bbbbbb",
+  "showLinearAxes": true,
+  "showRadialAxes": true
+}

@@ -5,7 +5,7 @@ const app = express();
 
 var jsonMethods = {
 
-	saveJson: function( filename, data ){
+	saveCognitionJson: function( filename, data ){
 		
 		var jsonString = JSON.stringify( data, null, 2 );
 
@@ -13,10 +13,22 @@ var jsonMethods = {
 			// throws an error, you could also catch it here
 			if (err) throw err;
 			// success case, the file was saved
-			console.log( filename, 'saved!'); 
+			console.log( filename, 'cognition file saved!'); 
+		});		
+	},
+	
+	saveThemeJson: function( filename, data ){
+		
+		var jsonString = JSON.stringify( data, null, 2 );
+
+		fs.writeFile( filename, jsonString, (err) => {  
+			// throws an error, you could also catch it here
+			if (err) throw err;
+			// success case, the file was saved
+			console.log( filename, 'theme file saved!'); 
 		});		
 	}
-	
+
 }
 
 module.exports = jsonMethods;

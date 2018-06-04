@@ -1,0 +1,11 @@
+{ 
+	"name": "default",
+	"skyColor1": "#0077ff",
+	"skyColor2": "#ffff88",
+	"groundColor": "#bbbbbb",
+	"showLinearAxes": "true",	
+	"showRadialAxes": "true"
+}
+
+
+

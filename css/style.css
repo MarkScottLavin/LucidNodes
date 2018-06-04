@@ -6,6 +6,8 @@
  * 
 */
 
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+
 /* DESKTOP/MOBILE UI STYLES */
 
 /* Default Cursor */
@@ -97,3 +99,155 @@ body {
 }
 
 /* End Toolbars */
+
+.panel {
+	position: absolute;
+	z-index: 10;
+	width: 200px;
+	right: 10px; 
+	background-color: #ddd;
+	box-shadow: -1px 1px 2px 1px #888;
+	cursor: pointer;
+	border-radius:2px;
+}
+
+#theme {
+	top: 60px;
+	height: 400px;
+}
+
+#search {
+	top: 440px;
+	height: 150px;
+}
+
+.panel-title{
+	background-color:#888;
+	color:#fff;
+	border-radius:2px 2px 0 0;
+	text-align: center;
+	cursor: move;
+}
+
+.panel-cell{
+/*	width:auto;  */
+	width: 40px;
+	height: 40px;
+	padding: 1px;
+	display: inline-block;
+	border: 1px #888 solid;
+	background-color:#fff;
+	border-radius: 2px;
+}
+
+.panel-cell-label{
+	width: 100px;
+	height: 40px;
+	padding: 1px 0px 1px 10px;
+	display: inline-block;
+}
+
+/* context menu */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  color: #595959;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 24px;
+  max-width: 960px;
+}
+
+/* primary header */
+
+.primary-header {
+  padding: 24px 0;
+  text-align: center;
+  border-bottom: solid 2px #cfcfcf;
+}
+
+.primary-header__title {
+  color: #393939;
+  font-size: 36px;
+}
+
+.primary-header__title small {
+  font-size: 18px;
+  color: #898989;
+}
+
+/* context menu */
+
+.context-menu {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  padding: 12px 0;
+  width: 240px;
+  background-color: #fff;
+  border: solid 1px #dfdfdf;
+  box-shadow: 1px 1px 2px #cfcfcf;
+}
+
+.context-menu--active {
+  display: block;
+}
+
+.context-menu__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.context-menu__item {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.context-menu__item:last-child {
+  margin-bottom: 0;
+}
+
+.context-menu__link {
+  display: block;
+  padding: 4px 12px;
+  color: #0066aa;
+  text-decoration: none;
+}
+
+.context-menu__link:hover {
+  color: #fff;
+  background-color: #0066aa;
+}
+
+/* SaveAsBox */
+
+.saveAsBox,
+.saveThemeAsBox {
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 50px;
+  z-index: 20;
+  padding: 12px 0;
+  width: 360px;
+  background-color: #fff;
+  border: solid 1px #dfdfdf;
+  box-shadow: 1px 1px 2px #cfcfcf;
+}
+
+.saveAsBox--active,
+.saveThemeAsBox--active {
+  display: block;
+}

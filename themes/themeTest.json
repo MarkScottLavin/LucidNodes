@@ -1,0 +1,8 @@
+{
+  "name": "themeTest",
+  "skyColor1": "#400040",
+  "skyColor2": "#ffffff",
+  "groundColor": "#dddddd",
+  "showLinearAxes": true,
+  "showRadialAxes": true
+}

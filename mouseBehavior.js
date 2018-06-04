@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.25
+	* Version 0.1.27
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -39,7 +39,7 @@ function onMouse( event ) {
 	
 }
 
-function mouseEventHandler( event /* , fn, revFn */ ){
+function mouseEventHandler( event ){
 	
 	var camera = entities.cameras.perspCamera;
 	
@@ -91,13 +91,15 @@ function mouseEventHandler( event /* , fn, revFn */ ){
 	}
 }
 
+// HANDLE SPECIFIC MOUSE EVENTS
+
 function onMouseMove( event, nearestIntersected ){
 	
 	// Check if the current top-level intersected object is the previous INTERSECTED		
 	if ( nearestIntersected != INTERSECTED ){
 		// ... if there is a previous INTERSECTED
 		if ( INTERSECTED ) {	
-			// restore the previous INTERSECTED to it's previous state.
+			// restore the previous INTERSECTED to its previous state.
 			unTransformGraphElementOnMouseOut( INTERSECTED );									
 		} 						
 		// set the currently intersected object to INTERSECTED	
@@ -313,42 +315,6 @@ function onClick( event ){
 		onClickWithKey();
 	}
 }
-/*
-function chooseElementOnIntersect(){
-	
-	if ( INTERSECTED && INTERSECTED.isGraphElement ){
-
-		var x;
-		
-		if ( INTERSECTED.referent.isNode ){ x = INTERSECTED.referent }
-		else if ( INTERSECTED.referent.isNodeLabel ){ x = INTERSECTED.referent.node }
-		else if ( INTERSECTED.referent.isEdge ){ x = INTERSECTED.referent }
-		else if ( INTERSECTED.referent.isEdgeLabel ){ x = INTERSECTED.referent.edge }
-		
-		return x;
-	}
-}*/
-
-function chooseElementOnIntersect(){
-	
-	var x;	
-	
-	if ( INTERSECTED && INTERSECTED.isGraphElement && !INTERSECTED.isLabel ){
-		
-		if ( INTERSECTED.referent.isNode ){ x = INTERSECTED.referent }
-		else if ( INTERSECTED.referent.isEdge ){ x = INTERSECTED.referent }
-	}
-	
-	else if ( INTERSECTED && INTERSECTED.isLabel ){
-
-		if ( INTERSECTED.referent.isNodeLabel ){ x = INTERSECTED.referent.node }
-		else if ( INTERSECTED.referent.isEdgeLabel ){ x = INTERSECTED.referent.edge }		
-	}
-	
-	return x;
-}
-
-
 
 function onDblClick( event ){
 	
@@ -373,15 +339,16 @@ function onMouseWheel( event, nearestIntersected ){
 	}			
 }
 
+// END HANDLING SPECIFIC MOUSE EVENTS
+
+// KEYPRESS EVENT HANDLING
+
 function onClickWithKey(){
 
 	// Click+"a" = Add a Node at the Click position
 	if ( keyPressed.keys.includes( "a" )){
 		
-		var planeIntersection = getPlaneIntersectPointRecursive( activeGuidePlane );
-		var position = new THREE.Vector3();
-
-		position.copy( planeIntersection.point );
+		var position = placeAtPlaneIntersectionPoint( activeGuidePlane );
 
 		addNode( position );		
 	}
@@ -430,6 +397,38 @@ function onEscapeKey(){
 	
 	toggleContextMenuOff();
 	unSelectAll();
+}
+
+// END KEY EVENT HANDLING
+
+// MOUSE/RAY INTERSECTION HANDLING
+
+function chooseElementOnIntersect(){
+	
+	var x;	
+	
+	if ( INTERSECTED && INTERSECTED.isGraphElement && !INTERSECTED.isLabel ){
+		
+		if ( INTERSECTED.referent.isNode ){ x = INTERSECTED.referent }
+		else if ( INTERSECTED.referent.isEdge ){ x = INTERSECTED.referent }
+	}
+	
+	else if ( INTERSECTED && INTERSECTED.isLabel ){
+
+		if ( INTERSECTED.referent.isNodeLabel ){ x = INTERSECTED.referent.node }
+		else if ( INTERSECTED.referent.isEdgeLabel ){ x = INTERSECTED.referent.edge }		
+	}
+	
+	return x;
+}
+
+function placeAtPlaneIntersectionPoint( plane ){
+	
+	var planeIntersection = getPlaneIntersectPointRecursive( plane );
+	var position = new THREE.Vector3();
+
+	position.copy( planeIntersection.point );	
+	return position;
 }
 
 function nearestIntersectedObj(){
@@ -484,6 +483,20 @@ function nearestIntersectedObj(){
 	}
 }
 
+// END MOUSE/INTERSECTION HANDLING
+
+/* CURSOR HANDLING */
+
+function cursorInScene( cursor = "crosshair" ){
+	
+	document.getElementById("renderSpace").style.cursor = cursor;
+	
+}	
+
+/* END CURSOR HANDLING */
+
+// PROJECTION HANDLING
+
 function getPointOnCanvasInCanvasUnits( ptInGlobalUnits, geometry, canvas ){
 	
 	var sizeInGlobalUnits = {
@@ -523,6 +536,10 @@ function getCameraUnProjectedVector( camera ){
 	
 	return vec3;
 }
+
+// END PROJECTION HANDLING
+
+// SELECTION HANDLING
 
 function selectNodeArray( nodeArr ){
 	
@@ -636,6 +653,18 @@ function selectAllNodesInArrayWithPropVal( node, property, nodeArr ){
 	}
 }
 
+function unAltSelectAll(){
+	
+	if ( ALTSELECTED.length > 0 ){
+		for ( var a = 0; a < ALTSELECTED.length; a++ ){
+			unTransformGraphElementOnUnselect( ALTSELECTED[a] );
+		}
+		ALTSELECTED = [];
+	}
+}
+
+// END SELECTION HANDLING
+
 function propValIsObj( propVal ){
 	
 	var isObj;
@@ -714,15 +743,7 @@ function objectsAreIdentical( objs ){
 	return identical;
 }
 
-function unAltSelectAll(){
-	
-	if ( ALTSELECTED.length > 0 ){
-		for ( var a = 0; a < ALTSELECTED.length; a++ ){
-			unTransformGraphElementOnUnselect( ALTSELECTED[a] );
-		}
-		ALTSELECTED = [];
-	}
-}
+// TRANSFORMATIONS ON MOUSEEVENS
 
 function transformGraphElementOnMouseOver( obj ){
 	if ( obj.isGraphElement ) { obj.referent.transformOnMouseOver(); }	
@@ -732,36 +753,6 @@ function unTransformGraphElementOnMouseOut( obj ){
 	if ( obj.isGraphElement ) { obj.referent.transformOnMouseOut(); }
 }
 
-/* RECURSIVE CLIMBING */
-
-function callMethodOnParent( obj, method ) {
-
-	var parentWithMethod = recursiveFindParentWithProp( obj, method );
-	
-	if ( parentWithMethod ){
-		parentWithMethod[method]();
-	}	
-	else { 
-		console.log( "callMethodOnParent(): No Parent with that method found" );
-		return false;
-	}
-}
-
-function recursiveFindParentWithProp( obj, prop ){
-	
-	if ( obj.parent ){
-		if ( obj.parent.hasOwnProperty( prop ) ){
-			return obj.parent;
-		}
-		else { recursiveFindParentWithProp( obj.parent, prop ); }
-	}
-	else { 
-		console.log( "recursiveFindParentWithProp(): No parent with that property was found" ); 
-		return false;
-	}	
-}
-
-/* END RECURSIVE CLIMBING */												  
 function transformGraphElementOnSelect( obj ){
 	if ( obj.displayEntity.isGraphElement ) { 
 		
@@ -806,6 +797,39 @@ function transformGraphElementOnWheel( obj ){
 	if ( obj.displayEntity.isGraphElement ) { obj.transformOnWheel(); }	
 }
 
+// END TRANSFORMATIONS ON MOUSEOVERS
+
+/* RECURSIVE CLIMBING */
+
+function callMethodOnParent( obj, method ) {
+
+	var parentWithMethod = recursiveFindParentWithProp( obj, method );
+	
+	if ( parentWithMethod ){
+		parentWithMethod[method]();
+	}	
+	else { 
+		console.log( "callMethodOnParent(): No Parent with that method found" );
+		return false;
+	}
+}
+
+function recursiveFindParentWithProp( obj, prop ){
+	
+	if ( obj.parent ){
+		if ( obj.parent.hasOwnProperty( prop ) ){
+			return obj.parent;
+		}
+		else { recursiveFindParentWithProp( obj.parent, prop ); }
+	}
+	else { 
+		console.log( "recursiveFindParentWithProp(): No parent with that property was found" ); 
+		return false;
+	}	
+}
+
+/* END RECURSIVE CLIMBING */												  
+
 
 function isPointInContextFillPath( context, point ){
 	
@@ -819,6 +843,7 @@ function isPointInContextFillPath( context, point ){
 	return inPath;
 };
 
+// HIDDEN INPUT (LABEL TEXT) HANDLING
 
 function blurActiveHiddenInput(){
 
@@ -835,241 +860,268 @@ function positionInput( event, input ){
 	input.style.top = clickCoords.y + "px";
 }
 
-function listenFor(){
-	document.getElementById('visualizationContainer').addEventListener( 'click', onMouse, false );
-	document.getElementById('visualizationContainer').addEventListener( 'mousemove', onMouse, false );
-	document.getElementById('visualizationContainer').addEventListener( 'mousedown', onMouse, false );
-	document.getElementById('visualizationContainer').addEventListener( 'mouseup', onMouse, false );
-	document.getElementById('visualizationContainer').addEventListener( 'dblclick', onMouse, false );
-	document.getElementById('visualizationContainer').addEventListener( 'wheel', onMouse, false );
-	document.getElementById('visualizationContainer').addEventListener( 'contextmenu', onMouse, false );
-	document.addEventListener( 'keydown', function (e) { onKeyDown(e); }, false );
-	document.addEventListener( 'keyup', function (e) { onKeyUp(e); }, false );	
+// END HIDDEN INPUT (LABEL TEXT) HANDLING
+
+function addToolListeners( tool = "select" ){
+	
+	if ( tool === "select" ){
+		document.getElementById('visualizationContainer').addEventListener( 'click', onMouse, false ),
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove', onMouse, false ),
+		document.getElementById('visualizationContainer').addEventListener( 'mousedown', onMouse, false ),
+		document.getElementById('visualizationContainer').addEventListener( 'mouseup', onMouse, false ),
+		document.getElementById('visualizationContainer').addEventListener( 'dblclick', onMouse, false ),
+		document.getElementById('visualizationContainer').addEventListener( 'wheel', onMouse, false ),
+		document.getElementById('visualizationContainer').addEventListener( 'contextmenu', onMouse, false ),
+		document.addEventListener( 'keydown', function (e) { onKeyDown(e); }, false ),
+		document.addEventListener( 'keyup', function (e) { onKeyUp(e); }, false )
+	}
+	
+	if ( tool === "rotate" ){
+		
+		document.getElementById('visualizationContainer').addEventListener( 'click', function(){ 
+		
+			var camera = entities.cameras.perspCamera;
+			
+			// update the picking ray with the camera and mouse position
+			ray.setFromCamera( mouse, camera );
+			//ray.set ( camera.position, vector.sub( camera.position ).normalize() );
+			
+			// update the guidePlane to be perpendicular to the current camera position
+		//	guides.planes.camPerpendicular.plane.lookAt( camera.position )		
+		
+			rotationTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ) }, false )
+	
+	}
+}
+
+function removeToolListeners( tool ){
+
+	if ( tool === "select" ){
+		document.getElementById('visualizationContainer').removeEventListener( 'click', onMouse, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', onMouse, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'mousedown', onMouse, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', onMouse, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'dblclick', onMouse, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'wheel', onMouse, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'contextmenu', onMouse, false );
+		document.removeEventListener( 'keydown', function (e) { onKeyDown(e); }, false );
+		document.removeEventListener( 'keyup', function (e) { onKeyUp(e); }, false );		
+	}
+	
+	if ( tool === "rotate" ){
+		
+		document.getElementById('visualizationContainer').removeEventListener( 'click', function(){ rotationTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ) }, false )
+	
+	}	
+}
+
+addToolListeners( "select" );
+
+
+
+
+var menu = document.querySelector("#context-menu");
+var menuState = 0;
+var menuActiveClassName = "context-menu--active";
+var menuPosition;
+var menuPositionX;
+var menuPositionY;
+var menuWidth;
+var menuHeight;
+var windowWidth;
+var windowHeight;
+var clickCoords;
+
+// Helper Punctions
+
+
+function getPosition( event ) {
+	var pos = { x: 0, y: 0 }
+
+	if (!event) var event = window.event;
+
+	if (event.pageX || event.pageY) {
+		pos.x = event.pageX;
+		pos.y = event.pageY;
+	} else if (event.clientX || event.clientY) {
+		pos.x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+		pos.y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+	}
+
+	return pos;
+}	
+
+// Menu Content Handling
+
+function contextMenuActions(){
+	
+	document.getElementById( "delete" ).addEventListener( "click", function( event ){ 
+		if ( INTERSECTED.referent.isEdge ){ deleteEdge( INTERSECTED.referent ) }
+		if ( INTERSECTED.referent.isNode ){ deleteNode( INTERSECTED.referent ) }
+		toggleContextMenuOff();
+		} );
+		
+	document.getElementById( "selectAll" ).addEventListener( "click", function( event ){ 
+		selectAll(); 
+		toggleContextMenuOff();
+		} );
+
+	document.getElementById( "selectAllEdges" ).addEventListener( "click", function( event ){ 
+		selectAllEdges(); 
+		toggleContextMenuOff();
+		} );			
+	
+	document.getElementById( "selectAllNodes" ).addEventListener( "click", function( event ){ 
+		selectAllNodes(); 
+		toggleContextMenuOff();
+		} );
+	document.getElementById( "selectAllOfSameShape").addEventListener( "click", function( event ){
+		var x = chooseElementOnIntersect();
+		if ( x && x.isNode ){ selectAllNodesInArrayWithPropVal( x, "shape", cognition.nodes ) }
+		toggleContextMenuOff();
+	} );
+	document.getElementById( "selectAllOfSameColor").addEventListener( "click", function( event ){
+		var x = chooseElementOnIntersect();
+		if ( x && x.isNode ){ selectAllNodesInArrayWithPropVal( x, "color", cognition.nodes ) }
+		toggleContextMenuOff();
+	} );
+}
+
+function contextMenuItems( forObj ){
+
+	document.getElementById( "selectAll" ).textContent = "Select All";
+	document.getElementById( "selectAllEdges").textContent = "Select All Edges";
+	document.getElementById( "selectAllNodes").textContent = "Select All Nodes";
+	document.getElementById( "rename" ).innerHTML = "Rename " + forObj;		
+	document.getElementById( "delete" ).innerHTML = "Delete " + forObj;
+	document.getElementById( "changeType" ).innerHTML = "Change To..."; 
+	document.getElementById( "group" ).innerHTML = "Group";
+	document.getElementById( "selectAllOfSameColor" ).innerHTML = "Select All " + forObj + " of Same Color";
+	document.getElementById( "selectAllOfSameShape" ).innerHTML = "Select All " + forObj + " of Same Shape";
+	document.getElementById( "scale" ).innerHTML = "Scale";
+	document.getElementById( "properties" ).innerHTML = forObj + " Properties";
 	
 }
 
-listenFor();
+// Core Functions
 
-
-
-
-	var menu = document.querySelector("#context-menu");
-	var menuState = 0;
-	var menuActiveClassName = "context-menu--active";
-	var menuPosition;
-	var menuPositionX;
-	var menuPositionY;
-	var menuWidth;
-	var menuHeight;
-	var windowWidth;
-	var windowHeight;
-	var clickCoords;
+function initContextMenu(){
   
-  // Helper Punctions
+  contextMenuActions();
+  menuOffOnWindowResize();
+}
 
+function menuOffOnWindowResize() {
+	window.onresize = function(event) {
+		toggleContextMenuOff();
+	};
+}
+
+function contextMenuActivate( event ){
 	
-	function getPosition( event ) {
-	  var pos = { x: 0, y: 0 }
-
-	  if (!event) var event = window.event;
-
-	  if (event.pageX || event.pageY) {
-		pos.x = event.pageX;
-		pos.y = event.pageY;
-	  } else if (event.clientX || event.clientY) {
-		pos.x = event.clientX + document.body.scrollLeft + 
-						   document.documentElement.scrollLeft;
-		pos.y = event.clientY + document.body.scrollTop + 
-						   document.documentElement.scrollTop;
-	  }
-
-	  return pos;
-	}	
-
-	// Menu Content Handling
+	event.preventDefault();
 	
-	function contextMenuActions(){
-		
-		document.getElementById( "delete" ).addEventListener( "click", function( event ){ 
-			if ( INTERSECTED.referent.isEdge ){ deleteEdge( INTERSECTED.referent ) }
-			if ( INTERSECTED.referent.isNode ){ deleteNode( INTERSECTED.referent ) }
-			toggleContextMenuOff();
-			} );
-			
-		document.getElementById( "selectAll" ).addEventListener( "click", function( event ){ 
-			selectAll(); 
-			toggleContextMenuOff();
-			} );
+	var x = chooseElementOnIntersect();
+	
+	if ( x ){
 
-		document.getElementById( "selectAllEdges" ).addEventListener( "click", function( event ){ 
-			selectAllEdges(); 
-			toggleContextMenuOff();
-			} );			
+		if ( x.isNode ){ contextMenuItems( "Node" );  }
+		else if ( x.isEdge ){ contextMenuItems( "Edge" ); }
 		
-		document.getElementById( "selectAllNodes" ).addEventListener( "click", function( event ){ 
-			selectAllNodes(); 
-			toggleContextMenuOff();
-			} );
-		document.getElementById( "selectAllOfSameShape").addEventListener( "click", function( event ){
-			var x = chooseElementOnIntersect();
-			if ( x && x.isNode ){ selectAllNodesInArrayWithPropVal( x, "shape", cognition.nodes ) }
-			toggleContextMenuOff();
-		} );
-		document.getElementById( "selectAllOfSameColor").addEventListener( "click", function( event ){
-			var x = chooseElementOnIntersect();
-			if ( x && x.isNode ){ selectAllNodesInArrayWithPropVal( x, "color", cognition.nodes ) }
-			toggleContextMenuOff();
-		} );
 	}
 	
-	function contextMenuItems( forObj ){
-
-		document.getElementById( "selectAll" ).textContent = "Select All";
-		document.getElementById( "selectAllEdges").textContent = "Select All Edges";
-		document.getElementById( "selectAllNodes").textContent = "Select All Nodes";
-		document.getElementById( "rename" ).innerHTML = "Rename " + forObj;		
-		document.getElementById( "delete" ).innerHTML = "Delete " + forObj;
-		document.getElementById( "changeType" ).innerHTML = "Change To..."; 
-		document.getElementById( "group" ).innerHTML = "Group";
-		document.getElementById( "selectAllOfSameColor" ).innerHTML = "Select All " + forObj + " of Same Color";
-		document.getElementById( "selectAllOfSameShape" ).innerHTML = "Select All " + forObj + " of Same Shape";
-		document.getElementById( "scale" ).innerHTML = "Scale";
-		document.getElementById( "properties" ).innerHTML = forObj + " Properties";
+	else if ( INTERSECTED && !INTERSECTED.isGraphElement ){
 		
-	}
-  
-	// Core Functions
-  
-	function initContextMenu(){
-	  
-	  contextMenuActions();
-	  menuOffOnWindowResize();
-	}
-  
-	function menuOffOnWindowResize() {
-		window.onresize = function(event) {
-			toggleContextMenuOff();
-		};
+		contextMenuItems( "Background" ); 
 	}
 
-  function contextMenuActivate( event ){
-		
-		event.preventDefault();
-		
-		var x = chooseElementOnIntersect();
-		
-		if ( x ){
+	positionMenu( event );
+	toggleContextMenuOn();
+} 
 
-			if ( x.isNode ){ contextMenuItems( "Node" );  }
-			else if ( x.isEdge ){ contextMenuItems( "Edge" ); }
-			
-		}
-		
-		else if ( INTERSECTED && !INTERSECTED.isGraphElement ){
-			
-			contextMenuItems( "Background" ); 
-		}
+function toggleContextMenuOn(){
+	if ( menuState !== 1 ){
+		menuState = 1;
+		menu.classList.add(menuActiveClassName);
+	}
+}
 
-		positionMenu( event );
-		toggleContextMenuOn();
-	} 
+function toggleContextMenuOff() {
+  if ( menuState !== 0 ) {
+	menuState = 0;
+	menu.classList.remove(menuActiveClassName);
+  }
+}
+
+function positionMenu(event){
 	
-	function toggleContextMenuOn(){
-		if ( menuState !== 1 ){
-			menuState = 1;
-			menu.classList.add(menuActiveClassName);
-		}
-	}
+	clickCoords = getPosition(event);
 	
-	function toggleContextMenuOff() {
-	  if ( menuState !== 0 ) {
-		menuState = 0;
-		menu.classList.remove(menuActiveClassName);
-	  }
-	}
+	menuWidth = menu.offsetWidth + 4;
+	menuHeight = menu.offsetHeight + 4;		
 	
-	function positionMenu(event){
-		
-		clickCoords = getPosition(event);
-		
-		menuWidth = menu.offsetWidth + 4;
-		menuHeight = menu.offsetHeight + 4;		
-		
-		windowWidth = window.innerWidth;
-		windowHeight = window.innerHeight;
-		
-		if ( ( windowWidth - clickCoords.x ) < menuWidth ) {
-			menu.style.left = windowWidth - menuWidth + "px";
-			} 
-		else {
-			menu.style.left = clickCoords.x + "px";
-		}
-
-		if ( ( windowHeight - clickCoords.y ) < menuHeight ) {
-			menu.style.top = windowHeight - menuHeight + "px";
+	windowWidth = window.innerWidth;
+	windowHeight = window.innerHeight;
+	
+	if ( ( windowWidth - clickCoords.x ) < menuWidth ) {
+		menu.style.left = windowWidth - menuWidth + "px";
 		} 
-		else {
-			menu.style.top = clickCoords.y + "px";
-		}		
+	else {
+		menu.style.left = clickCoords.x + "px";
 	}
-	
-	initContextMenu();
+
+	if ( ( windowHeight - clickCoords.y ) < menuHeight ) {
+		menu.style.top = windowHeight - menuHeight + "px";
+	} 
+	else {
+		menu.style.top = clickCoords.y + "px";
+	}		
+}
+
+initContextMenu();
 
 /* saveAsBox */
 
-	var saveAsBox = document.getElementById('saveAsBox')
-	var saveAsBoxState = 0;
-	var saveAsBoxActiveClassName = "saveAsBox--active";
-	var saveAsBoxPosition;
-	var saveAsBoxWidth;
-	var saveAsBoxHeight;
+var saveAsBox = document.getElementById('saveAsBox');
+var saveThemeAsBox = document.getElementById('saveThemeAsBox');
 
+function initSaveAsBox( box ){
+	
+	box.state = 0;
+	box.activeClassName = box.id + "--active";	
+	positionSaveAsBox( box );
 
-	function initSaveAsBox(){
-		
-		positionSaveAsBox();
+}
 
+function toggleSaveAsBoxOn( box ){
+	if ( box.state !== 1 ){
+		box.state = 1;
+		box.classList.add( box.activeClassName );
 	}
-	
-	function toggleSaveAsBoxOn(){
-		if ( saveAsBoxState !== 1 ){
-			saveAsBoxState = 1;
-			saveAsBox.classList.add(saveAsBoxActiveClassName);
-		}
-	}
-	
-	function toggleSaveAsBoxOff() {
-	  if ( saveAsBoxState !== 0 ) {
-		saveAsBoxState = 0;
-		saveAsBox.classList.remove(saveAsBoxActiveClassName);
-	  }
-	}
-	
-	function positionSaveAsBox(){
-		
-		saveAsBoxWidth = saveAsBox.offsetWidth;
-		saveAsBoxHeight = saveAsBox.offsetHeight;		
-		
-		windowWidth = window.innerWidth;
-		windowHeight = window.innerHeight;
-		
-		var windowCenter = { x: ( windowWidth / 2 ), y: ( windowHeight / 2 ) };
-		var saveAsBoxHalf = { x: ( saveAsBoxWidth / 2 ), y: ( saveAsBoxHeight / 2 ) };
-		
-		var left = windowCenter.x - saveAsBoxHalf.x;
-		var top = windowCenter.y - saveAsBoxHalf.y;		
-		
-		saveAsBox.style.left = left + "px";
-		saveAsBox.style.top = top + "px";	
-	}
-	
-	initSaveAsBox();
-	
-	
-/* Cursor Handling */
+}
 
-function cursorInScene( cursor = "crosshair" ){
+function toggleSaveAsBoxOff( box ) {
+  if ( box.state !== 0 ) {
+	box.state = 0;
+	box.classList.remove( box.activeClassName );
+  }
+}
+
+function positionSaveAsBox( box ){
 	
-	document.getElementById("renderSpace").style.cursor = cursor;
+	windowWidth = window.innerWidth;
+	windowHeight = window.innerHeight;
 	
-}	
+	var windowCenter = { x: ( windowWidth / 2 ), y: ( windowHeight / 2 ) };
+	var boxHalf = { x: ( box.offsetWidth / 2 ), y: ( box.offsetHeight / 2 ) };
+	
+	var left = windowCenter.x - boxHalf.x;
+	var top = windowCenter.y - boxHalf.y;		
+	
+	box.style.left = left + "px";
+	box.style.top = top + "px";	
+}
+
+initSaveAsBox( saveAsBox );
+initSaveAsBox( saveThemeAsBox );
+ 

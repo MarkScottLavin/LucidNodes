@@ -1,6 +1,6 @@
 /****************************************************
 	* FILEHANDLINGUTILS.JS: 
-	* Version 0.1
+	* Version 0.1.27
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -8,11 +8,12 @@
 	*
 ****************************************************/
 
-var SELECTEDFILE, CURRENTFILE;
+var SELECTEDFILE;
+var SELECTEDTHEME;
 
-// FILE LOADING UTILS
+// COGNITION FILE LOADING UTILS
 
-/* loadFile() 
+/* loadCognitionFile() 
  *
  * parameters{
  *		url 
@@ -21,7 +22,7 @@ var SELECTEDFILE, CURRENTFILE;
  *
 */
 
-var loadFile = function( parameters ){
+var loadCognitionFile = function( parameters ){
 	
 	if ( cognition.nodes ){
 		clearAll();
@@ -36,7 +37,7 @@ var loadFile = function( parameters ){
 	if ( url ){ fullpath = url + '/' + filename }
 	else { fullpath = filename }
 	
-	var ext = getFileExt( filename );
+	var ext = getExtentionFromFilename( filename );
 	
 	// create the httpRequest
 	var httpRequest = new XMLHttpRequest();
@@ -62,23 +63,16 @@ var loadFile = function( parameters ){
 
 // File loading version 2 ( Load any file from Input type=file )
 
-var loadFileFromInput = function( event ){
+var loadCognitionFileFromInput = function( event ){
 	
 	// If the user selected a file to upload...
 	if ( event.target.files.length > 0 ){
 	
 		SELECTEDFILE = event.target.files[0];
 		
-		loadFile ({ filename: SELECTEDFILE.name });
+		loadCognitionFile ({ filename: SELECTEDFILE.name });
 	}
 }
-
-
-var getFileExt = function( filename ){
-	
-	return filename.split('.').pop();
-	
-};
 
 var fileTypeHandle = function( file, ext ){
 	
@@ -96,9 +90,11 @@ var fileTypeHandle = function( file, ext ){
 	}
 };
 
-// END FILE LOAD UTILS
+// END COGNITION FILE LOAD UTILS
 
-var circularRefs = [ 		/* Toplevel File Admin Paramas */
+// COGNITION FILE SAVE UTILS
+
+var circRefFilter = [ 		/* Toplevel File Admin Paramas */
 							'fullpath',
 							'data',
 							'cognition',
@@ -135,7 +131,7 @@ var circularRefs = [ 		/* Toplevel File Admin Paramas */
 							'shape' 
 					];
 
-var saveFile = function( filename, content, url ){
+var saveCognitionFile = function( filename, content, url ){
 	
 	var httpRequest = new XMLHttpRequest();
 	
@@ -151,69 +147,245 @@ var saveFile = function( filename, content, url ){
 	
 	body.data = content;
 
-	jBody = JSON.stringify( body, circularRefs );
+	jBody = JSON.stringify( body, circRefFilter );
 	
 	// Send the request
-	httpRequest.open("POST", '/save', true);
+	httpRequest.open("POST", '/saveCognition', true);
     httpRequest.setRequestHeader( "Content-Type", "application/json;charset=UTF-8" );
 	httpRequest.send( jBody );	
 
 	console.log( httpRequest );
 }; 
 
-var saveFileAs = function( filename, content ){
+
+// END COGNITION FILE SAVING UTILS
+
+
+// THEME LOADING UTILS
+
+var loadThemeFile = function( parameters ){
+	
+	// If we already have a theme loaded, clear everything.
+	
+	// LOAD THE THEME FILE:
+	
+	// Assemble the full file path
+	var fullpath; 
+	var url = parameters.url || '/themes';
+	var filename = parameters.filename || "default.json";
+	
+	if ( url ){ fullpath = url + '/' + filename }
+	else { fullpath = filename }
+	
+	var ext = getExtentionFromFilename( filename );
+	
+	// create the httpRequest
+	var httpRequest = new XMLHttpRequest();
+	
+	httpRequest.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var response = this.responseText;
+			console.log( response );
+			var loadedTheme = fileTypeHandle( response, ext );
+			themeFromJson( loadedTheme ); 
+		}
+		else {
+			response = 'No theme found at ' + fullpath + '!';
+			console.error( response );
+		}
+	};
+	
+	// Send the request
+	httpRequest.open("GET", fullpath, true);
+	httpRequest.send();	
+
+};
+
+
+/* themeFromJson( json )
+ *
+ * author: markscottlavin 
+ *
+ * parameters:
+ * 		json <JSON OBJECT> - structured to be parsible by LucidNodes. 
+ *
+ * activates theme from loaded json
+ *
+*/
+
+var themeFromJson = function( theme ){
+	
+	var checkedTheme = checkThemeProperties( theme );
+	
+	// For each property
+	
+	// Theme name in input
+	
+	// Sky Color
+	skyGeoColor( { topColor: checkedTheme.skyColor1, bottomColor: checkedTheme.skyColor2 } );
+	document.getElementById( "skyColor1" ).value = checkedTheme.skyColor1;
+	document.getElementById( "skyColor2" ).value = checkedTheme.skyColor2;
+	
+	// GroundColor
+	groundColor( checkedTheme.groundColor );
+	document.getElementById( "groundColor" ).value = checkedTheme.groundColor;
+
+	// LinearAxes
+	if ( checkedTheme.showLinearAxes ){
+		showAxes();
+		document.getElementById( "linearAxes" ).checked = true;
+	}
+	else { 
+		hideAxes(); 
+		document.getElementById( "linearAxes" ).checked = false;		
+		}
+
+	// RadialAxes
+	if ( checkedTheme.showRadialAxes ){
+		showRadialAxes();
+		document.getElementById( "radialAxes" ).checked = true;
+	}
+	else { 
+		hideRadialAxes(); 
+		document.getElementById( "radialAxes" ).checked = false;	
+	}
+	
+	// Make the UI change.
+
+}
+
+function checkThemeProperties( theme = {} ){
+	
+	//if ( theme ){
+	
+		if ( !theme.name  ){	
+			theme.name = "noname";
+			console.log ( "Theme name not found. Setting to ", theme.name );
+		}
+		
+		if ( !theme.skyColor1 ){ 
+			theme.skyColor1 = "#0077ff"; 
+			console.log ( "Theme Sky Color 1 not found. Setting to ", theme.skyColor1 );			
+		}
+		
+		if ( !theme.skyColor2 ){
+			theme.skyColor2 = "#ffffff";
+			console.log ( "Theme Sky Color 2 not found. Setting to ", theme.skyColor2 );						
+		}
+		
+		if ( !theme.groundColor ){
+			theme.groundColor = "#dddddd";
+			console.log ( "Theme Ground Color not found. Setting to ", theme.groundColor );									
+		}
+		
+		// Linear Axes - If the theme specifically sets axes to false, don't show them. Otherwise show them.
+		if ( theme.showLinearAxes === "false" || theme.showLinearAxes === false ){
+			theme.showLinearAxes = false;
+		}
+		else if ( theme.showLinearAxes || !theme.hasOwnProperty( "showLinearAxes" ) ){
+			theme.showLinearAxes = true;												
+		}
+
+		// Radial Axes - If the theme specifically sets axes to false, don't show them. Otherwise show them.
+		if ( theme.showRadialAxes === "false" || theme.showRadialAxes === false ){
+			theme.showRadialAxes = false;
+		}
+		else if ( theme.showRadialAxes || !theme.hasOwnProperty( "showRadialAxes" ) ) {
+			theme.showRadialAxes = true;
+			console.log ( "Theme doesn't specify whether to show radial axes. Setting to true" );												
+		}		
+//	}
+	
+	return theme;
+}
+
+var loadThemeFileFromInput = function( event ){
+	
+	// If the user selected a file to upload...
+	if ( event.target.files.length > 0 ){
+	
+		SELECTEDTHEME = event.target.files[0];
+		
+		loadThemeFile ({ filename: SELECTEDTHEME.name });
+	}
+}
+
+// END THEME LOADING UTILS
+
+// THHME FILE SAVING UTILS
+
+function getThemeState(){
+	
+	var themeState = {
+		name: getNameFromFullPath( fileNameFromInput( "themeInput" ) ) || "new theme",
+		skyColor1: document.getElementById( "skyColor1" ).value,
+		skyColor2: document.getElementById( "skyColor2" ).value,
+		groundColor: document.getElementById( "groundColor" ).value,
+		showLinearAxes: document.getElementById( "linearAxes" ).checked || false,
+		showRadialAxes: document.getElementById( "radialAxes" ).checked || false
+	}
+	
+	return themeState;
+}
+
+var saveThemeFile = function( filename, content, url ){
 	
 	var httpRequest = new XMLHttpRequest();
 	
-	var body = { 
-		filename: filename,  		// filename includes ext
-		data: content   						// file contents		
-	};
+	var body = {};
+	var jBody;
 	
-	var jBody = JSON.stringify( body, circularRefs );
+	if ( url ){
+		body.fullpath = url + '/' + filename;  		// filename includes ext		
+	}			
+	else if ( !url || url === "" ){
+		body.fullpath = filename; 
+	}
+	
+	body.data = content;
+
+	jBody = JSON.stringify( body );
 	
 	// Send the request
-	httpRequest.open("POST", '/saveas', true);
-    httpRequest.setRequestHeader( 'Content-Type', 'application/json;charset=UTF-8' );
-	httpRequest.setRequestHeader( 'Content-Disposition: attachment; filename="', filename , '"' );
+	httpRequest.open("POST", '/saveTheme', true);
+    httpRequest.setRequestHeader( "Content-Type", "application/json;charset=UTF-8" );
 	httpRequest.send( jBody );	
 
 	console.log( httpRequest );
-}; 
+};
 
-var setFileExt = function( filename ){
+
+// PATH HANDLING HELPERS
+
+function getFileNameFromPath( fullPath ){
+	
+	return fullPath.replace(/^.*[\\\/]/, '');
+	
+}
+
+function getExtentionFromFilename ( filename ){
 	
 	return filename.split('.').pop();
 	
 };
-// FILE SAVING UTILS
 
-
-// Handling circular references throwing errors in JSON.stringify
-var circularRefHandler = function( key, value ) {
+function removeExtentionFromFileName( filename ){
 	
-  var refs = ( 'node' || 'nodes' || 'edge' || 'edges' || 'label' || 'displayEntity' );
-  var returns = ( value.id || null );
-  
-  if ( key === refs ) { return returns; }
-//  if ( key !== ( 'node' || 'Node' ) ) { return returns; }
-  else {return value;}
-
-};
-
-var circularRefHandler2 = function( key, value ){
+	return filename.split('.')[0];
 	
-	var refs = ( 'node' || 'nodes' || 'edge' || 'edges' || 'label' || 'displayEntity' );
-	var returns = ( value.id || null );	
+} 
+
+function getNameFromFullPath( filename ){
 	
-    // convert RegExp to string
-    if ( value && value.constructor === RegExp && key === refs ) {
-        return value.toString() || null;
-    } else if ( key === 'str' && key === refs ) { // 
-        return undefined; // remove from result
-    } else {
-        return value; // return as is
-    }
+	var f = getFileNameFromPath( filename );
+	f = removeExtentionFromFileName( f );
+	
+	return f;
 }
 
-// END FILE SAVING UTILS
+function fileNameFromInput( inputId ){
+
+	return document.getElementById( inputId ).value;
+}
+
+// END PATH HANDLING HELPERS 

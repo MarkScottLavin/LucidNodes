@@ -32,17 +32,18 @@ function RadialAxes( extents, degreeSeparation, opacity = 0.5, origin = { x: 0, 
 
 function RadialAxialCircles( extents = 30, spacing = 1, plane = "xz", parent = scene ){
 	
+	parent.radialCircles = new THREE.Group();
+	
 	var count = Math.floor( extents / spacing );
 	var circles = [];
 	var radius;
-	var radialCircles = new THREE.Group();
 	
-	parent.add( radialCircles )
+	parent.add( parent.radialCircles )
 	
 	for ( var c = 0; c < count; c++ ){
 		
 		radius = spacing * c ; 
-		circles.push( new circle( radialCircles, radius, 48 ) ); 
+		circles.push( new circle( parent.radialCircles, radius, 48 ) ); 
 		
 		//radialCircles.add( circles[ c ] );
 	}
@@ -50,22 +51,39 @@ function RadialAxialCircles( extents = 30, spacing = 1, plane = "xz", parent = s
 	
 	
 	if ( plane === "xz" ){
-		radialCircles.rotation.set( Math.PI / 2, 0, 0 );
+		parent.radialCircles.rotation.set( Math.PI / 2, 0, 0 );
 	}
 	
 	if ( plane === "yz" ){
-		radialCircles.rotation.set( 0, Math.Pi / 2, 0 );
+		parent.radialCircles.rotation.set( 0, Math.Pi / 2, 0 );
 	}
 }
 
 
-function removeRadialAxes( parent ){
+function removeRadialAxes( parent = scene ){
 
 	if ( parent.radialAxes ){
-		parent.remove( parent.radialAxes.axes );
+		parent.remove( parent.radialAxes );
+		parent.remove( parent.radialCircles );
 		parent.radialAxes = null;
 	}
 }
+
+function hideRadialAxes( parent = scene ){
+	
+	if ( parent.radialAxes ){
+		parent.radialAxes.visible = false;
+		parent.radialCircles.visible = false;
+	}
+}
+
+function showRadialAxes( parent = scene ){
+	
+	if ( parent.radialAxes ){
+		parent.radialAxes.visible = true;
+		parent.radialCircles.visible = true; 
+	}
+} 
 
 // Radial Axes
 RadialAxes( 40, 30, 0.2, { x: 0, y: 0, z: 0 } );	

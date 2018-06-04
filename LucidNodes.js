@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.26
+	* Version 0.1.27
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -1910,4 +1910,64 @@ function getGlobalPosition( element ){
 	globalPosition.setFromMatrixPosition( element.matrixWorld );
 	
 	return globalPosition;
+}
+
+
+
+
+/* Searching for Text Content */
+
+function searchObjArrForPhrase( objArr, phrase ){
+	
+	var results = [];
+	
+	if ( objArr && objArr.length > 0 && phrase ){
+		
+		for ( var p = 0; p < objArr.length; p++ ){
+			
+			if ( objArr[p].label.text.includes( phrase ) ){
+				results.push( objArr[p] );
+			}
+		}
+	
+	return results;
+	};
+}
+
+function selectNodesWithPhrase( phrase ){
+	
+	selectNodeArray( searchObjArrForPhrase( cognition.nodes, phrase ) );
+	
+}
+
+
+function selectEdgesWithPhrase( phrase ){
+	
+	selectEdgeArray( searchObjArrForPhrase( cognition.edges, phrase ) );
+}
+
+function selectAllWithPhrase( phrase ){
+	
+	unSelectAll();
+	
+	if ( cognition.nodes && cognition.nodes.length > 0 && phrase ){
+		
+		for ( var p = 0; p < cognition.nodes.length; p++ ){
+			
+			if ( cognition.nodes[p].label.text.includes( phrase ) ){
+				selectNode( cognition.nodes[p] );
+			}
+		}
+	}
+	
+	if ( cognition.edges && cognition.edges.length > 0 && phrase ){
+		
+		for ( var p = 0; p < cognition.edges.length; p++ ){
+			
+			if ( cognition.edges[p].label.text.includes( phrase ) ){
+				selectEdge( cognition.edges[p] );
+			}
+		}
+	}
+	
 }
