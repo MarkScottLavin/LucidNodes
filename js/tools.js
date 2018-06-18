@@ -1,39 +1,59 @@
 var tools = {};
-var toolClasses = {};
-var SELECTEDTOOLCLASS;
+var USERCONDITIONS = [];
 var SELECTEDTOOLS = [];
 var SELECTEDCOLOR;
+var activeToolListeners;
 
-function selectToolClass( toolClass = "default" ){
-	
-	if ( SELECTEDTOOLCLASS && toolClass !== SELECTEDTOOLCLASS ){
-		// Remove Tansform behaviors ( EventListener callbacks )
-		
-	} 
-	
-	SELECTEDTOOLCLASS = toolClass; 
-	
-	
-	
+/* Handling UserConditions */
+
+/* USERCONDITIONS */
+/* 
+ * Snapping
+ * 	to Guides
+ *	to Grid
+ *	  precision
+ * Plane Constraining
+ * Guide Visibility
+ *
+ *
+ */
+
+function selectUserCondition( userCondition ){
+	if ( !USERCONDITIONS.includes( userCondition ) ){
+		USERCONDITIONS.push( userCondition );		
+	}
 }
 
+function unSelectUserCondition( userCondition ){
+	USERCONDITIONS.splice( USERCONDITIONS.indexOf( userCondition ), 1 );
+}
 
-
-function selectTool( tool = "select" ){
-
-	if ( SELECTEDTOOLS.length > 0 && !SELECTEDTOOLS.includes( tool ) ){
-		// Remove Transform behaviors for graphElements ( EventListener callbacks );
+function unSelectAllUserConditions(){	
+	
+	var tempUCs = USERCONDITIONS.slice();
+	
+	for ( var u = 0; u < tempUCs.length; u++ ){
+		unSelectUserCondition( tempUCs[u] );
 	}
+}
+
+/* End Handling UserConditions */
+
+function selectToolXXX( tool = "select" ){
+
+	if ( !SELECTEDTOOLS.includes( tool ) ){	
+		SELECTEDTOOLS.push( tool );	
+	}		
+}
 	
-		SELECTEDTOOLS.push( tool );
-	
+function checkTools(){	
 	if ( SELECTEDTOOLS.includes ( "select" ) ) {
 	
 		// Add Transform behaviors for graphElements ( EventListener callbacks );
 	
 	}
 
-	if ( SELECTEDTOOLS.includes ( "paintbucket" ) ) {
+	if ( SELECTEDTOOLS.includes ( "paintBucket" ) ) {
 	
 		// Add Transform behaviors for graphElements ( EventListener callbacks );
 		graphElement.transformOnDblClick = function(){ changeGraphElementColor( graphElement, SELECTEDCOLOR ) };
@@ -54,11 +74,7 @@ function selectTool( tool = "select" ){
 	
 	if ( SELECTEDTOOLS.includes ( "panView" ) ){ 
 	
-	
 	}
-	
-	
-	
 };
 
 function selectColor( color ){
@@ -220,7 +236,7 @@ function toggleToolOn( tool ){
 
 	if ( toolState[ tool ] !== 1 ){
 		toolState[ tool ] = 1;
-		addToolListeners( tool );
+		toggleToolListeners( tool );
 	}
 
 }
@@ -238,3 +254,77 @@ function toolOffUI( tool ){
 		document.getElementById( tool ).parentElement.style.backgroundColor = "#fff";
 	}
 }
+
+function toggleToolListeners( tool = "select" ){
+	
+	if ( activeToolListeners ){
+		removeToolListeners( activeToolListeners );
+	}
+	
+	activeToolListeners = tool;	
+	addToolListeners( tool );
+}
+
+function addUniversalToolListeners(){
+	
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', onMouse, false );
+	document.getElementById('visualizationContainer').addEventListener( 'contextmenu', onMouse, false );
+		document.addEventListener( 'keydown', function (e) { onKeyDown(e); }, false );
+		document.addEventListener( 'keyup', function (e) { onKeyUp(e); }, false );	
+	
+}
+
+
+function addToolListeners( tool = "select" ){
+	
+	if ( tool === "select" ){
+		document.getElementById('visualizationContainer').addEventListener( 'click', onMouse, false );
+		document.getElementById('visualizationContainer').addEventListener( 'mousedown', onMouse, false );
+		document.getElementById('visualizationContainer').addEventListener( 'mouseup', onMouse, false );
+		document.getElementById('visualizationContainer').addEventListener( 'dblclick', onMouse, false );
+		document.getElementById('visualizationContainer').addEventListener( 'wheel', onMouse, false );
+
+		
+	}
+	
+	if ( tool === "rotate" ){
+		
+		document.getElementById('visualizationContainer').addEventListener( 'mouseup', activateRotationTool, false );
+		document.addEventListener( 'keyup', function(e){ onRotToolKeyUp(e); }, false );		
+	}
+	
+	if( tool === "paintBucket" ){
+		document.getElementById('visualizationContainer').addEventListener( 'mouseup', activatePaintBucket, false );
+	}
+}
+
+function removeToolListeners( tool ){
+
+	if ( tool === "select" ){
+		document.getElementById('visualizationContainer').removeEventListener( 'click', onMouse, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'mousedown', onMouse, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', onMouse, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'dblclick', onMouse, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'wheel', onMouse, false );
+//		document.removeEventListener( 'keydown', function (e) { onKeyDown(e); }, false );
+//		document.removeEventListener( 'keyup', function (e) { onKeyUp(e); }, false );		
+	}
+	
+	if ( tool === "rotate" ){
+		
+		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', activateRotationTool, false );
+		document.removeEventListener( 'keyup', function(e){ onRotToolKeyUp(e); }, false );			
+	}	
+	
+	if( tool === "paintBucket" ){
+
+		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', activatePaintBucket, false );
+		
+	}	
+}
+
+var activateRotationTool = function( e ){ rotationTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
+var activatePaintBucket = function( e ){   };
+
+addUniversalToolListeners();
+selectTool( "select" );

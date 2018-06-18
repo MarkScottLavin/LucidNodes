@@ -1,0 +1,345 @@
+<html>
+  <header>
+    <!-- THREE.JS AND RELATED LIBRARY MODULES -->
+	<script src="js/three.js"></script>
+	<script src="js/DeviceOrientationControls.js"></script>
+	<script src="js/OrbitControls.js"></script>	
+  </header>
+
+  <body>
+    <div id="visualizationContainer">Test</div>
+  </body>
+</html>
+
+<script>
+
+var container = document.getElementById('visualizationContainer');
+var scene = new THREE.Scene();
+var renderer;
+
+/****** RUN CODE ******/
+document.addEventListener("DOMContentLoaded", init);
+
+/****** FUNCTION DECLARATIONS ******/
+
+// Initialize the scene: Invoke initialization.
+function init() {
+
+  /* Initialize the scene framework */
+
+  // Cameras
+  cameras();
+  // Renderer
+  initRenderer();
+
+  // Lights
+  lights();
+
+  // Materials
+  materials();
+
+  /* Initialize the event listeners */
+  initEventListeners();
+
+  // GEOMETRIES
+  entities();
+
+  render();
+}
+
+function render() {
+
+  renderer.render(scene, entities.cameras.perspCamera);
+
+  requestAnimationFrame(render);
+}
+
+/****** Event Listeners ******/
+
+function initEventListeners() {
+
+  // Listen for Device Orientation events.
+  window.addEventListener('deviceorientation', setOrientationControls, true);
+
+}
+
+/****** INITIALIZE THE SCENE FRAMEWORK *******/
+
+function cameras() {
+
+  entities.cameras = {
+    perspCamera: new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 3000),
+    init: function(camera) {
+      camera.position.set(0, 15, 20);
+      camera.lookAt(new THREE.Vector3(0, 15, 0));
+      camera.up = new THREE.Vector3(0, 1, 0);
+    }
+  };
+}
+
+function initRenderer() {
+
+  renderer = new THREE.WebGLRenderer({
+    alpha: true
+  });
+  renderer.setClearColor(0xffffff, 1);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.domElement.setAttribute('id', 'renderSpace');
+  renderer.domElement.setAttribute('class', 'threeWebGLRenderer');
+
+  container.appendChild(renderer.domElement);
+
+}
+
+// if the device we're using has 'alpha' attribute, then it's a mixedReality-compatible mobile browser...
+function setOrientationControls(e) {
+  if (e.alpha) {
+    initVRControls();
+  } else {
+    initbrowserControls();
+    var camera = entities.cameras.perspCamera;
+    entities.cameras.init(camera);
+  }
+}
+
+function initbrowserControls() {
+
+  // Create the Mouse-Based Controls - Hold down left mouse button and move around the window...
+
+  var camera = entities.cameras.perspCamera;
+
+  entities.browserControls = new THREE.OrbitControls(camera, container);
+
+  entities.browserControls.target.set(
+    camera.position.x + 0.15,
+    camera.position.y,
+    camera.position.z
+  );
+
+  entities.browserControls.noPan = true;
+  entities.browserControls.noZoom = true;
+}
+
+function toggleEnablePanInBrowser() {
+
+  entities.browserControls.noPan = !entities.browserControls.noPan;
+
+}
+
+function toggleEnableZoomInBrowser() {
+
+  entities.browserControls.noZoom = !entities.browserControls.noZoom;
+
+}
+
+function initVRControls() {
+
+  var camera = entities.cameras.perspCamera;
+  var controls;
+
+  entities.VRControls = new THREE.DeviceOrientationControls(camera, true);
+  controls = entities.VRControls;
+
+  controls.connect();
+  controls.update();
+
+  container.addEventListener('click', fullscreen, false);
+  container.removeEventListener('deviceorientation', setOrientationControls, true);
+}
+
+function groundColor(color) {
+  if ( color ){ entities.materials.ground.color.set(new THREE.Color(color)) }
+}
+
+function lights() {
+
+  entities.lights = {
+
+    pureWhiteLight: new THREE.PointLight(0xffffff, 7, 1000),
+    pureWhiteLight2: new THREE.PointLight(0xffffff, 7, 1000),
+  };
+
+  entities.lights.pureWhiteLight.position.set(500, 500, 500);
+  entities.lights.pureWhiteLight2.position.set(-500, 500, -500);
+
+  scene.add(entities.lights.pureWhiteLight);
+  scene.add(entities.lights.pureWhiteLight2);
+
+}
+
+/******* COLOR & MATERIALS HANDLING */
+
+function materials() {
+
+  entities.materials = {
+    hexRGBName: function(r, g, b, a, type) {
+      var hexRGB = entities.materials.hexFromChannels(entities.materials.channelDecToHex(r).toString(16), entities.materials.channelDecToHex(g).toString(16), entities.materials.channelDecToHex(b).toString(16)) + '_alpha' + a + '_' + type;
+      return hexRGB;
+    },
+    hexToDec(hexInputString) {
+      var hexString;
+      var colorAsDec = {};
+
+      hexString = hexInputString.replace('#', '');
+      hexString = hexString.replace('0x', '');
+
+      var rHex = hexString.substring(0, 2);
+      var gHex = hexString.substring(2, 4);
+      var bHex = hexString.substring(4, 6);
+
+      colorAsDec.r = parseInt(rHex, 16);
+      colorAsDec.g = parseInt(gHex, 16);
+      colorAsDec.b = parseInt(bHex, 16);
+
+      return colorAsDec;
+    },
+    hexFromChannels: function(r, g, b) {
+
+      var hex = r + g + b;
+      return hex;
+    },
+    channelDecToHex: function(channelDecVal) {
+
+      var hex;
+      if ( channelDecVal > 0 ){ hex = channelDecVal.toString(16); } 
+      else { hex = '00'.toString(16) }
+      return hex;
+    },
+    ground: new THREE.MeshBasicMaterial({
+      color: 0xdddddd,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.5
+    }),
+    line: {
+      dashed: {
+        red: new THREE.LineDashedMaterial({
+          color: 0xff0000,
+          dashSize: 0.1,
+          gapSize: 0.1,
+          linewidth: 3
+        }),
+        blue: new THREE.LineDashedMaterial({
+          color: 0x0000ff,
+          dashSize: 0.1,
+          gapSize: 0.1,
+          linewidth: 3
+        }),
+        green: new THREE.LineDashedMaterial({
+          color: 0x00ff00,
+          dashSize: 0.1,
+          gapSize: 0.1,
+          linewidth: 3
+        }),
+      }
+    },
+    solid: {
+      specularColor: function(channelDecVal, diff = 127) {
+        var specColor = channelDecVal - diff;
+        return specColor;
+      },
+      phong: {
+        load: function(r, g, b, a) {
+          var hexRGB = entities.materials.hexRGBName(r, g, b, a, 'phong');
+          // Check whether the material already exists. If it does, load it; if not create it.
+          var loadMtl = entities.materials[hexRGB] || entities.materials.solid.phong.init(r, g, b, a);
+          return loadMtl;
+        },
+        init: function(r, g, b, a) {
+
+          var mtlColor = new THREE.Color('rgb(' + r + ',' + g + ',' + b + ')');
+          var mtlSpecColor = new THREE.Color(
+            'rgb(' +
+            entities.materials.solid.specularColor(r, 127) +
+            ',' +
+            entities.materials.solid.specularColor(g, 127) +
+            ',' +
+            entities.materials.solid.specularColor(b, 127) +
+            ')');
+          var hexRGB = entities.materials.hexRGBName(r, g, b, a, 'phong');
+
+          entities.materials[hexRGB] = new THREE.MeshPhongMaterial({
+            color: mtlColor,
+            specular: mtlSpecColor,
+            shininess: 20,
+            shading: THREE.FlatShading,
+            name: hexRGB
+          });
+
+          return entities.materials[hexRGB];
+        }
+      }
+    },
+    fromColor: function(color, pickBy) {
+
+      var pickedColor = color.palette.colorArray[pickBy];
+      var material = entities.materials.solid.phong.load(pickedColor.r, pickedColor.g, pickedColor.b);
+
+      return material;
+
+    }
+  };
+}
+
+/******* ENTITIES (GEOMETRY THAT APPEARS IN THE SCENE) HANDLING *******/
+
+var entities = function() {
+
+  entities.geometries = {
+    constant: {
+
+      // GROUND PLANE
+
+      /**
+       * entities.geometries.constant.ground();
+       * 
+       * @author Mark Scott Lavin /
+       *
+       * parameters = {
+       *  xSize: <number>
+       *  zSize: <number>
+       *  heightOffset: <float>
+       *  opacity: <float> between 0 & 1
+       *  name: <string>
+       * }
+       */
+
+      ground: function(parameters) {
+
+        this.xSize = parameters.xSize || 1000;
+        this.zSize = parameters.zSize || 1000;
+        this.heightOffset = parameters.heightOffset || 0.001;
+        this.opacity = parameters.opacity || 0.5;
+
+        this.groundBuffer = new THREE.PlaneBufferGeometry(this.xSize, this.zSize, 1);
+        this.groundMesh = new THREE.Mesh(this.groundBuffer, entities.materials.ground);
+
+        this.groundMesh.rotation.x = Math.PI / 2;
+        this.groundMesh.position.y = this.heightOffset;
+        this.groundMesh.name = parameters.name || "ground";
+
+        scene.add(this.groundMesh);
+      }
+    },
+    dynamic: {
+      loadedFromExternal: {
+        bufferGeoms: {},
+        mutated: {}
+      }
+    }
+  };
+
+  //	Render the Ground
+  entities.geometries.constant.ground({
+    xSize: 2000,
+    zSize: 2000,
+    heightOffset: -0.001,
+    opacity: 0.5,
+    name: "groundPlane"
+  });
+
+};
+
+
+</script>
+

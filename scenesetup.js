@@ -1,6 +1,6 @@
 /* SCENEETUP.JS
  * Name: Scene Setup
- * version 0.1.27
+ * version 0.1.28
  * Author: Mark Scott Lavin 
  * License: MIT
  * For Changelog see README.txt
@@ -117,7 +117,8 @@ function render() {
 function initEventListeners() {
 	
 	// Listen for Device Orientation events.
-	addEventListener('deviceorientation', setOrientationControls, true);
+	window.addEventListener('deviceorientation', setOrientationControls, true);
+	document.addEventListener('visibilitychange', onDocumentVisible, true);
 
 }
 
@@ -154,17 +155,24 @@ function setOrientationControls(e) {
 		initVRControls ();
 	}
 	else {
-		initbrowserControls ();
-		var camera = entities.cameras.perspCamera;
+		var camera = entities.cameras.perspCamera;		
+		initbrowserControls ( camera );
 		entities.cameras.init( camera );
 	}
 }
+
+function onDocumentVisible(e){
 	
-function initbrowserControls() {
+	if ( document.visibilityState === "visible" ){
+		setOrientationControls(e);
+	}
+}
+	
+function initbrowserControls( camera ) {
 	
 	// Create the Mouse-Based Controls - Hold down left mouse button and move around the window...
 	
-	var camera = entities.cameras.perspCamera;
+	// var camera = entities.cameras.perspCamera;
 
 	entities.browserControls = new THREE.OrbitControls ( camera , container );
 	

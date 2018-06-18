@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.27
+	* Version 0.1.28
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -8,22 +8,48 @@
 
 ****************************************************/
 
+/* VARIABLES */
+
+// For Capturing what's intersected by the mouse
 var ray = new THREE.Raycaster();
+
+// For tracking mouse location at Mouse Events
 var mouse = new THREE.Vector2();
-var INTERSECTED;  // Object closest to the camera
+
+// What Keyboard keys are currently selected while working in the scene.
+var keysPressed = {
+	isTrue: false,
+	keys:[]
+};
+
+// Complete list of Object3Ds currently being intersected by the ray from the mouse.
+var object3DsIntersectedByRay = [];
+
+// The subset of Object3Ds intersected that are GraphElements
+var graphElementsIntersectedByRay = [];
+
+// What THREE.Object3D is intersected by the ray from the mouse. ( Sometimes will be a display entity related to a Node, Edge or Lebel of either )
+var INTERSECTED_OBJ3D; 
+
+// Selected objects
 var SELECTED = {
 	nodes:[],
 	edges:[]
-	};	  // Objects selected via click (single) and//or CTRL-click (multiple)
-var ALTSELECTED = [];  // Objects selected via ALT-Click ( Temporary solution for explicitly adding edges )
-var keyPressed = {
-	keysPressed: false,
-//	key: null
-	keys:[]
-};
-var origPosition;
+	};	  
+	
+// AltSelected Objects ( Currently used to add edges between Nodes )	
+var ALT_SELECTED = []; 
+
+// Deleted Graph Elements
 var DELETED = { nodes:[], edges:[] };
-var ACTIVEHIDDENINPUT;		 
+
+// What Hidden text input (associated with a Graph Element) is now active? (Enables user to alter the text)
+var ACTIVE_HIDDEN_TEXT_INPUT;	
+
+// Stores the original positions of Nodes currently being manipulated.
+var origPosition;	 
+
+/* END VARIABLES */
 
 function onMouse( event ) {
 
@@ -51,13 +77,13 @@ function mouseEventHandler( event ){
 	guides.planes.camPerpendicular.plane.lookAt( camera.position );
 	
 	// get the nearest graphElement intersected by the picking ray. If no graphElement, return the nearest object
-	var nearestIntersected = nearestIntersectedObj();
+	var nearestIntersected = nearestIntersectedObject3D();
 
 	// if there's at least one intersected object...
-	//if ( intersects && intersects[0] && intersects[0].object ){
+	//if ( object3DsIntersectedByRay && object3DsIntersectedByRay[0] && object3DsIntersectedByRay[0].object ){
 	if ( nearestIntersected ){
 	
-		// Check if the event is a mouse move, INTERSECTED exists and we're sitting on the same INTERSECTED object as the last time this function ran...		
+		// Check if the event is a mouse move, INTERSECTED_OBJ3D exists and we're sitting on the same INTERSECTED_OBJ3D object as the last time this function ran...		
 		if ( event.type === 'mousemove' ){
 			onMouseMove( event, nearestIntersected );
 		}
@@ -78,7 +104,6 @@ function mouseEventHandler( event ){
 			onDblClick( event );
 		} 
 		
-		// Check if the mouse event is a wheel event (This is temporary, just to see if we can save a file with the change. We're also going to make it so that the change happens at the level of the graphElement itself, and not just the displayObject )
 		if ( event.type === 'wheel' ){
 			onMouseWheel( event, nearestIntersected );
 		}
@@ -87,7 +112,7 @@ function mouseEventHandler( event ){
 			contextMenuActivate( event, nearestIntersected );
 		}
 		
-		INTERSECTED && console.log( "mouseEventHandler(): INTERSECTED: ", INTERSECTED, " isGraphElement: " , INTERSECTED.isGraphElement, " isLabel: ", INTERSECTED.isLabel, "INTERSECTED.uv: ", INTERSECTED.uv , ' MouseEvent: ', event.type );			
+		INTERSECTED_OBJ3D && console.log( "mouseEventHandler(): INTERSECTED_OBJ3D: ", INTERSECTED_OBJ3D, " isGraphElement: " , INTERSECTED_OBJ3D.isGraphElement, " isLabel: ", INTERSECTED_OBJ3D.isLabel, "INTERSECTED_OBJ3D.uv: ", INTERSECTED_OBJ3D.uv , ' MouseEvent: ', event.type );			
 	}
 }
 
@@ -95,17 +120,17 @@ function mouseEventHandler( event ){
 
 function onMouseMove( event, nearestIntersected ){
 	
-	// Check if the current top-level intersected object is the previous INTERSECTED		
-	if ( nearestIntersected != INTERSECTED ){
-		// ... if there is a previous INTERSECTED
-		if ( INTERSECTED ) {	
-			// restore the previous INTERSECTED to its previous state.
-			unTransformGraphElementOnMouseOut( INTERSECTED );									
+	// Check if the current top-level intersected object is the previous INTERSECTED_OBJ3D		
+	if ( nearestIntersected != INTERSECTED_OBJ3D ){
+		// ... if there is a previous INTERSECTED_OBJ3D
+		if ( INTERSECTED_OBJ3D ) {	
+			// restore the previous INTERSECTED_OBJ3D to its previous state.
+			unTransformGraphElementOnMouseOut( INTERSECTED_OBJ3D );									
 		} 						
-		// set the currently intersected object to INTERSECTED	
-		INTERSECTED = nearestIntersected;   	
+		// set the currently intersected object to INTERSECTED_OBJ3D	
+		INTERSECTED_OBJ3D = nearestIntersected;   	
 		// and transform it accordingly.
-		transformGraphElementOnMouseOver( INTERSECTED );							
+		transformGraphElementOnMouseOver( INTERSECTED_OBJ3D );							
 		}
 	
 	if ( event.shiftKey && SELECTED.nodes.length > 0 ){
@@ -121,7 +146,7 @@ function onMouseMove( event, nearestIntersected ){
 		}
 		
 		// If none of the axial keys are selected, move freely in three dimensions along the camera facing guidePlane.
-		if ( !keyPressed.keys.includes( "X" ) && !keyPressed.keys.includes ( "Y" ) && !keyPressed.keys.includes ( "Z" ) ){
+		if ( !keysPressed.keys.includes( "X" ) && !keysPressed.keys.includes ( "Y" ) && !keysPressed.keys.includes ( "Z" ) ){
 		
 			for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 				
@@ -138,7 +163,7 @@ function onMouseMove( event, nearestIntersected ){
 			moveAxialGuideLinesToEntityPosition( SELECTED.nodes[0] );					
 
 			// If only "X" is down, constrain to x-axis.
-			if ( keyPressed.keys.includes ( "X" ) && !keyPressed.keys.includes( "Y" ) && !keyPressed.keys.includes( "Z" ) ){
+			if ( keysPressed.keys.includes ( "X" ) && !keysPressed.keys.includes( "Y" ) && !keysPressed.keys.includes( "Z" ) ){
 				
 				showGuideLine( guides.lines.x );
 			
@@ -155,7 +180,7 @@ function onMouseMove( event, nearestIntersected ){
 			}
 			
 			// If only "Y" is down, constrain to y-axis.
-			if ( keyPressed.keys.includes( "Y" ) && !keyPressed.keys.includes( "X" ) && !keyPressed.keys.includes( "Z" ) ){
+			if ( keysPressed.keys.includes( "Y" ) && !keysPressed.keys.includes( "X" ) && !keysPressed.keys.includes( "Z" ) ){
 
 				showGuideLine( guides.lines.y );
 			
@@ -172,7 +197,7 @@ function onMouseMove( event, nearestIntersected ){
 			}		
 			
 			// If only "Z" is down, constrain to z-axis.
-			if ( keyPressed.keys.includes( "Z" ) && !keyPressed.keys.includes( "X" ) && !keyPressed.keys.includes( "Y" ) ){
+			if ( keysPressed.keys.includes( "Z" ) && !keysPressed.keys.includes( "X" ) && !keysPressed.keys.includes( "Y" ) ){
 				
 				showGuideLine( guides.lines.z );				
 
@@ -201,17 +226,18 @@ function onMouseDown( event, camera ){
 		
 		unAltSelectAll();
 
-		// If there's no INTERSECTED object or if INTERSECTED is not a GraphElement, do nothing.			
-		if ( !INTERSECTED || !INTERSECTED.isGraphElement ){				
+		// If there's no INTERSECTED_OBJ3D object or if INTERSECTED_OBJ3D is not a GraphElement, do nothing.			
+		if ( !INTERSECTED_OBJ3D || !INTERSECTED_OBJ3D.isGraphElement ){				
 			return;
 		}
 		
+		// If INTERSECTED_OBJ3D is a GraphElement, choose the GraphElement it's a part of.				
 		var x = chooseElementOnIntersect();
 		
 		if ( x ) { 
 			
 			if ( x.isNode ) {
-				// If SELECTED includes INTERSECTED, leave it alone.
+				// If SELECTED includes INTERSECTED_OBJ3D, leave it alone.
 				if ( SELECTED.nodes.length > 0 && SELECTED.nodes.includes( x ) ) { 
 					
 					var intersectedIndex = SELECTED.nodes.indexOf( x );
@@ -220,7 +246,7 @@ function onMouseDown( event, camera ){
 					console.log( SELECTED );
 					}
 				
-				// If SELECTED Nodes doesn't include INTERSECTED, transform it and add it.
+				// If SELECTED Nodes doesn't include INTERSECTED_OBJ3D, transform it and add it.
 				else if ( !SELECTED.nodes.includes( x ) ) { 
 					selectNode( x );
 					console.log( SELECTED );
@@ -229,7 +255,7 @@ function onMouseDown( event, camera ){
 			
 			else if ( x.isEdge ){
 				
-				// If SELECTED Edges includes INTERSECTED, leave it alone.
+				// If SELECTED Edges includes INTERSECTED_OBJ3D, leave it alone.
 				if ( SELECTED.edges.includes( x ) ) { 
 					
 					var intersectedIndex = SELECTED.edges.indexOf( x );
@@ -238,7 +264,7 @@ function onMouseDown( event, camera ){
 					console.log( SELECTED );
 					}
 				
-				// If SELECTED Edges doesn't include INTERSECTED, transform it and add it.
+				// If SELECTED Edges doesn't include INTERSECTED_OBJ3D, transform it and add it.
 				else if ( !SELECTED.edges.includes( x ) ) { 
 					selectEdge( x );
 					console.log( SELECTED );
@@ -252,7 +278,7 @@ function onMouseDown( event, camera ){
 		unSelectAll();
 		unAltSelectAll();
 
-		// IF there's an INTERSECTED and it's a GraphElement
+		// IF there's an INTERSECTED_OBJ3D and it's a GraphElement
 		var x = chooseElementOnIntersect();
 		
 		if ( x ){
@@ -262,24 +288,24 @@ function onMouseDown( event, camera ){
 	}
 	if ( event.altKey && !event.ctrlKey ){
 
-		if ( INTERSECTED && INTERSECTED.isGraphElement ){
+		if ( INTERSECTED_OBJ3D && INTERSECTED_OBJ3D.isGraphElement ){
 			
 			var n;
 			
-			if ( INTERSECTED.referent.isNode ){ n = INTERSECTED.referent }
-			else if ( INTERSECTED.referent.isNodeLabel ){ n = INTERSECTED.referent.node }
+			if ( INTERSECTED_OBJ3D.referent.isNode ){ n = INTERSECTED_OBJ3D.referent }
+			else if ( INTERSECTED_OBJ3D.referent.isNodeLabel ){ n = INTERSECTED_OBJ3D.referent.node }
 
 			
-			if ( ( ALTSELECTED.length <= 1 ) && ( !ALTSELECTED.includes ( n ) ) ){
+			if ( ( ALT_SELECTED.length <= 1 ) && ( !ALT_SELECTED.includes ( n ) ) ){
 				
-				ALTSELECTED.push( n ); 
+				ALT_SELECTED.push( n ); 
 				n.transformOnAltClick();
-				console.log( ALTSELECTED );
+				console.log( ALT_SELECTED );
 			}
 			
-			if ( ALTSELECTED.length === 2 ){
+			if ( ALT_SELECTED.length === 2 ){
 				
-				addEdge( [ ALTSELECTED[0], ALTSELECTED[1] ] );
+				addEdge( [ ALT_SELECTED[0], ALT_SELECTED[1] ] );
 				
 				unAltSelectAll();
 				
@@ -287,7 +313,7 @@ function onMouseDown( event, camera ){
 		}
 	}
 
-	else if ( !event.altKey ){ ALTSELECTED = []; }
+	else if ( !event.altKey ){ ALT_SELECTED = []; }
 
 	if ( SELECTED.nodes.length > 0 ){
 		// update the guidePlane to be perpendicular to the current camera position
@@ -311,7 +337,7 @@ function onClick( event ){
 		toggleContextMenuOff();
 	}
 	
-	if ( keyPressed.keysPressed === true ){
+	if ( keysPressed.isTrue === true ){
 		onClickWithKey();
 	}
 }
@@ -324,18 +350,18 @@ function onDblClick( event ){
 			
 		Axes( ( x.radius * 1.5 ) , false, 0.8, { x: 0, y: 0, z: 0 }, x.displayEntity );
 		
-		ACTIVEHIDDENINPUT = x.hiddenInput;
-		positionInput( event, ACTIVEHIDDENINPUT );
-		ACTIVEHIDDENINPUT.focus();
-		changeLabelText2( x.label, ACTIVEHIDDENINPUT.value ) 
+		ACTIVE_HIDDEN_TEXT_INPUT = x.hiddenInput;
+		positionInput( event, ACTIVE_HIDDEN_TEXT_INPUT );
+		ACTIVE_HIDDEN_TEXT_INPUT.focus();
+		changeLabelText2( x.label, ACTIVE_HIDDEN_TEXT_INPUT.value ) 
 		cursorInScene( "text" );
 	}
 }
 
 function onMouseWheel( event, nearestIntersected ){
-	if ( nearestIntersected.isGraphElement && nearestIntersected === INTERSECTED ){
+	if ( nearestIntersected.isGraphElement && nearestIntersected === INTERSECTED_OBJ3D ){
 		// transform on wheel.
-		transformGraphElementOnWheel( INTERSECTED.referent );							
+		transformGraphElementOnWheel( INTERSECTED_OBJ3D.referent );							
 	}			
 }
 
@@ -346,14 +372,14 @@ function onMouseWheel( event, nearestIntersected ){
 function onClickWithKey(){
 
 	// Click+"a" = Add a Node at the Click position
-	if ( keyPressed.keys.includes( "a" )){
+	if ( keysPressed.keys.includes( "a" )){
 		
 		var position = placeAtPlaneIntersectionPoint( activeGuidePlane );
 
 		addNode( position );		
 	}
 	
-	if ( keyPressed.keys.includes( "t" )){
+	if ( keysPressed.keys.includes( "t" )){
 		
 		if ( SELECTED.nodes.length === 1 ){
 			
@@ -363,20 +389,20 @@ function onClickWithKey(){
 	
 function onKeyDown( event ){
 
-	keyPressed.keysPressed = true;
-	if ( !keyPressed.keys.includes( event.key ) ){
-		keyPressed.keys.push( event.key );		
+	keysPressed.isTrue = true;
+	if ( !keysPressed.keys.includes( event.key ) ){
+		keysPressed.keys.push( event.key );		
 	}
-	console.log( "onKeyDown(): ", keyPressed );
+	console.log( "onKeyDown(): ", keysPressed );
 	
 }
 
 function onKeyUp( event ){
 	
-	keyPressed.keys[0] === "Delete" && deleteAllSelected();	
-	keyPressed.keys[0] === "Escape" && onEscapeKey();
+	keysPressed.keys[0] === "Delete" && deleteAllSelected();	
+	keysPressed.keys[0] === "Escape" && onEscapeKey();
 	
-	if ( keyPressed.keys.includes( "Shift" ) ){
+	if ( keysPressed.keys.includes( "Shift" ) ){
 		event.key === "X" && hideGuideLine( guides.lines.x );
 		event.key === "Y" && hideGuideLine( guides.lines.y );
 		event.key === "Z" && hideGuideLine( guides.lines.z );
@@ -386,11 +412,11 @@ function onKeyUp( event ){
 			}		
 	}
 
-	console.log( "onKeyUp(): ", keyPressed.keys ); 		
-	if (keyPressed.keys.length < 2 ){ 
-		keyPressed.keysPressed = false; 
+	console.log( "onKeyUp(): ", keysPressed.keys ); 		
+	if (keysPressed.keys.length < 2 ){ 
+		keysPressed.isTrue = false; 
 	}
-	keyPressed.keys.splice( keyPressed.keys.indexOf( event.key ), 1 );
+	keysPressed.keys.splice( keysPressed.keys.indexOf( event.key ), 1 );
 }
 
 function onEscapeKey(){
@@ -407,16 +433,16 @@ function chooseElementOnIntersect(){
 	
 	var x;	
 	
-	if ( INTERSECTED && INTERSECTED.isGraphElement && !INTERSECTED.isLabel ){
+	if ( INTERSECTED_OBJ3D && INTERSECTED_OBJ3D.isGraphElement && !INTERSECTED_OBJ3D.isLabel ){
 		
-		if ( INTERSECTED.referent.isNode ){ x = INTERSECTED.referent }
-		else if ( INTERSECTED.referent.isEdge ){ x = INTERSECTED.referent }
+		if ( INTERSECTED_OBJ3D.referent.isNode ){ x = INTERSECTED_OBJ3D.referent }
+		else if ( INTERSECTED_OBJ3D.referent.isEdge ){ x = INTERSECTED_OBJ3D.referent }
 	}
 	
-	else if ( INTERSECTED && INTERSECTED.isLabel ){
+	else if ( INTERSECTED_OBJ3D && INTERSECTED_OBJ3D.isLabel ){
 
-		if ( INTERSECTED.referent.isNodeLabel ){ x = INTERSECTED.referent.node }
-		else if ( INTERSECTED.referent.isEdgeLabel ){ x = INTERSECTED.referent.edge }		
+		if ( INTERSECTED_OBJ3D.referent.isNodeLabel ){ x = INTERSECTED_OBJ3D.referent.node }
+		else if ( INTERSECTED_OBJ3D.referent.isEdgeLabel ){ x = INTERSECTED_OBJ3D.referent.edge }		
 	}
 	
 	return x;
@@ -431,56 +457,72 @@ function placeAtPlaneIntersectionPoint( plane ){
 	return position;
 }
 
-function nearestIntersectedObj(){
+function updateIntersectedObject3Ds(){
+	object3DsIntersectedByRay = ray.intersectObjects( scene.children, true ).slice();
+} 
+
+function findGraphElementsInObject3DArray( object3DArray ){
 	
-	// Get the array of obects that was intersected by the ray cast on the mouseEvent
-	var intersects = ray.intersectObjects( scene.children, true );
+	var graphElementsInArray = [];
 	
-	if ( intersects.length > 0 ){
+	for ( var i = 0; i < object3DArray.length; i++ ){
 		
-		var intersectedGraphElements = [];
-		
-		// Check the intersected array for graphElements
-		for ( var i = 0; i < intersects.length; i++ ){	
-		
-			if ( intersects[i].object && intersects[i].object.isGraphElement ){
-		
-				// Return the closest object if it doesn't contain a canvas with an image texture.
-				if ( !intersects[i].object.isNewLabelType ){
-					intersectedGraphElements.push( intersects[i].object );
-				}		
-		
-				// Otherwise if the intersected object is a canvas with a path...
-				else if ( intersects[i].object.isNewLabelType && intersects[i].object.material.map.image ){ 
-				
-					var geometry = intersects[i].object.geometry;
-					var canvas = intersects[i].object.material.map.image;
-					var context = intersects[i].object.referent.context;
-					var uv = intersects[i].uv;
-					
-					var canvasIntersectPt = getPointOnCanvasInCanvasUnits( uv, geometry, canvas );
-					var xy = new THREE.Vector2(
-						canvasIntersectPt.x.valueInNewUnits,
-						canvasIntersectPt.y.valueInNewUnits
-					);
-					
-					// ... and if the user hits within the path, return the object...
-					if ( isPointInContextFillPath( context, xy )){
-						intersectedGraphElements.push( intersects[i].object );
-						}
-				}
-			}
-		}
-		
-		// If we have intersected graphElements, return the closest one.
-		if ( intersectedGraphElements.length > 0 ){
-			return intersectedGraphElements[0];
-		}
-		// Otherwise, return the closest intersected object, whatever it is. 
-		else if ( intersectedGraphElements.length === 0 ){
-			return intersects[0].object;
+		if ( object3DArray[i].object && object3DArray[i].object.isGraphElement ){
+			graphElementsInArray.push( object3DArray[i] );			
 		}
 	}
+	
+	return graphElementsInArray;	
+}
+
+function nearestIntersectedObject3D(){
+	
+	var nearest;
+	
+	// Get the array of object3Ds that was intersected by the ray cast on the mouseEvent
+	updateIntersectedObject3Ds();
+	
+	// Check for Graph Elements in the array of Object3Ds
+	graphElementsIntersectedByRay = findGraphElementsInObject3DArray( object3DsIntersectedByRay );
+	
+	// If we have intersected GraphElements, return the closest one, as long as it isn't a canvas and we're outside the path.
+	if ( graphElementsIntersectedByRay.length > 0 ){ 
+
+		for ( var g = 0; g < graphElementsIntersectedByRay.length; g++ ){
+			
+			if ( !graphElementsIntersectedByRay[g].object.isNewLabelType ){
+				nearest = graphElementsIntersectedByRay[g].object;
+				break;
+			}
+			
+			else {
+				if ( graphElementsIntersectedByRay[g].object.material.map.image && rayIn2DCanvasPath( object3DsIntersectedByRay[g].object ) ){
+					nearest = graphElementsIntersectedByRay[g].object;
+					break;
+				}				
+			}
+		}
+	}
+	
+	// Otherwise, return the closest intersected object, whatever it is. 
+	else  { nearest = object3DsIntersectedByRay[0].object; }
+	
+	return nearest;
+}
+
+function rayIn2DCanvasPath( object3D ){
+	
+	var geometry = object3D.geometry;
+	var canvas = object3D.material.map.image;
+	var context = object3D.referent.context;
+	var uv = object3DsIntersectedByRay[i].uv;
+	
+	var canvasIntersectPt = getPointOnCanvasInCanvasUnits( uv, geometry, canvas );
+	var xy = new THREE.Vector2( canvasIntersectPt.x.valueInNewUnits, canvasIntersectPt.y.valueInNewUnits );
+	
+	if ( isPointInContextFillPath( context, xy )){ return true; }
+
+	else { return false; }
 }
 
 // END MOUSE/INTERSECTION HANDLING
@@ -655,11 +697,11 @@ function selectAllNodesInArrayWithPropVal( node, property, nodeArr ){
 
 function unAltSelectAll(){
 	
-	if ( ALTSELECTED.length > 0 ){
-		for ( var a = 0; a < ALTSELECTED.length; a++ ){
-			unTransformGraphElementOnUnselect( ALTSELECTED[a] );
+	if ( ALT_SELECTED.length > 0 ){
+		for ( var a = 0; a < ALT_SELECTED.length; a++ ){
+			unTransformGraphElementOnUnselect( ALT_SELECTED[a] );
 		}
-		ALTSELECTED = [];
+		ALT_SELECTED = [];
 	}
 }
 
@@ -847,8 +889,8 @@ function isPointInContextFillPath( context, point ){
 
 function blurActiveHiddenInput(){
 
-	ACTIVEHIDDENINPUT && ACTIVEHIDDENINPUT.blur();
-	ACTIVEHIDDENINPUT = null;
+	ACTIVE_HIDDEN_TEXT_INPUT && ACTIVE_HIDDEN_TEXT_INPUT.blur();
+	ACTIVE_HIDDEN_TEXT_INPUT = null;
 	
 }
 
@@ -862,60 +904,7 @@ function positionInput( event, input ){
 
 // END HIDDEN INPUT (LABEL TEXT) HANDLING
 
-function addToolListeners( tool = "select" ){
-	
-	if ( tool === "select" ){
-		document.getElementById('visualizationContainer').addEventListener( 'click', onMouse, false ),
-		document.getElementById('visualizationContainer').addEventListener( 'mousemove', onMouse, false ),
-		document.getElementById('visualizationContainer').addEventListener( 'mousedown', onMouse, false ),
-		document.getElementById('visualizationContainer').addEventListener( 'mouseup', onMouse, false ),
-		document.getElementById('visualizationContainer').addEventListener( 'dblclick', onMouse, false ),
-		document.getElementById('visualizationContainer').addEventListener( 'wheel', onMouse, false ),
-		document.getElementById('visualizationContainer').addEventListener( 'contextmenu', onMouse, false ),
-		document.addEventListener( 'keydown', function (e) { onKeyDown(e); }, false ),
-		document.addEventListener( 'keyup', function (e) { onKeyUp(e); }, false )
-	}
-	
-	if ( tool === "rotate" ){
-		
-		document.getElementById('visualizationContainer').addEventListener( 'click', function(){ 
-		
-			var camera = entities.cameras.perspCamera;
-			
-			// update the picking ray with the camera and mouse position
-			ray.setFromCamera( mouse, camera );
-			//ray.set ( camera.position, vector.sub( camera.position ).normalize() );
-			
-			// update the guidePlane to be perpendicular to the current camera position
-		//	guides.planes.camPerpendicular.plane.lookAt( camera.position )		
-		
-			rotationTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ) }, false )
-	
-	}
-}
 
-function removeToolListeners( tool ){
-
-	if ( tool === "select" ){
-		document.getElementById('visualizationContainer').removeEventListener( 'click', onMouse, false );
-		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', onMouse, false );
-		document.getElementById('visualizationContainer').removeEventListener( 'mousedown', onMouse, false );
-		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', onMouse, false );
-		document.getElementById('visualizationContainer').removeEventListener( 'dblclick', onMouse, false );
-		document.getElementById('visualizationContainer').removeEventListener( 'wheel', onMouse, false );
-		document.getElementById('visualizationContainer').removeEventListener( 'contextmenu', onMouse, false );
-		document.removeEventListener( 'keydown', function (e) { onKeyDown(e); }, false );
-		document.removeEventListener( 'keyup', function (e) { onKeyUp(e); }, false );		
-	}
-	
-	if ( tool === "rotate" ){
-		
-		document.getElementById('visualizationContainer').removeEventListener( 'click', function(){ rotationTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ) }, false )
-	
-	}	
-}
-
-addToolListeners( "select" );
 
 
 
@@ -956,8 +945,8 @@ function getPosition( event ) {
 function contextMenuActions(){
 	
 	document.getElementById( "delete" ).addEventListener( "click", function( event ){ 
-		if ( INTERSECTED.referent.isEdge ){ deleteEdge( INTERSECTED.referent ) }
-		if ( INTERSECTED.referent.isNode ){ deleteNode( INTERSECTED.referent ) }
+		if ( INTERSECTED_OBJ3D.referent.isEdge ){ deleteEdge( INTERSECTED_OBJ3D.referent ) }
+		if ( INTERSECTED_OBJ3D.referent.isNode ){ deleteNode( INTERSECTED_OBJ3D.referent ) }
 		toggleContextMenuOff();
 		} );
 		
@@ -1030,7 +1019,7 @@ function contextMenuActivate( event ){
 		
 	}
 	
-	else if ( INTERSECTED && !INTERSECTED.isGraphElement ){
+	else if ( INTERSECTED_OBJ3D && !INTERSECTED_OBJ3D.isGraphElement ){
 		
 		contextMenuItems( "Background" ); 
 	}

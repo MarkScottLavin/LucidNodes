@@ -1,6 +1,6 @@
 /****************************************************
 	* FILEHANDLINGUTILS.JS: 
-	* Version 0.1.27
+	* Version 0.1.28
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
