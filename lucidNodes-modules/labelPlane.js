@@ -43,7 +43,6 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	/* Text */
 	this.text = parameters.hasOwnProperty("text") ? parameters["text"] : "no text";
 	this.textColor = parameters.hasOwnProperty("textColor") ? parameters["textColor"] : { r: 0, g: 0, b: 0 };
-	this.colorAsHex = function(){ return colorUtils.decRGBtoHexRGB( this.textColor.r, this.textColor.g, this.textColor.b );	};
 	this.fontface = parameters.hasOwnProperty("fontface") ? parameters["fontface"] : "Arial";
 	this.fontsize = parameters.hasOwnProperty("fontsize") ? parameters["fontsize"] : 64;
 	this.textAlign = parameters.hasOwnProperty("textAlignment") ? parameters["textAlign"] : "left";
@@ -100,7 +99,8 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	//this.displayEntity = new THREE.Sprite( this.material );
 	this.bufferGeom = new THREE.PlaneBufferGeometry( 1, 1, 1, 1 );
 	this.displayEntity = new THREE.Mesh( this.bufferGeom, this.material );
-	this.displayEntity.isGraphElement = true;
+	this.displayEntity.isGraphElementPart = true;
+	this.displayEntity.graphElementPartType = "nodeLabelDisplayEntity";
 	this.displayEntity.isLabel = true;
 	this.displayEntity.referent = this;
 	
@@ -404,12 +404,16 @@ LUCIDNODES.EdgeLabel = function( parameters ){
 		this.edge = parameters.edge;
 		this.fontface = parameters.fontface || "Arial";
 		this.fontsize = parameters.fontsize || globalAppSettings.defaultEdgeLabelFontSize;
-		this.textColor = parameters.textColor || this.edge.color;
-		this.colorAsHex = function(){
-			
-			return colorUtils.decRGBtoHexRGB( this.textColor.r, this.textColor.g, this.textColor.b );
-						
-			};
+
+
+		this.textColor = new THREE.Color();
+		if ( parameters.textColor ){ this.textColor.set( parameters.textColor ); }
+		else if ( parameters.textColor === 0 ){ this.textColor.set( 0x000000 ); }
+		else { this.textColor.set( this.edge.color ); }		
+		
+		this.color = new THREE.Color();
+		this.color.clone( this.textColor );
+
 		this.opacity = parameters.opacity || parameters.edge.opacity || globalAppSettings.defaultEdgeLabelOpacity;
 
 		this.textLineThickness = parameters.textLineThickness || 6;
@@ -425,7 +429,8 @@ LUCIDNODES.EdgeLabel = function( parameters ){
 		this.displayEntity = new THREE.Sprite( this.material );
 		this.displayEntity.scale.set( globalAppSettings.defaultLabelScale.x, globalAppSettings.defaultLabelScale.y, globalAppSettings.defaultLabelScale.z );		
 		
-		this.displayEntity.isGraphElement = true;
+		this.displayEntity.isGraphElementPart = true;
+		this.displayEntity.graphElementPartType = "edgeLabelDisplayEntity";
 		this.displayEntity.isLabel = true;
 		this.displayEntity.referent = this;
 		
@@ -449,7 +454,7 @@ LUCIDNODES.EdgeLabel = function( parameters ){
 		this.transformOnMouseOut = function(){
 			var scale = globalAppSettings.defaultLabelScale;
 			
-			this.displayEntity.material.color.set ( this.colorAsHex() );
+			this.displayEntity.material.color.set ( this.color );
 			this.displayEntity.scale.set( scale.x , scale.y , scale.z );
 			
 			this.edge.transformOnLabelMouseOut();			
@@ -471,7 +476,7 @@ LUCIDNODES.EdgeLabel = function( parameters ){
 		this.transformOnEdgeMouseOut = function(){
 			var scale = globalAppSettings.defaultLabelScale;			
 			
-			this.displayEntity.material.color.set ( this.colorAsHex() );		
+			this.displayEntity.material.color.set( this.color );		
 			this.displayEntity.scale.set( scale.x , scale.y , scale.z );			
 		};
 		
@@ -480,7 +485,7 @@ LUCIDNODES.EdgeLabel = function( parameters ){
 		};
 		
 		this.unTransformOnClickOutside = function(){
-			this.displayEntity.material.color.set( this.colorAsHex() );				
+			this.displayEntity.material.color.set( this.color );				
 		};
 
 		this.transformOnDblClick = function(){
@@ -517,7 +522,7 @@ function createEdgeLabel( edge ){
 			text: edge.name,
 			edge: edge,
 			fontsize: edge.fontsize || globalAppSettings.defaultEdgeLabelFontSize,
-			textColor: edge.labelcolor || edge.color,
+			textColor: edge.labelColor || edge.color,
 			opacity: edge.labelOpacity || globalAppSettings.defaultEdgeLabelOpacity
 		});
 

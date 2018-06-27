@@ -3,11 +3,7 @@
     {
       "id": "n000",
       "name": "Wow I think this is totally working! \nThat's amazing!!!!",
-      "color": {
-        "r": 255,
-        "g": 128,
-        "b": 128
-      },
+      "color": 16744576,
       "position": {
         "x": 0,
         "y": 15.25731,
@@ -26,11 +22,7 @@
     {
       "id": "n001",
       "name": "WTF",
-      "color": {
-        "r": 128,
-        "g": 255,
-        "b": 128
-      },
+      "color": 8454016,
       "position": {
         "x": -8.50651,
         "y": 10,
@@ -49,11 +41,7 @@
     {
       "id": "n002",
       "name": "Working!",
-      "color": {
-        "r": 0,
-        "g": 0,
-        "b": 255
-      },
+      "color": 255,
       "position": {
         "x": 0,
         "y": 5.25731,
@@ -72,11 +60,7 @@
     {
       "id": "n003",
       "name": "n003",
-      "color": {
-        "r": 255,
-        "g": 128,
-        "b": 64
-      },
+      "color": 16744512,
       "position": {
         "x": 0,
         "y": 0,
@@ -95,11 +79,7 @@
     {
       "id": "n004",
       "name": "n004",
-      "color": {
-        "r": 128,
-        "g": 128,
-        "b": 128
-      },
+      "color": 8421504,
       "position": {
         "x": -7.2763006398414305,
         "y": 8.012445550353561,
@@ -122,11 +102,7 @@
         {
           "id": "n000",
           "name": "Wow I think this is totally working! \nThat's amazing!!!!",
-          "color": {
-            "r": 255,
-            "g": 128,
-            "b": 128
-          },
+          "color": 16744576,
           "position": {
             "x": 0,
             "y": 15.25731,
@@ -145,11 +121,7 @@
         {
           "id": "n002",
           "name": "Working!",
-          "color": {
-            "r": 0,
-            "g": 0,
-            "b": 255
-          },
+          "color": 255,
           "position": {
             "x": 0,
             "y": 5.25731,
@@ -168,27 +140,21 @@
       ],
       "id": "n000-n002",
       "name": "Working Too!",
-      "color": {
-        "r": 128,
-        "g": 128,
-        "b": 128
-      },
+      "color": 8421504,
       "opacity": 0.5,
       "label": {
-        "text": "",
+        "color": 16777215,
+        "text": "Working Too!",
         "opacity": 0.2
-      }
+      },
+      "labelColor": 8421504
     },
     {
       "nodes": [
         {
           "id": "n001",
           "name": "WTF",
-          "color": {
-            "r": 128,
-            "g": 255,
-            "b": 128
-          },
+          "color": 8454016,
           "position": {
             "x": -8.50651,
             "y": 10,
@@ -207,11 +173,7 @@
         {
           "id": "n002",
           "name": "Working!",
-          "color": {
-            "r": 0,
-            "g": 0,
-            "b": 255
-          },
+          "color": 255,
           "position": {
             "x": 0,
             "y": 5.25731,
@@ -230,27 +192,21 @@
       ],
       "id": "n001-n002",
       "name": "n001-n002",
-      "color": {
-        "r": 128,
-        "g": 128,
-        "b": 128
-      },
+      "color": 8421504,
       "opacity": 0.5,
       "label": {
+        "color": 16777215,
         "text": "n001-n002",
         "opacity": 0.2
-      }
+      },
+      "labelColor": 8421504
     },
     {
       "nodes": [
         {
           "id": "n001",
           "name": "WTF",
-          "color": {
-            "r": 128,
-            "g": 255,
-            "b": 128
-          },
+          "color": 8454016,
           "position": {
             "x": -8.50651,
             "y": 10,
@@ -269,11 +225,7 @@
         {
           "id": "n000",
           "name": "Wow I think this is totally working! \nThat's amazing!!!!",
-          "color": {
-            "r": 255,
-            "g": 128,
-            "b": 128
-          },
+          "color": 16744576,
           "position": {
             "x": 0,
             "y": 15.25731,
@@ -292,27 +244,21 @@
       ],
       "id": "n001-n000",
       "name": "n001-n000",
-      "color": {
-        "r": 128,
-        "g": 128,
-        "b": 128
-      },
+      "color": 8421504,
       "opacity": 0.5,
       "label": {
+        "color": 16777215,
         "text": "n001-n000",
         "opacity": 0.2
-      }
+      },
+      "labelColor": 8421504
     },
     {
       "nodes": [
         {
           "id": "n003",
           "name": "n003",
-          "color": {
-            "r": 255,
-            "g": 128,
-            "b": 64
-          },
+          "color": 16744512,
           "position": {
             "x": 0,
             "y": 0,
@@ -331,11 +277,7 @@
         {
           "id": "n002",
           "name": "Working!",
-          "color": {
-            "r": 0,
-            "g": 0,
-            "b": 255
-          },
+          "color": 255,
           "position": {
             "x": 0,
             "y": 5.25731,
@@ -354,27 +296,21 @@
       ],
       "id": "n003-n002",
       "name": "n003-n002",
-      "color": {
-        "r": 128,
-        "g": 128,
-        "b": 128
-      },
+      "color": 8421504,
       "opacity": 0.5,
       "label": {
+        "color": 16777215,
         "text": "n003-n002",
         "opacity": 0.2
-      }
+      },
+      "labelColor": 8421504
     },
     {
       "nodes": [
         {
           "id": "n001",
           "name": "WTF",
-          "color": {
-            "r": 128,
-            "g": 255,
-            "b": 128
-          },
+          "color": 8454016,
           "position": {
             "x": -8.50651,
             "y": 10,
@@ -393,11 +329,7 @@
         {
           "id": "n003",
           "name": "n003",
-          "color": {
-            "r": 255,
-            "g": 128,
-            "b": 64
-          },
+          "color": 16744512,
           "position": {
             "x": 0,
             "y": 0,
@@ -416,16 +348,14 @@
       ],
       "id": "n001-n003",
       "name": "n001-n003",
-      "color": {
-        "r": 128,
-        "g": 128,
-        "b": 128
-      },
+      "color": 8421504,
       "opacity": 0.5,
       "label": {
+        "color": 16777215,
         "text": "n001-n003",
         "opacity": 0.2
-      }
+      },
+      "labelColor": 8421504
     }
   ],
   "groups": []

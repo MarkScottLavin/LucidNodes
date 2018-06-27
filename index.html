@@ -19,7 +19,7 @@
 
 <div class="topMenu">
 	<form method="GET" id="temp2" enctype="multipart/form-data">
-		<div class="appTitle"><strong>LucidNodes Version 0.1.28</strong></div>
+		<div class="appTitle"><strong>LucidNodes Version 0.1.29</strong></div>
 		<div class="saveBar-cell">
 		   <label for="fileInput">Open File</label>
 		   <input type="file" id="fileInput" name="fileInput" accept=".json">
@@ -53,7 +53,6 @@
 
 <div id="visualizationContainer">
 
-	<script src="js/colorUtils.js"></script>
 	<script src="lucidNodes-modules/skyGeo.js"></script>
 	<script src="scenesetup.js"></script>
 	<script src="js/mathUtils.js"></script>	
@@ -68,6 +67,7 @@
 	<script src="lucidNodes-modules/detectAlignments.js"></script>	
 	<script src="lucidNodes-modules/rotation.js"></script>
 	<script src="lucidNodes-modules/rotationTool.js"></script>
+	<script src="lucidNodes-modules/colorTools.js"></script>
 	<script src="lucidNodes-modules/nodeThreeGroups.js"></script>
 	<script src="lucidNodes-modules/treeClimber.js"></script>
 </div>
@@ -76,6 +76,8 @@
 	<div class="toolbar-title"><strong>Tools</strong></div>
 	<div class="toolbar-cell"><img id="select" title="Default/Select Tool" alt="Default/Select Tool" src="assets/tool_icons/Select.png"></div>
 	<input class="toolbar-cell" type="color" id="colorPicker" title="Assign Color to selected items" name="colorPicker" value="#ff0000">
+	<div class="toolbar-cell"><img id="paint" title="Paint" alt="Paint" src="assets/tool_icons/Paint-Bucket.png"></div>
+	<div class="toolbar-cell"><img id="eyedropper" title="Eyedropper" alt="Eyedropper" src="assets/tool_icons/Eyedropper.png"></div>
 	<div class="toolbar-cell"><img id="rotate" title="Rotate Selected" alt="Rotate Selected" src="assets/tool_icons/rotation-tool.png"></div>	
 	<div class="toolbar-cell"><img id="createCompleteGraph" title="Make a complete graph from the selected nodes" alt="Make a complete graph from the selected nodes" src="assets/mindmap_symbols/Influencing-Network.png"></div>
 	<div class="toolbar-cell"><img id="showCenterPoints" title="Show the center point among all the selected nodes" alt="Show the center point among all the selected nodes" src="assets/mindmap_symbols/Center-Point.png"></div>

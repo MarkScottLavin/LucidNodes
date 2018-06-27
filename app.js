@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.28
+	* Version 0.1.29
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -41,12 +41,14 @@ var initUI = function(){
 	
 	document.getElementById('select').addEventListener( 'mouseup', function(){ selectTool( "select" ); /* selectToolInUI( "select" ); toggleToolListeners("select"); */ });
 	document.getElementById('rotate').addEventListener( 'mouseup', function(){ selectTool( "rotate" ); /* selectToolInUI( "rotate" ); toggleToolListeners("rotate"); */ });
+	document.getElementById('paint').addEventListener( 'mouseup', function(){ selectTool( "paint" ); } );
+	document.getElementById('eyedropper').addEventListener( 'mouseup', function(){ selectTool( "eyedropper" ); } );	
 
 	document.getElementById('createCompleteGraph').addEventListener( 'click', function() { if ( SELECTED.nodes.length > 0 ) { completeGraph( SELECTED.nodes ) } } );
 	document.getElementById('showCenterPoints').addEventListener( 'click', function() { LUCIDNODES.showGlobalCenterPoint() } );
 	document.getElementById('colorPicker').addEventListener('change', function () {
 																					var s = filterArrayForNodes( SELECTED.nodes );
-																					var c = colorUtils.splitHexIntoDecChannels ( document.getElementById('colorPicker').value );
+																					var c = document.getElementById('colorPicker').value;
 																					mapAcrossGraphElementArray( changeGraphElementColor, s, c );
 																					
 																					console.log( 'color changed!' );

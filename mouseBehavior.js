@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.28
+	* Version 0.1.29
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -28,7 +28,7 @@ var object3DsIntersectedByRay = [];
 // The subset of Object3Ds intersected that are GraphElements
 var graphElementsIntersectedByRay = [];
 
-// What THREE.Object3D is intersected by the ray from the mouse. ( Sometimes will be a display entity related to a Node, Edge or Lebel of either )
+// What THREE.Object3D is intersected by the ray from the mouse. ( Sometimes will be a display entity related to a Node, Edge or Label of either )
 var INTERSECTED_OBJ3D; 
 
 // Selected objects
@@ -112,7 +112,7 @@ function mouseEventHandler( event ){
 			contextMenuActivate( event, nearestIntersected );
 		}
 		
-		INTERSECTED_OBJ3D && console.log( "mouseEventHandler(): INTERSECTED_OBJ3D: ", INTERSECTED_OBJ3D, " isGraphElement: " , INTERSECTED_OBJ3D.isGraphElement, " isLabel: ", INTERSECTED_OBJ3D.isLabel, "INTERSECTED_OBJ3D.uv: ", INTERSECTED_OBJ3D.uv , ' MouseEvent: ', event.type );			
+		INTERSECTED_OBJ3D && console.log( "mouseEventHandler(): INTERSECTED_OBJ3D: ", INTERSECTED_OBJ3D, " isGraphElementPart: " , INTERSECTED_OBJ3D.isGraphElementPart, " isLabel: ", INTERSECTED_OBJ3D.isLabel, "INTERSECTED_OBJ3D.uv: ", INTERSECTED_OBJ3D.uv , ' MouseEvent: ', event.type );			
 	}
 }
 
@@ -227,12 +227,12 @@ function onMouseDown( event, camera ){
 		unAltSelectAll();
 
 		// If there's no INTERSECTED_OBJ3D object or if INTERSECTED_OBJ3D is not a GraphElement, do nothing.			
-		if ( !INTERSECTED_OBJ3D || !INTERSECTED_OBJ3D.isGraphElement ){				
+		if ( !INTERSECTED_OBJ3D || !INTERSECTED_OBJ3D.isGraphElementPart ){				
 			return;
 		}
 		
 		// If INTERSECTED_OBJ3D is a GraphElement, choose the GraphElement it's a part of.				
-		var x = chooseElementOnIntersect();
+		var x = getReferentGraphElementOfIntersectedObj3D();
 		
 		if ( x ) { 
 			
@@ -279,7 +279,7 @@ function onMouseDown( event, camera ){
 		unAltSelectAll();
 
 		// IF there's an INTERSECTED_OBJ3D and it's a GraphElement
-		var x = chooseElementOnIntersect();
+		var x = getReferentGraphElementOfIntersectedObj3D();
 		
 		if ( x ){
 			if ( x.isNode ){ selectNode( x ); origPosition = new THREE.Vector3(); origPosition.copy( x.position ); }
@@ -288,7 +288,7 @@ function onMouseDown( event, camera ){
 	}
 	if ( event.altKey && !event.ctrlKey ){
 
-		if ( INTERSECTED_OBJ3D && INTERSECTED_OBJ3D.isGraphElement ){
+		if ( INTERSECTED_OBJ3D && INTERSECTED_OBJ3D.isGraphElementPart ){
 			
 			var n;
 			
@@ -344,7 +344,7 @@ function onClick( event ){
 
 function onDblClick( event ){
 	
-	var x = chooseElementOnIntersect();
+	var x = getReferentGraphElementOfIntersectedObj3D();
 	
 	if ( x && x.hiddenInput ){ 
 			
@@ -359,7 +359,7 @@ function onDblClick( event ){
 }
 
 function onMouseWheel( event, nearestIntersected ){
-	if ( nearestIntersected.isGraphElement && nearestIntersected === INTERSECTED_OBJ3D ){
+	if ( nearestIntersected.isGraphElementPart && nearestIntersected === INTERSECTED_OBJ3D ){
 		// transform on wheel.
 		transformGraphElementOnWheel( INTERSECTED_OBJ3D.referent );							
 	}			
@@ -429,25 +429,6 @@ function onEscapeKey(){
 
 // MOUSE/RAY INTERSECTION HANDLING
 
-function chooseElementOnIntersect(){
-	
-	var x;	
-	
-	if ( INTERSECTED_OBJ3D && INTERSECTED_OBJ3D.isGraphElement && !INTERSECTED_OBJ3D.isLabel ){
-		
-		if ( INTERSECTED_OBJ3D.referent.isNode ){ x = INTERSECTED_OBJ3D.referent }
-		else if ( INTERSECTED_OBJ3D.referent.isEdge ){ x = INTERSECTED_OBJ3D.referent }
-	}
-	
-	else if ( INTERSECTED_OBJ3D && INTERSECTED_OBJ3D.isLabel ){
-
-		if ( INTERSECTED_OBJ3D.referent.isNodeLabel ){ x = INTERSECTED_OBJ3D.referent.node }
-		else if ( INTERSECTED_OBJ3D.referent.isEdgeLabel ){ x = INTERSECTED_OBJ3D.referent.edge }		
-	}
-	
-	return x;
-}
-
 function placeAtPlaneIntersectionPoint( plane ){
 	
 	var planeIntersection = getPlaneIntersectPointRecursive( plane );
@@ -467,7 +448,7 @@ function findGraphElementsInObject3DArray( object3DArray ){
 	
 	for ( var i = 0; i < object3DArray.length; i++ ){
 		
-		if ( object3DArray[i].object && object3DArray[i].object.isGraphElement ){
+		if ( object3DArray[i].object && object3DArray[i].object.isGraphElementPart ){
 			graphElementsInArray.push( object3DArray[i] );			
 		}
 	}
@@ -758,7 +739,11 @@ function objectsAreIdentical( objs ){
 		identical = false;
 	}
 	
-	else {
+	else if ( objs[0].isColor && objs[1].isColor ){
+		if ( !objs[0].equals( objs[1] ) ) { identical = false; }
+	}
+	
+	else if ( !objs[0].isColor && !objs[1].isColor ){
 		for ( var k in objs[0] ){
 			if ( !objs[1].hasOwnProperty( k ) ){
 				identical = false;
@@ -785,63 +770,140 @@ function objectsAreIdentical( objs ){
 	return identical;
 }
 
-// TRANSFORMATIONS ON MOUSEEVENS
+// TRANSFORMATIONS ON MOUSEEVENTS
 
-function transformGraphElementOnMouseOver( obj ){
-	if ( obj.isGraphElement ) { obj.referent.transformOnMouseOver(); }	
+function transformGraphElementOnMouseOver( obj3D ){
+	if ( obj3D.isGraphElementPart ) { obj3D.referent.transformOnMouseOver(); }	
 }
 
-function unTransformGraphElementOnMouseOut( obj ){
-	if ( obj.isGraphElement ) { obj.referent.transformOnMouseOut(); }
+function unTransformGraphElementOnMouseOut( obj3D ){
+	if ( obj3D.isGraphElementPart ) { obj3D.referent.transformOnMouseOut(); }
 }
 
-function transformGraphElementOnSelect( obj ){
-	if ( obj.displayEntity.isGraphElement ) { 
+function transformGraphElementOnSelect( graphElement ){
+	if ( graphElement.displayEntity.isGraphElementPart ) { 
 		
-		if ( obj.isNode || obj.isEdge ){
-			obj.transformOnClick(); 
-			obj.label.transformOnClick();
+		if ( graphElement.isNode || graphElement.isEdge ){
+			graphElement.transformOnClick(); 
+			graphElement.label.transformOnClick();
 		}
 		
-		if ( obj.isNodeLabel ){
-			obj.node.transformOnClick();
-			obj.transformOnClick();
+		if ( graphElement.isNodeLabel ){
+			graphElement.node.transformOnClick();
+			graphElement.transformOnClick();
 		}
 		
-		if ( obj.isEdgeLabel ){
-			obj.edge.transformOnClick();
-			obj.transformOnClick();
+		if ( graphElement.isEdgeLabel ){
+			graphElement.edge.transformOnClick();
+			graphElement.transformOnClick();
 		}
 	}
 }
 
-function unTransformGraphElementOnUnselect( obj ){
-	if ( obj.displayEntity.isGraphElement ) { 
+function unTransformGraphElementOnUnselect( graphElement ){
+	if ( graphElement.displayEntity.isGraphElementPart ) { 
 		
-		if ( obj.isNode || obj.isEdge ){
-			obj.unTransformOnClickOutside();
-			obj.label.unTransformOnClickOutside();
+		if ( graphElement.isNode || graphElement.isEdge ){
+			graphElement.unTransformOnClickOutside();
+			graphElement.label.unTransformOnClickOutside();
 		}
 
-		if ( obj.isNodeLabel ){
-			obj.node.unTransformOnClickOutside();
-			obj.unTransformOnClickOutside();
+		if ( graphElement.isNodeLabel ){
+			graphElement.node.unTransformOnClickOutside();
+			graphElement.unTransformOnClickOutside();
 		}
 		
-		if ( obj.isEdgeLabel ){
-			obj.edge.unTransformOnClickOutside();
-			obj.unTransformOnClickOutside();
+		if ( graphElement.isEdgeLabel ){
+			graphElement.edge.unTransformOnClickOutside();
+			graphElement.unTransformOnClickOutside();
 		}		
 	}	
 }
 
-function transformGraphElementOnWheel( obj ){
-	if ( obj.displayEntity.isGraphElement ) { obj.transformOnWheel(); }	
+function transformGraphElementOnWheel( graphElement ){
+	if ( graphElement.displayEntity.isGraphElementPart ) { graphElement.transformOnWheel(); }	
 }
 
 // END TRANSFORMATIONS ON MOUSEOVERS
 
 /* RECURSIVE CLIMBING */
+
+function getReferentGraphElementOfIntersectedObj3D(){
+	
+	return getReferentGraphElement( INTERSECTED_OBJ3D );
+	
+}
+
+function getReferentGraphElement( obj3D ){
+	
+	if ( obj3D && obj3D.isGraphElementPart ){
+		
+		if ( obj3D.graphElementPartType === "nodeDisplayEntity" || obj3D.graphElementPartType === "edgeDisplayEntity" ){
+			return obj3D.referent; 			
+		}
+		
+		if ( obj3D.graphElementPartType === ( "nodeLabelDisplayEntity" ) ){
+			return obj3D.referent.node;
+		}
+		
+		if ( obj3D.graphElementPartType === ( "edgeLabelDisplayEntity" ) ){
+			return obj3D.referent.edge;
+		}
+	}
+}
+
+function getGraphElementPartType( obj3D ){
+	
+	if ( obj3D && obj3D.isGraphElementPart ){
+		return obj3D.graphElementPartType;
+	}
+}
+
+function graphElementPartIsOfType( obj3D, type ){
+	
+	if ( obj3D && type && obj3D.isGraphElementPart ){
+		if ( obj3D.graphElementPartType === type ){
+			return true;
+		} 
+	}
+	
+	return false;
+}
+
+function getAllGraphElementPartsOfType( type ){
+
+	var partsOfType = [];
+	var isOfType;
+	
+	scene.traverse( function( child ){
+		
+		isOfType = graphElementPartIsOfType( child, type );
+		
+		if ( isOfType ){
+			partsOfType.push( child );
+		}
+	});
+	
+	return partsOfType;
+}
+
+function hideAllGraphElementPartsOfType( type ){
+	
+	var arr = getAllGraphElementPartsOfType( type );
+	
+	for ( var a = 0; a < arr.length; a++ ){
+		arr[a].visible = false;
+	}
+}
+
+function showAllGraphElementPartsOfType( type ){
+	
+	var arr = getAllGraphElementPartsOfType( type );
+	
+	for ( var a = 0; a < arr.length; a++ ){
+		arr[a].visible = true;
+	}
+}
 
 function callMethodOnParent( obj, method ) {
 
@@ -965,12 +1027,12 @@ function contextMenuActions(){
 		toggleContextMenuOff();
 		} );
 	document.getElementById( "selectAllOfSameShape").addEventListener( "click", function( event ){
-		var x = chooseElementOnIntersect();
+		var x = getReferentGraphElementOfIntersectedObj3D();
 		if ( x && x.isNode ){ selectAllNodesInArrayWithPropVal( x, "shape", cognition.nodes ) }
 		toggleContextMenuOff();
 	} );
 	document.getElementById( "selectAllOfSameColor").addEventListener( "click", function( event ){
-		var x = chooseElementOnIntersect();
+		var x = getReferentGraphElementOfIntersectedObj3D();
 		if ( x && x.isNode ){ selectAllNodesInArrayWithPropVal( x, "color", cognition.nodes ) }
 		toggleContextMenuOff();
 	} );
@@ -1010,7 +1072,7 @@ function contextMenuActivate( event ){
 	
 	event.preventDefault();
 	
-	var x = chooseElementOnIntersect();
+	var x = getReferentGraphElementOfIntersectedObj3D();
 	
 	if ( x ){
 
@@ -1019,7 +1081,7 @@ function contextMenuActivate( event ){
 		
 	}
 	
-	else if ( INTERSECTED_OBJ3D && !INTERSECTED_OBJ3D.isGraphElement ){
+	else if ( INTERSECTED_OBJ3D && !INTERSECTED_OBJ3D.isGraphElementPart ){
 		
 		contextMenuItems( "Background" ); 
 	}

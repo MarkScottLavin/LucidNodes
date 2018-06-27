@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.27
+	* Version 0.1.29
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -117,10 +117,10 @@ var globalAppSettings = {
 	transparency: true,
 	castShadows: true,
 	recieveShadows: true,
-	defaultNodeColor: { r: 128, g: 128, b: 128 },
+	defaultNodeColor: 0x808080,
 	defaultNodeOpacity: 0.75,
 	defaultLabelScale: { x: 4, y: 2, z: 1 },
-	defaultEdgeColor: { r: 128, g: 128, b: 128 },
+	defaultEdgeColor: 0x808080,
 	defaultEdgeThickness: 4,
 	defaultEdgeLineType: "solid" /* dashed */,
 	defaultEdgeOpacity: 0.5,
@@ -239,14 +239,13 @@ var LUCIDNODES = {
 		
 		this.position = new THREE.Vector3( parameters.position.x, parameters.position.y, parameters.position.z ) || new THREE.Vector3( 0, -2, -2 );
 		
-		this.color = parameters.color || globalAppSettings.defaultNodeColor;
-		this.colorAsHex = function(){
-			
-			return colorUtils.decRGBtoHexRGB( this.color.r, this.color.g, this.color.b );
-						
-			};
+		this.color = new THREE.Color();
+		if ( parameters.color ){ this.color.set( parameters.color ); }
+		else if ( parameters.color === 0 ){ this.color.set( 0x000000 ); }
+		else { this.color.set( globalAppSettings.defaultNodeColor ); }
+
 		this.opacity = parameters.opacity || globalAppSettings.defaultNodeOpacity;
-		this.material = new THREE.MeshPhongMaterial( {color: this.colorAsHex() } );
+		this.material = new THREE.MeshPhongMaterial( {color: this.color } );
 		this.material.opacity = this.opacity;			
 	},
 	
@@ -275,6 +274,7 @@ var LUCIDNODES = {
 	Node: function( parameters ) {
 		
 		this.isNode = true;
+		this.isGraphElement = true;
 		
 		/* Identification */ 
 		
@@ -290,14 +290,14 @@ var LUCIDNODES = {
 		
 		this.radius = parameters.radius || 0.5;
 		this.shape = parameters.shape || "sphere";
-		this.color = parameters.color || globalAppSettings.defaultNodeColor;
-		this.colorAsHex = function(){
-			
-			return colorUtils.decRGBtoHexRGB( this.color.r, this.color.g, this.color.b );
-						
-			};
+		
+		this.color = new THREE.Color();
+		if ( parameters.color && parameters.color !== 0 ){ this.color.set( parameters.color ); }
+		else if ( parameters.color === 0 ){ this.color.set( 0x000000 ); }
+		else { this.color.set( globalAppSettings.defaultNodeColor ); }
+
 		this.opacity = parameters.opacity || globalAppSettings.defaultNodeOpacity;
-		this.material = new THREE.MeshPhongMaterial( {color: this.colorAsHex() } );
+		this.material = new THREE.MeshPhongMaterial( {color: this.color } );
 		this.material.opacity = this.opacity;
 		
 		toggleGraphElementTransparency( this );
@@ -358,7 +358,7 @@ var LUCIDNODES = {
 		};
 		
 		this.unTransformOnClickOutside = function(){
-			this.displayEntity.material.color.set( this.colorAsHex() );
+			this.displayEntity.material.color.set( this.color );
 			this.displayEntity.scale.set( 1, 1, 1 );
 			removeAxes ( this.displayEntity );
 			cursorInScene( "crosshair" );
@@ -443,6 +443,7 @@ var LUCIDNODES = {
 	Edge: function( parameters ) {
 		
 		this.isEdge = true;
+		this.isGraphElement = true;
 		
 		/* What nodes are connected by this edge? */
 		this.nodes = parameters.nodes;
@@ -453,20 +454,28 @@ var LUCIDNODES = {
 		this.id = parameters.id;
 		this.id.referent = this;
 		this.name = parameters.name || this.id; 
-		this.color = parameters.color || globalAppSettings.defaultEdgeColor;
+		
+		this.color = new THREE.Color();
+		if ( parameters.color ){ this.color.set( parameters.color ); }
+		else if ( parameters.color === 0 ){ this.color.set( 0x000000 ); }
+		else { this.color.set( globalAppSettings.defaultEdgeColor ); }
+		
 		this.thickness = parameters.thickness || globalAppSettings.defaultEdgeThickness;
 		this.lineType = parameters.lineType || globalAppSettings.defaultEdgeLineType;
-		this.colorAsHex = function(){
-			
-			return colorUtils.decRGBtoHexRGB( this.color.r, this.color.g, this.color.b );
-						
-			};
+
 		this.opacity = parameters.opacity || globalAppSettings.defaultEdgeOpacity;
-		this.material = new THREE.LineBasicMaterial( { color: this.colorAsHex(), linewidth: this.thickness } );
+		this.material = new THREE.LineBasicMaterial( { color: this.color, linewidth: this.thickness } );
 		this.material.opacity = this.opacity;
 		
 		this.fontsize = parameters.fontsize || globalAppSettings.defaultEdgeLabelFontSize;
-		this.color = parameters.labelcolor || this.color;
+		
+		this.labelColor = new THREE.Color();
+		if ( parameters.labelColor ){ this.labelColor.set( parameters.labelColor ); }
+		else if ( parameters.labelColor === 0 ){ this.labelColor.set( 0x000000 ); }
+		else { this.labelColor.copy( this.color ); }
+
+//		this.labelColor = parameters.labelColor || this.color;
+
 		this.labelOpacity = parameters.labelOpacity;		
 		
 		toggleGraphElementTransparency( this );
@@ -493,8 +502,7 @@ var LUCIDNODES = {
 			
 			if ( !SELECTED.edges.includes( this ) ){
 			
-				var color = this.colorAsHex();
-				this.displayEntity.material.color.set( color );
+				this.displayEntity.material.color.set( this.color );
 			
 			}
 			
@@ -515,8 +523,8 @@ var LUCIDNODES = {
 		this.transformOnLabelMouseOut = function(){
 			
 			if ( !SELECTED.edges.includes( this ) ){
-				var color = this.colorAsHex();
-				this.displayEntity.material.color.set( color );
+				//var color = this.colororAsHex();
+				this.displayEntity.material.color.set( this.color );
 			}
 			
 			cursorInScene( "crosshair" );
@@ -527,12 +535,12 @@ var LUCIDNODES = {
 		};
 		
 		this.unTransformOnClickOutside = function(){
-			this.displayEntity.material.color.set( this.colorAsHex() );			
+			this.displayEntity.material.color.set( this.color );			
 			
 			cursorInScene( "crosshair" );
 		};
 		
-		this.transformOnWheel = function(){ changeGraphElementColor( this, { r: 255, g: 0, b: 0 } )};	
+		this.transformOnWheel = function(){};	
 		
 		this.meaning = function( meaningSystem, meaning ) {
 				if ( meaningSystem === "generic" ) {
@@ -600,7 +608,9 @@ function createNodeDisplayEntity( node ){
 	}	
 	
 	node.displayEntity = new THREE.Mesh( node.bufferGeom, node.material );
-	node.displayEntity.isGraphElement = true;
+	node.displayEntity.isGraphElementPart = true;
+	node.displayEntity.graphElementPartType = "nodeDisplayEntity";
+	
 	node.displayEntity.referent = node;
 	
 	node.displayEntity.position.copy( node.position );
@@ -622,7 +632,8 @@ function createNodeDisplayEntity2( node ){
 	}	
 	
 	node.displayEntity = new THREE.Mesh( node.bufferGeom, node.material );
-	node.displayEntity.isGraphElement = true;  // This can be simplified...
+	node.displayEntity.isGraphElementPart = true;  // This can be simplified...
+	node.displayEntity.graphElementPartType = "nodeDisplayEntity"
 	node.displayEntity.referent = node;			// This simply becomes "parent"
 	
 	//node.displayEntity.position.copy( node.position ); This defaults to { 0, 0, 0 }
@@ -677,7 +688,8 @@ function createEdgeDisplayEntity( edge ){
 	edge.geom.vertices.push( edge.ends[0], edge.ends[1]	);		
 	
 	edge.displayEntity = new THREE.Line( edge.geom, edge.material );
-	edge.displayEntity.isGraphElement = true;
+	edge.displayEntity.isGraphElementPart = true;
+	edge.displayEntity.graphElementPartType = "edgeDisplayEntity";
 	edge.displayEntity.referent = edge;				
 	
 	scene.add( edge.displayEntity );
@@ -879,7 +891,7 @@ function connectNodeToArrayOfNodes( sourceNode, targetNodes ){
 				cognition.edges.push( new LUCIDNODES.Edge({
 														nodes: [ sourceNode, targetNodes[i] ],
 														opacity: 0.5,
-														color: { r: 128, g: 128, b:128 },
+														color: globalAppSettings.defaultEdgeColor,
 														id: edgeAssignId( [ sourceNode, targetNodes[i] ] )
 													}));
 			}
@@ -909,197 +921,11 @@ function addEdge( nodes, edgeParams ){
 		cognition.edges.push( new LUCIDNODES.Edge({
 												nodes: nodes,
 												opacity: globalAppSettings.defaultEdgeOpacity,
-												color: { r: 128, g: 128, b:128 },
+												color: globalAppSettings.defaultEdgeColor,
 												id: edgeAssignId( nodes )
 											}));
 	}	
 } 
-
-
-function addNode2( parameters ){
-	
-	var node = new THREE.Object3D();
-
-	node.isNode = true;
-	
-	/* PARAMETERS */
-			
-	/* Identification */ 
-	
-	node.id = parameters.id || encodeId( "node", nodeCounter );  // If the Node already has an ID on load, use that
-	node.id.referent = node;
-	node.name = parameters.name || node.id; 
-	
-	/* Position */
-	
-	node.position = new THREE.Vector3( parameters.position.x, parameters.position.y, parameters.position.z ) || new THREE.Vector3( 0, -2, -2 );
-	
-	/* Appearance */
-	
-	node.radius = parameters.radius || 0.5;
-	node.shape = parameters.shape || "sphere";
-	node.color = parameters.color || globalAppSettings.defaultNodeColor;
-	node.colorAsHex = function(){
-		
-		return colorUtils.decRGBtoHexRGB( node.color.r, node.color.g, node.color.b );
-					
-		};
-	node.opacity = parameters.opacity || globalAppSettings.defaultNodeOpacity;
-	node.material = new THREE.MeshPhongMaterial( {color: node.colorAsHex() } );
-	node.material.opacity = node.opacity;
-	
-	toggleGraphElementTransparency( node );
-	
-	node.castShadows = parameters.castShadows || globalAppSettings.castShadows;  /* Set to global default */
-	node.recieveShadows = parameters.recieveShadows || globalAppSettings.recieveShadows; /* Set to global default */
-
-	/* END PARAMETERS */
-
-	scene.add( node );
-
-
-		/* THREE.js Object genesis */	
-		//createNodeDisplayEntity( node );
-		createNodeDisplayEntity2( node );
-		
-		/* And creating a pivot point around which will revolve dependent objects like labels and annotations-nodes */
-		node.labelPivot = new THREE.Object3D();
-		node.displayEntity.add( node.labelPivot );
-
-		/* Label */
-		
-		node.labelFontsize = parameters.labelFontsize;
-		node.labelColor = parameters.labelColor;
-		node.labelOpacity = parameters.labelOpacity;
-		
-		createNodeLabel( node );		
-		
-		/* Interactive Transforms  */
-		
-		node.transformOnMouseOver = function(){
-			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
-			node.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );
-			
-			node.label.transformOnMouseOverNode();
-		};
-		
-		node.transformOnMouseOut = function(){
-			node.displayEntity.scale.set( 1, 1, 1 );
-			node.label.transformOnNodeMouseOut();
-		};
-		
-		node.transformOnMouseOverLabel = function(){
-			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
-			node.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );
-		};
-		
-		node.transformOnLabelMouseOut = function(){
-			node.displayEntity.scale.set( 1, 1, 1 );			
-		};
-		
-		node.transformOnClick = function(){
-			node.displayEntity.material.color.set( globalAppSettings.nodeColorOnSelect );
-			var scaleFactor = globalAppSettings.nodeScaleOnSelect;
-			node.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );						
-		};
-		
-		node.transformOnAltClick = function(){
-			node.displayEntity.material.color.set( globalAppSettings.nodeColorOnAltSelect );
-			node.label.transformOnAltClick(); 
-		};
-		
-		node.unTransformOnClickOutside = function(){
-			node.displayEntity.material.color.set( node.colorAsHex() );
-			node.displayEntity.scale.set( 1, 1, 1 );			
-		};
-		
-		node.transformOnWheel = function(){ 
-
-			offset = new THREE.Vector3 ( 0, 0.5, 0 ); 
-			moveNodeByOffset( node, offset ); 
-		}; 		
-		
-		/* Createing a hidden user input for changing text labels */
-		
-		attachHiddenInputToGraphElement( node );
-		
-		/* Playing Nice with Others */
-		
-		node.components = {
-			masterContainer: { /* obj */ }, /* The Master Object that parents all of the node contents  */ 
-			personalSpace: {
-				onionLayers: { /* obj */ }, /* A set of values that determines boundaries around the node */
-				rotatedPlanes: function(){}
-			},
-			boundingBox: function(){}, /* The bounding box... probably just imported from Three.JS for the displayEntity*/
-			textVal: { /* string */ },
-			description: { /* string */ },
-		};
-		
-		/* Physics (Later) */
-		
-		node.computedPhysicsBehavior = {
-			repeulsiveForce: {},		
-		};
-		node.computedSystemBehavior = {
-			weight: {},
-			bias: {},
-		};
-		node.heirarchy = {
-			priority: 		{ /* integer */ }, /* determines what the priority level of this node is in the system */
-			level: 			{ /* integer */ }, /* determines what the heirarchical level of the node is. */
-			sequenceVal:   	{ /* integar */ }, /* determines what the sequential value of the node is relative to other nodes in the group */ 
-		};
-		
-		/* Meaning Structure */
-		
-		node.meaning = function( meaningSystem, meaning ){
-			if ( meaningSystem === "generic" && meaning === "logic" ) {
-				/* visualizing logical operators */
-			} 
-			/* etc... */
-		};
-		
-		node.adjacentNodes = []; /* What other nodes are connected to this object via edges? Initialize as empty */
-		
-		//scene.add( this.displayEntity );
-		
-		console.log( 'LUCIDNODES.Node(): ', this );	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}
 
 
 	/* addNode();
@@ -1739,12 +1565,12 @@ function mapAcrossGraphElementArray( fn, arr, param ) {
 	}
 };
 
-var changeGraphElementColor = function( graphElement, color ){
+function changeGraphElementColor( graphElement, color ){
 	
-	if ( graphElement.displayEntity.isGraphElement ){
+	if ( graphElement.displayEntity.isGraphElementPart ){
 		
-		graphElement.color = color;
-		graphElement.displayEntity.material.color.set( graphElement.colorAsHex() );
+		graphElement.color.set( color );
+		graphElement.displayEntity.material.color.set( graphElement.color );
 	}
 };
 
@@ -1874,7 +1700,8 @@ function clearAll(){
 function createPaneDisplayEntity( pane ){
 	
 	pane.displayEntity = new THREE.Mesh(new THREE.PlaneBufferGeometry( pane.size.x, pane.size.y, 8, 8), new THREE.MeshBasicMaterial( { color: 0xffffff, alphaTest: 0 }));
-	pane.displayEntity.isGraphElement = true;
+	pane.displayEntity.isGraphElementPart = true;
+	pane.displayEntity.graphElementPartType = "paneDisplayEntity";
 	pane.displayEntity.referent = pane;
 	
 	pane.displayEntity.position.copy( pane.position );

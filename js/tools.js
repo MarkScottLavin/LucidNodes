@@ -53,7 +53,7 @@ function checkTools(){
 	
 	}
 
-	if ( SELECTEDTOOLS.includes ( "paintBucket" ) ) {
+	if ( SELECTEDTOOLS.includes ( "paint" ) ) {
 	
 		// Add Transform behaviors for graphElements ( EventListener callbacks );
 		graphElement.transformOnDblClick = function(){ changeGraphElementColor( graphElement, SELECTEDCOLOR ) };
@@ -204,7 +204,8 @@ var toolState = {
 		deleteSelected: 0,
 		move: 0,
 		del: 0,
-		paint: 0	
+		paint: 0,
+		eyedropper: 0
 };
 
 function flushToolState(){
@@ -293,8 +294,12 @@ function addToolListeners( tool = "select" ){
 		document.addEventListener( 'keyup', function(e){ onRotToolKeyUp(e); }, false );		
 	}
 	
-	if( tool === "paintBucket" ){
-		document.getElementById('visualizationContainer').addEventListener( 'mouseup', activatePaintBucket, false );
+	if( tool === "paint" ){
+		document.getElementById('visualizationContainer').addEventListener( 'mouseup', paintGraphElements, false );
+	}
+	
+	if( tool === "eyedropper" ){
+		document.getElementById('visualizationContainer').addEventListener( 'mouseup', getGraphElementColor, false );
 	}
 }
 
@@ -305,26 +310,31 @@ function removeToolListeners( tool ){
 		document.getElementById('visualizationContainer').removeEventListener( 'mousedown', onMouse, false );
 		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', onMouse, false );
 		document.getElementById('visualizationContainer').removeEventListener( 'dblclick', onMouse, false );
-		document.getElementById('visualizationContainer').removeEventListener( 'wheel', onMouse, false );
-//		document.removeEventListener( 'keydown', function (e) { onKeyDown(e); }, false );
-//		document.removeEventListener( 'keyup', function (e) { onKeyUp(e); }, false );		
+		document.getElementById('visualizationContainer').removeEventListener( 'wheel', onMouse, false );	
 	}
 	
 	if ( tool === "rotate" ){
 		
 		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', activateRotationTool, false );
-		document.removeEventListener( 'keyup', function(e){ onRotToolKeyUp(e); }, false );			
+		document.removeEventListener( 'keyup', function(e){ onRotToolKeyUp(e); }, false );	
+
 	}	
 	
-	if( tool === "paintBucket" ){
+	if( tool === "paint" ){
 
-		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', activatePaintBucket, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', paintGraphElements, false );
 		
 	}	
+	
+	if( tool === "eyedropper" ){
+		
+		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', getGraphElementColor, false );
+	}
 }
 
 var activateRotationTool = function( e ){ rotationTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
-var activatePaintBucket = function( e ){   };
+var paintGraphElements = function( e ){ paintGraphElementOnMouseUp() };
+var getGraphElementColor = function( e ){ selectGraphElementColorOnMouseUp() };
 
 addUniversalToolListeners();
 selectTool( "select" );
