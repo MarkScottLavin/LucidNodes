@@ -607,6 +607,18 @@ function createNodeDisplayEntity( node ){
 		node.bufferGeom = new THREE.BoxBufferGeometry( cubeEdge, cubeEdge, cubeEdge );
 	}	
 	
+	if ( node.shape === "v1octahedron" ){
+		node.bufferGeom = new THREE.OctahedronBufferGeometry( node.radius, 0 );
+	}
+	
+	if ( node.shape === "v1tetrahedron" ){
+		node.bufferGeom = new THREE.TetrahedronBufferGeometry( node.radius, 0 );		
+	}
+	
+	if ( node.shape === "v1icosahedron" ){
+		node.bufferGeom = new THREE.IcosahedronBufferGeometry( node.radius, 0 );		
+	}	
+	
 	node.displayEntity = new THREE.Mesh( node.bufferGeom, node.material );
 	node.displayEntity.isGraphElementPart = true;
 	node.displayEntity.graphElementPartType = "nodeDisplayEntity";
@@ -662,13 +674,18 @@ function rotationByShape( node ){
 function changeNodeShape( node, shape ){
 	
 	node.shape = shape;
+	
+	node.displayEntity.remove( node.label.displayEntity );
+	
 	removeNodeDisplayEntity( node );
 	createNodeDisplayEntity( node );
+	
+	node.displayEntity.add( node.label.displayEntity );
 }
 
 function changeShapeAllNodesInArray( nodeArr, shape ){
 	
-	if ( nodeArr & nodeArr.length > 0 ){
+	if ( nodeArr && nodeArr.length > 0 ){
 		for ( var n = 0; n < nodeArr.length; n++ ){			
 			changeNodeShape( nodeArr[n], shape );
 		}
@@ -1068,9 +1085,22 @@ function snapAllNodesToGrid( precision = decimalPlaces ){
 function scaleNode( node, scaleFactor ){
 	
 	node.radius = node.radius * scaleFactor;
+
+	node.displayEntity.remove( node.label.displayEntity );
+	
 	removeNodeDisplayEntity( node );
 	createNodeDisplayEntity( node );
+	
+	node.displayEntity.add( node.label.displayEntity );	
+}
 
+function scaleAllNodesInArray( nodeArr, scaleFactor ){
+	
+	if ( nodeArr && nodeArr.length > 0 ){
+		for ( var n = 0; n < nodeArr.length; n++ ){			
+			scaleNode( nodeArr[n], scaleFactor );
+		}
+	}
 }
 
 function restoreDeletedNode( node ){

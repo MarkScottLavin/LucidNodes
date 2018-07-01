@@ -1175,4 +1175,166 @@ function positionSaveAsBox( box ){
 
 initSaveAsBox( saveAsBox );
 initSaveAsBox( saveThemeAsBox );
+
+
+/* Minimizing/Maximizing Panels */
+
+var panelMaximized = {
+	search: 1,
+	theme: 1,
+};
+
+var panelCoords = {};
+
+function initPanelDragCoords(){
+	
+	panelCoords.search = {
+		start:{ x: 0, y: 0 },
+		end:{ x:0, y:0 }
+	}
+	
+	panelCoords.theme = {
+		start:{ x: 0, y: 0 },
+		end:{ x:0, y:0 }
+	}
+	
+	panelCoords.editNode = {
+		start:{ x: 0, y: 0 },
+		end:{ x:0, y:0 }
+	}
+	
+	panelCoords.toolbar = {
+		start:{ x: 0, y: 0 },
+		end:{ x:0, y:0 }
+	}	
+}
+
+initPanelDragCoords();
+
+function togglePanelSize( panelID ){
+	
+	var panel = document.getElementById( panelID );
+	var fn;
+	
+	if ( panel && panelMaximized[ panelID ] !==1 ){
+		panelMaximized[ panelID ] = 1;
+		fn = panelID + "PanelMaximize";
+		window[ fn ]();
+		return;
+	}
+	
+	if ( panel && panelMaximized[ panelID ] !==0 ){
+		panelMaximized[ panelID ] = 0;
+		fn = panelID + "PanelMinimize";
+		window[ fn ]();
+		return;
+	}
+}
+
+function searchPanelMaximize(){
+	document.getElementById( "search" ).style.height = "150px";
+	document.querySelector( "#search .panel-body" ).style.display = "block";		
+}
+
+function searchPanelMinimize(){
+	document.getElementById( "search" ).style.height = "24px";	
+	document.querySelector( "#search .panel-body" ).style.display = "none";		
+}
  
+function themePanelMaximize(){
+	document.getElementById( "theme" ).style.height = "400px";
+	document.querySelector( "#theme .panel-body" ).style.display = "block";	
+}
+
+function themePanelMinimize(){
+	document.getElementById( "theme" ).style.height = "24px";
+	document.querySelector( "#theme .panel-body" ).style.display = "none";			
+}
+
+function editNodePanelMaximize(){
+	document.getElementById( "editNode" ).style.height = "290px";
+	document.querySelector( "#editNode .panel-body" ).style.display = "block";	
+}
+
+function editNodePanelMinimize(){
+	document.getElementById( "editNode" ).style.height = "24px";
+	document.querySelector( "#editNode .panel-body" ).style.display = "none";			
+}
+
+function getCoordsInPanel( event, panelID ){
+	
+	var panelTop = document.getElementById( panelID ).offsetTop;
+	var panelLeft = document.getElementById( panelID ).offsetLeft;
+	
+	windowWidth = window.innerWidth;
+	windowHeight = window.innerHeight;	
+	
+	var windowCoords = getPosition( event );
+	
+	panelCoords.inside = { 
+		x: windowCoords.x - panelLeft,
+		y: windowCoords.y - panelTop
+	}
+}
+
+function getDragStartCoords( event, panelID ){
+	
+	var windowCoords = getPosition( event );
+	
+	panelCoords[ panelID ].start.x = windowCoords.x;
+	panelCoords[ panelID ].start.y = windowCoords.y;
+	
+	getCoordsInPanel( event, panelID );
+}
+
+function getDragEndCoords( event, panelID ){
+	
+	var windowCoords = getPosition( event );
+	
+	panelCoords[ panelID ].end.x = windowCoords.x;
+	panelCoords[ panelID ].end.y = windowCoords.y;
+	
+}
+
+function getDragCoordsDelta( panelID ){
+	
+	var delta = {
+		x: ( panelCoords[ panelID ].end.x - panelCoords[ panelID ].start.x ),
+		y: ( panelCoords[ panelID ].end.y - panelCoords[ panelID ].start.y )	
+	}
+	
+	return delta;
+}
+
+function setPanelNewPosition( panelID ){
+	
+	var delta = getDragCoordsDelta( panelID );
+	
+	document.getElementById( panelID ).style.left = panelCoords[ panelID ].start.x + delta.x - panelCoords.inside.x + "px";
+	document.getElementById( panelID ).style.top = panelCoords[ panelID ].start.y + delta.y + - panelCoords.inside.y + "px";
+  	
+}
+
+function movePanel( event, panelID ){
+	
+	getDragEndCoords( event, panelID );
+	getDragCoordsDelta( panelID );
+	setPanelNewPosition( panelID );
+	initPanelDragCoords();
+}
+
+var moveThemePanel = function( e ){
+	movePanel( e, "theme" );
+}
+
+var moveSearchPanel = function( e ){
+	movePanel( e, "search" );
+}
+
+var moveShapePanel = function( e ){
+	movePanel( e, "editNode" );
+}
+
+var moveToolbar = function( e ){
+	movePanel( e, "toolbar" );
+}

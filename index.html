@@ -72,8 +72,8 @@
 	<script src="lucidNodes-modules/treeClimber.js"></script>
 </div>
 
-<div class="toolbar">
-	<div class="toolbar-title"><strong>Tools</strong></div>
+<div class="toolbar" id="toolbar">
+	<div class="toolbar-title" id="toolbar-title"><strong>Tools</strong></div>
 	<div class="toolbar-cell"><img id="select" title="Default/Select Tool" alt="Default/Select Tool" src="assets/tool_icons/Select.png"></div>
 	<input class="toolbar-cell" type="color" id="colorPicker" title="Assign Color to selected items" name="colorPicker" value="#ff0000">
 	<div class="toolbar-cell"><img id="paint" title="Paint" alt="Paint" src="assets/tool_icons/Paint-Bucket.png"></div>
@@ -95,51 +95,72 @@
 </div>
 
 <div class="panel" id="theme">
-	<div class="panel-title"><strong>Theme</strong></div>
-	
-	<form method="GET" id="temp2" enctype="multipart/form-data">
-		<div class="saveBar-cell">
-		   <label for="fileInput">Theme</label>
-		   <input type="file" id="themeInput" name="themeInput" accept=".json">
+	<div class="panel-title" id="theme-panel-title"><strong>Theme</strong><span id="minimize-theme-panel" class="pull-right"><strong>>></strong></span></div>
+	<div class="panel-body">
+		<form method="GET" id="temp2" enctype="multipart/form-data">
+			<div class="saveBar-cell">
+			   <label for="fileInput">Theme</label>
+			   <input type="file" id="themeInput" name="themeInput" accept=".json">
+			</div>
+			<div class="saveBar-cell">
+				<input type="button" name="saveThemeBtn" id="saveThemeBtn" value="Save">
+			</div>
+			<div class="saveBar-cell">
+				<input type="button" name="saveThemeAsBtnOpener" id="saveThemeAsBtnOpener" value="Save As">
+			</div>			
+		</form>		
+		
+		<div>
+			<div class="panel-cell-label">Sky 1</div>
+			<input class="panel-cell-md" type="color" id="skyColor1" title="Sky Color 1" name="skyColor1" value="#ff0000">
 		</div>
-		<div class="saveBar-cell">
-			<input type="button" name="saveThemeBtn" id="saveThemeBtn" value="Save">
+		<div>
+			<div class="panel-cell-label">Sky 2</div>
+			<input class="panel-cell-md" type="color" id="skyColor2" title="Sky Color 2" name="skyColor2" value="#ff0000">	
 		</div>
-		<div class="saveBar-cell">
-			<input type="button" name="saveThemeAsBtnOpener" id="saveThemeAsBtnOpener" value="Save As">
+		<div>
+			<div class="panel-cell-label">Ground</div>
+			<input class="panel-cell-md" type="color" id="groundColor" title="Ground Color" name="groundColor" value="#ff0000">	
+		</div>	
+		<div>
+			<div class="panel-cell-label">Linear Axes</div>
+			<input type="checkbox" id="linearAxes" title="Linear Axes" name="linearAxes" checked="true">	
+		</div>		
+		<div>
+			<div class="panel-cell-label">Radial Axes</div>
+			<input type="checkbox" id="radialAxes" title="Radial Axes" name="radialAxes" checked="true">
 		</div>			
-	</form>		
-	
-	<div>
-		<div class="panel-cell-label">Sky 1</div>
-		<input class="panel-cell" type="color" id="skyColor1" title="Sky Color 1" name="skyColor1" value="#ff0000">
 	</div>
-	<div>
-		<div class="panel-cell-label">Sky 2</div>
-		<input class="panel-cell" type="color" id="skyColor2" title="Sky Color 2" name="skyColor2" value="#ff0000">	
-	</div>
-	<div>
-		<div class="panel-cell-label">Ground</div>
-		<input class="panel-cell" type="color" id="groundColor" title="Ground Color" name="groundColor" value="#ff0000">	
-	</div>	
-	<div>
-		<div class="panel-cell-label">Linear Axes</div>
-		<input type="checkbox" id="linearAxes" title="Linear Axes" name="linearAxes" checked="true">	
-	</div>		
-	<div>
-		<div class="panel-cell-label">Radial Axes</div>
-		<input type="checkbox" id="radialAxes" title="Radial Axes" name="radialAxes" checked="true">
-	</div>			
 </div>
 
 <div class="panel" id="search">
-	<div class="panel-title"><strong>Search</strong></div>
-	<div>
+	<div class="panel-title" id="search-panel-title"><strong>Search</strong><span id="minimize-search-panel" class="pull-right"><strong>>></strong></span></div>
+	<div class="panel-body">
 		<div class="panel-cell-label">Search</div>
 		<input type="text" id="searchBox" title="Search" name="Search">
 		<input type="button" id="searchGo"  name="searchGo" title="Go" value="Go">
 	</div>		
 </div>
+
+<div class="panel" id="editNode">
+	<div class="panel-title" id="editNode-panel-title"><strong>Edit Nodes</strong><span id="minimize-editNode-panel" class="pull-right"><strong>>></strong></span></div>
+	<div class="panel-body">
+		<div class="panel-cell-label">Shape</div>	
+		<div>
+			<div class="panel-cell-lg"><img id="sphere" title="Sphere Node" alt="Sphere Node" src="assets/shape_icons/Sphere.png"></div>
+			<div class="panel-cell-lg"><img id="cube" title="Cube Node" alt="Cube Node" src="assets/shape_icons/Cube.png"></div>
+			<div class="panel-cell-lg"><img id="v1tetrahedron" title="Tetrahedron Node" alt="Tetrahedron Node" src="assets/shape_icons/Tetrahedron.png"></div>
+			<div class="panel-cell-lg"><img id="v1octahedron" title="Octahedron Node" alt="Octahedron Node" src="assets/shape_icons/Octahedron.png"></div>	
+			<div class="panel-cell-lg"><img id="v1icosahedron" title="Icosahedron Node" alt="Icosahedron Node" src="assets/shape_icons/Icosahedron.png"></div>			
+		</div>
+		<div class="panel-cell-label">Scale</div>	
+		<div>
+			<input type="text" id="scaleInput" title="scaleInput" name="Scale Nodes" alt="Scale Nodes">
+			<input type="button" id="scaleGo"  name="scaleGo" title="Scale Nodes - Go" value="Go">	
+		</div>
+	</div>
+</div>
+
 
 <nav class="context-menu" id="context-menu">
   <ul class="context-menu__items">

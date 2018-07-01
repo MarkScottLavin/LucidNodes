@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.29
+	* Version 0.1.30
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -66,10 +66,27 @@ var initUI = function(){
 	
 	document.getElementById('showSmartGuides').addEventListener('click', function() { detectAllCommonOrthoLines(); });	
 	document.getElementById('snapAllNodesToGrid').addEventListener('click', function() { snapAllNodesToGrid(); });	
+	
+	document.getElementById('toolbar-title').addEventListener( "mousedown", function(e){ 
+		getDragStartCoords( e, "toolbar" ); 
+		document.addEventListener( "mousemove", moveToolbar, false );
+		}, false );
+	document.getElementById('toolbar-title').addEventListener( "mouseup", function(e){ 
+		document.removeEventListener( "mousemove", moveToolbar, false );
+		}, false );	
 
 	/* SEARCH */
 	
 	document.getElementById('searchGo').addEventListener('click', function(){ if ( searchBox.value.length > 0 ){ selectAllWithPhrase( searchBox.value ); }});
+	document.getElementById('minimize-search-panel').addEventListener('click', function(){ togglePanelSize( "search" ); }, false );
+	
+	document.getElementById('search-panel-title').addEventListener( "mousedown", function(e){ 
+		getDragStartCoords( e, "search" ); 
+		document.addEventListener( "mousemove", moveSearchPanel, false );
+		}, false );
+	document.getElementById('search-panel-title').addEventListener( "mouseup", function(e){ 
+		document.removeEventListener( "mousemove", moveSearchPanel, false );
+		}, false );	
 		
 	/* THEME */	
 		
@@ -83,6 +100,65 @@ var initUI = function(){
 	document.getElementById('groundColor').addEventListener('change', function(e){ groundColor( e.target.value ); });
 	document.getElementById('linearAxes').addEventListener('click', function(e){ if ( e.target.checked ){ showAxes(); } else { hideAxes(); } } );
 	document.getElementById('radialAxes').addEventListener('click', function(e){ if ( e.target.checked ){ showRadialAxes(); } else { hideRadialAxes(); } } );
+	
+	document.getElementById('minimize-theme-panel').addEventListener('click', function(){ togglePanelSize( "theme" ); }, false );
+	document.getElementById('theme-panel-title').addEventListener( "mousedown", function(e){ 
+		getDragStartCoords( e, "theme" ); 
+		document.addEventListener( "mousemove", moveThemePanel, false );
+		}, false );
+	document.getElementById('theme-panel-title').addEventListener( "mouseup", function(e){ 
+		document.removeEventListener( "mousemove", moveThemePanel, false );
+		}, false );
+		
+	/* SHAPE */	
+
+	document.getElementById('sphere').addEventListener('click', function(e){ 
+		if ( SELECTED.nodes.length > 0 ){ 
+			changeShapeAllNodesInArray( SELECTED.nodes, "sphere" ); 
+			} 
+		});
+	document.getElementById('cube').addEventListener('click', function(e){ 
+		if ( SELECTED.nodes.length > 0 ){ 
+			changeShapeAllNodesInArray( SELECTED.nodes, "cube" ); 
+			}
+		});
+	document.getElementById('v1tetrahedron').addEventListener('click', function(e){ 
+		if ( SELECTED.nodes.length > 0 ){ 
+			changeShapeAllNodesInArray( SELECTED.nodes, "v1tetrahedron" ); 
+			} 
+		});
+	document.getElementById('v1octahedron').addEventListener('click', function(e){ 
+		if ( SELECTED.nodes.length > 0 ){ 
+			changeShapeAllNodesInArray( SELECTED.nodes, "v1octahedron" ); 
+			} 
+		});
+	document.getElementById('v1icosahedron').addEventListener('click', function(e){ 
+		if ( SELECTED.nodes.length > 0 ){ 
+			changeShapeAllNodesInArray( SELECTED.nodes, "v1icosahedron" ); 
+			} 
+		});	
+
+	document.getElementById('minimize-editNode-panel').addEventListener('click', function(){ togglePanelSize( "editNode" ); }, false );
+	document.getElementById('editNode-panel-title').addEventListener( "mousedown", function(e){ 
+		getDragStartCoords( e, "editNode" ); 
+		document.addEventListener( "mousemove", moveShapePanel, false );
+		}, false );
+	document.getElementById('editNode-panel-title').addEventListener( "mouseup", function(e){ 
+		document.removeEventListener( "mousemove", moveShapePanel, false );
+		}, false );
+		
+	/* SCALING */
+
+	document.getElementById('scaleGo').addEventListener('click', function(){ 
+		var scaleInput = document.getElementById( "scaleInput" );
+		var scaleVal = parseFloat( scaleInput.value );
+		
+		if ( SELECTED.nodes.length > 0 && scaleInput.value.length > 0 && !scaleVal.isNaN && scaleVal > 0 ){ 
+			scaleAllNodesInArray( SELECTED.nodes, scaleVal ); 
+			}
+
+		document.getElementById( "scaleInput" ).value = "";
+		});	
 	
 	/* THEME SAVING */
 	
