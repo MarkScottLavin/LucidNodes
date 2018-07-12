@@ -1,7 +1,6 @@
 var tools = {};
 var USERCONDITIONS = [];
 var SELECTEDTOOLS = [];
-var SELECTEDCOLOR;
 var activeToolListeners;
 
 /* Handling UserConditions */
@@ -75,12 +74,6 @@ function checkTools(){
 	if ( SELECTEDTOOLS.includes ( "panView" ) ){ 
 	
 	}
-};
-
-function selectColor( color ){
-
-	SELECTEDCOLOR = color;
-
 };
 
 /* 
@@ -294,12 +287,17 @@ function addToolListeners( tool = "select" ){
 		document.addEventListener( 'keyup', function(e){ onRotToolKeyUp(e); }, false );		
 	}
 	
-	if( tool === "paint" ){
+	if ( tool === "paint" ){
 		document.getElementById('visualizationContainer').addEventListener( 'mouseup', paintGraphElements, false );
 	}
 	
-	if( tool === "eyedropper" ){
+	if ( tool === "eyedropper" ){
 		document.getElementById('visualizationContainer').addEventListener( 'mouseup', getGraphElementColor, false );
+	}
+	
+	if ( tool === "move" ){
+		document.getElementById('visualizationContainer').addEventListener( 'mouseup', activateMoveTool, false );
+		document.addEventListener( 'keyup', function(e){ onMoveToolKeyUp(e); }, false );	
 	}
 }
 
@@ -320,19 +318,27 @@ function removeToolListeners( tool ){
 
 	}	
 	
-	if( tool === "paint" ){
+	if ( tool === "paint" ){
 
 		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', paintGraphElements, false );
 		
 	}	
 	
-	if( tool === "eyedropper" ){
+	if ( tool === "eyedropper" ){
 		
 		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', getGraphElementColor, false );
+	}
+	
+	if ( tool === "move" ){
+		
+		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', activateMoveTool, false );
+		document.removeEventListener( 'keyup', function(e){ onMoveToolKeyUp(e); }, false );	
+		
 	}
 }
 
 var activateRotationTool = function( e ){ rotationTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
+var activateMoveTool = function( e ){ moveTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
 var paintGraphElements = function( e ){ paintGraphElementOnMouseUp() };
 var getGraphElementColor = function( e ){ selectGraphElementColorOnMouseUp() };
 

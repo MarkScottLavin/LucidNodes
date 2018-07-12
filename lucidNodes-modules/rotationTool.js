@@ -1,5 +1,6 @@
+/* TOOL-SPECIFIC VARIABLES */
+
 var rotToolState;
-var origNodePositions = []; // THIS LINE WAS ADDED
 var angleLineMaterial = new THREE.LineBasicMaterial({ color: 0x888888 });
 
 function initRotationTool(){
@@ -14,43 +15,11 @@ function initRotationTool(){
 		},
 		eul: {}
 	}
-	
-	origNodePositions = [];  // THIS LINE WAS ADDED
-
 }
 
 initRotationTool();
 
-// Node Operations: Get Original Positions when the tool is initialized. THESE FUNCTIONS WERE ADDED
-
-function getOrigNodePosition( node ){
-	
-	if ( node && node.isNode ){
-		var origPos = new THREE.Vector3();
-		origPos.copy( node.position );
-		origNodePositions.push( origPos );
-	}
-}
-
-function getOrigNodeArrayPositions( nodeArr ){
-	
-	if ( nodeArr.length > 0 ){ 
-		for ( var n = 0; n < nodeArr.length; n++ ){	
-			getOrigNodePosition( nodeArr[ n ] );
-		}
-	}	
-}
-
-function restoreSelectedNodesOrigPosition(){
-	
-	if ( (origNodePositions.length > 0 ) && SELECTED.nodes && ( SELECTED.nodes.length > 0 ) ){	
-		for ( var a = 0; a < SELECTED.nodes.length; a++ ){
-			moveNodeTo( SELECTED.nodes[a], origNodePositions[a] ); 
-		}
-	}
-} 
-
-// End Node Operantions: Get Original Positions when the tool is initialized.
+// End Node Operations: Get Original Positions when the tool is initialized.
 
 function lineToPoint( line, endPosition ){
 	
@@ -158,7 +127,7 @@ function rotationTool( position ){
 		rotToolState.angleLines.push( new THREE.Line( geometry, angleLineMaterial ) );
 		scene.add( rotToolState.angleLines[1] );		
 
-		getOrigNodeArrayPositions( SELECTED.nodes ); 		
+		setOrigNodeArrPositions( SELECTED.nodes ); 		
 		
 		// add a third point ( rotToolState.points[2] ) and line that both moves with the mouse	
 		rotToolState.points.push ( new Point( position, 1.0, 0x0000ff ) );		
@@ -182,6 +151,7 @@ function rotationTool( position ){
 		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', getRotToolEuler, false );	
 		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', rotNodesWithTool, false );	
 		
+		removeOrigNodeArrPositions( SELECTED.nodes );
 		bailRotTool();
 		
 		return;
@@ -289,7 +259,8 @@ function onRotToolKeyUp( event ){
 	if ( event.key === "Escape" ){
 /*	if ( keyPressed.keys.includes( "Escape" ) ){  */
 		bailRotTool();
-		restoreSelectedNodesOrigPosition();
+		restoreNodeArrToOrigPositions( SELECTED.nodes );
+		removeOrigNodeArrPositions( SELECTED.nodes );
 	} 
 }
 

@@ -15,11 +15,7 @@ function positionThreeGroup( threeGroup, position ){
 
 // Add an array of Nodes to the group.
 function addNodesToThreeGroup( nodeArr, threeGroup ){
-	
-	for ( var n = 0; n < nodeArr.length; n++ ){
-		addNodeToThreeGroup( nodeArr[n], threeGroup );
-	}
-	
+	doToGraphElementArray( "addNodeToThreeGroup", nodeArr, threeGroup );
 }
 
 // Add a single node to the group.
@@ -32,10 +28,8 @@ function addNodeToThreeGroup( node, threeGroup ){
 
 // Remove an array of nodes from the group.
 function removeNodesFromThreeGroup( nodeArr, threeGroup ){
-	
-	for ( var n = 0; n < nodeArr.length; n++ ){
-		removeNodeFromThreeGroup( nodeArr[n], threeGroup );
-	}	
+	doToGraphElementArray( "removeNodeFromThreeGroup", nodeArr, threeGroup );	
+
 }
 
 // Remove a single node from the group.
@@ -68,10 +62,8 @@ function addNodeToThreeGroupAndKeepGlobalPosition( node, threeGroup ){
 
 function addNodesToThreeGroupAndKeepGlobalPosition( nodeArr, threeGroup ){
 	
-	for ( var n = 0; n < nodeArr.length; n++ ){
-		addNodeToThreeGroupAndKeepGlobalPosition( nodeArr[n], threeGroup );
-	}
-	
+	doToGraphElementArray( "addNodeToThreeGroupAndKeepGlobalPosition", nodeArr, threeGroup );
+
 }
 
 function removeNodeFromThreeGroupAndKeepGlobalPosition( node, threeGroup ){
@@ -84,9 +76,7 @@ function removeNodeFromThreeGroupAndKeepGlobalPosition( node, threeGroup ){
 
 function removeNodesFromThreeGroupAndKeepGlobalPosition( nodeArr, threeGroup ){
 	
-	for ( var n = 0; n < nodeArr.length; n++ ){
-		removeNodeFromThreeGroupAndKeepGlobalPosition( nodeArr[n], threeGroup );
-	}
+	doToGraphElementArray( "removeNodeFromThreeGroupAndKeepGlobalPosition", nodeArr, threeGroup );
 	
 }
 

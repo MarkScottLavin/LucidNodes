@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.29
+	* Version 0.1.30
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -143,7 +143,9 @@ function onMouseMove( event, nearestIntersected ){
 		
 		for ( var n = 0; n < SELECTED.nodes.length; n++ ){	
 			nodeRelativePositions.push( _Math.distanceAsVec3( SELECTED.nodes[0].position, SELECTED.nodes[n].position ) );
-		}
+		}  
+		
+		setOrigNodeArrPositions( SELECTED.nodes );
 		
 		// If none of the axial keys are selected, move freely in three dimensions along the camera facing guidePlane.
 		if ( !keysPressed.keys.includes( "X" ) && !keysPressed.keys.includes ( "Y" ) && !keysPressed.keys.includes ( "Z" ) ){
@@ -168,11 +170,8 @@ function onMouseMove( event, nearestIntersected ){
 				showGuideLine( guides.lines.x );
 			
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
-					
-					SELECTED.nodes[n].position.x = planeIntersection.point.x + nodeRelativePositions[n].x;
-					SELECTED.nodes[n].position.y = origPosition.y + nodeRelativePositions[n].y;
-					SELECTED.nodes[n].position.z = origPosition.z + nodeRelativePositions[n].z;					
-					
+
+					SELECTED.nodes[n].position.set( planeIntersection.point.x + nodeRelativePositions[n].x, SELECTED.nodes[n].origPosition.y, SELECTED.nodes[n].origPosition.z );						
 					moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );
 
 					console.log( 'after: ', SELECTED.nodes[n].position );			
@@ -186,10 +185,7 @@ function onMouseMove( event, nearestIntersected ){
 			
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 					
-					SELECTED.nodes[n].position.x = origPosition.x + nodeRelativePositions[n].x;					
-					SELECTED.nodes[n].position.y = planeIntersection.point.y + nodeRelativePositions[n].y;
-					SELECTED.nodes[n].position.z = origPosition.z + nodeRelativePositions[n].z;					
-					
+					SELECTED.nodes[n].position.set( SELECTED.nodes[n].origPosition.x, planeIntersection.point.y + nodeRelativePositions[n].y, SELECTED.nodes[n].origPosition.z );									
 					moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );
 
 					console.log( 'after: ', SELECTED.nodes[n].position );			
@@ -202,10 +198,8 @@ function onMouseMove( event, nearestIntersected ){
 				showGuideLine( guides.lines.z );				
 
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
-
-					SELECTED.nodes[n].position.x = origPosition.x + nodeRelativePositions[n].x;
-					SELECTED.nodes[n].position.y = origPosition.y + nodeRelativePositions[n].y;					
-					SELECTED.nodes[n].position.z = planeIntersection.point.z + nodeRelativePositions[n].z;
+					
+					SELECTED.nodes[n].position.set( SELECTED.nodes[n].origPosition.x, SELECTED.nodes[n].origPosition.y, planeIntersection.point.z + nodeRelativePositions[n].z );
 					
 					moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );
 
@@ -221,8 +215,8 @@ function onMouseDown( event, camera ){
 	// If there are are any active hidden user inputs, disable them
 	blurActiveHiddenInput();
 	
-	// If CTRL but not ALT
-	if ( event.ctrlKey && !event.altKey ){
+	// SELECT MULTIPLE TOOL ( Hotkey: Mouse + CTRL )
+	if ( event.ctrlKey && !event.altKey ){ 
 		
 		unAltSelectAll();
 
@@ -237,43 +231,34 @@ function onMouseDown( event, camera ){
 		if ( x ) { 
 			
 			if ( x.isNode ) {
-				// If SELECTED includes INTERSECTED_OBJ3D, leave it alone.
+				// If SELECTED includes the referent of the INTERSECTED_OBJ3D, unselect it.
 				if ( SELECTED.nodes.length > 0 && SELECTED.nodes.includes( x ) ) { 
-					
-					var intersectedIndex = SELECTED.nodes.indexOf( x );
-					unTransformGraphElementOnUnselect( x );
-					SELECTED.nodes.splice( intersectedIndex, 1 ); 
-					console.log( SELECTED );
+					unSelectNode( x );
 					}
 				
-				// If SELECTED Nodes doesn't include INTERSECTED_OBJ3D, transform it and add it.
+				// If SELECTED Nodes doesn't include INTERSECTED_OBJ3D, select it.
 				else if ( !SELECTED.nodes.includes( x ) ) { 
 					selectNode( x );
-					console.log( SELECTED );
 					}
 			}
 			
 			else if ( x.isEdge ){
 				
-				// If SELECTED Edges includes INTERSECTED_OBJ3D, leave it alone.
-				if ( SELECTED.edges.includes( x ) ) { 
-					
-					var intersectedIndex = SELECTED.edges.indexOf( x );
-					unTransformGraphElementOnUnselect( x );
-					SELECTED.edges.splice( intersectedIndex, 1 ); 
-					console.log( SELECTED );
+				// If SELECTED includes the referent of the INTERSECTED_OBJ3D, unselect it.
+				if ( SELECTED.edges.includes( x ) ) { 	
+					unSelectEdge( x );
 					}
 				
-				// If SELECTED Edges doesn't include INTERSECTED_OBJ3D, transform it and add it.
+				// If SELECTED Nodes doesn't include INTERSECTED_OBJ3D, select it.
 				else if ( !SELECTED.edges.includes( x ) ) { 
 					selectEdge( x );
-					console.log( SELECTED );
 					}
 			} 			
 		}
 	}
 
-	else if ( !event.ctrlKey && !event.altKey ){  // If CTRL isn't clicked
+	// SELECT SINGLE TOOL ( Hotkey: Mouse only )
+	else if ( !event.ctrlKey && !event.altKey ){ 
 		
 		unSelectAll();
 		unAltSelectAll();
@@ -282,34 +267,29 @@ function onMouseDown( event, camera ){
 		var x = getReferentGraphElementOfIntersectedObj3D();
 		
 		if ( x ){
-			if ( x.isNode ){ selectNode( x ); origPosition = new THREE.Vector3(); origPosition.copy( x.position ); }
+			if ( x.isNode ){ selectNode( x ); /* setOrigNodePosition( x ); */ /* origPosition = new THREE.Vector3(); origPosition.copy( x.position ); */ }
 			else if ( x.isEdge ){ selectEdge( x ); }
 		}			
 	}
-	if ( event.altKey && !event.ctrlKey ){
+	
+	// ADD EDGE TOOL ( Hotkey: Mouse + ALT )
+	if ( event.altKey && !event.ctrlKey ){ // If ALT is Clicked but not CTRL...
+			
+		var x = getReferentGraphElementOfIntersectedObj3D();		
 
-		if ( INTERSECTED_OBJ3D && INTERSECTED_OBJ3D.isGraphElementPart ){
-			
-			var n;
-			
-			if ( INTERSECTED_OBJ3D.referent.isNode ){ n = INTERSECTED_OBJ3D.referent }
-			else if ( INTERSECTED_OBJ3D.referent.isNodeLabel ){ n = INTERSECTED_OBJ3D.referent.node }
+		if ( x && x.isNode ){
 
-			
-			if ( ( ALT_SELECTED.length <= 1 ) && ( !ALT_SELECTED.includes ( n ) ) ){
+			if ( ( ALT_SELECTED.length <= 1 ) && ( !ALT_SELECTED.includes ( x ) ) ){
 				
-				ALT_SELECTED.push( n ); 
-				n.transformOnAltClick();
-				console.log( ALT_SELECTED );
+				ALT_SELECTED.push( x ); 
+				x.transformOnAltClick();
 			}
 			
 			if ( ALT_SELECTED.length === 2 ){
 				
 				addEdge( [ ALT_SELECTED[0], ALT_SELECTED[1] ] );
-				
-				unAltSelectAll();
-				
-			}
+				unAltSelectAll();	
+			}			
 		}
 	}
 
@@ -408,7 +388,7 @@ function onKeyUp( event ){
 		event.key === "Z" && hideGuideLine( guides.lines.z );
 
 		if ( SELECTED.nodes.length > 0 ){
-			origPosition.copy( SELECTED.nodes[0].position ); 
+			removeOrigNodeArrPositions( SELECTED.nodes );
 			}		
 	}
 
@@ -567,16 +547,16 @@ function getCameraUnProjectedVector( camera ){
 function selectNodeArray( nodeArr ){
 	
 	unSelectAll();
-	for ( var n = 0; n < nodeArr.length; n++ ){
-		selectNode( nodeArr[n] );
-	}
+	doToGraphElementArray( "selectNode", nodeArr );
+	
 }
 
 function selectNode( node ){
 	
 	if ( node ){
 		SELECTED.nodes.push( node );
-		transformGraphElementOnSelect( node );	
+		transformGraphElementOnSelect( node );
+		//setOrigNodePosition( node );
 	}
 	else { console.error( 'selectNode(): Node not found.' ) }
 }
@@ -599,20 +579,15 @@ function selectAllNodes(){
 function selectAll(){
 	
 	unSelectAll();
-	for ( var n = 0; n < cognition.nodes.length; n++ ){
-		selectNode( cognition.nodes[n] );
-	}	
-	for ( var e = 0; e < cognition.edges.length; e++ ){
-		selectEdge( cognition.edges[e] );
-	}
+	doToGraphElementArray( "selectNode", cognition.nodes );
+	doToGraphElementArray( "selectEdge", cognition.edges );
+
 }
 
 function selectEdgeArray( edgeArr ){
 
 	unSelectAll();
-	for ( var e = 0; e < edgeArr.length; e++ ){
-		selectEdge( edgeArr[e] );
-	}
+	doToGraphElementArray( "selectEdge", edgeArr );
 }
 
 function selectAllEdges(){
@@ -620,59 +595,108 @@ function selectAllEdges(){
 	selectEdgeArray( cognition.edges );
 }
 
+function unSelectNode( node ){
+	
+	if ( node && SELECTED.nodes.includes( node ) ){
+		SELECTED.nodes.splice( SELECTED.nodes.indexOf( node ), 1 );
+		unTransformGraphElementOnUnSelect( node );
+	//	removeOrigNodePosition( node );
+	}
+	else { console.error( 'unSelectNode(): Node not found.' ) }
+	
+}
+
+function unSelectEdge( edge ){
+	
+	if ( edge && SELECTED.edges.includes( edge ) ){
+		SELECTED.edges.splice( SELECTED.edges.indexOf( edge ), 1 );
+		unTransformGraphElementOnUnSelect( edge );		
+	}
+	else { console.error( 'unSelectEdge(): Edge not found.' )}
+}
+
+function unSelectNodeArray( nodeArr ){
+	
+	var passArr = nodeArr.slice();
+	doToGraphElementArray( "unSelectNode", passArr );
+
+}
+
+function unSelectEdgeArray( edgeArr ){
+	
+	var passArr = edgeArr.slice();
+	doToGraphElementArray( "unSelectEdge", passArr );
+} 
+
 function unSelectAll(){
 	
-	if ( SELECTED.nodes.length > 0 ) {
-		unSelectAllOfType( "nodes" );
-	}
-	if ( SELECTED.edges.length > 0 ) {
-		unSelectAllOfType( "edges" );
-	}
+	unSelectNodeArray( SELECTED.nodes );
+	unSelectEdgeArray( SELECTED.edges );
+	
 }
 
-function unSelectAllOfType( type ){
+function getGraphElementsInArrayWithEquivalentPropVal( property, value, graphElementArr ){
 	
-	if ( SELECTED[type].length > 0 ) {
-	for ( var s = 0; s < SELECTED[type].length; s++ ){ 
-		unTransformGraphElementOnUnselect( SELECTED[type][ s ] ); 
-		}
-	SELECTED[type] = [];	
+	var arrayElementPropVal;
+	var graphElementsWithPropVal = [];
 	
-	}	
-}
-
-function selectAllNodesInArrayWithPropVal( node, property, nodeArr ){
+	// Compare each node in the array for equivalent value for this property, and selet all the ones that are equivalent.
+	for ( var n = 0; n < graphElementArr.length; n++ ){	
 	
-	var p = null;
-	var propVal;
-	
-	if ( node[property] ){ 
-		p = node[property];
-		unSelectAll();
-	}
-	
-	else { 
-		console.error( "selectAllNodesInArrayWithPropVal: No such property exists for the node passed." );
-		return; 
-		}
-	
-	for ( var n = 0; n < nodeArr.length; n++ ){	
-		propVal = null;
-		if ( nodeArr[n][property] ){ 
+		arrayElementPropVal = getGraphElementPropertyValue( graphElementArr[ n ], property );
+		
+		if ( arrayElementPropVal ){ 
 			
-			propVal = nodeArr[n][property];
-			if ( propVal === p ) {
-				selectNode( nodeArr[n] );
+			if ( arrayElementPropVal === value ) {
+				graphElementsWithPropVal.push( graphElementArr[ n ] );
 			}
-	/*		else if ( objectsAreIdentical( [ propVal, p ] ) ){
-				selectNode( nodeArr[n] );
-			}*/
-			else if ( propValIsObj( propVal ) && propValIsObj( p ) ){
-				if ( objectsAreIdentical( [ propVal, p ] ) ){
-					selectNode( nodeArr[n] );
+			else if ( propValIsObj( arrayElementPropVal ) && propValIsObj( value ) ){
+				if ( objectsAreIdentical( [ arrayElementPropVal, value ] ) ){
+				graphElementsWithPropVal.push( graphElementArr[ n ] );
 				}
 			}
 		}  
+	}
+
+	return graphElementsWithPropVal;
+}
+
+function getGraphElementPropertyValue( graphElement, property ){
+	
+	if ( graphElement.hasOwnProperty( property ) ){
+		return graphElement[ property ];
+	}
+}
+
+function selectNodesInArrayWithSamePropValAs( node, property, nodeArr ){
+	
+	var propValue = getGraphElementPropertyValue( node, property );
+	if ( propValue ){ 
+
+		unAltSelectAll(); 
+		var nodesWithEquivPropVal = getGraphElementsInArrayWithEquivalentPropVal( property, propValue, nodeArr );
+		doToGraphElementArray( "selectNode", nodesWithEquivPropVal );		
+		
+		}
+	else { 
+		console.error( "selectNodesInArrayWithSamePropValAs: No such property exists for the node passed." );
+		return; 
+	}
+}
+
+function selectEdgesInArrayWithSamePropValAs( edge, property, edgeArr ){
+	
+	var propValue = getGraphElementPropertyValue( edge, property );
+	if ( propValue ){ 
+
+		unAltSelectAll(); 
+		var nodesWithEquivPropVal = getGraphElementsInArrayWithEquivalentPropVal( property, propValue, edgeArr );
+		doToGraphElementArray( "selectNode", nodesWithEquivPropVal );		
+		
+		}
+	else { 
+		console.error( "selectNodesInArrayWithSamePropValAs: No such property exists for the edge passed." );
+		return; 
 	}
 }
 
@@ -680,7 +704,7 @@ function unAltSelectAll(){
 	
 	if ( ALT_SELECTED.length > 0 ){
 		for ( var a = 0; a < ALT_SELECTED.length; a++ ){
-			unTransformGraphElementOnUnselect( ALT_SELECTED[a] );
+			unTransformGraphElementOnUnSelect( ALT_SELECTED[a] );
 		}
 		ALT_SELECTED = [];
 	}
@@ -800,7 +824,7 @@ function transformGraphElementOnSelect( graphElement ){
 	}
 }
 
-function unTransformGraphElementOnUnselect( graphElement ){
+function unTransformGraphElementOnUnSelect( graphElement ){
 	if ( graphElement.displayEntity.isGraphElementPart ) { 
 		
 		if ( graphElement.isNode || graphElement.isEdge ){
@@ -1028,13 +1052,15 @@ function contextMenuActions(){
 		} );
 	document.getElementById( "selectAllOfSameShape").addEventListener( "click", function( event ){
 		var x = getReferentGraphElementOfIntersectedObj3D();
-		if ( x && x.isNode ){ selectAllNodesInArrayWithPropVal( x, "shape", cognition.nodes ) }
+		if ( x && x.isNode ){ selectNodesInArrayWithSamePropValAs( x, "shape", cognition.nodes ) }
 		toggleContextMenuOff();
 	} );
 	document.getElementById( "selectAllOfSameColor").addEventListener( "click", function( event ){
 		var x = getReferentGraphElementOfIntersectedObj3D();
-		if ( x && x.isNode ){ selectAllNodesInArrayWithPropVal( x, "color", cognition.nodes ) }
+		if ( x && x.isNode ){ selectNodesInArrayWithSamePropValAs( x, "color", cognition.nodes ) }
 		toggleContextMenuOff();
+		if ( x && x.isEdge ){ selectEdgesInArrayWithSamePropValAs( x, "color", cognition.edges ) }
+		toggleContextMenuOff();		
 	} );
 }
 
@@ -1252,7 +1278,7 @@ function themePanelMinimize(){
 }
 
 function editNodePanelMaximize(){
-	document.getElementById( "editNode" ).style.height = "290px";
+	document.getElementById( "editNode" ).style.height = "350px";
 	document.querySelector( "#editNode .panel-body" ).style.display = "block";	
 }
 

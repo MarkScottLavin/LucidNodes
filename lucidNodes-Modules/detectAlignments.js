@@ -277,17 +277,6 @@ function detectCommonRawValues( nodeArr ){
 	for ( var a = 0; a < alignedNodes.areNear.orthoCoPlanar.yz.length; a++ ){
 		common.rawDistilledComponentValues.x.push( alignedNodes.areNear.orthoCoPlanar.yz[a].position.x );
 	}
-	
-	/*
-	for ( var a = 0; a < alignedNodes.areNear.orthoColinear.x.length; a++ ){
-		common.orthoLineRawValuePairs.x.push( { y: alignedNodes.areNear.orthoColinear.x[a].position.y, z: alignedNodes.areNear.orthoColinear.x[a].position.z } );
-	}
-	for ( var a = 0; a < alignedNodes.areNear.orthoColinear.y.length; a++ ){
-		common.orthoLineRawValuePairs.y.push( { x: alignedNodes.areNear.orthoColinear.y[a].position.x, z: alignedNodes.areNear.orthoColinear.y[a].position.z } );
-	}
-	for ( var a = 0; a < alignedNodes.areNear.orthoColinear.z.length; a++ ){
-		common.orthoLineRawValuePairs.z.push( { x: alignedNodes.areNear.orthoColinear.z[a].position.x, y: alignedNodes.areNear.orthoColinear.z[a].position.y } );
-	} */	
 } 
 
 function detectAllCommonRawValues(){
@@ -381,11 +370,7 @@ function detectAllCommonOrthoLinesAlongAxis( orthoLine, precision = "rounded" ){
 		}
 		
 	}
-/*	
-	for ( var p = 0; p < potentialOrthoLines.length; p++ ){
-		guideLines.push( new guideLine( 100, "vector", { x: ( x || -100 ), y: ( y || -100 ), z: ( z || -100 ) }, { x: ( x || 100 ), y: ( y || 100 ), z: (z || 100 )  } ) ); 		
-	}
-	*/
+
 	for ( var g = 0; g < guideLines.length; g++ ){
 		showGuideLine( guideLines[g].line );
 	}
@@ -450,10 +435,10 @@ function getNodesNear( nodeArr, component, testVal, proximity = snapProximity ){
 	
 	var nodesNear = [];
 	
-	for ( var a = 0; a < nodeArr.length; a++ ){
+	for ( var n = 0; n < nodeArr.length; n++ ){
 		
-		if ( _Math.valNear ( nodeArr[a].position[component], testVal, proximity ) ){
-			nodesNear.push( nodeArr[a] );
+		if ( _Math.valNear ( nodeArr[n].position[component], testVal, proximity ) ){
+			nodesNear.push( nodeArr[n] );
 		}
 	}
 	
@@ -477,18 +462,37 @@ function getAllNodesNear( component, testVal, proximity = snapProximity ){
  *	planeAxes: <string> - Either "xy", "xz", "yz". The axes defining the plane to project onto.
  *  offset <Number> - The distance of the hypothetical plane along the perpendicular axis from the origin point
  *
- * moves all nodes in the array onto the a plane defined by the axes axial position. 
+ * moves all nodes in the array onto the a plane defined by the axes position. 
  *
  */
 
 function projectNodesToOrthoPlane( nodeArr, planeAxes, offset ){
 	
-	var component = getAxisPerpendicularToOrthoPlane( planeAxes );
-	
 	for ( var n = 0; n < nodeArr.length; n++ ){
-		nodeArr[n].position[component] = offset;
-		moveNodeTo( nodeArr[n], nodeArr[n].position );
+		projectNodeToOrthoPlane( nodeArr[ n ], planeAxes, offset );
 	}
+}
+
+/*
+ * projectNodeToOrthoPlane();
+ *
+ * author @markscottlavin
+ *
+ * parameters:
+ *	
+ *	node: <Node>
+ *	planeAxes: <string> - Either "xy", "xz", "yz". The axes defining the plane to project onto.
+ *  offset <Number> - The distance of the hypothetical plane along the perpendicular axis from the origin point
+ *
+ * moves node to the a plane defined by the axes position. 
+ *
+ */
+
+function projectNodeToOrthoPlane( node, planeAxes, offset ){
+	
+	var component = getAxisPerpendicularToOrthoPlane( planeAxes );
+	node.position[component] = offset;
+	moveNodeTo( node, node.position );	
 }
 
 /*

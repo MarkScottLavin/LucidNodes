@@ -43,13 +43,14 @@ var initUI = function(){
 	document.getElementById('rotate').addEventListener( 'mouseup', function(){ selectTool( "rotate" ); /* selectToolInUI( "rotate" ); toggleToolListeners("rotate"); */ });
 	document.getElementById('paint').addEventListener( 'mouseup', function(){ selectTool( "paint" ); } );
 	document.getElementById('eyedropper').addEventListener( 'mouseup', function(){ selectTool( "eyedropper" ); } );	
+	document.getElementById('move').addEventListener( 'mouseup', function(){ selectTool( "move" ); } );	
 
 	document.getElementById('createCompleteGraph').addEventListener( 'click', function() { if ( SELECTED.nodes.length > 0 ) { completeGraph( SELECTED.nodes ) } } );
 	document.getElementById('showCenterPoints').addEventListener( 'click', function() { LUCIDNODES.showGlobalCenterPoint() } );
 	document.getElementById('colorPicker').addEventListener('change', function () {
 																					var s = filterArrayForNodes( SELECTED.nodes );
 																					var c = document.getElementById('colorPicker').value;
-																					mapAcrossGraphElementArray( changeGraphElementColor, s, c );
+																					doToGraphElementArray( "changeGraphElementColor", s, c );
 																					
 																					console.log( 'color changed!' );
 																				} );
@@ -137,6 +138,16 @@ var initUI = function(){
 			changeShapeAllNodesInArray( SELECTED.nodes, "v1icosahedron" ); 
 			} 
 		});	
+	document.getElementById('hexPlate').addEventListener('click', function(e){ 
+		if ( SELECTED.nodes.length > 0 ){ 
+			changeShapeAllNodesInArray( SELECTED.nodes, "hexPlate" ); 
+			} 
+		});		
+	document.getElementById('hexRing').addEventListener('click', function(e){ 
+		if ( SELECTED.nodes.length > 0 ){ 
+			changeShapeAllNodesInArray( SELECTED.nodes, "hexRing" ); 
+			} 
+		});				
 
 	document.getElementById('minimize-editNode-panel').addEventListener('click', function(){ togglePanelSize( "editNode" ); }, false );
 	document.getElementById('editNode-panel-title').addEventListener( "mousedown", function(e){ 

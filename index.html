@@ -19,7 +19,7 @@
 
 <div class="topMenu">
 	<form method="GET" id="temp2" enctype="multipart/form-data">
-		<div class="appTitle"><strong>LucidNodes Version 0.1.29</strong></div>
+		<div class="appTitle"><strong>LucidNodes Version 0.1.30.1</strong></div>
 		<div class="saveBar-cell">
 		   <label for="fileInput">Open File</label>
 		   <input type="file" id="fileInput" name="fileInput" accept=".json">
@@ -64,9 +64,12 @@
 	<script src="lucidNodes-modules/labelPlane.js"></script>	
 	<script src="js/fileHandlingUtils.js"></script>
 	<script src="app.js"></script>	
+	<script src="lucidNodes-modules/toolHelperFunctions.js"></script>
+	<script src="lucidNodes-modules/originalPosition.js"></script>
 	<script src="lucidNodes-modules/detectAlignments.js"></script>	
 	<script src="lucidNodes-modules/rotation.js"></script>
 	<script src="lucidNodes-modules/rotationTool.js"></script>
+	<script src="lucidNodes-modules/moveTool.js"></script>	
 	<script src="lucidNodes-modules/colorTools.js"></script>
 	<script src="lucidNodes-modules/nodeThreeGroups.js"></script>
 	<script src="lucidNodes-modules/treeClimber.js"></script>
@@ -78,6 +81,7 @@
 	<input class="toolbar-cell" type="color" id="colorPicker" title="Assign Color to selected items" name="colorPicker" value="#ff0000">
 	<div class="toolbar-cell"><img id="paint" title="Paint" alt="Paint" src="assets/tool_icons/Paint-Bucket.png"></div>
 	<div class="toolbar-cell"><img id="eyedropper" title="Eyedropper" alt="Eyedropper" src="assets/tool_icons/Eyedropper.png"></div>
+	<div class="toolbar-cell"><img id="move" title="Move" alt="Move" src="assets/tool_icons/Move.png"></div>
 	<div class="toolbar-cell"><img id="rotate" title="Rotate Selected" alt="Rotate Selected" src="assets/tool_icons/rotation-tool.png"></div>	
 	<div class="toolbar-cell"><img id="createCompleteGraph" title="Make a complete graph from the selected nodes" alt="Make a complete graph from the selected nodes" src="assets/mindmap_symbols/Influencing-Network.png"></div>
 	<div class="toolbar-cell"><img id="showCenterPoints" title="Show the center point among all the selected nodes" alt="Show the center point among all the selected nodes" src="assets/mindmap_symbols/Center-Point.png"></div>
@@ -151,7 +155,9 @@
 			<div class="panel-cell-lg"><img id="cube" title="Cube Node" alt="Cube Node" src="assets/shape_icons/Cube.png"></div>
 			<div class="panel-cell-lg"><img id="v1tetrahedron" title="Tetrahedron Node" alt="Tetrahedron Node" src="assets/shape_icons/Tetrahedron.png"></div>
 			<div class="panel-cell-lg"><img id="v1octahedron" title="Octahedron Node" alt="Octahedron Node" src="assets/shape_icons/Octahedron.png"></div>	
-			<div class="panel-cell-lg"><img id="v1icosahedron" title="Icosahedron Node" alt="Icosahedron Node" src="assets/shape_icons/Icosahedron.png"></div>			
+			<div class="panel-cell-lg"><img id="v1icosahedron" title="Icosahedron Node" alt="Icosahedron Node" src="assets/shape_icons/Icosahedron.png"></div>		
+			<div class="panel-cell-lg"><img id="hexPlate" title="HexPlate Node" alt="HexPlate Node" src="assets/shape_icons/hexPlate.png"></div>
+			<div class="panel-cell-lg"><img id="hexRing" title="HexRing Node" alt="HexRing Node" src="assets/shape_icons/hexRing.png"></div>			
 		</div>
 		<div class="panel-cell-label">Scale</div>	
 		<div>

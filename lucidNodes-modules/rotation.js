@@ -82,7 +82,7 @@ function quaternionRotateNodeAroundPoint( node, quaternion, point ){
 	if ( !point ){ point = new THREE.Vector3( 0, 0, 0 ); }
 
 	var nodeIndex = SELECTED.nodes.indexOf( node );
-	var startPos = origNodePositions[ nodeIndex ];
+	var startPos = node.origPosition;
 	var endPoint = quaternionRotateVec3AroundPoint( startPos, quaternion, point );
 	
 	moveNodeTo( node, endPoint );	

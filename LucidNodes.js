@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.29
+	* Version 0.1.30.1
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -140,7 +140,7 @@ var globalAppSettings = {
 // THE LUCIDNODE MASTER OBJECT
 var LUCIDNODES = {
 	
-	computeNodeArrayCenter: function( nodeArray /* nodeArray, subgraph or series of graphs */ , technique = "average" ){
+	computeNodeArrayCenter: function( nodeArr /* nodeArr, subgraph or series of graphs */ , technique = "average" ){
 		
 		var center = new THREE.Vector3();
 		var sum = new THREE.Vector3();
@@ -149,14 +149,14 @@ var LUCIDNODES = {
 		if ( technique === "average" ) { 
 			/* take the positionns of all objects in the nodeArray and compute from their centerpoints the center of the nodeArray.	*/
 			
-			for ( var n = 0; n < nodeArray.length; n++ ){
+			for ( var n = 0; n < nodeArr.length; n++ ){
 			
-				sum.addVectors( sum, nodeArray[n].position );
+				sum.addVectors( sum, nodeArr[n].position );
 			}
 			
-			center = sum.divideScalar( nodeArray.length );
+			center = sum.divideScalar( nodeArr.length );
 			
-			console.log( "computeNodeArrayCenter( ", nodeArray , ", ", technique , " ) ", center );
+			console.log( "computeNodeArrayCenter( ", nodeArr , ", ", technique , " ) ", center );
 			return center;
 		};
 		
@@ -184,13 +184,13 @@ var LUCIDNODES = {
 				return the object of subgraphs
 				*/
 	},
-	showNodeArrayCenterPoint: function( nodeArray, material = globalAppSettings.centerPointMaterial ){
+	showNodeArrayCenterPoint: function( nodeArr, material = globalAppSettings.centerPointMaterial ){
 		
 		if ( globalAppSettings.showGroupCenterPoints ) {
 			
-			nodeArray.center = LUCIDNODES.computeNodeArrayCenter( nodeArray );
+			nodeArr.center = LUCIDNODES.computeNodeArrayCenter( nodeArr );
 			
-			nodeArray.center.point = new Point( nodeArray.center, globalAppSettings.centerPointSize, globalAppSettings.centerPointColor );
+			nodeArr.center.point = new Point( nodeArr.center, globalAppSettings.centerPointSize, globalAppSettings.centerPointColor );
 		}
 		
 		else { return; }
@@ -619,6 +619,20 @@ function createNodeDisplayEntity( node ){
 		node.bufferGeom = new THREE.IcosahedronBufferGeometry( node.radius, 0 );		
 	}	
 	
+	if ( node.shape === "hexRing"){
+		node.bufferGeom = new THREE.RingBufferGeometry( ( node.radius / 2 ) , node.radius, 6 );	
+		node.material.side = THREE.DoubleSide;
+	}
+	
+	if ( node.shape === "octaRing"){
+		node.bufferGeom = new THREE.RingBufferGeometry( ( node.radius / 2 ) , node.radius, 8 );	
+		node.material.side = THREE.DoubleSide;
+	}
+
+	if ( node.shape === "hexPlate" ){
+		node.bufferGeom = new hexPlate( node.radius );
+	}
+	
 	node.displayEntity = new THREE.Mesh( node.bufferGeom, node.material );
 	node.displayEntity.isGraphElementPart = true;
 	node.displayEntity.graphElementPartType = "nodeDisplayEntity";
@@ -630,7 +644,32 @@ function createNodeDisplayEntity( node ){
 	rotationByShape( node );
 	
 	scene.add( node.displayEntity ); 
+}
+
+function hexPlate( radius ){
 	
+	var a = radius * ( Math.cos( THREE.Math.degToRad( 30 ) ) );
+	var b = radius * ( Math.sin( THREE.Math.degToRad( 30 ) ) );
+	
+	var shape = new THREE.Shape();
+	shape.moveTo( 0, radius );
+	shape.lineTo( a, b );
+	shape.lineTo( a, -b );
+	shape.lineTo( 0, -radius );
+	shape.lineTo( -a, -b );
+	shape.lineTo( -a, b );
+	shape.lineTo( 0, radius );
+
+	var extrudeSettings = {
+		steps: 1,
+		amount: ( radius / 10 ),
+		bevelEnabled: false,
+	};
+
+	var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
+	var bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+	return bufferGeometry;
+
 }
 
 function createNodeDisplayEntity2( node ){
@@ -685,11 +724,8 @@ function changeNodeShape( node, shape ){
 
 function changeShapeAllNodesInArray( nodeArr, shape ){
 	
-	if ( nodeArr && nodeArr.length > 0 ){
-		for ( var n = 0; n < nodeArr.length; n++ ){			
-			changeNodeShape( nodeArr[n], shape );
-		}
-	}
+	doToGraphElementArray( "changeNodeShape" , nodeArr, shape );
+
 }
 
 function removeNodeDisplayEntity( node ){
@@ -1055,11 +1091,9 @@ function snapNodeToGrid( node, precision = decimalPlaces ){
 	*/	
 
 function snapNodesToGrid( nodeArr, precision = decimalPlaces ){
-	if ( nodeArr && nodeArr.length > 0 ){
-		for ( var n = 0; n < nodeArr.length; n++ ){
-			snapNodeToGrid( nodeArr[n], precision );
-		}
-	}		
+	
+	doToGraphElementArray( "snapNodeToGrid" , nodeArr, precision );
+
 }
 
 	/* snapAllNodesToGrid();
@@ -1096,11 +1130,8 @@ function scaleNode( node, scaleFactor ){
 
 function scaleAllNodesInArray( nodeArr, scaleFactor ){
 	
-	if ( nodeArr && nodeArr.length > 0 ){
-		for ( var n = 0; n < nodeArr.length; n++ ){			
-			scaleNode( nodeArr[n], scaleFactor );
-		}
-	}
+	doToGraphElementArray( "scaleNode" , nodeArr, scaleFactor );
+
 }
 
 function restoreDeletedNode( node ){
@@ -1220,9 +1251,8 @@ function pullEdge( edge ){
 function pullAllNodeEdges( node ){
 
 	var edges = getNodeEdges( node );
-	for ( var n = 0; n < edges.length; n++ ){	
-		pullEdge( edges[n] ); 
-	}
+	doToGraphElementArray( "pullEdge", edges );
+
 }
 
 	/* nodesIdentical();
@@ -1332,18 +1362,17 @@ function getNodeEdges( node ){
 	 *
 	 * parameters:
 	 * node <Node>
-	 * nodeArray <Array> - An array of nodes.
+	 * nodeArr <Array> - An array of nodes.
 	 * 
 	 * returns an array of unique edges
 	 * the array of nodes passed can include non-existent nodes, and nodes identical to the node passed as the first parameter. These will be stripped from the array before comparison.
-	 * one known error condition still occurring and known about is when nodes are passed from a non-existent graph. This may become moot with intended refactoring (1/8/18)
 	 *
 	 * Tested for existing nodes in same graph, non-existing nodes & duplicates - Works
 	 */
 
-function getEdgesFromNodeToNodeArray( node, nodeArray ){
+function getEdgesFromNodeToNodeArray( node, nodeArr ){
 
-	var nodeArrayNoDups = removeDupsFromGraphElementArray( nodeArray ); 
+	var nodeArrayNoDups = removeDupsFromGraphElementArray( nodeArr ); 
 	var nodeArrayNoIdenticals = removeIdenticalGraphElementsFromArray( nodeArrayNoDups, node ); 
 	var edges = getNodeEdges( node );
 	var edgeArray = []; 
@@ -1373,16 +1402,16 @@ function getEdgesFromNodeToNodeArray( node, nodeArray ){
 	 * author: @markscottlavin
 	 *
 	 * parameters:
-	 * nodeArray <Array> - An array of nodes.
+	 * nodeArr <Array> - An array of nodes.
 	 * 
-	 * returns the unique edges connecting the nodeArray as an array.
+	 * returns the unique edges connecting the nodeArr as an array.
 	 * the array of nodes passed can include non-existent nodes, and nodes identical to the node passed as the first parameter. 
 	 * one known error condition still occurring and known about is when nodes are passed from a non-existent graph. This may become moot with intended refactoring (1/8/18)
 	 */
 
-function getAllEdgesInNodeArray( nodeArray ){
+function getAllEdgesInNodeArray( nodeArr ){
 	
-	var nodeArrayNoDups = removeDupsFromGraphElementArray( nodeArray ); 
+	var nodeArrayNoDups = removeDupsFromGraphElementArray( nodeArr ); 
 	var nodeArrayNoIdenticals;
 	var subSet = [];
 	var edgeArray = [];
@@ -1409,17 +1438,17 @@ function getAllEdgesInNodeArray( nodeArray ){
 	 * author: @markscottlavin
 	 *
 	 * parameters:
-	 * nodeArray <Array> - An array of nodes.
+	 * nodeArr <Array> - An array of nodes.
 	 * 
 	 * returns true or false.
 	 * the array of nodes passed can include non-existent nodes, nodes identical to the node passed as the first parameter, and nodes in different graphs. 
 	 */
 
-function isCompleteGraph( nodeArray ){
+function isCompleteGraph( nodeArr ){
 	
-	var nodeArrayNoDups = removeDupsFromGraphElementArray( nodeArray );
+	var nodeArrayNoDups = removeDupsFromGraphElementArray( nodeArr );
 
-	var numEdges = getAllEdgesInNodeArray( nodeArray ).length;
+	var numEdges = getAllEdgesInNodeArray( nodeArr ).length;
 	
 	var pEdges = _Math.possibleEdges( nodeArrayNoDups.length );
 	
@@ -1493,22 +1522,19 @@ function groupLog( group ){
 	
 };
 
-function completeGraph( nodeArray ) {
+function completeGraph( nodeArr ) {
 	
-	var nodeArrayCleaned = filterArrayForNodes( nodeArray );
+	var nodeArrayCleaned = filterArrayForNodes( nodeArr );
+	doToGraphElementArray( "connectNodeToArrayOfNodes" , nodeArrayCleaned, nodeArrayCleaned );
 	
-	for ( var i = 0; i < nodeArrayCleaned.length; i++ ){
-
-		connectNodeToArrayOfNodes( nodeArrayCleaned[i], nodeArrayCleaned );
-	}
 };
 
 /* FILTER FUNCTIONS */
 
 function filterArrayForNodes( arr ){
 	
-	var nodeArray = arr.filter( includes => includes.isNode );
-	return nodeArray;
+	var nodeArr = arr.filter( includes => includes.isNode );
+	return nodeArr;
 };
 
 function filterArrayForEdges( arr ){
@@ -1541,8 +1567,8 @@ function filterArrayForGraphElementsWithProp( arr, prop ){
 
 function filterArrayForNodesWithPropVal( arr, prop, val ){
 	
-	var nodeArray = filterArrayForNodes( arr );
-	var nodesWithProp = filterArrayForGraphElementsWithProp( nodeArray, prop );
+	var nodeArr = filterArrayForNodes( arr );
+	var nodesWithProp = filterArrayForGraphElementsWithProp( nodeArr, prop );
 	var nodesWithVal = nodesWithProp.filter ( ( includes ) => ( includes[prop] === val ) );
 	return nodesWithVal;
 };
@@ -1563,35 +1589,14 @@ function filterArrayForNodesWithPropVal( arr, prop, val ){
 	 * 
 	 */
 
-function doToGraphElementArray( arr, callback, params ) {
+function doToGraphElementArray( callback, arr, params, scope = window ) {
 	
 	if ( !params ){ params = {} }
 	
 	if ( arr && arr.length > 0 ){ 	
 		for ( var a = 0; a < arr.length; a++ ){
-			callback( arr[a], params ); 
+			window[ callback ]( arr[a], params ); 
 		}
-	}
-};
-
-	/**
-	 * mapAcrossGraphElementArray();
-	 * 
-	 * @author Mark Scott Lavin
-	 *
-	 * Use this function to do something across all graph elements of a particular type in a graph, as in all Nodes, Edges, NodeLabels or EdgeLabels 
-	 *
-	 * parameters = 
-	 *  arr: <array> Array of Nodes or Edges
-	 *  graphElementType: <string> Either "node" || "edge"
-	 *  fn: <function> the function to apply to the elements of type in the graph;
-	 * 
-	 */
-
-function mapAcrossGraphElementArray( fn, arr, param ) {
-	
-	for ( var a = 0; a < arr.length; a++ ){
-		fn( arr[a], param ); 	
 	}
 };
 
@@ -1643,6 +1648,8 @@ function deleteNode( node ){
 	
 	var nodeIndex = cognition.nodes.indexOf( node );	
 	
+//	unSelectNode( node );
+	
 	removeNodeDisplayEntity( node );	
 	cognition.nodes.splice( nodeIndex, 1 );	
 
@@ -1657,20 +1664,16 @@ function deleteNode( node ){
 
 function deleteNodeEdges( node ){
 	
-	var edges = getNodeEdges( node );
-	
-	if ( edges.length > 0 ){	
-		for ( var e = 0; e < edges.length; e++ ){
-			deleteEdge( edges[e] );
-		}
-	}
-
+	var edges = getNodeEdges( node );	
+	deleteEdgeArray( edges );
 }
 
 function deleteEdge( edge ){
 	
 	removeEdgeDisplayEntity( edge );
 	deleteGraphElementLabel( edge );
+	
+//	unSelectEdge( edge );
 	
 	var edgeCognitionIndex = cognition.edges.indexOf( edge );
 	var edgeNodeIndex;
@@ -1683,21 +1686,15 @@ function deleteEdge( edge ){
 }
 
 function deleteNodeArray( nodeArr ){
-	
-	if ( nodeArr && nodeArr.length > 0 ){
-		for ( var n = 0; n < nodeArr.length; n++ ){
-			deleteNode( nodeArr[n] );
-		}
-	}	
+
+	doToGraphElementArray( "deleteNode" , nodeArr );
+
 }
 
 function deleteEdgeArray( edgeArr ){
 	
-	if ( edgeArr ){
-		for ( var e = 0; e < edgeArr.length; e++ ){
-			deleteEdge( edgeArr[e] );
-		}
-	}
+	doToGraphElementArray( "deleteEdge" , edgeArr );
+
 }
 
 function deleteAllSelected(){

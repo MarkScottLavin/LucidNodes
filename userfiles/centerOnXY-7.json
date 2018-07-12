@@ -73,8 +73,8 @@
       },
       "labelOpacity": 0.2,
       "castShadows": true,
-      "radius": 0.5,
-      "shape": "sphere"
+      "radius": 1,
+      "shape": "hexRing"
     },
     {
       "id": "n004",
@@ -193,7 +193,7 @@
     {
       "id": "n00a",
       "name": "n00a",
-      "color": 8421504,
+      "color": 65344,
       "position": {
         "x": 14.077276760920377,
         "y": 11.989061718418991,
@@ -206,8 +206,8 @@
       },
       "labelOpacity": 0.2,
       "castShadows": true,
-      "radius": 0.5,
-      "shape": "sphere"
+      "radius": 1.25,
+      "shape": "hexPlate"
     },
     {
       "id": "n00b",
@@ -292,7 +292,7 @@
         {
           "id": "n00a",
           "name": "n00a",
-          "color": 8421504,
+          "color": 65344,
           "position": {
             "x": 14.077276760920377,
             "y": 11.989061718418991,
@@ -305,8 +305,8 @@
           },
           "labelOpacity": 0.2,
           "castShadows": true,
-          "radius": 0.5,
-          "shape": "sphere"
+          "radius": 1.25,
+          "shape": "hexPlate"
         },
         {
           "id": "n004",
@@ -344,7 +344,7 @@
         {
           "id": "n00a",
           "name": "n00a",
-          "color": 8421504,
+          "color": 65344,
           "position": {
             "x": 14.077276760920377,
             "y": 11.989061718418991,
@@ -357,8 +357,8 @@
           },
           "labelOpacity": 0.2,
           "castShadows": true,
-          "radius": 0.5,
-          "shape": "sphere"
+          "radius": 1.25,
+          "shape": "hexPlate"
         },
         {
           "id": "n007",
@@ -396,7 +396,7 @@
         {
           "id": "n00a",
           "name": "n00a",
-          "color": 8421504,
+          "color": 65344,
           "position": {
             "x": 14.077276760920377,
             "y": 11.989061718418991,
@@ -409,8 +409,8 @@
           },
           "labelOpacity": 0.2,
           "castShadows": true,
-          "radius": 0.5,
-          "shape": "sphere"
+          "radius": 1.25,
+          "shape": "hexPlate"
         },
         {
           "id": "n008",
@@ -448,7 +448,7 @@
         {
           "id": "n00a",
           "name": "n00a",
-          "color": 8421504,
+          "color": 65344,
           "position": {
             "x": 14.077276760920377,
             "y": 11.989061718418991,
@@ -461,8 +461,8 @@
           },
           "labelOpacity": 0.2,
           "castShadows": true,
-          "radius": 0.5,
-          "shape": "sphere"
+          "radius": 1.25,
+          "shape": "hexPlate"
         },
         {
           "id": "n005",
@@ -500,7 +500,7 @@
         {
           "id": "n00a",
           "name": "n00a",
-          "color": 8421504,
+          "color": 65344,
           "position": {
             "x": 14.077276760920377,
             "y": 11.989061718418991,
@@ -513,8 +513,8 @@
           },
           "labelOpacity": 0.2,
           "castShadows": true,
-          "radius": 0.5,
-          "shape": "sphere"
+          "radius": 1.25,
+          "shape": "hexPlate"
         },
         {
           "id": "n009",
@@ -552,7 +552,7 @@
         {
           "id": "n00a",
           "name": "n00a",
-          "color": 8421504,
+          "color": 65344,
           "position": {
             "x": 14.077276760920377,
             "y": 11.989061718418991,
@@ -565,8 +565,8 @@
           },
           "labelOpacity": 0.2,
           "castShadows": true,
-          "radius": 0.5,
-          "shape": "sphere"
+          "radius": 1.25,
+          "shape": "hexPlate"
         },
         {
           "id": "n003",
@@ -584,8 +584,8 @@
           },
           "labelOpacity": 0.2,
           "castShadows": true,
-          "radius": 0.5,
-          "shape": "sphere"
+          "radius": 1,
+          "shape": "hexRing"
         }
       ],
       "id": "n00a-n003",
@@ -604,7 +604,7 @@
         {
           "id": "n00a",
           "name": "n00a",
-          "color": 8421504,
+          "color": 65344,
           "position": {
             "x": 14.077276760920377,
             "y": 11.989061718418991,
@@ -617,8 +617,8 @@
           },
           "labelOpacity": 0.2,
           "castShadows": true,
-          "radius": 0.5,
-          "shape": "sphere"
+          "radius": 1.25,
+          "shape": "hexPlate"
         },
         {
           "id": "n002",
@@ -656,7 +656,7 @@
         {
           "id": "n00a",
           "name": "n00a",
-          "color": 8421504,
+          "color": 65344,
           "position": {
             "x": 14.077276760920377,
             "y": 11.989061718418991,
@@ -669,8 +669,8 @@
           },
           "labelOpacity": 0.2,
           "castShadows": true,
-          "radius": 0.5,
-          "shape": "sphere"
+          "radius": 1.25,
+          "shape": "hexPlate"
         },
         {
           "id": "n000",
@@ -708,7 +708,7 @@
         {
           "id": "n00a",
           "name": "n00a",
-          "color": 8421504,
+          "color": 65344,
           "position": {
             "x": 14.077276760920377,
             "y": 11.989061718418991,
@@ -721,8 +721,8 @@
           },
           "labelOpacity": 0.2,
           "castShadows": true,
-          "radius": 0.5,
-          "shape": "sphere"
+          "radius": 1.25,
+          "shape": "hexPlate"
         },
         {
           "id": "n001",
@@ -760,7 +760,7 @@
         {
           "id": "n00a",
           "name": "n00a",
-          "color": 8421504,
+          "color": 65344,
           "position": {
             "x": 14.077276760920377,
             "y": 11.989061718418991,
@@ -773,8 +773,8 @@
           },
           "labelOpacity": 0.2,
           "castShadows": true,
-          "radius": 0.5,
-          "shape": "sphere"
+          "radius": 1.25,
+          "shape": "hexPlate"
         },
         {
           "id": "n006",
