@@ -47,6 +47,9 @@ function moveTool( position ){
 		
 		// Set the starting positions of nodes that are being moved.
 		setOrigNodeArrPositions( SELECTED.nodes );
+		
+		addGhostsOfNodes( SELECTED.nodes );
+		
 		// And get all the positions of the nodes relative to the start point.
 		nodeRelativePositions = getNodePositionsRelativeTo( position, SELECTED.nodes );
 		
@@ -98,6 +101,9 @@ function moveTool( position ){
 		}			
 			
 		removeOrigNodeArrPositions( SELECTED.nodes );
+		
+		removeGhostsOfNodes( SELECTED.nodes );
+		
 		bailMoveTool();
 		
 		return;	

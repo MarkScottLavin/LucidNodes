@@ -21,24 +21,12 @@ initRotationTool();
 
 // End Node Operations: Get Original Positions when the tool is initialized.
 
-function lineToPoint( line, endPosition ){
-	
-	var end = new THREE.Vector3( endPosition.x, endPosition.y, endPosition.z );
-	line.geometry.vertices[1] = end;
-	line.geometry.verticesNeedUpdate = true;
-}
-
 var angleLine0ToMouse = function( e ){
 	lineToPoint ( rotToolState.angleLines[0], placeAtPlaneIntersectionPoint( activeGuidePlane ) );
 }
 
 var angleLine1ToMouse = function( e ){
 	lineToPoint ( rotToolState.angleLines[1], placeAtPlaneIntersectionPoint( activeGuidePlane ) );
-}
-
-function movePointTo( point, position ){
-	point.position = { x: position.x, y: position.y, z: position.z };
-	point.displayEntity.position.copy( point.position );
 }
 
 var toolPoint1FolloMouse = function( e ){
@@ -125,9 +113,13 @@ function rotationTool( position ){
 		);
 
 		rotToolState.angleLines.push( new THREE.Line( geometry, angleLineMaterial ) );
-		scene.add( rotToolState.angleLines[1] );		
+		scene.add( rotToolState.angleLines[1] );			
 
-		setOrigNodeArrPositions( SELECTED.nodes ); 		
+		// Set the starting positions of nodes that are being moved.
+		setOrigNodeArrPositions( SELECTED.nodes );
+		
+		// Add "ghosts" to stand in for where the nodes originally were.
+		addGhostsOfNodes( SELECTED.nodes );		
 		
 		// add a third point ( rotToolState.points[2] ) and line that both moves with the mouse	
 		rotToolState.points.push ( new Point( position, 1.0, 0x0000ff ) );		
@@ -152,6 +144,9 @@ function rotationTool( position ){
 		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', rotNodesWithTool, false );	
 		
 		removeOrigNodeArrPositions( SELECTED.nodes );
+		
+		removeGhostsOfNodes( SELECTED.nodes );
+		
 		bailRotTool();
 		
 		return;

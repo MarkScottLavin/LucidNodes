@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.30.1
+	* Version 0.1.30.2
 	* Author Mark Scott Lavin
 	* License: MIT
 	*

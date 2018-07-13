@@ -66,6 +66,58 @@ function Point( position, size = 0.25, color = 0x888888, opacity = 1, parent = s
 
 }
 
+/* addGhostOfObj3D()
+ *
+ * author @markscottlavin
+ *
+ * 
+ * 
+ *
+ *
+ * creates a "ghost" of an Object3D. Useful in situations where objects are being moved and one needs to see the original object position. 
+ *
+ */
+
+function addGhostOfObj3D( obj3D, ghostPosition, color = 0x222222, opacity = 0.4, parent = scene ){
+	
+	if ( obj3D ){
+		
+		var geometry = new THREE.SphereBufferGeometry( 0.2, 32, 32 );
+		var material = new THREE.MeshPhongMaterial( { color: color, opacity: opacity, transparent: true } );
+		var ghost = new THREE.Mesh( geometry, material );
+
+		ghost.isGhost = true;
+		ghost.position.copy( ghostPosition );
+		parent.add( ghost );
+		
+		obj3D.ghost = ghost;
+	}
+}
+
+function removeGhostOfObj3D( obj3D,  parent = scene ){
+	
+	if ( obj3D.isObject3D && obj3D.ghost ){
+		parent.remove( obj3D.ghost ); 		
+	}
+}
+
+function addGhostOfNode( node ){
+	addGhostOfObj3D( node.displayEntity, ( node.origPosition || node.position ) );
+}
+
+function removeGhostOfNode( node ){
+	removeGhostOfObj3D( node.displayEntity );
+}
+
+function addGhostsOfNodes( nodeArr ){
+	doToGraphElementArray( "addGhostOfNode" , nodeArr  );
+}
+
+function removeGhostsOfNodes( nodeArr ){
+	doToGraphElementArray( "removeGhostOfNode" , nodeArr );	
+}
+
+
 
 
 			
