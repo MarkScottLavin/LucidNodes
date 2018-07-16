@@ -17,11 +17,43 @@ function initMoveTool(){
 initMoveTool();
 
 var moveLineToMouse = function( e ){
-	lineToPoint ( moveToolState.moveLine, placeAtPlaneIntersectionPoint( activeGuidePlane ) );
+	
+	var endPoint = getLineEndPoint();
+	
+	lineToPoint ( moveToolState.moveLine, endPoint );
 }
 
-var moveToolPointFolloMouse = function( e ){
-	movePointTo( moveToolState.points[ 1 ], placeAtPlaneIntersectionPoint( activeGuidePlane )  );	
+var moveToolPointFollowMouse = function( e ){
+	
+	var endPoint = getLineEndPoint();
+	
+	movePointTo( moveToolState.points[ 1 ], endPoint );	
+}
+
+function getLineEndPoint(){
+	
+	var endPoint = new THREE.Vector3();
+	
+	if ( !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes ( "y" ) && !keysPressed.keys.includes ( "z" ) ){	
+		endPoint.copy( placeAtPlaneIntersectionPoint( activeGuidePlane ) );
+	}	
+	
+	// If only "X" is down, constrain to x-axis.
+	if ( keysPressed.keys.includes ( "x" ) && !keysPressed.keys.includes( "y" ) && !keysPressed.keys.includes( "z" ) ){
+		endPoint.set( placeAtPlaneIntersectionPoint( activeGuidePlane ).x, moveToolState.points[0].position.y, moveToolState.points[0].position.z );		
+	}
+	
+	// If only "Y" is down, constrain to y-axis.
+	if ( keysPressed.keys.includes( "y" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "z" ) ){
+		endPoint.set( moveToolState.points[0].position.x, placeAtPlaneIntersectionPoint( activeGuidePlane ).y, moveToolState.points[0].position.z );
+	}		
+	
+	// If only "Z" is down, constrain to z-axis.
+	if ( keysPressed.keys.includes( "z" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "y" ) ){
+		endPoint.set( moveToolState.points[0].position.x, moveToolState.points[0].position.y, placeAtPlaneIntersectionPoint( activeGuidePlane ).z );				
+	}	
+	
+	return endPoint;
 }
 
 var moveNodesWithTool = function( e ){
@@ -31,12 +63,57 @@ var moveNodesWithTool = function( e ){
 	
 	if ( SELECTED.nodes && SELECTED.nodes.length > 0 ){
 
-		for ( var n = 0; n < SELECTED.nodes.length; n++ ){
+		// If none of the orthogonal keys are selected, move freely in three dimensions along the camera facing guidePlane.
+		if ( !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes ( "y" ) && !keysPressed.keys.includes ( "z" ) ){
+		
+			for ( var n = 0; n < SELECTED.nodes.length; n++ ){
+				
+				SELECTED.nodes[n].position.addVectors( planeIntersection.point, nodeRelativePositions[n] );
+				moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );		
+			}
+		}
+		
+		else {
 			
-			SELECTED.nodes[n].position.addVectors( planeIntersection.point, nodeRelativePositions[n] );			
-			moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );
+			var newNodePositions = [];
 
-		}	
+			// If only "X" is down, constrain to x-axis.
+			if ( keysPressed.keys.includes ( "x" ) && !keysPressed.keys.includes( "y" ) && !keysPressed.keys.includes( "z" ) ){
+				
+				showGuideLine( guides.lines.x );
+			
+				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
+
+					newNodePositions.push( new THREE.Vector3( planeIntersection.point.x + nodeRelativePositions[n].x, SELECTED.nodes[n].origPosition.y, SELECTED.nodes[n].origPosition.z ) );					
+					moveNodeTo( SELECTED.nodes[n], newNodePositions[n] );		
+				}			
+			}
+			
+			// If only "Y" is down, constrain to y-axis.
+			if ( keysPressed.keys.includes( "y" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "z" ) ){
+
+				showGuideLine( guides.lines.y );
+			
+				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
+					
+					newNodePositions.push( new THREE.Vector3( SELECTED.nodes[n].origPosition.x, planeIntersection.point.y + nodeRelativePositions[n].y, SELECTED.nodes[n].origPosition.z ) );								
+					moveNodeTo( SELECTED.nodes[n], newNodePositions[n] );			
+				}			
+			}		
+			
+			// If only "Z" is down, constrain to z-axis.
+			if ( keysPressed.keys.includes( "z" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "y" ) ){
+				
+				showGuideLine( guides.lines.z );				
+
+				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
+					
+					newNodePositions.push( new THREE.Vector3( SELECTED.nodes[n].origPosition.x, SELECTED.nodes[n].origPosition.y, planeIntersection.point.z + nodeRelativePositions[n].z ) );		
+					moveNodeTo( SELECTED.nodes[n], newNodePositions[n] );	
+				}			
+			}
+		}		
+		
 	}	
 } 
 
@@ -77,13 +154,14 @@ function moveTool( position ){
 
 		moveToolState.points.push ( new Point( position, 1.0, 0x00ff00 ) );
 		
+		// Move the orthogoal 
+		moveOrthoGuideLinesToPosition( lineStart );
+		
 		// And now add an event listener that moves the line's second vertex with the mouse.
 		document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveLineToMouse, false );
-		document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveToolPointFolloMouse, false );
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveToolPointFollowMouse, false );
 		document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveNodesWithTool, false );
 
-
-		
 		moveToolState.clickCount++;
 		return;
 	}
@@ -92,7 +170,7 @@ function moveTool( position ){
 	
 		// remove the eventlistener that moves the line's second vertex with the mouse.	
 		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveLineToMouse, false );
-		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveToolPointFolloMouse, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveToolPointFollowMouse, false );
 		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveNodesWithTool, false );
 			
 		// If we're in the browser, turn the controls back on.
@@ -126,6 +204,22 @@ function bailMoveTool(){
 }
 
 /* TOOL-SPECIFIC KEYHANDLING */
+/*
+function onMoveToolKeyDown( event ){
+
+	if ( event.key === "x" ){
+
+	} 
+	
+	if ( event.key === "y" ){
+		
+	}
+	
+	if ( event.key === "z" ){
+		
+	}
+	
+}*/
 
 function onMoveToolKeyUp( event ){
 	
@@ -135,6 +229,11 @@ function onMoveToolKeyUp( event ){
 		restoreNodeArrToOrigPositions( SELECTED.nodes );
 		removeOrigNodeArrPositions( SELECTED.nodes );
 	} 
+	
+	event.key === "x" && hideGuideLine( guides.lines.x );
+	event.key === "y" && hideGuideLine( guides.lines.y );
+	event.key === "z" && hideGuideLine( guides.lines.z );	
+	
 }
 
 /* END TOOL SPECIFIC KEYHANDLING */

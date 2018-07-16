@@ -154,15 +154,14 @@ function onMouseMove( event, nearestIntersected ){
 				
 				SELECTED.nodes[n].position.addVectors( planeIntersection.point, nodeRelativePositions[n] );
 				
-				moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );
-
-				console.log( 'after: ', SELECTED.nodes[n].position );			
+				moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );		
 			}
 		}
 		
 		else {
 			
-			moveAxialGuideLinesToEntityPosition( SELECTED.nodes[0] );					
+			moveAxialGuideLinesToEntityPosition( SELECTED.nodes[0] );	
+			var newNodePositions = [];
 
 			// If only "X" is down, constrain to x-axis.
 			if ( keysPressed.keys.includes ( "X" ) && !keysPressed.keys.includes( "Y" ) && !keysPressed.keys.includes( "Z" ) ){
@@ -171,10 +170,8 @@ function onMouseMove( event, nearestIntersected ){
 			
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 
-					SELECTED.nodes[n].position.set( planeIntersection.point.x + nodeRelativePositions[n].x, SELECTED.nodes[n].origPosition.y, SELECTED.nodes[n].origPosition.z );						
-					moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );
-
-					console.log( 'after: ', SELECTED.nodes[n].position );			
+					newNodePositions.push( new THREE.Vector3( planeIntersection.point.x + nodeRelativePositions[n].x, SELECTED.nodes[n].origPosition.y, SELECTED.nodes[n].origPosition.z ) );					
+					moveNodeTo( SELECTED.nodes[n], newNodePositions[n] );		
 				}			
 			}
 			
@@ -185,10 +182,8 @@ function onMouseMove( event, nearestIntersected ){
 			
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 					
-					SELECTED.nodes[n].position.set( SELECTED.nodes[n].origPosition.x, planeIntersection.point.y + nodeRelativePositions[n].y, SELECTED.nodes[n].origPosition.z );									
-					moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );
-
-					console.log( 'after: ', SELECTED.nodes[n].position );			
+					newNodePositions.push( new THREE.Vector3( SELECTED.nodes[n].origPosition.x, planeIntersection.point.y + nodeRelativePositions[n].y, SELECTED.nodes[n].origPosition.z ) );								
+					moveNodeTo( SELECTED.nodes[n], newNodePositions[n] );			
 				}			
 			}		
 			
@@ -199,14 +194,13 @@ function onMouseMove( event, nearestIntersected ){
 
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 					
-					SELECTED.nodes[n].position.set( SELECTED.nodes[n].origPosition.x, SELECTED.nodes[n].origPosition.y, planeIntersection.point.z + nodeRelativePositions[n].z );
-					
-					moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );
-
-					console.log( 'after: ', SELECTED.nodes[n].position );			
+					newNodePositions.push( new THREE.Vector3( SELECTED.nodes[n].origPosition.x, SELECTED.nodes[n].origPosition.y, planeIntersection.point.z + nodeRelativePositions[n].z ) );		
+					moveNodeTo( SELECTED.nodes[n], newNodePositions[n] );	
 				}			
 			}
 		}
+		
+		
 	}
 }
 

@@ -175,6 +175,20 @@ function guideLineAtEntityPosition( entity, guideLine ){
 
 }
 
+function moveGuideLineToPosition( position, guideLine ){
+	
+	guideLine.line.position.copy( position );
+	
+}
+
+function moveOrthoGuideLinesToPosition( position ){
+	
+	moveGuideLineToPosition( position, guides.lines.x );
+	moveGuideLineToPosition( position, guides.lines.y );
+	moveGuideLineToPosition( position, guides.lines.z );
+	
+}
+
 function moveAxialGuideLinesToEntityPosition( entity ){
 	
 	guideLineAtEntityPosition( entity, guides.lines.x );
