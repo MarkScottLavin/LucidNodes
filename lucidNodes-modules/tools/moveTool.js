@@ -20,7 +20,7 @@ var moveLineToMouse = function( e ){
 	
 	var endPoint = getLineEndPoint();
 	
-	lineToPoint ( moveToolState.moveLine, endPoint );
+	lineEndToPoint ( moveToolState.moveLine, endPoint );
 }
 
 var moveToolPointFollowMouse = function( e ){
@@ -122,6 +122,9 @@ function moveTool( position ){
 	// First click: Set the starting positions & points, and move the selected nodes...
 	if ( moveToolState.clickCount === 0 ){
 		
+		// tell the app that a tool is active:
+		toolState.toolIsActive = true;
+		
 		// Set the starting positions of nodes that are being moved.
 		setOrigNodeArrPositions( SELECTED.nodes );
 		
@@ -158,29 +161,18 @@ function moveTool( position ){
 		moveOrthoGuideLinesToPosition( lineStart );
 		
 		// And now add an event listener that moves the line's second vertex with the mouse.
-		document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveLineToMouse, false );
-		document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveToolPointFollowMouse, false );
-		document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveNodesWithTool, false );
-
+		addMoveToolListeners(); 
+		
 		moveToolState.clickCount++;
 		return;
 	}
 
 	else if ( moveToolState.clickCount === 1 ){
-	
-		// remove the eventlistener that moves the line's second vertex with the mouse.	
-		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveLineToMouse, false );
-		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveToolPointFollowMouse, false );
-		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveNodesWithTool, false );
 			
 		// If we're in the browser, turn the controls back on.
 		if ( entities.browserControls ){
 			entities.browserControls.enabled = true;				
 		}			
-			
-		removeOrigNodeArrPositions( SELECTED.nodes );
-		
-		removeGhostsOfNodes( SELECTED.nodes );
 		
 		bailMoveTool();
 		
@@ -200,34 +192,24 @@ function bailMoveTool(){
 		}		
 	}
 	
+	removeOrigNodeArrPositions( SELECTED.nodes );	
+	removeGhostsOfNodes( SELECTED.nodes );
+	removeMoveToolListeners();
+	
+	// tell the app that a tool is no longer active.
+	toolState.toolIsActive = false;
+	
 	initMoveTool();
 }
 
 /* TOOL-SPECIFIC KEYHANDLING */
-/*
-function onMoveToolKeyDown( event ){
-
-	if ( event.key === "x" ){
-
-	} 
-	
-	if ( event.key === "y" ){
-		
-	}
-	
-	if ( event.key === "z" ){
-		
-	}
-	
-}*/
 
 function onMoveToolKeyUp( event ){
 	
 	if ( event.key === "Escape" ){
-/*	if ( keyPressed.keys.includes( "Escape" ) ){  */
-		bailMoveTool();
+
 		restoreNodeArrToOrigPositions( SELECTED.nodes );
-		removeOrigNodeArrPositions( SELECTED.nodes );
+		bailMoveTool();		
 	} 
 	
 	event.key === "x" && hideGuideLine( guides.lines.x );
@@ -237,3 +219,17 @@ function onMoveToolKeyUp( event ){
 }
 
 /* END TOOL SPECIFIC KEYHANDLING */
+
+/* TOOL LISTENER FUNCTIONS */
+
+function addMoveToolListeners(){
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveLineToMouse, false );
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveToolPointFollowMouse, false );
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveNodesWithTool, false );
+}
+
+function removeMoveToolListeners(){
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveLineToMouse, false );
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveToolPointFollowMouse, false );
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveNodesWithTool, false );			
+}

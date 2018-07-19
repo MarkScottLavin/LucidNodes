@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.30
+	* Version 0.1.31
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -54,7 +54,8 @@ var initUI = function(){
 																					
 																					console.log( 'color changed!' );
 																				} );
-	document.getElementById('addNode').addEventListener('click', function() { addNode( { x: 0, y: 0.5, z: 0 } ) } );
+	document.getElementById('addNode').addEventListener( 'click', function() { selectTool( "addNode" ) } );
+	document.getElementById('addEdge').addEventListener( 'click', function() { selectTool( "addEdge" ); });	
 	document.getElementById('deleteSelected').addEventListener('click', function() { deleteAllSelected() } );
 	document.getElementById('lockToXYPlane').addEventListener('click', function() { setActiveGuidePlane( guides.planes.xy ) });
 	document.getElementById('lockToXZPlane').addEventListener('click', function() { setActiveGuidePlane( guides.planes.xz ) });

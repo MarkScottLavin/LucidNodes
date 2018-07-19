@@ -22,11 +22,11 @@ initRotationTool();
 // End Node Operations: Get Original Positions when the tool is initialized.
 
 var angleLine0ToMouse = function( e ){
-	lineToPoint ( rotToolState.angleLines[0], placeAtPlaneIntersectionPoint( activeGuidePlane ) );
+	lineEndToPoint ( rotToolState.angleLines[0], placeAtPlaneIntersectionPoint( activeGuidePlane ) );
 }
 
 var angleLine1ToMouse = function( e ){
-	lineToPoint ( rotToolState.angleLines[1], placeAtPlaneIntersectionPoint( activeGuidePlane ) );
+	lineEndToPoint ( rotToolState.angleLines[1], placeAtPlaneIntersectionPoint( activeGuidePlane ) );
 }
 
 var toolPoint1FolloMouse = function( e ){
@@ -59,11 +59,12 @@ var rotNodesWithTool = function( e ){
 	}
 }
 
-
-
 function rotationTool( position ){
 	
 	if ( rotToolState.clickCount === 0 ){
+		
+		//Notifiy the app that a tool is active.
+		toolState.toolIsActive = true;
 		
 		//create the startPoint
 		rotToolState.points.push ( new Point( position, 1.0, 0xff0000 ) ); 
@@ -85,9 +86,8 @@ function rotationTool( position ){
 		rotToolState.points.push ( new Point( position, 1.0, 0x00ff00 ) );
 		
 		// And now add an event listener that moves the first line's second vertex with the mouse.
-		document.getElementById('visualizationContainer').addEventListener( 'mousemove', angleLine0ToMouse, false );
-		document.getElementById('visualizationContainer').addEventListener( 'mousemove', toolPoint1FolloMouse, false );
-			
+		addRotationToolListenersZeroSet();
+				
 		rotToolState.clickCount++;
 		return;
 	}
@@ -95,11 +95,10 @@ function rotationTool( position ){
 	else if ( rotToolState.clickCount === 1 ){
 	
 		// remove the eventlistener that moves the first line's second vertex with the mouse.	
-		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', angleLine0ToMouse, false );
-		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', toolPoint1FolloMouse, false );
-		
+		removeRotationToolListenersZeroSet();
+
 		// drop the line-end and the endpoint ( rotToolState.points[1] ).		
-		lineToPoint( rotToolState.angleLines[0], position );
+		lineEndToPoint( rotToolState.angleLines[0], position );
 //		rotToolState.points.push ( new Point( position, 1.0, 0x00ff00 ) );
 		
 		// initiate a line of zero length.... 		
@@ -123,29 +122,15 @@ function rotationTool( position ){
 		
 		// add a third point ( rotToolState.points[2] ) and line that both moves with the mouse	
 		rotToolState.points.push ( new Point( position, 1.0, 0x0000ff ) );		
-		
-		document.getElementById('visualizationContainer').addEventListener( 'mousemove', toolPoint2FollowMouse, false );
-		document.getElementById('visualizationContainer').addEventListener( 'mousemove', angleLine1ToMouse, false );
-		document.getElementById('visualizationContainer').addEventListener( 'mousemove', getRotToolQuaternion, false );	
-		document.getElementById('visualizationContainer').addEventListener( 'mousemove', getRotToolEuler, false );	
-		document.getElementById('visualizationContainer').addEventListener( 'mousemove', rotNodesWithTool, false );
-			
+
+		addRotationToolListenersOneSet();
+
 		rotToolState.clickCount++;
 		return;
 	
 	}
 
 	else if ( rotToolState.clickCount === 2 ){
-	
-		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', toolPoint2FollowMouse, false );	
-		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', angleLine1ToMouse, false );			
-		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', getRotToolQuaternion, false );
-		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', getRotToolEuler, false );	
-		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', rotNodesWithTool, false );	
-		
-		removeOrigNodeArrPositions( SELECTED.nodes );
-		
-		removeGhostsOfNodes( SELECTED.nodes );
 		
 		bailRotTool();
 		
@@ -167,6 +152,14 @@ function bailRotTool(){
 			scene.remove( rotToolState.points[a].displayEntity );	
 		}		
 	}
+	
+	removeRotationToolListenersZeroSet();
+	removeRotationToolListenersOneSet();
+	removeOrigNodeArrPositions( SELECTED.nodes );	
+	removeGhostsOfNodes( SELECTED.nodes );	
+	
+	// tell the app that a tool is no longer active
+	toolState.toolIsActive = false;
 	
 	initRotationTool();
 }
@@ -252,11 +245,38 @@ function updateRotToolQuaternions(){
 function onRotToolKeyUp( event ){
 	
 	if ( event.key === "Escape" ){
-/*	if ( keyPressed.keys.includes( "Escape" ) ){  */
-		bailRotTool();
+
 		restoreNodeArrToOrigPositions( SELECTED.nodes );
-		removeOrigNodeArrPositions( SELECTED.nodes );
+		bailRotTool();
+		
 	} 
 }
 
 /* END TOOL SPECIFIC KEYHANDLING */
+
+
+function addRotationToolListenersZeroSet(){
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', angleLine0ToMouse, false );
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', toolPoint1FolloMouse, false );
+}
+
+function removeRotationToolListenersZeroSet(){
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', angleLine0ToMouse, false );
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', toolPoint1FolloMouse, false );
+}
+
+function addRotationToolListenersOneSet(){
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', toolPoint2FollowMouse, false );
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', angleLine1ToMouse, false );
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', getRotToolQuaternion, false );	
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', getRotToolEuler, false );	
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', rotNodesWithTool, false );
+}
+
+function removeRotationToolListenersOneSet(){
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', toolPoint2FollowMouse, false );	
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', angleLine1ToMouse, false );			
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', getRotToolQuaternion, false );
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', getRotToolEuler, false );	
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', rotNodesWithTool, false );	
+}

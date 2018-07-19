@@ -151,7 +151,7 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 		labelFillText( this, this.textLines, this.textColor, this.opacity, this.fontsize, this.lineSpacing, this.totalTextHeight );					
 	};
 	
-	this.transformOnAltClick = function(){
+	this.transformOnAddEdgePairing = function(){
 		this.displayEntity.material.color.set( globalAppSettings.nodeColorOnAltSelect );
 	};
 	

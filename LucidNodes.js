@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.30.2
+	* Version 0.1.31
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -352,9 +352,9 @@ var LUCIDNODES = {
 			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );	
 		};
 		
-		this.transformOnAltClick = function(){
+		this.transformOnAddEdgePairing = function(){
 			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnAltSelect );
-			this.label.transformOnAltClick(); 
+			this.label.transformOnAddEdgePairing(); 
 		};
 		
 		this.unTransformOnClickOutside = function(){

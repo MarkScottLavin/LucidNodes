@@ -194,11 +194,13 @@ Probable model:
 var toolState = {
 		select: 1,
 		addNode: 0,
+		addEdge: 0,
 		deleteSelected: 0,
 		move: 0,
 		del: 0,
 		paint: 0,
-		eyedropper: 0
+		eyedropper: 0,
+		toolIsActive: false
 };
 
 function flushToolState(){
@@ -299,6 +301,17 @@ function addToolListeners( tool = "select" ){
 		document.getElementById('visualizationContainer').addEventListener( 'mouseup', activateMoveTool, false );
 		document.addEventListener( 'keyup', function(e){ onMoveToolKeyUp(e); }, false );	
 	}
+	
+	if ( tool === "addEdge" ){
+		document.getElementById('visualizationContainer').addEventListener( 'mouseup', activateAddEdgeTool, false );
+		document.addEventListener( 'keyup', function(e){ onAddEdgeToolKeyUp(e); }, false );		
+	}
+	
+	if ( tool === "addNode" ){
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initAddNodeToolPoint, false );
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initAddNodeToolLine, false );			
+		document.getElementById('visualizationContainer').addEventListener( 'mouseup' , activateAddNodeTool, false );			
+	} 
 }
 
 function removeToolListeners( tool ){
@@ -335,12 +348,26 @@ function removeToolListeners( tool ){
 		document.removeEventListener( 'keyup', function(e){ onMoveToolKeyUp(e); }, false );	
 		
 	}
+	
+	if ( tool === "addEdge" ){
+		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', activateAddEdgeTool, false );		
+		document.removeEventListener( 'keyup', function(e){ onAddEdgeToolKeyUp(e); }, false );		
+	}	
+	
+	if ( tool === "addNode" ){
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initAddNodeToolPoint, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initAddNodeToolLine, false );		
+		document.getElementById('visualizationContainer').removeEventListener( 'mouseup' , activateAddNodeTool, false );			
+		bailAddNodeTool();
+	} 	
 }
 
+var activateAddEdgeTool = function( e ){ addEdgeTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
 var activateRotationTool = function( e ){ rotationTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
 var activateMoveTool = function( e ){ moveTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
-var paintGraphElements = function( e ){ paintGraphElementOnMouseUp() };
-var getGraphElementColor = function( e ){ selectGraphElementColorOnMouseUp() };
+var activateAddNodeTool = function( e ){ addNodeTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
+var paintGraphElements = function( e ){ paintGraphElementOnMouseUp(); };
+var getGraphElementColor = function( e ){ selectGraphElementColorOnMouseUp(); };
 
 addUniversalToolListeners();
 selectTool( "select" );

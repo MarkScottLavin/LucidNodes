@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.30
+	* Version 0.1.31
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -36,9 +36,6 @@ var SELECTED = {
 	nodes:[],
 	edges:[]
 	};	  
-	
-// AltSelected Objects ( Currently used to add edges between Nodes )	
-var ALT_SELECTED = []; 
 
 // Deleted Graph Elements
 var DELETED = { nodes:[], edges:[] };
@@ -131,76 +128,6 @@ function onMouseMove( event, nearestIntersected ){
 		INTERSECTED_OBJ3D = nearestIntersected;   	
 		// and transform it accordingly.
 		transformGraphElementOnMouseOver( INTERSECTED_OBJ3D );							
-		}
-	
-	if ( event.shiftKey && SELECTED.nodes.length > 0 ){
-		
-		entities.browserControls.enabled = false;	
-
-		// Get the position where the guidePlane is intersected
-		var planeIntersection = getPlaneIntersectPointRecursive( activeGuidePlane );
-		var nodeRelativePositions = [];
-		
-		for ( var n = 0; n < SELECTED.nodes.length; n++ ){	
-			nodeRelativePositions.push( _Math.distanceAsVec3( SELECTED.nodes[0].position, SELECTED.nodes[n].position ) );
-		}  
-		
-		setOrigNodeArrPositions( SELECTED.nodes );
-		
-		// If none of the axial keys are selected, move freely in three dimensions along the camera facing guidePlane.
-		if ( !keysPressed.keys.includes( "X" ) && !keysPressed.keys.includes ( "Y" ) && !keysPressed.keys.includes ( "Z" ) ){
-		
-			for ( var n = 0; n < SELECTED.nodes.length; n++ ){
-				
-				SELECTED.nodes[n].position.addVectors( planeIntersection.point, nodeRelativePositions[n] );
-				
-				moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );		
-			}
-		}
-		
-		else {
-			
-			moveAxialGuideLinesToEntityPosition( SELECTED.nodes[0] );	
-			var newNodePositions = [];
-
-			// If only "X" is down, constrain to x-axis.
-			if ( keysPressed.keys.includes ( "X" ) && !keysPressed.keys.includes( "Y" ) && !keysPressed.keys.includes( "Z" ) ){
-				
-				showGuideLine( guides.lines.x );
-			
-				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
-
-					newNodePositions.push( new THREE.Vector3( planeIntersection.point.x + nodeRelativePositions[n].x, SELECTED.nodes[n].origPosition.y, SELECTED.nodes[n].origPosition.z ) );					
-					moveNodeTo( SELECTED.nodes[n], newNodePositions[n] );		
-				}			
-			}
-			
-			// If only "Y" is down, constrain to y-axis.
-			if ( keysPressed.keys.includes( "Y" ) && !keysPressed.keys.includes( "X" ) && !keysPressed.keys.includes( "Z" ) ){
-
-				showGuideLine( guides.lines.y );
-			
-				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
-					
-					newNodePositions.push( new THREE.Vector3( SELECTED.nodes[n].origPosition.x, planeIntersection.point.y + nodeRelativePositions[n].y, SELECTED.nodes[n].origPosition.z ) );								
-					moveNodeTo( SELECTED.nodes[n], newNodePositions[n] );			
-				}			
-			}		
-			
-			// If only "Z" is down, constrain to z-axis.
-			if ( keysPressed.keys.includes( "Z" ) && !keysPressed.keys.includes( "X" ) && !keysPressed.keys.includes( "Y" ) ){
-				
-				showGuideLine( guides.lines.z );				
-
-				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
-					
-					newNodePositions.push( new THREE.Vector3( SELECTED.nodes[n].origPosition.x, SELECTED.nodes[n].origPosition.y, planeIntersection.point.z + nodeRelativePositions[n].z ) );		
-					moveNodeTo( SELECTED.nodes[n], newNodePositions[n] );	
-				}			
-			}
-		}
-		
-		
 	}
 }
 
@@ -211,8 +138,6 @@ function onMouseDown( event, camera ){
 	
 	// SELECT MULTIPLE TOOL ( Hotkey: Mouse + CTRL )
 	if ( event.ctrlKey && !event.altKey ){ 
-		
-		unAltSelectAll();
 
 		// If there's no INTERSECTED_OBJ3D object or if INTERSECTED_OBJ3D is not a GraphElement, do nothing.			
 		if ( !INTERSECTED_OBJ3D || !INTERSECTED_OBJ3D.isGraphElementPart ){				
@@ -255,7 +180,6 @@ function onMouseDown( event, camera ){
 	else if ( !event.ctrlKey && !event.altKey ){ 
 		
 		unSelectAll();
-		unAltSelectAll();
 
 		// IF there's an INTERSECTED_OBJ3D and it's a GraphElement
 		var x = getReferentGraphElementOfIntersectedObj3D();
@@ -265,29 +189,6 @@ function onMouseDown( event, camera ){
 			else if ( x.isEdge ){ selectEdge( x ); }
 		}			
 	}
-	
-	// ADD EDGE TOOL ( Hotkey: Mouse + ALT )
-	if ( event.altKey && !event.ctrlKey ){ // If ALT is Clicked but not CTRL...
-			
-		var x = getReferentGraphElementOfIntersectedObj3D();		
-
-		if ( x && x.isNode ){
-
-			if ( ( ALT_SELECTED.length <= 1 ) && ( !ALT_SELECTED.includes ( x ) ) ){
-				
-				ALT_SELECTED.push( x ); 
-				x.transformOnAltClick();
-			}
-			
-			if ( ALT_SELECTED.length === 2 ){
-				
-				addEdge( [ ALT_SELECTED[0], ALT_SELECTED[1] ] );
-				unAltSelectAll();	
-			}			
-		}
-	}
-
-	else if ( !event.altKey ){ ALT_SELECTED = []; }
 
 	if ( SELECTED.nodes.length > 0 ){
 		// update the guidePlane to be perpendicular to the current camera position
@@ -309,10 +210,6 @@ function onClick( event ){
 	var button = event.which || event.button;
 	if ( button === 1 ) {
 		toggleContextMenuOff();
-	}
-	
-	if ( keysPressed.isTrue === true ){
-		onClickWithKey();
 	}
 }
 
@@ -353,12 +250,6 @@ function onClickWithKey(){
 		addNode( position );		
 	}
 	
-	if ( keysPressed.keys.includes( "t" )){
-		
-		if ( SELECTED.nodes.length === 1 ){
-			
-		}
-	}
 }
 	
 function onKeyDown( event ){
@@ -376,14 +267,14 @@ function onKeyUp( event ){
 	keysPressed.keys[0] === "Delete" && deleteAllSelected();	
 	keysPressed.keys[0] === "Escape" && onEscapeKey();
 	
-	if ( keysPressed.keys.includes( "Shift" ) ){
-		event.key === "X" && hideGuideLine( guides.lines.x );
-		event.key === "Y" && hideGuideLine( guides.lines.y );
-		event.key === "Z" && hideGuideLine( guides.lines.z );
-
-		if ( SELECTED.nodes.length > 0 ){
-			removeOrigNodeArrPositions( SELECTED.nodes );
-			}		
+	if ( !toolState.toolIsActive ){
+		keysPressed.keys[0] === "m" && selectTool( "move" );
+		keysPressed.keys[0] === "r" && selectTool( "rotate" );	
+		keysPressed.keys[0] === "s" && selectTool( "select" );
+		keysPressed.keys[0] === "i" && selectTool( "eyedropper" );	
+		keysPressed.keys[0] === "p" && selectTool( "paint" );
+		keysPressed.keys[0] === "e" && selectTool( "addEdge" );
+		keysPressed.keys[0] === "a" && selectTool( "addNode" );
 	}
 
 	console.log( "onKeyUp(): ", keysPressed.keys ); 		
@@ -396,7 +287,7 @@ function onKeyUp( event ){
 function onEscapeKey(){
 	
 	toggleContextMenuOff();
-	unSelectAll();
+	if ( toolState.selected ){ unSelectAll() };
 }
 
 // END KEY EVENT HANDLING
@@ -550,7 +441,6 @@ function selectNode( node ){
 	if ( node ){
 		SELECTED.nodes.push( node );
 		transformGraphElementOnSelect( node );
-		//setOrigNodePosition( node );
 	}
 	else { console.error( 'selectNode(): Node not found.' ) }
 }
@@ -594,7 +484,6 @@ function unSelectNode( node ){
 	if ( node && SELECTED.nodes.includes( node ) ){
 		SELECTED.nodes.splice( SELECTED.nodes.indexOf( node ), 1 );
 		unTransformGraphElementOnUnSelect( node );
-	//	removeOrigNodePosition( node );
 	}
 	else { console.error( 'unSelectNode(): Node not found.' ) }
 	
@@ -667,7 +556,6 @@ function selectNodesInArrayWithSamePropValAs( node, property, nodeArr ){
 	var propValue = getGraphElementPropertyValue( node, property );
 	if ( propValue ){ 
 
-		unAltSelectAll(); 
 		var nodesWithEquivPropVal = getGraphElementsInArrayWithEquivalentPropVal( property, propValue, nodeArr );
 		doToGraphElementArray( "selectNode", nodesWithEquivPropVal );		
 		
@@ -683,7 +571,6 @@ function selectEdgesInArrayWithSamePropValAs( edge, property, edgeArr ){
 	var propValue = getGraphElementPropertyValue( edge, property );
 	if ( propValue ){ 
 
-		unAltSelectAll(); 
 		var nodesWithEquivPropVal = getGraphElementsInArrayWithEquivalentPropVal( property, propValue, edgeArr );
 		doToGraphElementArray( "selectNode", nodesWithEquivPropVal );		
 		
@@ -691,16 +578,6 @@ function selectEdgesInArrayWithSamePropValAs( edge, property, edgeArr ){
 	else { 
 		console.error( "selectNodesInArrayWithSamePropValAs: No such property exists for the edge passed." );
 		return; 
-	}
-}
-
-function unAltSelectAll(){
-	
-	if ( ALT_SELECTED.length > 0 ){
-		for ( var a = 0; a < ALT_SELECTED.length; a++ ){
-			unTransformGraphElementOnUnSelect( ALT_SELECTED[a] );
-		}
-		ALT_SELECTED = [];
 	}
 }
 

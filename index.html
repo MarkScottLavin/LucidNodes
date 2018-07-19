@@ -19,7 +19,7 @@
 
 <div class="topMenu">
 	<form method="GET" id="temp2" enctype="multipart/form-data">
-		<div class="appTitle"><strong>LucidNodes Version 0.1.30.2</strong></div>
+		<div class="appTitle"><strong>LucidNodes Version 0.1.31</strong></div>
 		<div class="saveBar-cell">
 		   <label for="fileInput">Open File</label>
 		   <input type="file" id="fileInput" name="fileInput" accept=".json">
@@ -64,13 +64,15 @@
 	<script src="lucidNodes-modules/labelPlane.js"></script>	
 	<script src="js/fileHandlingUtils.js"></script>
 	<script src="app.js"></script>	
-	<script src="lucidNodes-modules/toolHelperFunctions.js"></script>
+	<script src="lucidNodes-modules/tools/toolHelperFunctions.js"></script>
 	<script src="lucidNodes-modules/originalPosition.js"></script>
 	<script src="lucidNodes-modules/detectAlignments.js"></script>	
 	<script src="lucidNodes-modules/rotation.js"></script>
-	<script src="lucidNodes-modules/rotationTool.js"></script>
-	<script src="lucidNodes-modules/moveTool.js"></script>	
-	<script src="lucidNodes-modules/colorTools.js"></script>
+	<script src="lucidNodes-modules/tools/rotationTool.js"></script>
+	<script src="lucidNodes-modules/tools/moveTool.js"></script>	
+	<script src="lucidNodes-modules/tools/addEdgeTool.js"></script>	
+	<script src="lucidNodes-modules/tools/addNodeTool.js"></script>		
+	<script src="lucidNodes-modules/tools/colorTools.js"></script>
 	<script src="lucidNodes-modules/nodeThreeGroups.js"></script>
 	<script src="lucidNodes-modules/treeClimber.js"></script>
 </div>
@@ -86,6 +88,7 @@
 	<div class="toolbar-cell"><img id="createCompleteGraph" title="Make a complete graph from the selected nodes" alt="Make a complete graph from the selected nodes" src="assets/mindmap_symbols/Influencing-Network.png"></div>
 	<div class="toolbar-cell"><img id="showCenterPoints" title="Show the center point among all the selected nodes" alt="Show the center point among all the selected nodes" src="assets/mindmap_symbols/Center-Point.png"></div>
 	<div class="toolbar-cell"><img id="addNode" title="Add node" alt="Add node" src="assets/mindmap_symbols/Positive.png"></div>
+	<div class="toolbar-cell"><img id="addEdge" title="Add edge" alt="Add edge between nodes" src="assets/tool_icons/Add-Edge.png"></div>	
 	<div class="toolbar-cell"><img id="deleteSelected" title="Delete selected items" alt="Delete selected items" src="assets/tool_icons/Recycle.png"></div>
 	<div class="toolbar-cell"><img id="lockToXYPlane" title="Lock node add, move & copy to XY plane" alt="Lock node add, move & copy to XY plane" src="assets/tool_icons/Constrain-xy.png"></div>
 	<div class="toolbar-cell"><img id="lockToXZPlane" title="Lock node add, move & copy to XZ plane" alt="Lock node add, move & copy to XZ plane" src="assets/tool_icons/Constrain-xz.png"></div>
@@ -219,7 +222,7 @@
 
 	
 	<script src="mouseBehavior.js"></script>
-	<script src="js/tools.js"></script>		
+	<script src="lucidNodes-modules/tools/tools.js"></script>		
 
 	
 </body>

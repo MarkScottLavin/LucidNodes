@@ -1,6 +1,13 @@
 /* TOOL HELPER FUNCTIONS */
 
-function lineToPoint( line, endPosition ){
+function lineStartToPoint( line, startPosition ){
+	
+	var start = new THREE.Vector3( startPosition.x, startPosition.y, startPosition.z );
+	line.geometry.vertices[0] = start;
+	line.geometry.verticesNeedUpdate = true;
+}
+
+function lineEndToPoint( line, endPosition ){
 	
 	var end = new THREE.Vector3( endPosition.x, endPosition.y, endPosition.z );
 	line.geometry.vertices[1] = end;
