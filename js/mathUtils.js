@@ -180,7 +180,7 @@ var _Math = {
 		return sharedDims;
 	},
 	
-	linearDistance: function ( node1, node2 ) {
+	linearDistanceBetweenNodes: function ( node1, node2 ) {
 		
 		var vecDist = _Math.vecAbsDistance( node1, node2 );
 		var threeVec = new THREE.Vector3( vecDist.x, vecDist.y, vecDist.z );

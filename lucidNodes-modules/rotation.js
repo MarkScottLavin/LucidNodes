@@ -64,18 +64,6 @@ function rotateVec3AroundOrigin( v, angles, order = 'XYZ' ){
 
 
 /* 3D ROTATION OF NODES AND NODE ARRAYS USING QUATERNIONS */
-/*
-function quaternionRotateNodeAroundPoint( node, quaternion, point ){
-	
-	if ( !point ){ point = new THREE.Vector3( 0, 0, 0 ); }
-	
-	var startPos = node.position;
-
-	moveNodeTo( node, quaternionRotateVec3AroundPoint( startPos, quaternion, point ) );		
-	
-} */
-
-
 
 function quaternionRotateNodeAroundPoint( node, quaternion, point ){
 	
@@ -167,13 +155,6 @@ function applyQuaternionToVec3( v, quaternion ){
 
 /* Testing Quaternion Rotation Behavior fixes */
 
-/* Test 1: Hypothesis is that actually two issues are occurring. 1. That the quaternion is being applied to vectors where the quaternion is already applied, thereby causing
-the apparent exponential/accelerating rotation as the tool is applied
-2. That a sin/cosine issue is also occurring 
-
-Notes: Rotation gets faster and faster as angle increases. Direction doesn't change if user reverses direction. Acceleration does slow down as angle decreases. Direction does reverse direction (go in the right direction) if the user crosses the original line cast by the tool. This is the case whether slerp test functions are applied or not. Behavior appears the same.
-
-*/
 /*
 function applyIdentityQuaternionToVec3( v ){
 	

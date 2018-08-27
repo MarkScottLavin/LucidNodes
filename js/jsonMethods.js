@@ -27,6 +27,13 @@ var jsonMethods = {
 			// success case, the file was saved
 			console.log( filename, 'theme file saved!'); 
 		});		
+	},
+	
+	listFilesInDir( dir, res ){
+		
+		var files = fs.readdirSync( dir );
+		console.log( files );
+		res.write( JSON.stringify( files ) );
 	}
 
 }

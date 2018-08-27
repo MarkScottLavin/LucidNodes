@@ -1,6 +1,6 @@
 /****************************************************
 	* FILEHANDLINGUTILS.JS: 
-	* Version 0.1.28
+	* Version 0.1.20
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -355,6 +355,196 @@ var saveThemeFile = function( filename, content, url ){
 };
 
 
+// END THEME FILE SAVING UTILS HELPERS
+
+// MEDIA LIBRARY LOADING UTILS
+
+var loadImgFile = function( parameters ){
+	
+	// Assemble the full file path
+	var fullpath; 
+	var url = parameters.url || '/userImages';
+	
+	if ( parameters.filename ){
+		var filename = parameters.filename;
+	}
+	
+	if ( filename ){
+		if ( url ){ 
+			fullpath = url + '/' + filename 
+		}
+		else { fullpath = filename }
+	
+		var ext = getExtentionFromFilename( filename );
+		
+		if ( ext && ( ext === "jpg" || "JPG" || "png" || "PNG" || "gif" || "GIF" || "bmp" || "BMP" || "ico" || "ICO" || "svg" || "SVG" ) ){
+	
+			// create the httpRequest
+			var httpRequest = new XMLHttpRequest();
+			
+			httpRequest.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var response = this.responseText;
+					console.log( response );
+					var img = imgFromSrcUrl( fullpath );
+					loadImgToLibrary( img );
+					loadThumbIntoDiv( img, "panel-thumb-area", 75, 75, "thumb" );
+				}
+				else if( this.readyState === 4 && this.status !== 200 ){
+					console.error( this.status.toString() + ": Image Folder " + fullpath + " not found!" );					
+				}
+			}
+		
+		}
+		
+		else { console.error( "Filetype must be .jpg, .png, .gif, .bmp, .ico, or .svg" ) }
+		
+		// Send the request
+		httpRequest.open("GET", fullpath, true);
+		httpRequest.send();	
+
+	}
+	
+	else { console.error( "No image filename provided") }
+}
+
+
+function imgFromSrcUrl( imgURL ){
+	
+	var img = new Image();
+	img.src = imgURL;
+	img.id = ( "img-" + getNameFromFullPath( imgURL ).toString() );
+	return img;
+} 
+
+function loadThumbIntoDiv( img, divId = "panel-thumb-area", width = 150, height = 150, cssClass = "thumb" ){
+	
+	img.width = width;
+	img.height = height;
+	img.class = cssClass;
+	
+	var cell = document.createElement( "div" );
+	cell.classList.add( "panel-thumb-cell" );	
+	
+	document.getElementById( divId ).appendChild( cell );
+	cell.appendChild( img ); 
+	addThumbListener( img );
+
+}
+
+function loadImageLibrary( routeURL = "/loadUserImages", folderURL = "/userImages" ){
+	
+	var httpRequest = new XMLHttpRequest();
+	
+	// Send the request
+	httpRequest.open( "GET", routeURL, true );
+	httpRequest.send();
+		
+	httpRequest.onreadystatechange = function() {
+		if (this.readyState === 4 && this.status == 200) {
+			
+			var images = JSON.parse( this.responseText );			
+			
+			window.addEventListener( "load", function( e ){			
+				if ( images && images.length > 0 ){
+					for ( var i = 0; i < images.length; i++ ){ 
+						loadImgFile( { url: folderURL, filename: images[i] } );
+					}
+				}
+				else { console.log( 'Image folder ', + routeURL, + " is empty." ) };
+			});
+		}
+		else if( this.readyState === 4 && this.status !== 200 )   {
+			console.error( this.status.toString() + ": Image Folder " + folderURL + " not found!" );
+		}
+	}
+}
+
+function updateImageLibrary( routeURL = "/loadUserImages", folderURL = "/userImages" ){
+	
+	var httpRequest = new XMLHttpRequest();
+	
+	// Send the request
+	httpRequest.open( "GET", routeURL, true );
+	httpRequest.send();
+		
+	httpRequest.onreadystatechange = function() {
+		if (this.readyState === 4 && this.status == 200) {
+			
+			var images = JSON.parse( this.responseText );			
+		
+			if (document.readyState == "complete" || document.readyState == "loaded"){
+
+				var existingLibrary = getImageLibrarySrcsNamesWithoutPath();
+				
+				if ( images && images.length > 0 ){
+					for ( var i = 0; i < images.length; i++ ){ 
+					if ( !existingLibrary.includes( images[i] ) ){
+							loadImgFile( { url: folderURL, filename: images[i] } );
+						}
+					}
+				}
+				else { console.log( 'Image folder ', + routeURL, + " is empty." ) };
+			}
+		}
+		
+		else if( this.readyState === 4 && this.status !== 200 )   {
+			console.error( this.status.toString() + ": Image Folder " + folderURL + " not found!" );
+		} 
+	}
+}
+
+function getImageLibrarySrcs(){
+	
+	var srcs = [];
+	
+	for ( var m = 0; m < media.images.length; m++ ){
+		srcs.push( media.images[ m ].src );
+	}
+	
+	return srcs;
+}
+
+function getImageLibrarySrcsNamesWithoutPath(){
+	
+	var srcs = [];
+	
+	for ( var m = 0; m < media.images.length; m++ ){
+		srcs.push( 	getFileNameFromPath( media.images[ m ].src ) );
+	}
+
+	return srcs;
+	
+}
+
+function loadImgToLibrary( img ){
+	
+	if ( !media.images.includes( img ) ){
+		media.images.push( img );
+	}
+}
+
+function addThumbListener( thumb ){
+	thumb.addEventListener( "mouseup", function(e){ 
+		if ( SELECTED.nodes && SELECTED.nodes.length > 0 ){
+			var extrudes = [];
+			for ( var n = 0; n < SELECTED.nodes.length; n++ ){
+				if ( SELECTED.nodes[ n ].displayEntity.geometry.isExtrudeGeometry ){
+					extrudes.push( SELECTED.nodes[ n ] );
+				}
+			}
+		}
+
+		if ( extrudes && extrudes.length > 0 ){
+			for ( var n = 0; n < extrudes.length; n++ ){
+				nodeExtrudeImage( extrudes[ n ], e.target.src );						
+			}
+		}
+	});
+} 
+
+// END MEDIA LIBRARY LOADING UTILS
+
 // PATH HANDLING HELPERS
 
 function getFileNameFromPath( fullPath ){
@@ -389,3 +579,19 @@ function fileNameFromInput( inputId ){
 }
 
 // END PATH HANDLING HELPERS 
+
+
+
+
+
+//http://localhost:3000/uploadUserImages
+
+
+
+// HANDLE FILES DROPEED IN DROP ZONES
+
+function getDroppedFiles( e ){
+
+  if ( e.preventDefault ){ e.preventDefault(); } // stops the browser from redirecting off to the image.
+  return e.dataTransfer.files;
+}

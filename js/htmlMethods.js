@@ -10,6 +10,7 @@ var htmlMethods = {
 			res.write( data );
 		})		
 	}
+	
 }
 
 module.exports = htmlMethods;

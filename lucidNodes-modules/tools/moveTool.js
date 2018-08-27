@@ -18,14 +18,17 @@ initMoveTool();
 
 var moveLineToMouse = function( e ){
 	
-	var endPoint = getLineEndPoint();
+	// lets check if we're inside the fuctionalAppExtents
 	
-	lineEndToPoint ( moveToolState.moveLine, endPoint );
+	var endPoint = limitPositionToExtents(  /* snapToNearest( */ getMousePoint() /* ) */, workspaceExtents );
+	
+	lineEndToPoint( moveToolState.moveLine, endPoint );
 }
 
 var moveToolPointFollowMouse = function( e ){
 	
-	var endPoint = getLineEndPoint();
+	// lets check if we're inside the fuctionalAppExtents
+	var endPoint = limitPositionToExtents( /* snapToNearest( */ getMousePoint() /* ) */, workspaceExtents );
 	
 	movePointTo( moveToolState.points[ 1 ], endPoint );	
 }
@@ -80,7 +83,7 @@ var moveNodesWithTool = function( e ){
 			// If only "X" is down, constrain to x-axis.
 			if ( keysPressed.keys.includes ( "x" ) && !keysPressed.keys.includes( "y" ) && !keysPressed.keys.includes( "z" ) ){
 				
-				showGuideLine( guides.lines.x );
+				showGuide( guides.lines.x );
 			
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 
@@ -92,7 +95,7 @@ var moveNodesWithTool = function( e ){
 			// If only "Y" is down, constrain to y-axis.
 			if ( keysPressed.keys.includes( "y" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "z" ) ){
 
-				showGuideLine( guides.lines.y );
+				showGuide( guides.lines.y );
 			
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 					
@@ -104,7 +107,7 @@ var moveNodesWithTool = function( e ){
 			// If only "Z" is down, constrain to z-axis.
 			if ( keysPressed.keys.includes( "z" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "y" ) ){
 				
-				showGuideLine( guides.lines.z );				
+				showGuide( guides.lines.z );				
 
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 					
@@ -139,7 +142,7 @@ function moveTool( position ){
 		}
 		
 		//create the startPoint
-		moveToolState.points.push ( new Point( position, 1.0, 0xff0000 ) ); 
+		moveToolState.points.push ( new Point( limitPositionToExtents( position, workspaceExtents ), 1.0, 0xff0000 ) ); 
 		
 		// initiate a line of zero length.... 		
 		var lineStart = moveToolState.points[0].position;
@@ -212,9 +215,9 @@ function onMoveToolKeyUp( event ){
 		bailMoveTool();		
 	} 
 	
-	event.key === "x" && hideGuideLine( guides.lines.x );
-	event.key === "y" && hideGuideLine( guides.lines.y );
-	event.key === "z" && hideGuideLine( guides.lines.z );	
+	event.key === "x" && hideGuide( guides.lines.x );
+	event.key === "y" && hideGuide( guides.lines.y );
+	event.key === "z" && hideGuide( guides.lines.z );	
 	
 }
 

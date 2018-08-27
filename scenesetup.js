@@ -1,6 +1,6 @@
 /* SCENEETUP.JS
  * Name: Scene Setup
- * version 0.1.29
+ * version 0.1.29.1
  * Author: Mark Scott Lavin 
  * License: MIT
  * For Changelog see README.txt
@@ -59,6 +59,23 @@ document.addEventListener( "DOMContentLoaded", init );
 													  
 /****** FUNCTION DECLARATIONS ******/
 
+/* WORKSPACE AND APPARENT WORLDSPACE SETTINGS */
+
+// The global appExtents vars will tell us how big the workspace is.
+var workspaceExtents;
+var worldExtents;
+
+function setAppExtents( extents = 2000 ){
+	workspaceExtents = Math.max( extents, 2000 );
+	cognitionExtents = Math.max( workspaceExtents * 2, 4000 );
+	worldExtents = Math.max( cognitionExtents * 2, 8000 );
+}
+
+/* Set the extents of the workspace */
+setAppExtents();
+
+/* END WORKSPACE AND APPARENT WORLDSPACE SETTINGS */
+
 // Initialize the scene: Invoke initialization.
 function init() {
 	
@@ -79,8 +96,12 @@ function init() {
 	// Lights
 	lights();
 	
+	// Images
+	if ( loadImageLibrary ){ loadImageLibrary(); }
+	
 	// Materials
-	materials();
+	materials();	
+	
 	// Stats
 	initStats();
 	
@@ -127,7 +148,7 @@ function initEventListeners() {
 function cameras() {
 	
 	entities.cameras = {
-		perspCamera: new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, 3000 ),
+		perspCamera: new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, worldExtents * 1.5 ),
 		init: function( camera ) {
 				camera.position.set( 0, 15, 20 );
 				camera.lookAt(new THREE.Vector3( 0, 15, 0 ));
@@ -165,6 +186,9 @@ function onDocumentVisible(e){
 	
 	if ( document.visibilityState === "visible" ){
 		setOrientationControls(e);
+	/*	if( entities.browserControls ){ */
+			entities.browserControls.reset();
+	/*	} */
 	}
 }
 	
@@ -184,18 +208,15 @@ function initbrowserControls( camera ) {
 	
 	entities.browserControls.noPan = true;
 	entities.browserControls.noZoom = true;
+	entities.browserControls.maxDistance = workspaceExtents;
 }
 
-function toggleEnablePanInBrowser(){
-	
-	entities.browserControls.noPan = !entities.browserControls.noPan;
-	
+function toggleBrowserPan(){	
+	entities.browserControls.noPan = !entities.browserControls.noPan;	
 }
 
-function toggleEnableZoomInBrowser(){
-	
+function toggleBrowserZoom(){
 	entities.browserControls.noZoom = !entities.browserControls.noZoom;
-	
 }
 
 function initVRControls() {
@@ -203,7 +224,7 @@ function initVRControls() {
 	var camera = entities.cameras.perspCamera;
 	var controls;
 	
-	entities.VRControls = new THREE.DeviceOrientationControls(camera, true);
+	entities.VRControls = new THREE.DeviceOrientationControls( camera, true );
 	controls = entities.VRControls;
 	
 	controls.connect();

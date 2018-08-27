@@ -197,6 +197,7 @@ var toolState = {
 		addEdge: 0,
 		deleteSelected: 0,
 		move: 0,
+		rotate: 0,
 		del: 0,
 		paint: 0,
 		eyedropper: 0,
@@ -285,6 +286,8 @@ function addToolListeners( tool = "select" ){
 	
 	if ( tool === "rotate" ){
 		
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initRotTool0Point, false );
+		
 		document.getElementById('visualizationContainer').addEventListener( 'mouseup', activateRotationTool, false );
 		document.addEventListener( 'keyup', function(e){ onRotToolKeyUp(e); }, false );		
 	}
@@ -328,6 +331,8 @@ function removeToolListeners( tool ){
 		
 		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', activateRotationTool, false );
 		document.removeEventListener( 'keyup', function(e){ onRotToolKeyUp(e); }, false );	
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initRotTool0Point, false );	
+		bailRotTool();
 
 	}	
 	
@@ -371,3 +376,11 @@ var getGraphElementColor = function( e ){ selectGraphElementColorOnMouseUp(); };
 
 addUniversalToolListeners();
 selectTool( "select" );
+
+
+function escapeTools(){
+	 
+	 if ( !toolState.toolIsActive ){
+		 selectTool( "select" );
+	 }
+}

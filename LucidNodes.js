@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.31
+	* Version 0.1.31.1
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -223,7 +223,7 @@ var LUCIDNODES = {
 			toTarget: node2,
 			distanceAsVec3: _Math.distanceAsVec3( node1.position, node2.position ),
 			vecAbsDistance: _Math.vecAbsDistance( node1, node2 ),
-			linearDistance: _Math.linearDistance( node1, node2 ),
+			linearDistance: _Math.linearDistanceBetweenNodes( node1, node2 ),
 			avgPosition: _Math.avgPosition( node1, node2 )		
 		};
 		
@@ -297,8 +297,7 @@ var LUCIDNODES = {
 		else { this.color.set( globalAppSettings.defaultNodeColor ); }
 
 		this.opacity = parameters.opacity || globalAppSettings.defaultNodeOpacity;
-		this.material = new THREE.MeshPhongMaterial( {color: this.color } );
-		this.material.opacity = this.opacity;
+		this.material = new THREE.MeshPhongMaterial( {color: this.color, opacity: this.opacity } );
 		
 		toggleGraphElementTransparency( this );
 		
@@ -358,7 +357,18 @@ var LUCIDNODES = {
 		};
 		
 		this.unTransformOnClickOutside = function(){
-			this.displayEntity.material.color.set( this.color );
+			
+			if ( this.displayEntity.material.length ){
+				var m = this.displayEntity.material;
+				for ( var x = 0; x < m.length; x++ ){
+					m.color.set( this.color );				
+				}
+			}
+			
+			else if ( !this.displayEntity.material.length ){
+				this.displayEntity.material.color.set( this.color );				
+			}
+
 			this.displayEntity.scale.set( 1, 1, 1 );
 			removeAxes ( this.displayEntity );
 			cursorInScene( "crosshair" );
@@ -633,6 +643,10 @@ function createNodeDisplayEntity( node ){
 		node.bufferGeom = new hexPlate( node.radius );
 	}
 	
+	if ( node.shape === "circlePlate" ){
+		node.bufferGeom = new circlePlate( node.radius );
+	}	
+	
 	node.displayEntity = new THREE.Mesh( node.bufferGeom, node.material );
 	node.displayEntity.isGraphElementPart = true;
 	node.displayEntity.graphElementPartType = "nodeDisplayEntity";
@@ -646,30 +660,65 @@ function createNodeDisplayEntity( node ){
 	scene.add( node.displayEntity ); 
 }
 
-function hexPlate( radius ){
+
+function triPlate( radius ){ return polygonPlate( 3, radius ); }
+
+function squarePlate( radius ){ return polyGonPlate ( 4, radius ); }
+
+function hexPlate( radius ){ return polygonPlate( 6, radius ); }
+
+function octaPlate( radius ){ return polygonPlate( 8, radius ); }
+
+function circlePlate( radius ){ return polygonPlate( 48, radius ); }
+
+function polygonPlate( sides, radius ){
 	
-	var a = radius * ( Math.cos( THREE.Math.degToRad( 30 ) ) );
-	var b = radius * ( Math.sin( THREE.Math.degToRad( 30 ) ) );
+	sides = sides !== undefined ? Math.max( 3, sides ) : 6;
+	var thickness = radius/10;
 	
 	var shape = new THREE.Shape();
-	shape.moveTo( 0, radius );
-	shape.lineTo( a, b );
-	shape.lineTo( a, -b );
-	shape.lineTo( 0, -radius );
-	shape.lineTo( -a, -b );
-	shape.lineTo( -a, b );
-	shape.lineTo( 0, radius );
+	
+	var vertex;
 
+	for ( var s = 0; s <= sides; s ++ ) {
+
+		var side = s / sides * ( Math.PI * 2 );
+		
+		vertex = new THREE.Vector2();
+		
+		vertex.x = radius * Math.cos( side );
+		vertex.y = radius * Math.sin( side );
+		
+		if ( s === 0 ){ shape.moveTo( vertex.x, vertex.y ) }
+		else { shape.lineTo( vertex.x, vertex.y ); }
+	}
+	
 	var extrudeSettings = {
 		steps: 1,
-		amount: ( radius / 10 ),
+		amount: thickness,
 		bevelEnabled: false,
-	};
-
+		material:0, //material index of the front and back face
+        extrudeMaterial : 1 //material index of the side faces   
+	};	
+	
 	var geometry = new THREE.ExtrudeGeometry( shape, extrudeSettings );
-	var bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
-	return bufferGeometry;
+	geometry.isExtrudeGeometry = true;
+	
+	centerExtrude( geometry, thickness );
+	
+	return geometry;
+	
+/*	var bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
+	return bufferGeometry; */
+}
 
+
+function centerExtrude( geometry, thickness ){
+	
+	if ( geometry.isExtrudeGeometry ){
+		geometry.applyMatrix ( new THREE.Matrix4().makeTranslation( 0, 0, -( thickness / 2 ) ) );
+		geometry.verticesNeedUpdate = true;
+	}
 }
 
 function createNodeDisplayEntity2( node ){
@@ -720,6 +769,8 @@ function changeNodeShape( node, shape ){
 	createNodeDisplayEntity( node );
 	
 	node.displayEntity.add( node.label.displayEntity );
+	
+	node.displayEntity.geometry.uvsNeedUpdate = true;
 }
 
 function changeShapeAllNodesInArray( nodeArr, shape ){
@@ -1021,9 +1072,13 @@ function addNode( position ){
 function moveNodeTo( node, position ){
 	
 	if ( position ){
+		
+		// lets check if we're inside the fuctionalAppExtents
+		var p = limitPositionToExtents( position, cognitionExtents );
+		
 		// Move the object by the offset amount
-		node.displayEntity.position.copy( position );
-		node.position.copy( position );
+		node.displayEntity.position.copy( p );
+		node.position.copy( p );
 
 		// Move the object's label
 		if ( node.label ){	
@@ -1055,6 +1110,22 @@ function moveNodeByOffset( node, offset ){
 	
 	moveNodeTo( node, newPosition );
 	
+}
+
+function limitPositionToExtents( position, extents = workspaceExtents ){
+
+	var x, y, z;
+
+	if ( position.x >= 0 ){ x = Math.min( position.x, extents ) }
+	else { x = Math.max( position.x, -extents ) }
+
+	if ( position.y >= 0 ){ y = Math.min( position.y, extents ) }
+	else { y = Math.max( position.y, -extents ) }
+	
+	if ( position.z >= 0 ){ z = Math.min( position.z, extents ) }
+	else { z = Math.max( position.z, -extents ) }	
+	
+	return new THREE.Vector3( x, y, z );
 }
 
 /* Snapping to decimal grid */

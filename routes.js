@@ -2,7 +2,10 @@ const express = require('express');
 //const app = express();
 const router = express.Router();
 const jsonMethods = require('./js/jsonMethods');
+const htmlMethods = require('./js/htmlMethods');
 const qs = require('querystring');
+const fileUpload = require('express-fileupload');
+const bodyParser = require("body-parser");
 
 //Middle ware that is specific to this router
 router.use(function timeLog(req, res, next) {
@@ -10,7 +13,15 @@ router.use(function timeLog(req, res, next) {
   next();
 });
 
-//app.use(express.bodyParser());
+
+router.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+router.use(bodyParser.json());
+
+router.use(fileUpload( { limits: { fileSize: 5 * 1e6 } } ));
+
 //initialize the file handling routes
 
 router.get('/loadCognition', function( req, res ) { res.send('Load cognition file!'); });
@@ -34,7 +45,7 @@ router.post('/saveCognition', function( req, res, next ) { console.log( 'Accessi
 					} 
 					); 
 					
-router.get('/loadTheme' , function( req, res ) { res.send( 'Loading Theme File!' ); });
+router.get('/loadTheme' , function( req, res ) { res.send( 'Loading Theme File' ); });
 
 router.post('/saveTheme' , function( req, res, next ) { console.log( 'Accessing the Save Cognition route...' );
 						next(); 
@@ -53,8 +64,77 @@ router.post('/saveTheme' , function( req, res, next ) { console.log( 'Accessing 
 					function( req, res ) {
 						res.send('save the current theme file!'); 
 					} 					
-					)
+					);
 					
+router.get('/loadUserImages' , 
+					function( req, res ) {
+						var media = jsonMethods.listFilesInDir( (__dirname + '/userImages'), res );
+						res.send();			
+					}
+					);
+					
+router.post('/uploadUserImages' , function( req, res, next ) { 
+						console.log( 'Accessing the Upload User Images route...' );
+						next(); 
+					}, 
+					function( req, res ){ 
 
+						var log = {
+							success: [],
+							fail: []
+						};
+					
+						if ( !req.files )
+							return res.status( 400 ).send( 'No files were uploaded.' );
+
+						// The name of the input field (i.e. "uploadFile") is used to retrieve the uploaded file
+						let uploadFile = req.files.hiddenUploader;
+						console.log( "uploadFile: ", uploadFile );
+						
+						if ( uploadFile.length > 0 ){
+							
+							var filesUploaded = [];
+							
+							[...uploadFile].forEach( uploadImage );
+						}
+							
+						else {
+							uploadImage( uploadFile ); 							
+						}	
+
+							
+						function uploadImage( file ){
+						
+							// Use the mv() method to place the file somewhere on your server
+							file.mv( (__dirname + '/userImages') + "/" + file.name, function( err ){
+								
+								if ( err ){ uploadLog( file, false, err ); }
+								else { uploadLog( file, true ); }
+							
+							});				
+			
+						}
+						
+						function uploadLog( file, success, err ){
+							
+							if ( success ){ 
+								log.success.push( file.name ) 
+								}
+							else { 
+								log.fail.push( file.name ); 
+								log.fail[ lastIndex ].reason = err;
+								log.fail[ lastIndex ].err = "500";
+								}
+							
+							if ( ( uploadFile.length > 0 && uploadFile.length === ( log.success.length + log.fail.length ) ) || ( !uploadFile.length ) ){
+								sendLog();
+							}
+						}
+						
+						function sendLog(){
+							res.send( log );
+						}
+						
+					});					
 
 module.exports = router;

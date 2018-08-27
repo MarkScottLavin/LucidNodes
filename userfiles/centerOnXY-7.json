@@ -267,23 +267,61 @@
       "shape": "v1icosahedron"
     },
     {
-      "id": "n00g",
-      "name": "n00g",
-      "color": 0,
+      "id": "n00q",
+      "name": "n00q",
+      "color": 32768,
       "position": {
         "x": -5,
         "y": 11.09,
-        "z": 4.577775592608976
+        "z": 8.7222060704853
       },
       "opacity": 0.75,
       "label": {
-        "text": "n00g",
+        "text": "n00q",
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
       "castShadows": true,
-      "radius": 1.2,
+      "radius": 1.5,
+      "shape": "v1tetrahedron"
+    },
+    {
+      "id": "n00r",
+      "name": "n00r",
+      "color": 4227200,
+      "position": {
+        "x": -5,
+        "y": 12,
+        "z": 3.2939879825926255
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00r",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 1.1375,
       "shape": "v1icosahedron"
+    },
+    {
+      "id": "n00s",
+      "name": "n00s",
+      "color": 8421504,
+      "position": {
+        "x": -5,
+        "y": 12,
+        "z": 6.155937887398977
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00s",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "sphere"
     }
   ],
   "edges": [
@@ -966,6 +1004,25 @@
     {
       "nodes": [
         {
+          "id": "n00r",
+          "name": "n00r",
+          "color": 4227200,
+          "position": {
+            "x": -5,
+            "y": 12,
+            "z": 3.2939879825926255
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00r",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 1.1375,
+          "shape": "v1icosahedron"
+        },
+        {
           "id": "n009",
           "name": "n009",
           "color": 8421504,
@@ -983,34 +1040,119 @@
           "castShadows": true,
           "radius": 0.5,
           "shape": "sphere"
-        },
-        {
-          "id": "n00g",
-          "name": "n00g",
-          "color": 0,
-          "position": {
-            "x": -5,
-            "y": 11.09,
-            "z": 4.577775592608976
-          },
-          "opacity": 0.75,
-          "label": {
-            "text": "n00g",
-            "opacity": 0.2
-          },
-          "labelOpacity": 0.2,
-          "castShadows": true,
-          "radius": 1.2,
-          "shape": "v1icosahedron"
         }
       ],
-      "id": "n009-n00g",
-      "name": "n009-n00g",
+      "id": "n00r-n009",
+      "name": "n00r-n009",
       "color": 8421504,
       "opacity": 0.5,
       "label": {
         "color": 16777215,
-        "text": "n009-n00g",
+        "text": "n00r-n009",
+        "opacity": 0.2
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "id": "n00s",
+          "name": "n00s",
+          "color": 8421504,
+          "position": {
+            "x": -5,
+            "y": 12,
+            "z": 6.155937887398977
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00s",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "id": "n009",
+          "name": "n009",
+          "color": 8421504,
+          "position": {
+            "x": 5.426728501863417,
+            "y": 11.09,
+            "z": 3.552713678800501e-15
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n009",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00s-n009",
+      "name": "n00s-n009",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n00s-n009",
+        "opacity": 0.2
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "id": "n00q",
+          "name": "n00q",
+          "color": 32768,
+          "position": {
+            "x": -5,
+            "y": 11.09,
+            "z": 8.7222060704853
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00q",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 1.5,
+          "shape": "v1tetrahedron"
+        },
+        {
+          "id": "n009",
+          "name": "n009",
+          "color": 8421504,
+          "position": {
+            "x": 5.426728501863417,
+            "y": 11.09,
+            "z": 3.552713678800501e-15
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n009",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00q-n009",
+      "name": "n00q-n009",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n00q-n009",
         "opacity": 0.2
       },
       "labelColor": 8421504

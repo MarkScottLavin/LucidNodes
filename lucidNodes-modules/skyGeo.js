@@ -1,4 +1,4 @@
-function skyGeo( topColor = 0xffffff, bottomColor = 0xffffff, radius = 2000 ){
+function skyGeo( topColor = 0xffffff, bottomColor = 0xffffff, radius = worldExtents ){
 
 	this.topColor = topColor;
 	this.bottomColor = bottomColor;
@@ -34,7 +34,7 @@ function skyGeo( topColor = 0xffffff, bottomColor = 0xffffff, radius = 2000 ){
 	this.material = new THREE.ShaderMaterial({ vertexShader: this.vertexShader, fragmentShader: this.fragmentShader, uniforms: this.uniforms, side: THREE.DoubleSide, fog: false });
     this.mesh = new THREE.Mesh( this.geo, this.material );
 	this.mesh.rotation.order = 'XZY';
-	this.mesh.renderDepth = 3000;
+	this.mesh.renderDepth = worldExtents * 1.5;
 	this.mesh.scale.set( -1, 1, 1 );
 	
 	entities.skyGeo = this.mesh;

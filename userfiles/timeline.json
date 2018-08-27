@@ -1,0 +1,680 @@
+{
+  "nodes": [
+    {
+      "id": "n000",
+      "name": "2005",
+      "color": 16776960,
+      "position": {
+        "x": -23,
+        "y": 9,
+        "z": 19.07675118510783
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "2005",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 1.6875,
+      "shape": "hexPlate"
+    },
+    {
+      "id": "n001",
+      "name": "n001",
+      "color": 16776960,
+      "position": {
+        "x": -18.657588246862225,
+        "y": 15.718888313271094,
+        "z": 19.07675118510783
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n001",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "id": "n002",
+      "name": "n002",
+      "color": 16776960,
+      "position": {
+        "x": -26.91058947492909,
+        "y": 15.979060822100191,
+        "z": 19.07675118510783
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n002",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "id": "n003",
+      "name": "n003",
+      "color": 16776960,
+      "position": {
+        "x": -30.883523139770194,
+        "y": 10.3601701749075,
+        "z": 19.07675118510783
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n003",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "id": "n004",
+      "name": "n004",
+      "color": 16776960,
+      "position": {
+        "x": -28.255900752652014,
+        "y": 2.968788904517436,
+        "z": 19.07675118510783
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n004",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "id": "n005",
+      "name": "n005",
+      "color": 16776960,
+      "position": {
+        "x": -20.216675458270196,
+        "y": 1.499793036495288,
+        "z": 19.07675118510783
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n005",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "id": "n006",
+      "name": "n006",
+      "color": 16776960,
+      "position": {
+        "x": -12.91193201740197,
+        "y": 14.138294812574742,
+        "z": 17.839821848127965
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n006",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "id": "n00g",
+      "name": "1981",
+      "color": 16744448,
+      "position": {
+        "x": -23,
+        "y": 9,
+        "z": -2
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "1981",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "hexPlate"
+    },
+    {
+      "id": "n00h",
+      "name": "2001",
+      "color": 16776960,
+      "position": {
+        "x": -23,
+        "y": 8.76,
+        "z": 13.971472968119087
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "2001",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 1.125,
+      "shape": "hexPlate"
+    },
+    {
+      "id": "n00i",
+      "name": "1995",
+      "color": 16776960,
+      "position": {
+        "x": -23,
+        "y": 8.76,
+        "z": 8.631038345190973
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "1995",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.75,
+      "shape": "hexPlate"
+    },
+    {
+      "id": "n00j",
+      "name": "1988",
+      "color": 16776960,
+      "position": {
+        "x": -23,
+        "y": 8.76,
+        "z": 4.31493173139188
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "1988",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "hexPlate"
+    },
+    {
+      "id": "n00k",
+      "name": "n00k",
+      "color": 8421504,
+      "position": {
+        "x": -17.456700197498456,
+        "y": 14.768173653730123,
+        "z": -2
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00k",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "id": "n00l",
+      "name": "1972",
+      "color": 16744448,
+      "position": {
+        "x": -23,
+        "y": 8.76,
+        "z": -8.867881152449627
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "1972",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "hexPlate"
+    },
+    {
+      "id": "n00m",
+      "name": "1964",
+      "color": 16711680,
+      "position": {
+        "x": -23,
+        "y": 8.76,
+        "z": -11.81938303689094
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "1964",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "hexPlate"
+    },
+    {
+      "id": "n00n",
+      "name": "1956",
+      "color": 16711680,
+      "position": {
+        "x": -23,
+        "y": 8.76,
+        "z": -15.05119202835067
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "1956",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "hexPlate"
+    },
+    {
+      "id": "n00o",
+      "name": "1977",
+      "color": 16744448,
+      "position": {
+        "x": -23,
+        "y": 8.76,
+        "z": -5.275090356020883
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "1977",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "hexPlate"
+    },
+    {
+      "id": "n00p",
+      "name": "2016",
+      "color": 8421504,
+      "position": {
+        "x": -23,
+        "y": 8.76,
+        "z": 50.83344387539728
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "2016",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "id": "n00q",
+      "name": "n00q",
+      "color": 8421504,
+      "position": {
+        "x": -13.084069586930134,
+        "y": 11.587485029018357,
+        "z": 19.048410647996302
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00q",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "id": "n00r",
+      "name": "n00r",
+      "color": 8421504,
+      "position": {
+        "x": -7.814848770255042,
+        "y": 12.633686894471232,
+        "z": 22.848854351819238
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00r",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "castShadows": true,
+      "radius": 0.5,
+      "shape": "sphere"
+    }
+  ],
+  "edges": [
+    {
+      "nodes": [
+        {
+          "id": "n000",
+          "name": "2005",
+          "color": 16776960,
+          "position": {
+            "x": -23,
+            "y": 9,
+            "z": 19.07675118510783
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "2005",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 1.6875,
+          "shape": "hexPlate"
+        },
+        {
+          "id": "n001",
+          "name": "n001",
+          "color": 16776960,
+          "position": {
+            "x": -18.657588246862225,
+            "y": 15.718888313271094,
+            "z": 19.07675118510783
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n001",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n000-n001",
+      "name": "n000-n001",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n000-n001",
+        "opacity": 0.2
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "id": "n000",
+          "name": "2005",
+          "color": 16776960,
+          "position": {
+            "x": -23,
+            "y": 9,
+            "z": 19.07675118510783
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "2005",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 1.6875,
+          "shape": "hexPlate"
+        },
+        {
+          "id": "n005",
+          "name": "n005",
+          "color": 16776960,
+          "position": {
+            "x": -20.216675458270196,
+            "y": 1.499793036495288,
+            "z": 19.07675118510783
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n005",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n000-n005",
+      "name": "n000-n005",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n000-n005",
+        "opacity": 0.2
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "id": "n000",
+          "name": "2005",
+          "color": 16776960,
+          "position": {
+            "x": -23,
+            "y": 9,
+            "z": 19.07675118510783
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "2005",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 1.6875,
+          "shape": "hexPlate"
+        },
+        {
+          "id": "n004",
+          "name": "n004",
+          "color": 16776960,
+          "position": {
+            "x": -28.255900752652014,
+            "y": 2.968788904517436,
+            "z": 19.07675118510783
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n004",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n000-n004",
+      "name": "n000-n004",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n000-n004",
+        "opacity": 0.2
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "id": "n000",
+          "name": "2005",
+          "color": 16776960,
+          "position": {
+            "x": -23,
+            "y": 9,
+            "z": 19.07675118510783
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "2005",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 1.6875,
+          "shape": "hexPlate"
+        },
+        {
+          "id": "n003",
+          "name": "n003",
+          "color": 16776960,
+          "position": {
+            "x": -30.883523139770194,
+            "y": 10.3601701749075,
+            "z": 19.07675118510783
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n003",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n000-n003",
+      "name": "n000-n003",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n000-n003",
+        "opacity": 0.2
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "id": "n000",
+          "name": "2005",
+          "color": 16776960,
+          "position": {
+            "x": -23,
+            "y": 9,
+            "z": 19.07675118510783
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "2005",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 1.6875,
+          "shape": "hexPlate"
+        },
+        {
+          "id": "n002",
+          "name": "n002",
+          "color": 16776960,
+          "position": {
+            "x": -26.91058947492909,
+            "y": 15.979060822100191,
+            "z": 19.07675118510783
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n002",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n000-n002",
+      "name": "n000-n002",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n000-n002",
+        "opacity": 0.2
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "id": "n000",
+          "name": "2005",
+          "color": 16776960,
+          "position": {
+            "x": -23,
+            "y": 9,
+            "z": 19.07675118510783
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "2005",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 1.6875,
+          "shape": "hexPlate"
+        },
+        {
+          "id": "n006",
+          "name": "n006",
+          "color": 16776960,
+          "position": {
+            "x": -12.91193201740197,
+            "y": 14.138294812574742,
+            "z": 17.839821848127965
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n006",
+            "opacity": 0.2
+          },
+          "labelOpacity": 0.2,
+          "castShadows": true,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n000-n006",
+      "name": "n000-n006",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n000-n006",
+        "opacity": 0.2
+      },
+      "labelColor": 8421504
+    }
+  ],
+  "groups": []
+}

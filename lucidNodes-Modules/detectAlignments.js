@@ -347,7 +347,7 @@ function detectAllCommonOrthoLinesAlongAxis( orthoLine, precision = "rounded" ){
 			for ( var j = 0; j < planeSets[ complimentary[1] ].length; j++ ){
 				var y = planeSets[ complimentary[1] ][j];
 				potentialOrthoLines.push( { x: 0, y: y , z: z } ); 
-				guideLines.push( new guideLine( 100, "vector", { x: -100, y: y, z: z }, { x: 100, y: y, z: z } ) );
+				guideLines.push( new guideLine( { x: -worldExtents, y: y, z: z }, { x: worldExtents, y: y, z: z } ) );
 			}
 		}
 		if ( orthoLine === "y" ){ 
@@ -356,7 +356,7 @@ function detectAllCommonOrthoLinesAlongAxis( orthoLine, precision = "rounded" ){
 			for ( var j = 0; j < planeSets[ complimentary[1] ].length; j++ ){			
 				var x = planeSets[ complimentary[1] ][j];
 				potentialOrthoLines.push( { x: x, y: 0, z: z } );
-				guideLines.push(  new guideLine( 100, "vector", { x: x, y: -100, z: z }, { x: x, y: 100, z: z } ) );
+				guideLines.push(  new guideLine( { x: x, y: -worldExtents, z: z }, { x: x, y: worldExtents, z: z } ) );
 			}
 		}
 		if ( orthoLine === "z" ){ 
@@ -365,14 +365,14 @@ function detectAllCommonOrthoLinesAlongAxis( orthoLine, precision = "rounded" ){
 			for ( var j = 0; j < planeSets[ complimentary[1] ].length; j++ ){						
 				var x = planeSets[ complimentary[1] ][j];			
 				potentialOrthoLines.push( { x: x, y: y, z: 0 } ); 
-				guideLines.push( new guideLine( 100, "vector", { x: x, y: y, z: -100 }, { x: x, y: y, z: 100 } ) ); 
+				guideLines.push( new guideLine( { x: x, y: y, z: -worldExtents }, { x: x, y: y, z: worldExtents } ) ); 
 			}
 		}
 		
 	}
 
 	for ( var g = 0; g < guideLines.length; g++ ){
-		showGuideLine( guideLines[g].line );
+		showGuide( guideLines[g].line );
 	}
 		
 	potentialOrthoLines = Array.from(new Set( potentialOrthoLines ));

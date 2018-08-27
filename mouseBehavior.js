@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.31
+	* Version 0.1.31.1
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -44,7 +44,10 @@ var DELETED = { nodes:[], edges:[] };
 var ACTIVE_HIDDEN_TEXT_INPUT;	
 
 // Stores the original positions of Nodes currently being manipulated.
-var origPosition;	 
+var origPosition;	
+
+// Zoom scale in browserControls
+var zoomScale = 1.1; 
 
 /* END VARIABLES */
 
@@ -71,7 +74,12 @@ function mouseEventHandler( event ){
 	//ray.set ( camera.position, vector.sub( camera.position ).normalize() );
 	
 	// update the guidePlane to be perpendicular to the current camera position
-	guides.planes.camPerpendicular.plane.lookAt( camera.position );
+//	guides.planes.camPerpendicular.plane.lookAt( camera.position );
+	guides.planes.camPerpendicular.plane.quaternion.copy( camera.quaternion );
+	
+/*	if ( snap ){
+		var nearestIntersctedSnapPoint = nearestIntersectedSnapPoint();
+	} */
 	
 	// get the nearest graphElement intersected by the picking ray. If no graphElement, return the nearest object
 	var nearestIntersected = nearestIntersectedObject3D();
@@ -239,18 +247,6 @@ function onMouseWheel( event, nearestIntersected ){
 // END HANDLING SPECIFIC MOUSE EVENTS
 
 // KEYPRESS EVENT HANDLING
-
-function onClickWithKey(){
-
-	// Click+"a" = Add a Node at the Click position
-	if ( keysPressed.keys.includes( "a" )){
-		
-		var position = placeAtPlaneIntersectionPoint( activeGuidePlane );
-
-		addNode( position );		
-	}
-	
-}
 	
 function onKeyDown( event ){
 
@@ -275,6 +271,10 @@ function onKeyUp( event ){
 		keysPressed.keys[0] === "p" && selectTool( "paint" );
 		keysPressed.keys[0] === "e" && selectTool( "addEdge" );
 		keysPressed.keys[0] === "a" && selectTool( "addNode" );
+		keysPressed.keys[0] === "z" && toggleBrowserZoom();
+		keysPressed.keys[0] === "n" && toggleBrowserPan();
+		keysPressed.keys[0] === "=" && zoomIn( zoomScale );
+		keysPressed.keys[0] === "-" && zoomOut( zoomScale );
 	}
 
 	console.log( "onKeyUp(): ", keysPressed.keys ); 		
@@ -288,6 +288,8 @@ function onEscapeKey(){
 	
 	toggleContextMenuOff();
 	if ( toolState.selected ){ unSelectAll() };
+	
+	escapeTools();
 }
 
 // END KEY EVENT HANDLING
@@ -299,7 +301,7 @@ function placeAtPlaneIntersectionPoint( plane ){
 	var planeIntersection = getPlaneIntersectPointRecursive( plane );
 	var position = new THREE.Vector3();
 
-	position.copy( planeIntersection.point );	
+	position.copy( planeIntersection.point );		
 	return position;
 }
 
@@ -334,19 +336,24 @@ function nearestIntersectedObject3D(){
 	// If we have intersected GraphElements, return the closest one, as long as it isn't a canvas and we're outside the path.
 	if ( graphElementsIntersectedByRay.length > 0 ){ 
 
+		var rayInPath;
+	
 		for ( var g = 0; g < graphElementsIntersectedByRay.length; g++ ){
 			
-			if ( !graphElementsIntersectedByRay[g].object.isNewLabelType ){
-				nearest = graphElementsIntersectedByRay[g].object;
-				break;
-			}
+			rayInPath = rayIn2DCanvasPath( graphElementsIntersectedByRay[g] );
 			
-			else {
-				if ( graphElementsIntersectedByRay[g].object.material.map.image && rayIn2DCanvasPath( object3DsIntersectedByRay[g].object ) ){
+			if ( graphElementsIntersectedByRay[g].object.isNewLabelType ){
+				
+				if ( rayInPath ){
 					nearest = graphElementsIntersectedByRay[g].object;
 					break;
-				}				
+				}						
 			}
+			
+			else if ( !graphElementsIntersectedByRay[g].object.isNewLabelType ){
+					nearest = graphElementsIntersectedByRay[g].object;
+					break;				
+			}		
 		}
 	}
 	
@@ -356,18 +363,38 @@ function nearestIntersectedObject3D(){
 	return nearest;
 }
 
-function rayIn2DCanvasPath( object3D ){
+function getObjectUV( object3D ){
 	
 	var geometry = object3D.geometry;
 	var canvas = object3D.material.map.image;
 	var context = object3D.referent.context;
-	var uv = object3DsIntersectedByRay[i].uv;
+	var uv = object3D.uv;	
 	
-	var canvasIntersectPt = getPointOnCanvasInCanvasUnits( uv, geometry, canvas );
-	var xy = new THREE.Vector2( canvasIntersectPt.x.valueInNewUnits, canvasIntersectPt.y.valueInNewUnits );
+	return uv;
 	
-	if ( isPointInContextFillPath( context, xy )){ return true; }
+}
 
+function rayIn2DCanvasPath( object3D ){
+	
+	var geometry = object3D.object.geometry;
+	var canvas;
+	var inFillPath;
+	
+	if ( object3D.object.material.map ){
+		canvas = object3D.object.material.map.image;
+	}
+	
+	var context = object3D.object.referent.context;
+	var uv = object3D.uv;
+	
+	if ( canvas ){
+		var canvasIntersectPt = getPointOnCanvasInCanvasUnits( uv, geometry, canvas );
+		var xy = new THREE.Vector2( canvasIntersectPt.x.valueInNewUnits, canvasIntersectPt.y.valueInNewUnits );
+		inFillPath = pointInContextFillPath( context, xy );
+		
+		if ( inFillPath ){ return true; }
+		else { return false; }
+	}
 	else { return false; }
 }
 
@@ -830,16 +857,10 @@ function recursiveFindParentWithProp( obj, prop ){
 /* END RECURSIVE CLIMBING */												  
 
 
-function isPointInContextFillPath( context, point ){
+function pointInContextFillPath( context, point ){
 	
-	var inPath;
-	
-	if ( context.isPointInPath( point.x, point.y ) ){ 
-		inPath = true; 
-	}	
-	else { inPath = false; }
-	
-	return inPath;
+	if ( context.isPointInPath( point.x, point.y ) ){ return true; }	
+	else { return false; }
 };
 
 // HIDDEN INPUT (LABEL TEXT) HANDLING
@@ -1100,6 +1121,11 @@ function initPanelDragCoords(){
 		end:{ x:0, y:0 }
 	}
 	
+	panelCoords.media = {
+		start:{ x: 0, y: 0 },
+		end:{ x:0, y:0 }
+	}	
+	
 	panelCoords.toolbar = {
 		start:{ x: 0, y: 0 },
 		end:{ x:0, y:0 }
@@ -1156,6 +1182,16 @@ function editNodePanelMaximize(){
 function editNodePanelMinimize(){
 	document.getElementById( "editNode" ).style.height = "24px";
 	document.querySelector( "#editNode .panel-body" ).style.display = "none";			
+}
+
+function mediaPanelMaximize(){
+	document.getElementById( "media" ).style.height = "350px";
+	document.querySelector( "#media .panel-body" ).style.display = "block";	
+}
+
+function mediaPanelMinimize(){
+	document.getElementById( "media" ).style.height = "24px";
+	document.querySelector( "#media .panel-body" ).style.display = "none";			
 }
 
 function getCoordsInPanel( event, panelID ){
@@ -1230,6 +1266,10 @@ var moveSearchPanel = function( e ){
 
 var moveShapePanel = function( e ){
 	movePanel( e, "editNode" );
+}
+
+var moveMediaPanel = function( e ){
+	movePanel( e, "media" );
 }
 
 var moveToolbar = function( e ){

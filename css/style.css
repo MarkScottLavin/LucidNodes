@@ -2,7 +2,7 @@
  * STYLESHEET.CSS 
  * Stylesheet for LucidChart Experiment Application
  * Author: Mark Scott Lavin
- * Version 0.2
+ * Version 0.2.1
  * 
 */
 
@@ -130,6 +130,22 @@ body {
 	height: 350px;
 }
 
+#media {
+	position: absolute;
+	right: 220px;
+	top: 400px;
+	height: 280px;
+}
+
+#panel-thumb-area {
+	margin:5px;
+	padding:2px;
+	height: 205px;
+	border-radius:2px 2px 0 0;
+	border: 1px #888 solid;	
+	overflow:auto;
+}
+
 .panel-title{
 	background-color:#888;
 	color:#fff;
@@ -169,6 +185,19 @@ body {
 	width: 56px;
 	height: 56px;
 	
+}
+
+.panel-thumb-cell{
+	padding: 1px;
+	display: inline-block;
+	border: 1px #888 solid;
+	background-color:#fff;
+	border-radius: 2px;
+}
+
+.panel-thumb img {
+	width:150px;
+	height:150px;
 }
 
 .panel-cell-label{
@@ -289,4 +318,17 @@ body {
 	float: right;
 	padding-right:5px;
 	cursor: pointer;
+}
+
+/* Image uploading */
+
+.drop-zone{
+	margin:5px;
+	padding:2px;
+	height: 60px;
+	border-radius:2px 2px 0 0;
+	border: 1px #888 dashed;
+	text-align:center;
+	vertical-align:center;
+	background-color: #ddd;
 }

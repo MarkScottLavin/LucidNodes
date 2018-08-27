@@ -19,7 +19,7 @@
 
 <div class="topMenu">
 	<form method="GET" id="temp2" enctype="multipart/form-data">
-		<div class="appTitle"><strong>LucidNodes Version 0.1.31</strong></div>
+		<div class="appTitle"><strong>LucidNodes Version 0.1.31.1</strong></div>
 		<div class="saveBar-cell">
 		   <label for="fileInput">Open File</label>
 		   <input type="file" id="fileInput" name="fileInput" accept=".json">
@@ -60,19 +60,22 @@
 	<script src="LucidNodes.js"></script>
 	<script src="lucidNodes-modules/axes.js"></script>
 	<script src="lucidNodes-modules/axes-radial.js"></script>	
-	<script src="lucidNodes-modules/guides.js"></script>
 	<script src="lucidNodes-modules/labelPlane.js"></script>	
 	<script src="js/fileHandlingUtils.js"></script>
 	<script src="app.js"></script>	
 	<script src="lucidNodes-modules/tools/toolHelperFunctions.js"></script>
 	<script src="lucidNodes-modules/originalPosition.js"></script>
-	<script src="lucidNodes-modules/detectAlignments.js"></script>	
+	<script src="lucidNodes-modules/detectAlignments.js"></script>
+	<script src="lucidNodes-modules/snapHandling.js"></script>	
+	<script src="lucidNodes-modules/guides.js"></script>
 	<script src="lucidNodes-modules/rotation.js"></script>
 	<script src="lucidNodes-modules/tools/rotationTool.js"></script>
 	<script src="lucidNodes-modules/tools/moveTool.js"></script>	
 	<script src="lucidNodes-modules/tools/addEdgeTool.js"></script>	
 	<script src="lucidNodes-modules/tools/addNodeTool.js"></script>		
 	<script src="lucidNodes-modules/tools/colorTools.js"></script>
+	<script src="lucidNodes-modules/dropZoneUtils.js"></script>	
+	<script src="lucidNodes-modules/userImages.js"></script>
 	<script src="lucidNodes-modules/nodeThreeGroups.js"></script>
 	<script src="lucidNodes-modules/treeClimber.js"></script>
 </div>
@@ -160,7 +163,8 @@
 			<div class="panel-cell-lg"><img id="v1octahedron" title="Octahedron Node" alt="Octahedron Node" src="assets/shape_icons/Octahedron.png"></div>	
 			<div class="panel-cell-lg"><img id="v1icosahedron" title="Icosahedron Node" alt="Icosahedron Node" src="assets/shape_icons/Icosahedron.png"></div>		
 			<div class="panel-cell-lg"><img id="hexPlate" title="HexPlate Node" alt="HexPlate Node" src="assets/shape_icons/hexPlate.png"></div>
-			<div class="panel-cell-lg"><img id="hexRing" title="HexRing Node" alt="HexRing Node" src="assets/shape_icons/hexRing.png"></div>			
+			<div class="panel-cell-lg"><img id="circlePlate" title="CirclePlate Node" alt="CirclePlate Node" src="assets/shape_icons/circlePlate.png"></div>			
+			<div class="panel-cell-lg"><img id="hexRing" title="HexRing Node" alt="HexRing Node" src="assets/shape_icons/hexRing.png"></div>					
 		</div>
 		<div class="panel-cell-label">Scale</div>	
 		<div>
@@ -169,6 +173,39 @@
 		</div>
 	</div>
 </div>
+
+
+<script type="text/javascript">
+
+
+
+
+</script>		
+		
+
+
+<div class="panel" id="media">
+	<div class="panel-title" id="media-panel-title"><strong>Media</strong><span id="minimize-media-panel" class="pull-right"><strong>>></strong></span></div>
+	<div class="panel-body">
+		<div class="panel-cell-label">Images</div>	
+	</div>
+	<div id="panel-thumb-area">
+	</div>	
+	<div id="image-drop-zone" name="image-drop-zone" class="drop-zone">
+		Drop Image Files to Upload<br/> <!-- action="uploadUsrImages()" -->
+		- or - 
+		<form class="hiddenUploader" id="hiddenUploader" method="POST" enctype="multipart/form-data" action="http://localhost:3000/uploadUserImages" target="formHolder">
+			<input type="file" name="hiddenUploader" multiple accept="image/*">
+			<input type="submit" value="upload images">
+		</form>
+		<iframe name="formHolder" id="formHolder" height="40px" width="200px" onload="updateImageLibraryFromInput()">		
+		</iframe>
+	</div>
+</div>
+		
+		
+		
+		
 
 
 <nav class="context-menu" id="context-menu">

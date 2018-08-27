@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.31
+	* Version 0.1.31.1
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -12,12 +12,16 @@
 	* etc.
 ****************************************************/
 
-// Create a global groups object to hold the groups that are in the scene.
+// The global "cognition" object will hold the graph elements that are in the scene.
 var cognition = {
 	nodes: [],
 	edges: [],
 	groups: []
 };
+
+var media = {
+	images: []
+}
 
 window.onload = function(){
 	
@@ -143,7 +147,12 @@ var initUI = function(){
 		if ( SELECTED.nodes.length > 0 ){ 
 			changeShapeAllNodesInArray( SELECTED.nodes, "hexPlate" ); 
 			} 
-		});		
+		});	
+	document.getElementById('circlePlate').addEventListener('click', function(e){ 
+		if ( SELECTED.nodes.length > 0 ){ 
+			changeShapeAllNodesInArray( SELECTED.nodes, "circlePlate" ); 
+			} 
+		});			
 	document.getElementById('hexRing').addEventListener('click', function(e){ 
 		if ( SELECTED.nodes.length > 0 ){ 
 			changeShapeAllNodesInArray( SELECTED.nodes, "hexRing" ); 
@@ -181,7 +190,30 @@ var initUI = function(){
 																					saveThemeFile( themeState.name + ".json" , themeState, "./themes" );
 																					toggleSaveAsBoxOff( saveThemeAsBox ); } ); 
 	document.getElementById('cancelSaveThemeAsBtn').addEventListener( 'click', function(){ toggleSaveAsBoxOff( saveThemeAsBox ); } );	
+	
+	/* MEDIA */
+	
+	document.getElementById('minimize-media-panel').addEventListener('click', function(){ togglePanelSize( "media" ); }, false );
+	document.getElementById('media-panel-title').addEventListener( "mousedown", function(e){ 
+		getDragStartCoords( e, "media" ); 
+		document.addEventListener( "mousemove", moveMediaPanel, false );
+		}, false );
+	document.getElementById('media-panel-title').addEventListener( "mouseup", function(e){ 
+		document.removeEventListener( "mousemove", moveMediaPanel, false );
+		}, false );	
+			
+			
+			
+	document.getElementById('image-drop-zone').addEventListener( "dragenter", transformDropZoneOnEnter, false );
+	document.getElementById('image-drop-zone').addEventListener( "dragover", dropZoneDragOverHandler, false );
+	
+//	addEventHandler( document.getElementById( 'image-drop-zone' ), 'drop', function( e ){ getDroppedFiles( e ); } );
+	
+//	document.getElementById('image-drop-zone').addEventListener( "drop", imgDropHandler, false );
+	document.getElementById('image-drop-zone').addEventListener( "dragleave", transformDropZoneOnLeave, false );	
+	document.getElementById('image-drop-zone').addEventListener( "mouseleave", transformDropZoneOnLeave, false );		
 };
+
 
 /* cognitionFromJson( json )
  *

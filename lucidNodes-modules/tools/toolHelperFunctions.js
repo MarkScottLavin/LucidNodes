@@ -15,7 +15,10 @@ function lineEndToPoint( line, endPosition ){
 }
 
 function movePointTo( point, position ){
-	point.position = { x: position.x, y: position.y, z: position.z };
+	
+	var p = limitPositionToExtents( position, workspaceExtents );	
+	
+	point.position = { x: p.x, y: p.y, z: p.z };
 	point.displayEntity.position.copy( point.position );
 }
 
@@ -50,3 +53,13 @@ function getNodePositionsAsArray( nodeArr ){
 	} 
 
 }
+
+function zoomIn( scale ){	
+	entities.browserControls.dollyIn( scale );
+	entities.browserControls.update();
+}
+
+function zoomOut( scale ){	
+	entities.browserControls.dollyOut( scale );
+	entities.browserControls.update(); 		
+} 
