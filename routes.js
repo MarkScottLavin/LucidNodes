@@ -14,13 +14,12 @@ router.use(function timeLog(req, res, next) {
 });
 
 
-router.use(bodyParser.urlencoded({
+router.use( bodyParser.json() );
+router.use( bodyParser.urlencoded({
     extended: true
 }));
 
-router.use(bodyParser.json());
-
-router.use(fileUpload( { limits: { fileSize: 5 * 1e6 } } ));
+router.use(fileUpload( { limits: { fileSize: 5 * 1e6 } } )); 
 
 //initialize the file handling routes
 
@@ -30,6 +29,9 @@ router.post('/saveCognition', function( req, res, next ) { console.log( 'Accessi
 						next(); 
 					},
 					function( req, res, next ) { 
+						req.on( 'error', function(){
+							console.log( 'error!' );
+						});
 						req.on( 'data', function( data ) {
 							console.log( 'data at router.post: ', data );
 							
@@ -37,6 +39,9 @@ router.post('/saveCognition', function( req, res, next ) { console.log( 'Accessi
 							console.log( 'data parsed: ', jParsed );
 							
 							jsonMethods.saveCognitionJson( jParsed.fullpath, jParsed.data );
+						});
+						req.on( 'end', function(){
+							console.log( req );
 						});
 						next();
 					},

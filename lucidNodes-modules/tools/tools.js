@@ -55,7 +55,7 @@ function checkTools(){
 	if ( SELECTEDTOOLS.includes ( "paint" ) ) {
 	
 		// Add Transform behaviors for graphElements ( EventListener callbacks );
-		graphElement.transformOnDblClick = function(){ changeGraphElementColor( graphElement, SELECTEDCOLOR ) };
+		graphElement.onDblClick = function(){ changeGraphElementColor( graphElement, SELECTEDCOLOR ) };
 	
 	}
 	

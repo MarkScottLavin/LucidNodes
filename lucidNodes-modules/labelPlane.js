@@ -61,6 +61,10 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	this.paddingX = parameters.hasOwnProperty("paddingX") ? parameters["paddingX"] : this.textLineThickness;
 	this.paddingY = parameters.hasOwnProperty("paddingY") ? parameters["paddingY"] : this.paddingX;
 	
+	/* Shadow */
+	this.castShadow = parameters.castShadow || globalAppSettings.castShadow;  /* Set to global default */
+	this.receiveShadow = parameters.receiveShadow || globalAppSettings.receiveShadow; /* Set to global default */	
+	
 	this.faceCamera = parameters.hasOwnProperty("faceCamera") ? parameters["faceCamera"] : true; 
 	
 	this.aligment = parameters.hasOwnProperty("alignment") ? parameters["alignment"] : "right";
@@ -104,6 +108,9 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	this.displayEntity.isLabel = true;
 	this.displayEntity.referent = this;
 	
+	this.displayEntity.castShadow = this.castShadow;
+	this.displayEntity.receiveShadow = this.receiveShadow;	
+	
 	// Initialize Dynamic Scaling ( Text stays same size regardless of length or # of lines )
 	this.scaleFactor = getDynamicScaleFactor( this );	
 	labelScale( this, this.scaleFactor );
@@ -112,28 +119,28 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	
 	/* Transformations */
 
-	this.transformOnMouseOver = function(){
+	this.onMouseOver = function(){
 
 		labelScale( this, this.scaleFactor * 1.333 );
 		
-		console.log( "newLabelType.transformOnMouseOver(): uv coords: ", this.displayEntity.uv );
-		console.log( "newLabelType.transformOnMouseOver(): ray: ", ray );
+		console.log( "newLabelType.onMouseOver(): uv coords: ", this.displayEntity.uv );
+		console.log( "newLabelType.onMouseOver(): ray: ", ray );
 		//isIntersectPointInContextFillPath( this.canvas.context );
 		
-		this.node.transformOnMouseOverLabel();
+		this.node.onMouseOverLabel();
 	}
 	
-	this.transformOnMouseOut = function(){
+	this.onMouseLeave = function(){
 
 		labelScale( this, this.scaleFactor );		
-		this.node.transformOnLabelMouseOut();
+		this.node.onMouseLeaveLabel();
 	}
 	
-	this.transformOnMouseOverNode = function(){};
+	this.onMouseOverNode = function(){};
 	
-	this.transformOnNodeMouseOut = function(){};
+	this.onMouseLeaveNode = function(){};
 	
-	this.transformOnClick = function(){
+	this.onClick = function(){
 		
 		this.backgroundColor = { r: 0, g: 0, b: 255, a: this.opacity };
 		
@@ -142,7 +149,7 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 		labelFillText( this, this.textLines, this.textColor, this.opacity, this.fontsize, this.lineSpacing, this.totalTextHeight );
 	};
 	
-	this.unTransformOnClickOutside = function(){
+	this.onClickOutside = function(){
 		
 		this.backgroundColor = { r: 255, g: 255, b: 255, a: this.opacity };
 		
@@ -151,15 +158,13 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 		labelFillText( this, this.textLines, this.textColor, this.opacity, this.fontsize, this.lineSpacing, this.totalTextHeight );					
 	};
 	
-	this.transformOnAddEdgePairing = function(){
+	this.onAddEdgeTool = function(){
 		this.displayEntity.material.color.set( globalAppSettings.nodeColorOnAltSelect );
 	};
 	
-	this.transformOnDblClick = function(){};
+	this.onDblClick = function(){};
 	
 	this.unTransformOnDblClickOutside = function(){};
-	
-	this.transformOnWheel = function(){};
 	
 	attachHiddenInputToNewLabelType( this );
 	
@@ -424,6 +429,10 @@ LUCIDNODES.EdgeLabel = function( parameters ){
 		this.texture = new THREE.Texture( this.canvas ); 
 		this.texture.needsUpdate = true;
 		this.texture.minFilter = THREE.LinearFilter;
+		
+		/* Shadows */
+		this.castShadow = parameters.castShadow || globalAppSettings.castShadow;  /* Set to global default */
+		this.receiveShadow = parameters.receiveShadow || globalAppSettings.receiveShadow; /* Set to global default */
 
 		this.material = new THREE.SpriteMaterial( { map: this.texture } );
 		this.displayEntity = new THREE.Sprite( this.material );
@@ -434,9 +443,12 @@ LUCIDNODES.EdgeLabel = function( parameters ){
 		this.displayEntity.isLabel = true;
 		this.displayEntity.referent = this;
 		
+		this.displayEntity.castShadow = this.castShadow;
+		this.displayEntity.receiveShadow = this.receiveShadow;	
+		
 		positionLabel( this, this.edge.centerPoint );
 		
-		this.transformOnMouseOver = function(){
+		this.onMouseOver = function(){
 			var color = globalAppSettings.edgeColorOnMouseOver;
 			var scale = globalAppSettings.defaultLabelScale;	
 			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;			
@@ -448,19 +460,19 @@ LUCIDNODES.EdgeLabel = function( parameters ){
 			this.displayEntity.material.color.set ( globalAppSettings.edgeColorOnMouseOver );							
 			this.displayEntity.scale.set( newScale.x, newScale.y, newScale.z );			
 			
-			this.edge.transformOnMouseOverLabel();
+			this.edge.onMouseOverLabel();
 		};
 		
-		this.transformOnMouseOut = function(){
+		this.onMouseLeave = function(){
 			var scale = globalAppSettings.defaultLabelScale;
 			
 			this.displayEntity.material.color.set ( this.color );
 			this.displayEntity.scale.set( scale.x , scale.y , scale.z );
 			
-			this.edge.transformOnLabelMouseOut();			
+			this.edge.onMouseLeaveLabel();			
 		};
 
-		this.transformOnMouseOverEdge = function(){
+		this.onMouseOverEdge = function(){
 			var color = globalAppSettings.edgeColorOnMouseOver;
 			var scale = globalAppSettings.defaultLabelScale;						
 			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
@@ -473,32 +485,28 @@ LUCIDNODES.EdgeLabel = function( parameters ){
 			this.displayEntity.scale.set( newScale.x, newScale.y, newScale.z );			
 		};
 		
-		this.transformOnEdgeMouseOut = function(){
+		this.onMouseLeaveEdge = function(){
 			var scale = globalAppSettings.defaultLabelScale;			
 			
 			this.displayEntity.material.color.set( this.color );		
 			this.displayEntity.scale.set( scale.x , scale.y , scale.z );			
 		};
 		
-		this.transformOnClick = function(){
+		this.onClick = function(){
 			this.displayEntity.material.color.set( globalAppSettings.edgeColorOnSelect );			
 		};
 		
-		this.unTransformOnClickOutside = function(){
+		this.onClickOutside = function(){
 			this.displayEntity.material.color.set( this.color );				
 		};
 
-		this.transformOnDblClick = function(){
+		this.onDblClick = function(){
 
 		};
 		
 		this.unTransformOnDblClickOutside = function(){
 
-		};
-		
-		this.transformOnWheel = function(){
-			
-		};			
+		};		
 		
 		scene.add( this.displayEntity );
 	};
@@ -656,18 +664,12 @@ function positionTextInContext( label, xy ){
 
 function labelSize( label, text ){
 
-	// get size data (height depends only on font size)
 	label.metrics = label.context.measureText( text );
 	label.textWidth = label.metrics.width;
 	label.textHeight = label.fontsize;	
 	
 	var safetyBuffer = 4;
 	
-	//var width = label.textWidth + safetyBuffer;
-	//var height = label.textHeight + safetyBuffer;
-	
-	//label.canvas.width = width;
-	//label.canvas.height = height;
 }
 
 function labelBackgroundForDebug( label ){	

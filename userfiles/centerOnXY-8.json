@@ -12,10 +12,18 @@
       "opacity": 0.75,
       "label": {
         "text": "n000",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "17A196C2-7CD9-4989-9FEB-32D7EB441DCA"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.75
+      },
       "radius": 0.5,
       "shape": "sphere"
     },
@@ -31,10 +39,18 @@
       "opacity": 0.75,
       "label": {
         "text": "n001",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "6B4E6440-B7CE-4914-B9D2-1DBE4E186551"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.75
+      },
       "radius": 0.5,
       "shape": "sphere"
     },
@@ -50,10 +66,18 @@
       "opacity": 0.75,
       "label": {
         "text": "n002",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "C6FCE4B5-5571-49F8-8875-13A8E32217DC"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": {
+        "color": 16711680,
+        "opacity": 0.75
+      },
       "radius": 0.5,
       "shape": "sphere"
     },
@@ -69,10 +93,18 @@
       "opacity": 0.75,
       "label": {
         "text": "n003",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "EAC4B110-7B71-4C42-82B0-F733C306B090"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": {
+        "color": 16711680,
+        "opacity": 0.75
+      },
       "radius": 1,
       "shape": "hexRing"
     },
@@ -88,10 +120,18 @@
       "opacity": 0.75,
       "label": {
         "text": "n004",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "9E2B844A-7B01-4253-88E8-554CF6F88A74"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.75
+      },
       "radius": 0.5,
       "shape": "sphere"
     },
@@ -107,10 +147,18 @@
       "opacity": 0.75,
       "label": {
         "text": "n005",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "AE3C44C4-29B6-41AF-8036-D24AA6FC7BCC"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.75
+      },
       "radius": 0.5,
       "shape": "sphere"
     },
@@ -126,10 +174,18 @@
       "opacity": 0.75,
       "label": {
         "text": "n006",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "0FADC8B6-8789-472A-90DB-8702B76E5B87"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.75
+      },
       "radius": 0.5,
       "shape": "sphere"
     },
@@ -145,10 +201,18 @@
       "opacity": 0.75,
       "label": {
         "text": "n007",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "547FFA74-1AAF-40BE-840B-056EBA0CCEE9"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.75
+      },
       "radius": 0.5,
       "shape": "sphere"
     },
@@ -164,10 +228,18 @@
       "opacity": 0.75,
       "label": {
         "text": "n008",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "79CBB356-A4E5-4451-ADC1-2641DB8DFE82"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.75
+      },
       "radius": 0.5,
       "shape": "sphere"
     },
@@ -183,10 +255,18 @@
       "opacity": 0.75,
       "label": {
         "text": "n009",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "75B851E4-76BB-4A14-B9C0-23B7D0805312"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.75
+      },
       "radius": 0.5,
       "shape": "sphere"
     },
@@ -202,10 +282,24 @@
       "opacity": 0.75,
       "label": {
         "text": "n00a",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "A4F952F0-BCEF-44E6-8210-D2F783B1734D"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": [
+        {
+          "color": 16777215,
+          "map": "12704255-DD51-4A2A-960C-D7A53351DCCE"
+        },
+        {
+          "color": 65344,
+          "opacity": 0.75
+        }
+      ],
       "radius": 1.875,
       "shape": "hexPlate"
     },
@@ -221,10 +315,18 @@
       "opacity": 0.75,
       "label": {
         "text": "n00b",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "F44B5059-C447-4007-B7EC-B6519B45311C"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.75
+      },
       "radius": 0.5,
       "shape": "sphere"
     },
@@ -240,10 +342,18 @@
       "opacity": 0.75,
       "label": {
         "text": "n00c",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "0CC2DBE8-6F5C-46ED-9E34-ED368B30E40C"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": {
+        "color": 16711680,
+        "opacity": 0.75
+      },
       "radius": 1.2,
       "shape": "v1icosahedron"
     },
@@ -259,10 +369,18 @@
       "opacity": 0.75,
       "label": {
         "text": "n00f",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "EA1F1131-495C-4856-9A88-E48576E77C81"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": {
+        "color": 8453888,
+        "opacity": 0.75
+      },
       "radius": 1.2,
       "shape": "v1icosahedron"
     },
@@ -278,10 +396,18 @@
       "opacity": 0.75,
       "label": {
         "text": "n00q",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "8C725326-EF7B-43E4-A006-1BEBB66EF465"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": {
+        "color": 32768,
+        "opacity": 0.75
+      },
       "radius": 1.5,
       "shape": "v1tetrahedron"
     },
@@ -297,10 +423,18 @@
       "opacity": 0.75,
       "label": {
         "text": "n00r",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "BBC60C46-A488-475D-BD7E-3AF51EA2FD88"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": {
+        "color": 4227200,
+        "opacity": 0.75
+      },
       "radius": 1.1375,
       "shape": "v1icosahedron"
     },
@@ -316,10 +450,18 @@
       "opacity": 0.75,
       "label": {
         "text": "n00s",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "C9D7B590-7B6D-47FE-89F0-BBF8D91B585F"
+        }
       },
       "labelOpacity": 0.2,
       "castShadows": true,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.75
+      },
       "radius": 0.5,
       "shape": "sphere"
     }
@@ -339,10 +481,24 @@
           "opacity": 0.75,
           "label": {
             "text": "n00a",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "A4F952F0-BCEF-44E6-8210-D2F783B1734D"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": [
+            {
+              "color": 16777215,
+              "map": "12704255-DD51-4A2A-960C-D7A53351DCCE"
+            },
+            {
+              "color": 65344,
+              "opacity": 0.75
+            }
+          ],
           "radius": 1.875,
           "shape": "hexPlate"
         },
@@ -358,10 +514,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n004",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "9E2B844A-7B01-4253-88E8-554CF6F88A74"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8421504,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -373,9 +537,17 @@
       "label": {
         "color": 16777215,
         "text": "n00a-n004",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "7ACF422A-9197-4B5D-B141-837697B36F27"
+        }
       },
-      "labelColor": 8421504
+      "labelColor": 8421504,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.5
+      }
     },
     {
       "nodes": [
@@ -391,10 +563,24 @@
           "opacity": 0.75,
           "label": {
             "text": "n00a",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "A4F952F0-BCEF-44E6-8210-D2F783B1734D"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": [
+            {
+              "color": 16777215,
+              "map": "12704255-DD51-4A2A-960C-D7A53351DCCE"
+            },
+            {
+              "color": 65344,
+              "opacity": 0.75
+            }
+          ],
           "radius": 1.875,
           "shape": "hexPlate"
         },
@@ -410,10 +596,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n007",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "547FFA74-1AAF-40BE-840B-056EBA0CCEE9"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8421504,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -425,9 +619,17 @@
       "label": {
         "color": 16777215,
         "text": "n00a-n007",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "8DFBB06A-1EBA-46C7-9F87-A8AC1B8084B4"
+        }
       },
-      "labelColor": 8421504
+      "labelColor": 8421504,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.5
+      }
     },
     {
       "nodes": [
@@ -443,10 +645,24 @@
           "opacity": 0.75,
           "label": {
             "text": "n00a",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "A4F952F0-BCEF-44E6-8210-D2F783B1734D"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": [
+            {
+              "color": 16777215,
+              "map": "12704255-DD51-4A2A-960C-D7A53351DCCE"
+            },
+            {
+              "color": 65344,
+              "opacity": 0.75
+            }
+          ],
           "radius": 1.875,
           "shape": "hexPlate"
         },
@@ -462,10 +678,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n008",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "79CBB356-A4E5-4451-ADC1-2641DB8DFE82"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8421504,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -477,9 +701,17 @@
       "label": {
         "color": 16777215,
         "text": "n00a-n008",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "8D60D29E-9E07-4111-A2C3-16A16AED2CD4"
+        }
       },
-      "labelColor": 8421504
+      "labelColor": 8421504,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.5
+      }
     },
     {
       "nodes": [
@@ -495,10 +727,24 @@
           "opacity": 0.75,
           "label": {
             "text": "n00a",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "A4F952F0-BCEF-44E6-8210-D2F783B1734D"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": [
+            {
+              "color": 16777215,
+              "map": "12704255-DD51-4A2A-960C-D7A53351DCCE"
+            },
+            {
+              "color": 65344,
+              "opacity": 0.75
+            }
+          ],
           "radius": 1.875,
           "shape": "hexPlate"
         },
@@ -514,10 +760,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n005",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "AE3C44C4-29B6-41AF-8036-D24AA6FC7BCC"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8421504,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -529,9 +783,17 @@
       "label": {
         "color": 16777215,
         "text": "n00a-n005",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "7903BCC8-4C7E-455E-8255-753505789ACE"
+        }
       },
-      "labelColor": 8421504
+      "labelColor": 8421504,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.5
+      }
     },
     {
       "nodes": [
@@ -547,10 +809,24 @@
           "opacity": 0.75,
           "label": {
             "text": "n00a",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "A4F952F0-BCEF-44E6-8210-D2F783B1734D"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": [
+            {
+              "color": 16777215,
+              "map": "12704255-DD51-4A2A-960C-D7A53351DCCE"
+            },
+            {
+              "color": 65344,
+              "opacity": 0.75
+            }
+          ],
           "radius": 1.875,
           "shape": "hexPlate"
         },
@@ -566,10 +842,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n009",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "75B851E4-76BB-4A14-B9C0-23B7D0805312"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8421504,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -581,9 +865,17 @@
       "label": {
         "color": 16777215,
         "text": "n00a-n009",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "E5EE131B-A2CD-48B3-8100-68CAD8149D97"
+        }
       },
-      "labelColor": 8421504
+      "labelColor": 8421504,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.5
+      }
     },
     {
       "nodes": [
@@ -599,10 +891,24 @@
           "opacity": 0.75,
           "label": {
             "text": "n00a",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "A4F952F0-BCEF-44E6-8210-D2F783B1734D"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": [
+            {
+              "color": 16777215,
+              "map": "12704255-DD51-4A2A-960C-D7A53351DCCE"
+            },
+            {
+              "color": 65344,
+              "opacity": 0.75
+            }
+          ],
           "radius": 1.875,
           "shape": "hexPlate"
         },
@@ -618,10 +924,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n003",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "EAC4B110-7B71-4C42-82B0-F733C306B090"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 16711680,
+            "opacity": 0.75
+          },
           "radius": 1,
           "shape": "hexRing"
         }
@@ -633,9 +947,17 @@
       "label": {
         "color": 16777215,
         "text": "n00a-n003",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "C3F53842-8A1A-4024-B39F-3FA08F79E82F"
+        }
       },
-      "labelColor": 8421504
+      "labelColor": 8421504,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.5
+      }
     },
     {
       "nodes": [
@@ -651,10 +973,24 @@
           "opacity": 0.75,
           "label": {
             "text": "n00a",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "A4F952F0-BCEF-44E6-8210-D2F783B1734D"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": [
+            {
+              "color": 16777215,
+              "map": "12704255-DD51-4A2A-960C-D7A53351DCCE"
+            },
+            {
+              "color": 65344,
+              "opacity": 0.75
+            }
+          ],
           "radius": 1.875,
           "shape": "hexPlate"
         },
@@ -670,10 +1006,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n002",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "C6FCE4B5-5571-49F8-8875-13A8E32217DC"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 16711680,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -685,9 +1029,17 @@
       "label": {
         "color": 16777215,
         "text": "n00a-n002",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "E1BCCEAF-AF42-4069-B90A-F092320CE1AF"
+        }
       },
-      "labelColor": 8421504
+      "labelColor": 8421504,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.5
+      }
     },
     {
       "nodes": [
@@ -703,10 +1055,24 @@
           "opacity": 0.75,
           "label": {
             "text": "n00a",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "A4F952F0-BCEF-44E6-8210-D2F783B1734D"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": [
+            {
+              "color": 16777215,
+              "map": "12704255-DD51-4A2A-960C-D7A53351DCCE"
+            },
+            {
+              "color": 65344,
+              "opacity": 0.75
+            }
+          ],
           "radius": 1.875,
           "shape": "hexPlate"
         },
@@ -722,10 +1088,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n000",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "17A196C2-7CD9-4989-9FEB-32D7EB441DCA"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8421504,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -737,9 +1111,17 @@
       "label": {
         "color": 16777215,
         "text": "n00a-n000",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "97CD0351-0DC7-469B-98CA-EBD551DDB30F"
+        }
       },
-      "labelColor": 8421504
+      "labelColor": 8421504,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.5
+      }
     },
     {
       "nodes": [
@@ -755,10 +1137,24 @@
           "opacity": 0.75,
           "label": {
             "text": "n00a",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "A4F952F0-BCEF-44E6-8210-D2F783B1734D"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": [
+            {
+              "color": 16777215,
+              "map": "12704255-DD51-4A2A-960C-D7A53351DCCE"
+            },
+            {
+              "color": 65344,
+              "opacity": 0.75
+            }
+          ],
           "radius": 1.875,
           "shape": "hexPlate"
         },
@@ -774,10 +1170,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n001",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "6B4E6440-B7CE-4914-B9D2-1DBE4E186551"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8421504,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -789,9 +1193,17 @@
       "label": {
         "color": 16777215,
         "text": "n00a-n001",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "D2310699-5F0B-476F-80D1-39B9FA776040"
+        }
       },
-      "labelColor": 8421504
+      "labelColor": 8421504,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.5
+      }
     },
     {
       "nodes": [
@@ -807,10 +1219,24 @@
           "opacity": 0.75,
           "label": {
             "text": "n00a",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "A4F952F0-BCEF-44E6-8210-D2F783B1734D"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": [
+            {
+              "color": 16777215,
+              "map": "12704255-DD51-4A2A-960C-D7A53351DCCE"
+            },
+            {
+              "color": 65344,
+              "opacity": 0.75
+            }
+          ],
           "radius": 1.875,
           "shape": "hexPlate"
         },
@@ -826,10 +1252,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n006",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "0FADC8B6-8789-472A-90DB-8702B76E5B87"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8421504,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -841,9 +1275,17 @@
       "label": {
         "color": 16777215,
         "text": "n00a-n006",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "8DC7FC12-67ED-4068-A6EE-B5D0C0AAEACD"
+        }
       },
-      "labelColor": 8421504
+      "labelColor": 8421504,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.5
+      }
     },
     {
       "nodes": [
@@ -859,10 +1301,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n009",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "75B851E4-76BB-4A14-B9C0-23B7D0805312"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8421504,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         },
@@ -878,10 +1328,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n00f",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "EA1F1131-495C-4856-9A88-E48576E77C81"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8453888,
+            "opacity": 0.75
+          },
           "radius": 1.2,
           "shape": "v1icosahedron"
         }
@@ -893,9 +1351,17 @@
       "label": {
         "color": 16777215,
         "text": "n009-n00f",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "42AC634A-C9E0-4142-98C5-E1EDA7B5067E"
+        }
       },
-      "labelColor": 8421504
+      "labelColor": 8421504,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.5
+      }
     },
     {
       "nodes": [
@@ -911,10 +1377,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n009",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "75B851E4-76BB-4A14-B9C0-23B7D0805312"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8421504,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         },
@@ -930,10 +1404,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n00c",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "0CC2DBE8-6F5C-46ED-9E34-ED368B30E40C"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 16711680,
+            "opacity": 0.75
+          },
           "radius": 1.2,
           "shape": "v1icosahedron"
         }
@@ -945,9 +1427,17 @@
       "label": {
         "color": 16777215,
         "text": "n009-n00c",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "F9D4CF5B-DBD8-45FB-8B84-67476A676003"
+        }
       },
-      "labelColor": 8421504
+      "labelColor": 8421504,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.5
+      }
     },
     {
       "nodes": [
@@ -963,10 +1453,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n009",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "75B851E4-76BB-4A14-B9C0-23B7D0805312"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8421504,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         },
@@ -982,10 +1480,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n00b",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "F44B5059-C447-4007-B7EC-B6519B45311C"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8421504,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -997,9 +1503,17 @@
       "label": {
         "color": 16777215,
         "text": "n009-n00b",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "2CA6FD00-6FE5-46B2-B37E-0E0229D911C4"
+        }
       },
-      "labelColor": 8421504
+      "labelColor": 8421504,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.5
+      }
     },
     {
       "nodes": [
@@ -1015,10 +1529,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n00r",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "BBC60C46-A488-475D-BD7E-3AF51EA2FD88"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 4227200,
+            "opacity": 0.75
+          },
           "radius": 1.1375,
           "shape": "v1icosahedron"
         },
@@ -1034,10 +1556,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n009",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "75B851E4-76BB-4A14-B9C0-23B7D0805312"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8421504,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -1049,9 +1579,17 @@
       "label": {
         "color": 16777215,
         "text": "n00r-n009",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "EB605656-9FA7-4950-BF84-EC97993C21B6"
+        }
       },
-      "labelColor": 8421504
+      "labelColor": 8421504,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.5
+      }
     },
     {
       "nodes": [
@@ -1067,10 +1605,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n00s",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "C9D7B590-7B6D-47FE-89F0-BBF8D91B585F"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8421504,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         },
@@ -1086,10 +1632,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n009",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "75B851E4-76BB-4A14-B9C0-23B7D0805312"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8421504,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -1101,9 +1655,17 @@
       "label": {
         "color": 16777215,
         "text": "n00s-n009",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "F0E4E5F9-E9FC-4BF6-AF19-64508FE23B82"
+        }
       },
-      "labelColor": 8421504
+      "labelColor": 8421504,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.5
+      }
     },
     {
       "nodes": [
@@ -1119,10 +1681,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n00q",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "8C725326-EF7B-43E4-A006-1BEBB66EF465"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 32768,
+            "opacity": 0.75
+          },
           "radius": 1.5,
           "shape": "v1tetrahedron"
         },
@@ -1138,10 +1708,18 @@
           "opacity": 0.75,
           "label": {
             "text": "n009",
-            "opacity": 0.2
+            "opacity": 0.2,
+            "material": {
+              "color": 16777215,
+              "map": "75B851E4-76BB-4A14-B9C0-23B7D0805312"
+            }
           },
           "labelOpacity": 0.2,
           "castShadows": true,
+          "material": {
+            "color": 8421504,
+            "opacity": 0.75
+          },
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -1153,9 +1731,17 @@
       "label": {
         "color": 16777215,
         "text": "n00q-n009",
-        "opacity": 0.2
+        "opacity": 0.2,
+        "material": {
+          "color": 16777215,
+          "map": "CC6A8472-85B6-4DD1-AE5F-744BE39DF089"
+        }
       },
-      "labelColor": 8421504
+      "labelColor": 8421504,
+      "material": {
+        "color": 8421504,
+        "opacity": 0.5
+      }
     }
   ],
   "groups": []

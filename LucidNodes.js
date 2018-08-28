@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.31.1
+	* Version 0.1.31.2
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -115,8 +115,8 @@ function edgeAssignId( nodes ){
 // Setup some global defaults for initial testing
 var globalAppSettings = {
 	transparency: true,
-	castShadows: true,
-	recieveShadows: true,
+	castShadow: true,
+	receiveShadow: true,
 	defaultNodeColor: 0x808080,
 	defaultNodeOpacity: 0.75,
 	defaultLabelScale: { x: 4, y: 2, z: 1 },
@@ -127,7 +127,7 @@ var globalAppSettings = {
 	defaultMeaningSystem: { /* Meaning of Edges and Nodes */ },
 	nodeScaleOnMouseOver: 1.5,
 	nodeColorOnSelect: 0x0000ff,
-	nodeColorOnAltSelect: 0xff0000,
+	nodeColorOnEdgePairingSelect: 0xff0000,
 	nodeScaleOnSelect: 1.5,
 	edgeColorOnMouseOver: 0x000000,
 	edgeColorOnSelect: 0x0000ff,
@@ -266,8 +266,8 @@ var LUCIDNODES = {
 	 *  labelColor <object> { r: <integer>, g: <integer>, b: <integer> }
 	 *  labelFontSize <integer>
 	 *  labelOpacity <float> between 0 & 1,
-	 *  castShadows: <boolean>,
-	 *  recieveShadows: <boolean>
+	 *  castShadow: <boolean>,
+	 *  receiveShadow: <boolean>
 	 * }
 	 */
 	
@@ -301,8 +301,8 @@ var LUCIDNODES = {
 		
 		toggleGraphElementTransparency( this );
 		
-		this.castShadows = parameters.castShadows || globalAppSettings.castShadows;  /* Set to global default */
-		this.recieveShadows = parameters.recieveShadows || globalAppSettings.recieveShadows; /* Set to global default */
+		this.castShadow = parameters.castShadow || globalAppSettings.castShadow;  /* Set to global default */
+		this.receiveShadow = parameters.receiveShadow || globalAppSettings.receiveShadow; /* Set to global default */
 		
 		/* THREE.js Object genesis */	
 		createNodeDisplayEntity( this );
@@ -321,48 +321,70 @@ var LUCIDNODES = {
 		
 		/* UI Behaviors */
 		
-		this.transformOnMouseOver = function(){
+		this.onMouseOver = function(){
 			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
 			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );
-			this.label.transformOnMouseOverNode();
+			this.label.onMouseOverNode();
 			cursorInScene( "default" );
 		};
 		
-		this.transformOnMouseOut = function(){
+		this.onMouseLeave = function(){
 			this.displayEntity.scale.set( 1, 1, 1 );
-			this.label.transformOnNodeMouseOut();
+			this.label.onMouseLeaveNode();
 			cursorInScene( "crosshair" );
 		};
 		
-		this.transformOnMouseOverLabel = function(){
+		this.onMouseOverLabel = function(){
 			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
 			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );
 			cursorInScene( "default" );
 		};
 		
-		this.transformOnLabelMouseOut = function(){
+		this.onMouseLeaveLabel = function(){
 			this.displayEntity.scale.set( 1, 1, 1 );
 			cursorInScene( "crosshair" );
 		};
 		
-		this.transformOnClick = function(){
-			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnSelect );
-			var scaleFactor = globalAppSettings.nodeScaleOnSelect;
-			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );	
-		};
-		
-		this.transformOnAddEdgePairing = function(){
-			this.displayEntity.material.color.set( globalAppSettings.nodeColorOnAltSelect );
-			this.label.transformOnAddEdgePairing(); 
-		};
-		
-		this.unTransformOnClickOutside = function(){
+		this.onClick = function(){
 			
 			if ( this.displayEntity.material.length ){
 				var m = this.displayEntity.material;
 				for ( var x = 0; x < m.length; x++ ){
-					m.color.set( this.color );				
+					m[ x ].color.set( globalAppSettings.nodeColorOnSelect );				
 				}
+			}
+			
+			else if ( !this.displayEntity.material.length ){
+				this.displayEntity.material.color.set( globalAppSettings.nodeColorOnSelect );				
+			}			
+			
+			var scaleFactor = globalAppSettings.nodeScaleOnSelect;
+			this.displayEntity.scale.set( scaleFactor, scaleFactor, scaleFactor );	
+		};
+		
+		this.onAddEdgeTool = function(){
+			
+			if ( this.displayEntity.material.length ){
+				var m = this.displayEntity.material;
+				for ( var x = 0; x < m.length; x++ ){
+					m[ x ].color.set( globalAppSettings.nodeColorOnEdgePairingSelect );				
+				}
+			}
+			
+			else if ( !this.displayEntity.material.length ){
+				this.displayEntity.material.color.set( globalAppSettings.nodeColorOnEdgePairingSelect );				
+			}				
+			
+			this.label.onAddEdgeTool(); 
+		};
+		
+		this.onClickOutside = function(){
+			
+			if ( this.displayEntity.material.length ){
+				var m = this.displayEntity.material;
+
+				m[0].color.set( "#ffffff" );
+				m[1].color.set( this.color );
 			}
 			
 			else if ( !this.displayEntity.material.length ){
@@ -373,12 +395,6 @@ var LUCIDNODES = {
 			removeAxes ( this.displayEntity );
 			cursorInScene( "crosshair" );
 		};
-		
-		this.transformOnWheel = function(){ 
-
-			offset = new THREE.Vector3 ( 0, 0.5, 0 ); 
-			moveNodeByOffset( this, offset ); 
-		}; 		
 		
 		/* Createing a hidden user input for changing text labels */
 		
@@ -445,8 +461,8 @@ var LUCIDNODES = {
 	 *  labelColor <object> { r: <integer>, g: <integer>, b: <integer> }
 	 *  labelFontSize <integer>
 	 *  labelOpacity <float> between 0 & 1,
-	 *  castShadows: <boolean>,
-	 *  recieveShadows: <boolean>
+	 *  castShadow: <boolean>,
+	 *  receiveShadow: <boolean>
 	 * }
 	 */	
 	
@@ -490,12 +506,12 @@ var LUCIDNODES = {
 		
 		toggleGraphElementTransparency( this );
 		
-		this.castShadows = parameters.castShadows;  /* Set to global default */
-		this.recieveShadows = parameters.recieveShadows; /* Set to global default */
+		this.castShadow = parameters.castShadow;  /* Set to global default */
+		this.receiveShadow = parameters.receiveShadow; /* Set to global default */
 
 		createEdgeDisplayEntity( this );
 				
-		this.transformOnMouseOver = function(){
+		this.onMouseOver = function(){
 			
 			if ( !SELECTED.edges.includes( this ) ){
 			
@@ -504,11 +520,11 @@ var LUCIDNODES = {
 			
 			}
 			
-			this.label.transformOnMouseOverEdge();
+			this.label.onMouseOverEdge();
 			cursorInScene( "default" );
 		};
 		
-		this.transformOnMouseOut = function(){
+		this.onMouseLeave = function(){
 			
 			if ( !SELECTED.edges.includes( this ) ){
 			
@@ -516,11 +532,11 @@ var LUCIDNODES = {
 			
 			}
 			
-			this.label.transformOnEdgeMouseOut();
+			this.label.onMouseLeaveEdge();
 			cursorInScene( "crosshair" );
 		};
 		
-		this.transformOnMouseOverLabel = function(){
+		this.onMouseOverLabel = function(){
 			
 			if ( !SELECTED.edges.includes( this ) ){
 				var color = globalAppSettings.edgeColorOnMouseOver;
@@ -530,7 +546,7 @@ var LUCIDNODES = {
 			cursorInScene( "default" );
 		};
 		
-		this.transformOnLabelMouseOut = function(){
+		this.onMouseLeaveLabel = function(){
 			
 			if ( !SELECTED.edges.includes( this ) ){
 				//var color = this.colororAsHex();
@@ -540,17 +556,15 @@ var LUCIDNODES = {
 			cursorInScene( "crosshair" );
 		};
 
-		this.transformOnClick = function(){
+		this.onClick = function(){
 			this.displayEntity.material.color.set( globalAppSettings.edgeColorOnSelect );
 		};
 		
-		this.unTransformOnClickOutside = function(){
+		this.onClickOutside = function(){
 			this.displayEntity.material.color.set( this.color );			
 			
 			cursorInScene( "crosshair" );
 		};
-		
-		this.transformOnWheel = function(){};	
 		
 		this.meaning = function( meaningSystem, meaning ) {
 				if ( meaningSystem === "generic" ) {
@@ -650,6 +664,8 @@ function createNodeDisplayEntity( node ){
 	node.displayEntity = new THREE.Mesh( node.bufferGeom, node.material );
 	node.displayEntity.isGraphElementPart = true;
 	node.displayEntity.graphElementPartType = "nodeDisplayEntity";
+	node.displayEntity.castShadow = node.castShadow;
+	node.displayEntity.receiveShadow = node.receiveShadow;
 	
 	node.displayEntity.referent = node;
 	
@@ -794,7 +810,10 @@ function createEdgeDisplayEntity( edge ){
 	edge.displayEntity = new THREE.Line( edge.geom, edge.material );
 	edge.displayEntity.isGraphElementPart = true;
 	edge.displayEntity.graphElementPartType = "edgeDisplayEntity";
-	edge.displayEntity.referent = edge;				
+	edge.displayEntity.referent = edge;		
+
+	edge.displayEntity.castShadow = edge.castShadow;
+	edge.displayEntity.receiveShadow = edge.receiveShadow;
 	
 	scene.add( edge.displayEntity );
 

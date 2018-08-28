@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.31.1
+	* Version 0.1.31.2
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -109,10 +109,6 @@ function mouseEventHandler( event ){
 			onDblClick( event );
 		} 
 		
-		if ( event.type === 'wheel' ){
-			onMouseWheel( event, nearestIntersected );
-		}
-		
 		if ( event.type === 'contextmenu' ){
 			contextMenuActivate( event, nearestIntersected );
 		}
@@ -135,7 +131,7 @@ function onMouseMove( event, nearestIntersected ){
 		// set the currently intersected object to INTERSECTED_OBJ3D	
 		INTERSECTED_OBJ3D = nearestIntersected;   	
 		// and transform it accordingly.
-		transformGraphElementOnMouseOver( INTERSECTED_OBJ3D );							
+		onMouseOverGraphElement( INTERSECTED_OBJ3D );							
 	}
 }
 
@@ -235,13 +231,6 @@ function onDblClick( event ){
 		changeLabelText2( x.label, ACTIVE_HIDDEN_TEXT_INPUT.value ) 
 		cursorInScene( "text" );
 	}
-}
-
-function onMouseWheel( event, nearestIntersected ){
-	if ( nearestIntersected.isGraphElementPart && nearestIntersected === INTERSECTED_OBJ3D ){
-		// transform on wheel.
-		transformGraphElementOnWheel( INTERSECTED_OBJ3D.referent );							
-	}			
 }
 
 // END HANDLING SPECIFIC MOUSE EVENTS
@@ -467,7 +456,7 @@ function selectNode( node ){
 	
 	if ( node ){
 		SELECTED.nodes.push( node );
-		transformGraphElementOnSelect( node );
+		onSelectGraphElement( node );
 	}
 	else { console.error( 'selectNode(): Node not found.' ) }
 }
@@ -476,7 +465,7 @@ function selectEdge( edge ){
 	
 	if ( edge ){
 		SELECTED.edges.push( edge );
-		transformGraphElementOnSelect( edge );		
+		onSelectGraphElement( edge );		
 	}
 	else { console.error( 'selectEdge(): Edge not found.' )}
 }
@@ -694,30 +683,30 @@ function objectsAreIdentical( objs ){
 
 // TRANSFORMATIONS ON MOUSEEVENTS
 
-function transformGraphElementOnMouseOver( obj3D ){
-	if ( obj3D.isGraphElementPart ) { obj3D.referent.transformOnMouseOver(); }	
+function onMouseOverGraphElement( obj3D ){
+	if ( obj3D.isGraphElementPart ) { obj3D.referent.onMouseOver(); }	
 }
 
 function unTransformGraphElementOnMouseOut( obj3D ){
-	if ( obj3D.isGraphElementPart ) { obj3D.referent.transformOnMouseOut(); }
+	if ( obj3D.isGraphElementPart ) { obj3D.referent.onMouseLeave(); }
 }
 
-function transformGraphElementOnSelect( graphElement ){
+function onSelectGraphElement( graphElement ){
 	if ( graphElement.displayEntity.isGraphElementPart ) { 
 		
 		if ( graphElement.isNode || graphElement.isEdge ){
-			graphElement.transformOnClick(); 
-			graphElement.label.transformOnClick();
+			graphElement.onClick(); 
+			graphElement.label.onClick();
 		}
 		
 		if ( graphElement.isNodeLabel ){
-			graphElement.node.transformOnClick();
-			graphElement.transformOnClick();
+			graphElement.node.onClick();
+			graphElement.onClick();
 		}
 		
 		if ( graphElement.isEdgeLabel ){
-			graphElement.edge.transformOnClick();
-			graphElement.transformOnClick();
+			graphElement.edge.onClick();
+			graphElement.onClick();
 		}
 	}
 }
@@ -726,24 +715,20 @@ function unTransformGraphElementOnUnSelect( graphElement ){
 	if ( graphElement.displayEntity.isGraphElementPart ) { 
 		
 		if ( graphElement.isNode || graphElement.isEdge ){
-			graphElement.unTransformOnClickOutside();
-			graphElement.label.unTransformOnClickOutside();
+			graphElement.onClickOutside();
+			graphElement.label.onClickOutside();
 		}
 
 		if ( graphElement.isNodeLabel ){
-			graphElement.node.unTransformOnClickOutside();
-			graphElement.unTransformOnClickOutside();
+			graphElement.node.onClickOutside();
+			graphElement.onClickOutside();
 		}
 		
 		if ( graphElement.isEdgeLabel ){
-			graphElement.edge.unTransformOnClickOutside();
-			graphElement.unTransformOnClickOutside();
+			graphElement.edge.onClickOutside();
+			graphElement.onClickOutside();
 		}		
 	}	
-}
-
-function transformGraphElementOnWheel( graphElement ){
-	if ( graphElement.displayEntity.isGraphElementPart ) { graphElement.transformOnWheel(); }	
 }
 
 // END TRANSFORMATIONS ON MOUSEOVERS

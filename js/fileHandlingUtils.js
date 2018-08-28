@@ -122,7 +122,10 @@ var circRefFilter = [ 		/* Toplevel File Admin Paramas */
 							'labelOpacity',
 							'labelFontSize',
 							'castShadows',
-							'receiveShadows', 
+							'receiveShadows',
+							/* Image Node Params */
+							'isImageNode',
+							'src',
 							/* Group Params */ 
 							'groups', 
 						/*	'edges',    --- Causes circular ref error */
@@ -150,7 +153,7 @@ var saveCognitionFile = function( filename, content, url ){
 	jBody = JSON.stringify( body, circRefFilter );
 	
 	// Send the request
-	httpRequest.open("POST", '/saveCognition', true);
+	httpRequest.open( "POST", '/saveCognition', true );
     httpRequest.setRequestHeader( "Content-Type", "application/json;charset=UTF-8" );
 	httpRequest.send( jBody );	
 

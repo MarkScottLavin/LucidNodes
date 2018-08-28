@@ -11,9 +11,13 @@ function nodeExtrudeImage( node, img ){
 	
 	assignFaceUVs( node.displayEntity.geometry );
 	
+    // resource URL	
+	node.src = img;
+	node.contentType = "image";
+	
 	var loader = new THREE.TextureLoader().load(
-        // resource URL
-        img,
+
+        node.src,
         // Function when resource is loaded
         function ( texture ) {
 
@@ -28,7 +32,7 @@ function nodeExtrudeImage( node, img ){
         },
         // Function called when download progresses
         function ( xhr ) {
-            console.log( ( xhr.loaded / xhr.total * 100) + '% loaded' );
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
         },
         // Function called when download errors
         function ( xhr ) {
@@ -36,12 +40,13 @@ function nodeExtrudeImage( node, img ){
         }
     );
 		
-	var mFace = new THREE.MeshPhongMaterial( { color: 0xffffff, transparent: true, map: /* THREE.ImageUtils.loadTexture( img ) */ loader } ); 
+	var mFace = new THREE.MeshPhongMaterial( { color: 0xffffff, transparent: true, map: loader } ); 
 	var mSides = new THREE.MeshPhongMaterial( { color: node.color, side: 2, opacity: node.opacity } );
 	
-	var materials = new THREE.MeshFaceMaterial([mFace, mSides]);
+	var materials = [ mFace, mSides ];
 	
-	node.displayEntity.material = materials;
+	node.material = materials;
+	node.displayEntity.material = node.material;
 }
 
 function getImageNaturalPxSizeFromFile( img ){
