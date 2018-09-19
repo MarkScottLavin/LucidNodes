@@ -17,9 +17,13 @@
 
 <body>
 
+<!-- Help Overlay -->
+
+<div class="helpOverlay" id="hotkeysOverlay" style="display:none;" include-html="helpDocs/hotkeys.html"></div>
+
 <div class="topMenu">
 	<form method="GET" id="temp2" enctype="multipart/form-data">
-		<div class="appTitle"><strong>LucidNodes Version 0.1.31.2</strong></div>
+		<div class="appTitle"><strong>LucidNodes Version 0.1.32</strong></div>
 		<div class="saveBar-cell">
 		   <label for="fileInput">Open File</label>
 		   <input type="file" id="fileInput" name="fileInput" accept=".json">
@@ -29,7 +33,8 @@
 		</div>
 		<div class="saveBar-cell">
 			<input type="button" name="saveAsBtnOpener" id="saveAsBtnOpener" value="Save As">
-		</div>			
+		</div>	
+		<div class="topMenu-link" id="help">Hotkeys</div>
 	</form>	
 </div>
 
@@ -65,8 +70,9 @@
 	<script src="app.js"></script>	
 	<script src="lucidNodes-modules/tools/toolHelperFunctions.js"></script>
 	<script src="lucidNodes-modules/originalPosition.js"></script>
+	<script src="lucidNodes-modules/originalRotation.js"></script>	
 	<script src="lucidNodes-modules/detectAlignments.js"></script>
-	<script src="lucidNodes-modules/snapHandling.js"></script>	
+	<script src="lucidNodes-modules/snapHandling.js"></script> 
 	<script src="lucidNodes-modules/guides.js"></script>
 	<script src="lucidNodes-modules/rotation.js"></script>
 	<script src="lucidNodes-modules/tools/rotationTool.js"></script>
@@ -174,16 +180,6 @@
 	</div>
 </div>
 
-
-<script type="text/javascript">
-
-
-
-
-</script>		
-		
-
-
 <div class="panel" id="media">
 	<div class="panel-title" id="media-panel-title"><strong>Media</strong><span id="minimize-media-panel" class="pull-right"><strong>>></strong></span></div>
 	<div class="panel-body">
@@ -191,22 +187,22 @@
 	</div>
 	<div id="panel-thumb-area">
 	</div>	
+	<div id="remove-node-image">Remove Images from Selected
+	</div>
 	<div id="image-drop-zone" name="image-drop-zone" class="drop-zone">
 		Drop Image Files to Upload<br/> <!-- action="uploadUsrImages()" -->
 		- or - 
-		<form class="hiddenUploader" id="hiddenUploader" method="POST" enctype="multipart/form-data" action="http://localhost:3000/uploadUserImages" target="formHolder">
+		<form class="hiddenUploader" id="hiddenUploader" method="POST" enctype="multipart/form-data" action="http://localhost:3000/uploadUserImages" target="hiddenResponseCatcher">
 			<input type="file" name="hiddenUploader" multiple accept="image/*">
 			<input type="submit" value="upload images">
 		</form>
-		<iframe name="formHolder" id="formHolder" height="40px" width="200px" onload="updateImageLibraryFromInput()">		
-		</iframe>
 	</div>
 </div>
-		
-		
-		
-		
 
+<!-- Hidden response catcher Iframe to recieve HTTP Responses (Instead of reloading the app -->
+
+<iframe name="hiddenResponseCatcher" id="hiddenResponseCatcher" height="40px" width="200px" onload="updateImageLibraryFromInput()">		
+</iframe>
 
 <nav class="context-menu" id="context-menu">
   <ul class="context-menu__items">
@@ -256,10 +252,44 @@
 	</li>		
   </ul>
 </nav>
-
 	
 	<script src="mouseBehavior.js"></script>
-	<script src="lucidNodes-modules/tools/tools.js"></script>		
+	<script src="helpOverlay.js"></script>	
+	<script src="lucidNodes-modules/tools/tools.js"></script>	
+
+	<script>
+
+	function includeHTML(){
+	  var z, i, elmnt, file, xhttp;
+	  // loop through a collection of all HTML elements:
+	  z = document.getElementsByTagName("*");
+	  for (i = 0; i < z.length; i++) {
+		elmnt = z[i];
+		// search for elements with a certain atrribute:
+		file = elmnt.getAttribute("include-html");
+		if (file) {
+		  // make an HTTP request using the attribute value as the file name:
+		  xhttp = new XMLHttpRequest();
+		  xhttp.onreadystatechange = function() {
+			if (this.readyState == 4) {
+			  if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+			  if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+			  // remove the attribute, and call this function once more:
+			  elmnt.removeAttribute("include-html");
+			  includeHTML();
+			}
+		  } 
+		  xhttp.open("GET", file, true);
+		  xhttp.send();
+		  // exit the function:
+		  return;
+		}
+	  }
+	}
+
+	includeHTML();
+
+	</script>	
 
 	
 </body>

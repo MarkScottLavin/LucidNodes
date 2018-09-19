@@ -266,8 +266,8 @@ function addUniversalToolListeners(){
 	
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', onMouse, false );
 	document.getElementById('visualizationContainer').addEventListener( 'contextmenu', onMouse, false );
-		document.addEventListener( 'keydown', function (e) { onKeyDown(e); }, false );
-		document.addEventListener( 'keyup', function (e) { onKeyUp(e); }, false );	
+		document.addEventListener( 'keydown', function (e) { onAppKeyDown(e); }, false );
+		document.addEventListener( 'keyup', function (e) { onAppKeyUp(e); }, false );	
 	
 }
 
@@ -301,6 +301,9 @@ function addToolListeners( tool = "select" ){
 	}
 	
 	if ( tool === "move" ){
+		
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initMoveTool0Point, false );
+		
 		document.getElementById('visualizationContainer').addEventListener( 'mouseup', activateMoveTool, false );
 		document.addEventListener( 'keyup', function(e){ onMoveToolKeyUp(e); }, false );	
 	}
@@ -351,6 +354,8 @@ function removeToolListeners( tool ){
 		
 		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', activateMoveTool, false );
 		document.removeEventListener( 'keyup', function(e){ onMoveToolKeyUp(e); }, false );	
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initMoveTool0Point, false );
+		bailMoveTool();		
 		
 	}
 	

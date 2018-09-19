@@ -52,7 +52,7 @@ function addEdgeTool( position ){
 			if ( !addEdgeToolState.nodePair.includes ( x ) ){
 				
 				addEdgeToolState.nodePair.push( x ); 
-				x.transformOnAddEdgePairing();
+				x.onAddEdgeTool();
 		
 				// initiate a line of zero length at the starting node position.... 		
 				var lineStart = addEdgeToolState.nodePair[0].position;		

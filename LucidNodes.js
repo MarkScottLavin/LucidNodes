@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.31.2
+	* Version 0.1.32
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -124,7 +124,6 @@ var globalAppSettings = {
 	defaultEdgeThickness: 4,
 	defaultEdgeLineType: "solid" /* dashed */,
 	defaultEdgeOpacity: 0.5,
-	defaultMeaningSystem: { /* Meaning of Edges and Nodes */ },
 	nodeScaleOnMouseOver: 1.5,
 	nodeColorOnSelect: 0x0000ff,
 	nodeColorOnEdgePairingSelect: 0xff0000,
@@ -275,6 +274,13 @@ var LUCIDNODES = {
 		
 		this.isNode = true;
 		this.isGraphElement = true;
+		this.contentType = parameters.contentType || "default";
+		this.partsInScene = [];
+		
+		if ( parameters.src ){
+			this.src = parameters.src;
+		}
+		else { this.src = null; }
 		
 		/* Identification */ 
 		
@@ -297,7 +303,22 @@ var LUCIDNODES = {
 		else { this.color.set( globalAppSettings.defaultNodeColor ); }
 
 		this.opacity = parameters.opacity || globalAppSettings.defaultNodeOpacity;
-		this.material = new THREE.MeshPhongMaterial( {color: this.color, opacity: this.opacity } );
+		this.material = new THREE.MeshPhongMaterial( {color: this.color, side: 0, opacity: this.opacity } );
+		
+		if ( parameters.displayEntityRotation ){
+			this.displayEntityRotation = new THREE.Quaternion( parameters.displayEntityRotation.x, parameters.displayEntityRotation.y, parameters.displayEntityRotation.z, parameters.displayEntityRotation.w );
+		}
+		else {
+			this.displayEntityRotation = new THREE.Quaternion();
+		}
+		
+		if ( parameters.displayEntityQuaternion ){
+			this.displayEntityQuaternion = new THREE.Quaternion( parameters.displayEntityQuaternion.x, parameters.displayEntityQuaternion.y, parameters.displayEntityQuaternion.z, parameters.displayEntityQuaternion.w );
+		}
+		else {
+			this.displayEntityQuaternion = new THREE.Quaternion();			
+		}
+				
 		
 		toggleGraphElementTransparency( this );
 		
@@ -318,6 +339,8 @@ var LUCIDNODES = {
 		this.labelOpacity = parameters.labelOpacity;
 		
 		createNodeLabel( this );		
+		
+		/* METHODS */
 		
 		/* UI Behaviors */
 		
@@ -400,19 +423,6 @@ var LUCIDNODES = {
 		
 		attachHiddenInputToGraphElement( this );
 		
-		/* Playing Nice with Others */
-		
-		this.components = {
-			masterContainer: { /* obj */ }, /* The Master Object that parents all of the node contents  */ 
-			personalSpace: {
-				onionLayers: { /* obj */ }, /* A set of values that determines boundaries around the node */
-				rotatedPlanes: function(){}
-			},
-			boundingBox: function(){}, /* The bounding box... probably just imported from Three.JS for the displayEntity*/
-			textVal: { /* string */ },
-			description: { /* string */ },
-		};
-		
 		/* Physics (Later) */
 		
 		this.computedPhysicsBehavior = {
@@ -428,18 +438,7 @@ var LUCIDNODES = {
 			sequenceVal:   	{ /* integar */ }, /* determines what the sequential value of the node is relative to other nodes in the group */ 
 		};
 		
-		/* Meaning Structure */
-		
-		this.meaning = function( meaningSystem, meaning ){
-			if ( meaningSystem === "generic" && meaning === "logic" ) {
-				/* visualizing logical operators */
-			} 
-			/* etc... */
-		};
-		
 		this.adjacentNodes = []; /* What other nodes are connected to this object via edges? Initialize as empty */
-		
-		//scene.add( this.displayEntity );
 		
 		console.log( 'LUCIDNODES.Node(): ', this );
 	},
@@ -470,6 +469,7 @@ var LUCIDNODES = {
 		
 		this.isEdge = true;
 		this.isGraphElement = true;
+		this.partsInScene = [];
 		
 		/* What nodes are connected by this edge? */
 		this.nodes = parameters.nodes;
@@ -566,22 +566,13 @@ var LUCIDNODES = {
 			cursorInScene( "crosshair" );
 		};
 		
-		this.meaning = function( meaningSystem, meaning ) {
-				if ( meaningSystem === "generic" ) {
-					// do stuff
-				};
-			};
 		this.centerPoint = _Math.avgPosition( this.nodes[0], this.nodes[1] );
 		
 		createEdgeLabel( this );
 
-		this.isdirectional = function( meaningSystem, meaning ){ 
-				// set by meaning;
-			};
+		this.isdirectional = false;
+		
 		this.direction = function( Edge ){ 
-			if ( Edge.meaning.meaningIsdirectional( Edge )){
-			/* return or do something with the Edge direction (pointing toward one node, away from the other node in a binary pair */
-			}
 		};
 		
 		/* Create a hidden user input for changing labels */
@@ -601,7 +592,7 @@ var LUCIDNODES = {
 	 * }
 	 */ 
 	 
-	Group: function( name, type, meaningSystem = globalAppSettings.defaultMeaningSystem, centerTechnique = globalAppSettings.centerTechnique ){
+	Group: function( name, type, centerTechnique = globalAppSettings.centerTechnique ){
 		
 		this.id = encodeId( "group", groupCounter );
 		this.id.referent = this;
@@ -611,10 +602,6 @@ var LUCIDNODES = {
 		this.edges = [];
 		this.centerTechnique = centerTechnique;
 		this.center = function( centerTechnique = this.centerTechnique ) { return LUCIDNODES.computeNodeArrayCenter( this.nodes, centerTechnique ) };
-		this.meaningSystem = meaningSystem; /* {
-			What do the nodes mean? 
-			What relationship do edges refer to? 
-		}; */
 		
 		if ( this.type.includes( "graph" ) ){    }
 		if ( this.type.includes( "mindmap") ){    } 
@@ -641,7 +628,7 @@ function createNodeDisplayEntity( node ){
 	
 	if ( node.shape === "v1icosahedron" ){
 		node.bufferGeom = new THREE.IcosahedronBufferGeometry( node.radius, 0 );		
-	}	
+	}
 	
 	if ( node.shape === "hexRing"){
 		node.bufferGeom = new THREE.RingBufferGeometry( ( node.radius / 2 ) , node.radius, 6 );	
@@ -664,12 +651,16 @@ function createNodeDisplayEntity( node ){
 	node.displayEntity = new THREE.Mesh( node.bufferGeom, node.material );
 	node.displayEntity.isGraphElementPart = true;
 	node.displayEntity.graphElementPartType = "nodeDisplayEntity";
+	node.partsInScene.push( node.displayEntity );
 	node.displayEntity.castShadow = node.castShadow;
 	node.displayEntity.receiveShadow = node.receiveShadow;
 	
 	node.displayEntity.referent = node;
 	
 	node.displayEntity.position.copy( node.position );
+	
+	node.displayEntity.rotation.setFromQuaternion( node.displayEntityRotation );
+	node.displayEntity.applyQuaternion( node.displayEntityQuaternion );	
 	
 	rotationByShape( node );
 	
@@ -752,6 +743,9 @@ function createNodeDisplayEntity2( node ){
 	node.displayEntity.graphElementPartType = "nodeDisplayEntity"
 	node.displayEntity.referent = node;			// This simply becomes "parent"
 	
+	node.displayEntity.rotation.setFromQuaternion( node.displayEntityRotation );
+	node.displayEntity.applyQuaternion( node.displayEntityQuaternion );
+	
 	//node.displayEntity.position.copy( node.position ); This defaults to { 0, 0, 0 }
 	
 	//applyNodeRotationByShape( node );
@@ -782,6 +776,11 @@ function changeNodeShape( node, shape ){
 	node.displayEntity.remove( node.label.displayEntity );
 	
 	removeNodeDisplayEntity( node );
+	
+	if ( node.shape === "sphere" || "cube" || "v1octahedron" || "v1tetrahedron" || "v1icosahedron" || "hexRing" || "octaRing" ){
+		changeNodeContentType( node, "default" );
+	}
+	
 	createNodeDisplayEntity( node );
 	
 	node.displayEntity.add( node.label.displayEntity );
@@ -797,6 +796,7 @@ function changeShapeAllNodesInArray( nodeArr, shape ){
 
 function removeNodeDisplayEntity( node ){
 	
+	node.partsInScene.splice( node.partsInScene.indexOf( node.displayEntity ), 1 );	
 	scene.remove( node.displayEntity );
 
 }
@@ -810,6 +810,7 @@ function createEdgeDisplayEntity( edge ){
 	edge.displayEntity = new THREE.Line( edge.geom, edge.material );
 	edge.displayEntity.isGraphElementPart = true;
 	edge.displayEntity.graphElementPartType = "edgeDisplayEntity";
+	edge.partsInScene.push( edge.displayEntity );
 	edge.displayEntity.referent = edge;		
 
 	edge.displayEntity.castShadow = edge.castShadow;
@@ -821,6 +822,7 @@ function createEdgeDisplayEntity( edge ){
 
 function removeEdgeDisplayEntity( edge ){
 	
+	edge.partsInScene.splice( edge.partsInScene.indexOf( edge.displayEntity ), 1 );
 	scene.remove( edge.displayEntity );
 } 
  
@@ -852,8 +854,21 @@ function nodesFromJson( arr ){
 														color: arr[n].color,
 														opacity: parseFloat( arr[n].opacity ), 														
 														labelColor: arr[n].labelColor,
-														labelOpacity: parseFloat( arr[n].labelOpacity )
+														labelOpacity: parseFloat( arr[n].labelOpacity ),											
+														contentType: arr[n].contentType,
+														src: arr[n].src,
+														displayEntityRotation: arr[n].displayEntityRotation,
+														displayEntityQuaternion: arr[n].displayEntityQuaternion														
 														} );
+														
+			if ( cognition.nodes[n].contentType === "image" ){
+				if ( cognition.nodes[n].src ){
+					nodeExtrudeImage( cognition.nodes[n], cognition.nodes[n].src );					
+				}
+				else {
+					console.error( 'Node image not found.' ); 
+				}
+			}
 	}
 };
 
@@ -1214,6 +1229,10 @@ function scaleNode( node, scaleFactor ){
 	
 	removeNodeDisplayEntity( node );
 	createNodeDisplayEntity( node );
+	
+	if ( node.contentType === "image" && node.src ){
+		nodeExtrudeImage( node, node.src );
+	} 
 	
 	node.displayEntity.add( node.label.displayEntity );	
 }
@@ -1622,46 +1641,37 @@ function completeGraph( nodeArr ) {
 /* FILTER FUNCTIONS */
 
 function filterArrayForNodes( arr ){
-	
-	var nodeArr = arr.filter( includes => includes.isNode );
-	return nodeArr;
+	return arr.filter( includes => includes.isNode );
 };
 
 function filterArrayForEdges( arr ){
-	
-	var edgeArray = arr.filter( includes => includes.isEdge );
-	return edgeArray;
+	return arr.filter( includes => includes.isEdge );
 };
 
 function filterArrayForNodeLabels( arr ){
-	
-	var nodeLabelArray = arr.filter( includes => includes.isNodeLabel );
-	return nodeLabelArray;
+	return arr.filter( includes => includes.isNodeLabel );
 };
 
 function filterArrayForEdgeLabels( arr ){
-	
-	var edgeLabelArray = arr.filter( includes => includes.isEdgeLabel );
-	return edgeLabelArray;
-	
+	return arr.filter( includes => includes.isEdgeLabel );
 }
 
 function filterArrayForGraphElementsWithProp( arr, prop ){
-
-	var haveProp = arr.filter( includes => includes[prop] );	
-	return haveProp;
-	
+	return arr.filter( includes => includes[prop] );	
 };
 
 /* So far working for single values, but not for objects passed as values, for ex. "color: r, g, b " */
 
 function filterArrayForNodesWithPropVal( arr, prop, val ){
-	
 	var nodeArr = filterArrayForNodes( arr );
 	var nodesWithProp = filterArrayForGraphElementsWithProp( nodeArr, prop );
-	var nodesWithVal = nodesWithProp.filter ( ( includes ) => ( includes[prop] === val ) );
-	return nodesWithVal;
+	return nodesWithProp.filter ( ( includes ) => ( includes[prop] === val ) );
+
 };
+
+function filterArrayForNodesOfContentType( arr, contentType ){
+	return filterArrayForNodesWithPropVal( arr, "contentType", contentType );
+}
 
 /* END FILTER FUNCTIONS */
 
@@ -1695,7 +1705,13 @@ function changeGraphElementColor( graphElement, color ){
 	if ( graphElement.displayEntity.isGraphElementPart ){
 		
 		graphElement.color.set( color );
-		graphElement.displayEntity.material.color.set( graphElement.color );
+		
+		if ( graphElement.isNode && graphElement.contentType === "image" && graphElement.material.length ){
+			graphElement.displayEntity.material[1].color.set( graphElement.color );
+		}
+		else {
+			graphElement.displayEntity.material.color.set( graphElement.color );
+		}
 	}
 };
 
@@ -1914,4 +1930,22 @@ function selectAllWithPhrase( phrase ){
 		}
 	}
 	
+}
+
+function changeNodeContentType( node, contentType ){
+	
+	node.contentType = contentType;
+	
+	if ( node.contentType === "default" ){
+		removeNodeImage( node );
+	}
+}
+
+function changeContentTypeOfNodes( nodeArr, contentType ){
+	
+	if ( nodeArr && nodeArr.length > 0 ){
+		for ( var n = 0; n < nodeArr.length; n++ ){
+			changeNodeContentType( nodeArr[n], contentType );
+		}
+	}
 }

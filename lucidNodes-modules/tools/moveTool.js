@@ -16,20 +16,48 @@ function initMoveTool(){
 
 initMoveTool();
 
-var moveLineToMouse = function( e ){
+function initMoveTool0Point( e ){
 	
-	// lets check if we're inside the fuctionalAppExtents
+	if ( moveToolState.points.length <= 0 ){
+		
+	//	var mousePoint = getMousePoint();
+		moveToolState.points.push( new Point( getMousePoint(), 1.0, 0xff0000 ) );
+		
+	}
+
+	// Now that we've initialized the initial toolpoint, we can remove the listener.
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initMoveTool0Point, false );
 	
-	var endPoint = limitPositionToExtents(  /* snapToNearest( */ getMousePoint() /* ) */, workspaceExtents );
-	
-	lineEndToPoint( moveToolState.moveLine, endPoint );
+	// And then we'll add a new listener that has the point follow the mouse.
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveToolPoint0FollowMouse, false );	
 }
 
-var moveToolPointFollowMouse = function( e ){
+var moveToolPoint0FollowMouse = function( e ){
 	
-	// lets check if we're inside the fuctionalAppExtents
-	var endPoint = limitPositionToExtents( /* snapToNearest( */ getMousePoint() /* ) */, workspaceExtents );
+	var mousePoint = snapToNearest( getMousePoint() );
 	
+	if ( moveToolState.points[0] ){ 
+		movePointTo( moveToolState.points[0], mousePoint );	
+	}
+}
+
+var moveToolPoint1FollowMouse = function( e ){
+	
+	var endPoint;
+	
+	// If none of the hotkeys are down, we'll allow snapping with the Move tool.
+	if ( !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes ( "y" ) && !keysPressed.keys.includes ( "z" ) ){
+		
+		// lets also always check if we're inside the fuctionalAppExtents
+		endPoint = limitPositionToExtents(  snapToNearest( getMousePoint() ), workspaceExtents );		
+	}		
+	
+	// If any of the direction-limiting keys are down, we'll bypass snapping.
+	else {
+		endPoint = limitPositionToExtents(  getLineEndPoint(), workspaceExtents );	
+	}	
+	
+	lineEndToPoint( moveToolState.moveLine, endPoint );
 	movePointTo( moveToolState.points[ 1 ], endPoint );	
 }
 
@@ -62,20 +90,21 @@ function getLineEndPoint(){
 var moveNodesWithTool = function( e ){
 
 	// Get the position where the guidePlane is intersected
-	var planeIntersection = getPlaneIntersectPointRecursive( activeGuidePlane );
+	var toolPosition = moveToolState.points[ 1 ].position;
 	
 	if ( SELECTED.nodes && SELECTED.nodes.length > 0 ){
 
-		// If none of the orthogonal keys are selected, move freely in three dimensions along the camera facing guidePlane.
+		// If none of the orthogonal keys are selected, move freely in three dimensions along the camera facing guidePlane, and also allow snapping.
 		if ( !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes ( "y" ) && !keysPressed.keys.includes ( "z" ) ){
 		
 			for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 				
-				SELECTED.nodes[n].position.addVectors( planeIntersection.point, nodeRelativePositions[n] );
+				SELECTED.nodes[n].position.addVectors( snapToNearest ( toolPosition ), nodeRelativePositions[n] );				
 				moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );		
 			}
 		}
 		
+		// If any of the orthogonal keys are down, we disable snapping.
 		else {
 			
 			var newNodePositions = [];
@@ -87,7 +116,7 @@ var moveNodesWithTool = function( e ){
 			
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 
-					newNodePositions.push( new THREE.Vector3( planeIntersection.point.x + nodeRelativePositions[n].x, SELECTED.nodes[n].origPosition.y, SELECTED.nodes[n].origPosition.z ) );					
+					newNodePositions.push( new THREE.Vector3( toolPosition.x + nodeRelativePositions[n].x, SELECTED.nodes[n].origPosition.y, SELECTED.nodes[n].origPosition.z ) );					
 					moveNodeTo( SELECTED.nodes[n], newNodePositions[n] );		
 				}			
 			}
@@ -99,7 +128,7 @@ var moveNodesWithTool = function( e ){
 			
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 					
-					newNodePositions.push( new THREE.Vector3( SELECTED.nodes[n].origPosition.x, planeIntersection.point.y + nodeRelativePositions[n].y, SELECTED.nodes[n].origPosition.z ) );								
+					newNodePositions.push( new THREE.Vector3( SELECTED.nodes[n].origPosition.x, toolPosition.y + nodeRelativePositions[n].y, SELECTED.nodes[n].origPosition.z ) );								
 					moveNodeTo( SELECTED.nodes[n], newNodePositions[n] );			
 				}			
 			}		
@@ -111,7 +140,7 @@ var moveNodesWithTool = function( e ){
 
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 					
-					newNodePositions.push( new THREE.Vector3( SELECTED.nodes[n].origPosition.x, SELECTED.nodes[n].origPosition.y, planeIntersection.point.z + nodeRelativePositions[n].z ) );		
+					newNodePositions.push( new THREE.Vector3( SELECTED.nodes[n].origPosition.x, SELECTED.nodes[n].origPosition.y, toolPosition.z + nodeRelativePositions[n].z ) );		
 					moveNodeTo( SELECTED.nodes[n], newNodePositions[n] );	
 				}			
 			}
@@ -128,21 +157,24 @@ function moveTool( position ){
 		// tell the app that a tool is active:
 		toolState.toolIsActive = true;
 		
+		//Lock in the start point position
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveToolPoint0FollowMouse, false );			
+		
 		// Set the starting positions of nodes that are being moved.
 		setOrigNodeArrPositions( SELECTED.nodes );
 		
 		addGhostsOfNodes( SELECTED.nodes );
 		
 		// And get all the positions of the nodes relative to the start point.
-		nodeRelativePositions = getNodePositionsRelativeTo( position, SELECTED.nodes );
+		nodeRelativePositions = getNodePositionsRelativeTo( moveToolState.points[0].position, SELECTED.nodes );
 		
 		// If we're in the browser, disable the controls
 		if ( entities.browserControls ){
 			entities.browserControls.enabled = false;				
 		}
 		
-		//create the startPoint
-		moveToolState.points.push ( new Point( limitPositionToExtents( position, workspaceExtents ), 1.0, 0xff0000 ) ); 
+		//Lock in the start point position
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveToolPoint0FollowMouse, false );			
 		
 		// initiate a line of zero length.... 		
 		var lineStart = moveToolState.points[0].position;
@@ -179,6 +211,9 @@ function moveTool( position ){
 		
 		bailMoveTool();
 		
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initMoveTool0Point, false );			
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveToolPoint0FollowMouse, false );			
+		
 		return;	
 	}
 }
@@ -213,6 +248,11 @@ function onMoveToolKeyUp( event ){
 
 		restoreNodeArrToOrigPositions( SELECTED.nodes );
 		bailMoveTool();		
+		
+		if ( toolState.move ){
+			document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initMoveTool0Point, false );			
+			document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveToolPoint0FollowMouse, false );			
+		}			
 	} 
 	
 	event.key === "x" && hideGuide( guides.lines.x );
@@ -226,13 +266,11 @@ function onMoveToolKeyUp( event ){
 /* TOOL LISTENER FUNCTIONS */
 
 function addMoveToolListeners(){
-	document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveLineToMouse, false );
-	document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveToolPointFollowMouse, false );
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveToolPoint1FollowMouse, false );
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveNodesWithTool, false );
 }
 
 function removeMoveToolListeners(){
-	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveLineToMouse, false );
-	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveToolPointFollowMouse, false );
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveToolPoint1FollowMouse, false );
 	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveNodesWithTool, false );			
 }

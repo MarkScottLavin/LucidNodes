@@ -77,10 +77,7 @@ var getRotToolEuler = function( e ){
 var rotNodesWithTool = function( e ){
 	
 	if ( SELECTED.nodes && SELECTED.nodes.length > 0 ){	
-		//rotateNodeArrayOnAxisAroundPoint( SELECTED.nodes, "y", _Math.degToRad ( rotToolState.quaternion.current._y ) , rotToolState.points[0].position, order = 'XYZ' ); //nodeArr, axis, angle, point, order = 'XYZ' );
-		
 		quaternionRotateNodeArrayAroundPoint( SELECTED.nodes, rotToolState.quaternion.current, rotToolState.points[0].position );		
-			
 	}
 }
 
@@ -141,8 +138,10 @@ function rotationTool( position ){
 		// Set the starting positions of nodes that are being moved.
 		setOrigNodeArrPositions( SELECTED.nodes );
 		
+		setOrigRotations( getPartsOfTypeInGraphElementArray( SELECTED.nodes, "nodeDisplayEntity" ) );
+		
 		// Add "ghosts" to stand in for where the nodes originally were.
-		addGhostsOfNodes( SELECTED.nodes );		
+		addGhostsOfNodes( SELECTED.nodes );					
 		
 		// add a third point ( rotToolState.points[2] ) and line that both moves with the mouse	
 		rotToolState.points.push ( new Point( position, 1.0, 0x0000ff ) );		
@@ -182,7 +181,8 @@ function bailRotTool(){
 	
 	removeRotationToolListenersZeroSet();
 	removeRotationToolListenersOneSet();
-	removeOrigNodeArrPositions( SELECTED.nodes );	
+	removeOrigNodeArrPositions( SELECTED.nodes );
+	removeOrigRotations( getPartsOfTypeInGraphElementArray( SELECTED.nodes, "nodeDisplayEntity" ) );	
 	removeGhostsOfNodes( SELECTED.nodes );	
 	
 	// tell the app that a tool is no longer active

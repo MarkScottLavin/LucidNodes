@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.31.1
+	* Version 0.1.32
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -40,6 +40,12 @@ var initUI = function(){
 																					saveCognitionFile( ( fileNameFromInput( "filenameInput" ) + ".json" ) , cognition, "./userfiles" );
 																					toggleSaveAsBoxOff( saveAsBox ); } );
 	document.getElementById('cancelSaveAsBtn').addEventListener( 'click', function(){ toggleSaveAsBoxOff( saveAsBox ); } );
+	
+	/* HELP */
+	
+	document.getElementById('help').addEventListener( 'click', function(){ 
+		toggleHelpOverlay( hotkeysOverlay ); 
+		});	
 
 	/* TOOLBAR */
 	
@@ -203,6 +209,7 @@ var initUI = function(){
 		}, false );	
 			
 			
+	document.getElementById('remove-node-image').addEventListener( "mouseup", function(e){ changeContentTypeOfNodes( SELECTED.nodes, "default" ); }, false );
 			
 	document.getElementById('image-drop-zone').addEventListener( "dragenter", transformDropZoneOnEnter, false );
 	document.getElementById('image-drop-zone').addEventListener( "dragover", dropZoneDragOverHandler, false );

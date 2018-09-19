@@ -108,8 +108,11 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	this.displayEntity.isLabel = true;
 	this.displayEntity.referent = this;
 	
+	
 	this.displayEntity.castShadow = this.castShadow;
 	this.displayEntity.receiveShadow = this.receiveShadow;	
+	
+	this.node.partsInScene.push( this.displayEntity );
 	
 	// Initialize Dynamic Scaling ( Text stays same size regardless of length or # of lines )
 	this.scaleFactor = getDynamicScaleFactor( this );	
@@ -444,7 +447,9 @@ LUCIDNODES.EdgeLabel = function( parameters ){
 		this.displayEntity.referent = this;
 		
 		this.displayEntity.castShadow = this.castShadow;
-		this.displayEntity.receiveShadow = this.receiveShadow;	
+		this.displayEntity.receiveShadow = this.receiveShadow;
+
+		this.edge.partsInScene.push( this.displayEntity );		
 		
 		positionLabel( this, this.edge.centerPoint );
 		

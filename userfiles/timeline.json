@@ -1,11 +1,12 @@
 {
   "nodes": [
     {
+      "contentType": "default",
       "id": "n000",
       "name": "2005",
       "color": 16776960,
       "position": {
-        "x": -23,
+        "x": -6.19170163047373,
         "y": 9,
         "z": 19.07675118510783
       },
@@ -15,16 +16,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 1.6875,
       "shape": "hexPlate"
     },
     {
+      "contentType": "default",
       "id": "n001",
       "name": "n001",
       "color": 16776960,
       "position": {
-        "x": -18.657588246862225,
+        "x": -1.8492898773359556,
         "y": 15.718888313271094,
         "z": 19.07675118510783
       },
@@ -34,16 +36,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "sphere"
     },
     {
+      "contentType": "default",
       "id": "n002",
       "name": "n002",
       "color": 16776960,
       "position": {
-        "x": -26.91058947492909,
+        "x": -10.10229110540282,
         "y": 15.979060822100191,
         "z": 19.07675118510783
       },
@@ -53,16 +56,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "sphere"
     },
     {
+      "contentType": "default",
       "id": "n003",
       "name": "n003",
       "color": 16776960,
       "position": {
-        "x": -30.883523139770194,
+        "x": -14.075224770243924,
         "y": 10.3601701749075,
         "z": 19.07675118510783
       },
@@ -72,16 +76,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "sphere"
     },
     {
+      "contentType": "default",
       "id": "n004",
       "name": "n004",
       "color": 16776960,
       "position": {
-        "x": -28.255900752652014,
+        "x": -11.447602383125744,
         "y": 2.968788904517436,
         "z": 19.07675118510783
       },
@@ -91,16 +96,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "sphere"
     },
     {
+      "contentType": "default",
       "id": "n005",
       "name": "n005",
       "color": 16776960,
       "position": {
-        "x": -20.216675458270196,
+        "x": -3.4083770887439258,
         "y": 1.499793036495288,
         "z": 19.07675118510783
       },
@@ -110,16 +116,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "sphere"
     },
     {
+      "contentType": "default",
       "id": "n006",
       "name": "n006",
       "color": 16776960,
       "position": {
-        "x": -12.91193201740197,
+        "x": 3.8963663521243,
         "y": 14.138294812574742,
         "z": 17.839821848127965
       },
@@ -129,16 +136,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "sphere"
     },
     {
+      "contentType": "default",
       "id": "n00g",
       "name": "1981",
       "color": 16744448,
       "position": {
-        "x": -23,
+        "x": -6.19170163047373,
         "y": 9,
         "z": -2
       },
@@ -148,16 +156,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "hexPlate"
     },
     {
+      "contentType": "default",
       "id": "n00h",
       "name": "2001",
       "color": 16776960,
       "position": {
-        "x": -23,
+        "x": -6.19170163047373,
         "y": 8.76,
         "z": 13.971472968119087
       },
@@ -167,16 +176,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 1.125,
       "shape": "hexPlate"
     },
     {
+      "contentType": "default",
       "id": "n00i",
       "name": "1995",
       "color": 16776960,
       "position": {
-        "x": -23,
+        "x": -6.19170163047373,
         "y": 8.76,
         "z": 8.631038345190973
       },
@@ -186,16 +196,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.75,
       "shape": "hexPlate"
     },
     {
+      "contentType": "default",
       "id": "n00j",
       "name": "1988",
       "color": 16776960,
       "position": {
-        "x": -23,
+        "x": -6.19170163047373,
         "y": 8.76,
         "z": 4.31493173139188
       },
@@ -205,16 +216,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "hexPlate"
     },
     {
+      "contentType": "default",
       "id": "n00k",
       "name": "n00k",
       "color": 8421504,
       "position": {
-        "x": -17.456700197498456,
+        "x": -0.6484018279721866,
         "y": 14.768173653730123,
         "z": -2
       },
@@ -224,16 +236,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "sphere"
     },
     {
+      "contentType": "default",
       "id": "n00l",
       "name": "1972",
       "color": 16744448,
       "position": {
-        "x": -23,
+        "x": -6.19170163047373,
         "y": 8.76,
         "z": -8.867881152449627
       },
@@ -243,16 +256,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "hexPlate"
     },
     {
+      "contentType": "default",
       "id": "n00m",
       "name": "1964",
       "color": 16711680,
       "position": {
-        "x": -23,
+        "x": -6.19170163047373,
         "y": 8.76,
         "z": -11.81938303689094
       },
@@ -262,16 +276,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "hexPlate"
     },
     {
+      "contentType": "default",
       "id": "n00n",
       "name": "1956",
       "color": 16711680,
       "position": {
-        "x": -23,
+        "x": -6.19170163047373,
         "y": 8.76,
         "z": -15.05119202835067
       },
@@ -281,16 +296,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "hexPlate"
     },
     {
+      "contentType": "default",
       "id": "n00o",
       "name": "1977",
       "color": 16744448,
       "position": {
-        "x": -23,
+        "x": -6.19170163047373,
         "y": 8.76,
         "z": -5.275090356020883
       },
@@ -300,16 +316,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "hexPlate"
     },
     {
+      "contentType": "default",
       "id": "n00p",
       "name": "2016",
       "color": 8421504,
       "position": {
-        "x": -23,
+        "x": -6.19170163047373,
         "y": 8.76,
         "z": 50.83344387539728
       },
@@ -319,16 +336,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "sphere"
     },
     {
+      "contentType": "default",
       "id": "n00q",
       "name": "n00q",
       "color": 8421504,
       "position": {
-        "x": -13.084069586930134,
+        "x": 3.7242287825961355,
         "y": 11.587485029018357,
         "z": 19.048410647996302
       },
@@ -338,16 +356,17 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "sphere"
     },
     {
+      "contentType": "default",
       "id": "n00r",
       "name": "n00r",
       "color": 8421504,
       "position": {
-        "x": -7.814848770255042,
+        "x": 8.993449599271226,
         "y": 12.633686894471232,
         "z": 22.848854351819238
       },
@@ -357,20 +376,101 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "id": "n00s",
+      "name": "n00s",
+      "color": 8421504,
+      "position": {
+        "x": -23,
+        "y": 8.88,
+        "z": -16.19892680344674
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00s",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "hexPlate"
+    },
+    {
+      "contentType": "default",
+      "id": "n00t",
+      "name": "n00t",
+      "color": 8421504,
+      "position": {
+        "x": -23,
+        "y": 8.88,
+        "z": -13.21097760664361
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00t",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "hexPlate"
+    },
+    {
+      "contentType": "default",
+      "id": "n00u",
+      "name": "n00u",
+      "color": 8421504,
+      "position": {
+        "x": -23,
+        "y": 8.88,
+        "z": -7.4365625299324165
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00u",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "hexPlate"
+    },
+    {
+      "contentType": "default",
+      "id": "n00w",
+      "name": "n00w",
+      "color": 8421504,
+      "position": {
+        "x": -23,
+        "y": 8.88,
+        "z": -0.47227419929731695
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00w",
+        "opacity": 0.2
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "hexPlate"
     }
   ],
   "edges": [
     {
       "nodes": [
         {
+          "contentType": "default",
           "id": "n000",
           "name": "2005",
           "color": 16776960,
           "position": {
-            "x": -23,
+            "x": -6.19170163047373,
             "y": 9,
             "z": 19.07675118510783
           },
@@ -380,16 +480,17 @@
             "opacity": 0.2
           },
           "labelOpacity": 0.2,
-          "castShadows": true,
+          "src": null,
           "radius": 1.6875,
           "shape": "hexPlate"
         },
         {
+          "contentType": "default",
           "id": "n001",
           "name": "n001",
           "color": 16776960,
           "position": {
-            "x": -18.657588246862225,
+            "x": -1.8492898773359556,
             "y": 15.718888313271094,
             "z": 19.07675118510783
           },
@@ -399,7 +500,7 @@
             "opacity": 0.2
           },
           "labelOpacity": 0.2,
-          "castShadows": true,
+          "src": null,
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -418,11 +519,12 @@
     {
       "nodes": [
         {
+          "contentType": "default",
           "id": "n000",
           "name": "2005",
           "color": 16776960,
           "position": {
-            "x": -23,
+            "x": -6.19170163047373,
             "y": 9,
             "z": 19.07675118510783
           },
@@ -432,16 +534,17 @@
             "opacity": 0.2
           },
           "labelOpacity": 0.2,
-          "castShadows": true,
+          "src": null,
           "radius": 1.6875,
           "shape": "hexPlate"
         },
         {
+          "contentType": "default",
           "id": "n005",
           "name": "n005",
           "color": 16776960,
           "position": {
-            "x": -20.216675458270196,
+            "x": -3.4083770887439258,
             "y": 1.499793036495288,
             "z": 19.07675118510783
           },
@@ -451,7 +554,7 @@
             "opacity": 0.2
           },
           "labelOpacity": 0.2,
-          "castShadows": true,
+          "src": null,
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -470,11 +573,12 @@
     {
       "nodes": [
         {
+          "contentType": "default",
           "id": "n000",
           "name": "2005",
           "color": 16776960,
           "position": {
-            "x": -23,
+            "x": -6.19170163047373,
             "y": 9,
             "z": 19.07675118510783
           },
@@ -484,16 +588,17 @@
             "opacity": 0.2
           },
           "labelOpacity": 0.2,
-          "castShadows": true,
+          "src": null,
           "radius": 1.6875,
           "shape": "hexPlate"
         },
         {
+          "contentType": "default",
           "id": "n004",
           "name": "n004",
           "color": 16776960,
           "position": {
-            "x": -28.255900752652014,
+            "x": -11.447602383125744,
             "y": 2.968788904517436,
             "z": 19.07675118510783
           },
@@ -503,7 +608,7 @@
             "opacity": 0.2
           },
           "labelOpacity": 0.2,
-          "castShadows": true,
+          "src": null,
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -522,11 +627,12 @@
     {
       "nodes": [
         {
+          "contentType": "default",
           "id": "n000",
           "name": "2005",
           "color": 16776960,
           "position": {
-            "x": -23,
+            "x": -6.19170163047373,
             "y": 9,
             "z": 19.07675118510783
           },
@@ -536,16 +642,17 @@
             "opacity": 0.2
           },
           "labelOpacity": 0.2,
-          "castShadows": true,
+          "src": null,
           "radius": 1.6875,
           "shape": "hexPlate"
         },
         {
+          "contentType": "default",
           "id": "n003",
           "name": "n003",
           "color": 16776960,
           "position": {
-            "x": -30.883523139770194,
+            "x": -14.075224770243924,
             "y": 10.3601701749075,
             "z": 19.07675118510783
           },
@@ -555,7 +662,7 @@
             "opacity": 0.2
           },
           "labelOpacity": 0.2,
-          "castShadows": true,
+          "src": null,
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -574,11 +681,12 @@
     {
       "nodes": [
         {
+          "contentType": "default",
           "id": "n000",
           "name": "2005",
           "color": 16776960,
           "position": {
-            "x": -23,
+            "x": -6.19170163047373,
             "y": 9,
             "z": 19.07675118510783
           },
@@ -588,16 +696,17 @@
             "opacity": 0.2
           },
           "labelOpacity": 0.2,
-          "castShadows": true,
+          "src": null,
           "radius": 1.6875,
           "shape": "hexPlate"
         },
         {
+          "contentType": "default",
           "id": "n002",
           "name": "n002",
           "color": 16776960,
           "position": {
-            "x": -26.91058947492909,
+            "x": -10.10229110540282,
             "y": 15.979060822100191,
             "z": 19.07675118510783
           },
@@ -607,7 +716,7 @@
             "opacity": 0.2
           },
           "labelOpacity": 0.2,
-          "castShadows": true,
+          "src": null,
           "radius": 0.5,
           "shape": "sphere"
         }
@@ -626,11 +735,12 @@
     {
       "nodes": [
         {
+          "contentType": "default",
           "id": "n000",
           "name": "2005",
           "color": 16776960,
           "position": {
-            "x": -23,
+            "x": -6.19170163047373,
             "y": 9,
             "z": 19.07675118510783
           },
@@ -640,16 +750,17 @@
             "opacity": 0.2
           },
           "labelOpacity": 0.2,
-          "castShadows": true,
+          "src": null,
           "radius": 1.6875,
           "shape": "hexPlate"
         },
         {
+          "contentType": "default",
           "id": "n006",
           "name": "n006",
           "color": 16776960,
           "position": {
-            "x": -12.91193201740197,
+            "x": 3.8963663521243,
             "y": 14.138294812574742,
             "z": 17.839821848127965
           },
@@ -659,7 +770,7 @@
             "opacity": 0.2
           },
           "labelOpacity": 0.2,
-          "castShadows": true,
+          "src": null,
           "radius": 0.5,
           "shape": "sphere"
         }

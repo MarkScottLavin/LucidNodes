@@ -1,34 +1,32 @@
 /* LOADING IMAGE TEXTURES */
 
-
-function nodeImage( node, img ){
-	node.displayEntity.material.map = ( THREE.ImageUtils.loadTexture( img ) );
-	node.displayEntity.material.needsUpdate = true;
-
-}
-
 function nodeExtrudeImage( node, img ){
 	
 	assignFaceUVs( node.displayEntity.geometry );
 	
     // resource URL	
-	node.src = img;
 	node.contentType = "image";
+	node.src = img;
 	
 	var loader = new THREE.TextureLoader().load(
 
         node.src,
         // Function when resource is loaded
         function ( texture ) {
-
+		
 			texture.wrapS = THREE.ClampToEdgeWrapping;
 			texture.wrapT = THREE.ClampToEdgeWrapping;
 			
 			texture.offset.x = 0.5;
 			texture.offset.y = 0.5;
 			
-			texture.repeat.set( 0.5 / node.radius, 0.5 / ( node.radius ) );		
-		
+			// Determine how the image fits on the node face based on its aspect ratio. 
+			var aspect = getNodeImageNaturalAspect( node );
+			if ( aspect <= 1 ){
+				texture.repeat.set( ( ( 0.5 / node.radius ) / aspect ), 0.5 / node.radius );						
+			}
+			else { texture.repeat.set( 0.5 / node.radius, ( ( 0.5 / node.radius ) * aspect ) ); }
+
         },
         // Function called when download progresses
         function ( xhr ) {
@@ -49,42 +47,41 @@ function nodeExtrudeImage( node, img ){
 	node.displayEntity.material = node.material;
 }
 
-function getImageNaturalPxSizeFromFile( img ){
-
-	var fr = new FileReader;
-	var file = new File( img );
-
-	fr.onload = function() { // file is loaded
-		var img = new Image;
-
-		img.onload = function() {
-			alert( "width: ", img.width, " height: ", img.height ); // image is loaded; sizes are available
-		};
-
-		img.src = fr.result; // is the data URL because called with readAsDataURL
-	};
-
+function removeNodeImage( node ){
 	
-	fr.readAsDataURL( file );
-}
-
-
-function getImgNaturalPxSize( img ){ 
-
-	return { x: img.naturalWidth, y: img.naturalHeight }
+//	node.contentType = "default";
+	node.src = null;
+		
+	node.material = new THREE.MeshPhongMaterial( { color: node.color, side: 0, opacity: node.opacity } );
+	
+	toggleGraphElementTransparency( node );
+	
+	node.displayEntity.material = node.material;
 
 }
 
-function getImgNaturalAspect( img ){
+function removeImagesFromNodes( nodeArr ){
 	
-	var n = getImgNaturalPxSize( img );
+	doToGraphElementArray( "removeNodeImage", nodeArr );
+}
+
+function changeImageNodeColor( node, color ){
 	
-	return ( n.x / n.y );
+	if ( node.contentType === "image" && node.material.length ){
+		
+		node.color = new THREE.Color();
+		if ( color && color !== 0 ){ node.color.set( color ); }
+		else if ( color === 0 ){ node.color.set( 0x000000 ); }
+		else { node.color.set( globalAppSettings.defaultNodeColor ); }		
+		 
+		node.material[1].color.set( color );
+		node.displayEntity.material = node.material;		
+	}
 }
 
 function getNodeImageAspect( node ){
 	
-	return getImgNaturalAspect( node.displayEntity.material[0].map.image );
+	return getAspectFromWidthAndHeight( node.displayEntity.material[0].map.image );
 
 }
 
@@ -94,7 +91,7 @@ function assignFaceUVs( geometry ) {
 
     geometry.faces.forEach( function( face ) {
 
-        var components = ['x', 'y', 'z'].sort(function(a, b) {
+        var components = ['x', 'y', 'z'].sort( function(a, b) {
             return Math.abs(face.normal[a]) > Math.abs(face.normal[b]);
         });
 
@@ -126,7 +123,27 @@ function assignVertexUVs( geometry ){
 	
 }
 
+function searchMediaLibraryForSrc( src ){
+	
+	var htmlImgs = [];
+	
+	for ( var m = 0; m < media.images.length; m++ ){
+		if ( media.images[ m ].src === src ){
+			htmlImgs.push( media.images[ m ] );
+		}
+	}
+	
+	return htmlImgs;
+	
+}
 
+function getNodeImageNaturalAspect( node ){
+	
+	var htmlImg = searchMediaLibraryForSrc( node.src )[0];
+	var aspect = htmlImg.naturalWidth / htmlImg.naturalHeight;
+	
+	return aspect;
+}
 
 
 

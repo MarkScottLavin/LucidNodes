@@ -14,7 +14,7 @@ router.use(function timeLog(req, res, next) {
 });
 
 
-router.use( bodyParser.json() );
+//router.use( bodyParser.json() );
 router.use( bodyParser.urlencoded({
     extended: true
 }));

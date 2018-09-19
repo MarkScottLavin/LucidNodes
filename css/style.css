@@ -1,8 +1,8 @@
 /* 
  * STYLESHEET.CSS 
- * Stylesheet for LucidChart Experiment Application
+ * Stylesheet for LucidNodes Application
  * Author: Mark Scott Lavin
- * Version 0.2.1
+ * Version 0.2.2
  * 
 */
 
@@ -55,6 +55,13 @@ body {
 .saveBar-cell{
 /*	width:auto;  */
 	display: inline-block;
+}
+
+.topMenu-link{
+	width: 70px;
+	padding: 0px 100px;
+	display: inline-block;
+	float: right;
 }
 
 /* End Main Navigation */
@@ -193,11 +200,16 @@ body {
 	border: 1px #888 solid;
 	background-color:#fff;
 	border-radius: 2px;
+/*	min-width: 79px;
+	max-width: 79px;
+	width: 75px; */
+	overflow: hidden;
+	text-align: center;
 }
 
 .panel-thumb img {
-	width:150px;
-	height:150px;
+	min-width:75px;
+	min-height:75px;
 }
 
 .panel-cell-label{
@@ -331,4 +343,43 @@ body {
 	text-align:center;
 	vertical-align:center;
 	background-color: #ddd;
+}
+
+#hiddenResponseCatcher{
+	display:none;
+}
+
+/* Help Overlays */
+
+.helpOverlay{
+	width: auto;
+	height: 90%;
+	position: absolute;
+	margin: 0;
+	overflow-y: auto;
+	padding: 0 10px;
+	z-index: 30;
+	background-color: #fff;
+	box-shadow: 1px 1px 2px #888;	
+}
+
+.helpTable{
+	table-layout:fixed;
+}
+
+.helpTable th{
+	background-color: #ddd;
+}
+
+.helpTable td,
+.helpTable th{
+	padding: 0 10px;
+}
+
+.helpTable tr:nth-child(even) td{
+	background-color: #eee;
+}
+
+.helpTable tr:nth-child(odd) td{
+	background-color: #fff;
 }

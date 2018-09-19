@@ -73,8 +73,18 @@ function quaternionRotateNodeAroundPoint( node, quaternion, point ){
 	var startPos = node.origPosition;
 	var endPoint = quaternionRotateVec3AroundPoint( startPos, quaternion, point );
 	
-	moveNodeTo( node, endPoint );	
+	moveNodeTo( node, endPoint );
 	
+	
+	if ( node.displayEntity.geometry.isExtrudeGeometry && node.displayEntity.rotation ){
+
+		node.displayEntity.setRotationFromQuaternion( quaternion );
+		node.displayEntity.applyQuaternion( node.displayEntity.origRotation );
+		
+		// Save these values to the toplevel Node object so they can have persistence.
+		node.displayEntityRotation = quaternion;
+		node.displayEntityQuaternion = new THREE.Quaternion().copy( node.displayEntity.origRotation );
+	}
 }
 
 function quaternionRotateNodeArrayAroundPoint( nodeArr, quaternion, point ){
@@ -100,6 +110,12 @@ function quaternionRotateNodeArrayOnAxisAroundPoint( nodeArr, axis, angle, point
 	for ( var n = 0; n < nodeArr.length; n++ ){	
 		quaternionRotateNodeOnAxisAroundPoint( nodeArr[ n ], axis, angle, point );
 	}
+}
+
+function quaternionRotateGraphElementPart( graphElementPart, quaternion ){
+	
+	graphElementPart.setRotationFromQuaternion( quaternion );
+
 }
 
 
@@ -152,26 +168,5 @@ function applyQuaternionToVec3( v, quaternion ){
 	
 	return v;
 }
-
-/* Testing Quaternion Rotation Behavior fixes */
-
-/*
-function applyIdentityQuaternionToVec3( v ){
-	
-	var iQ = new THREE.Quaternion( 0, 0, 0, 1 ); 
-	return applyQuaternionToVec3( v, iQ );
-}
-
-function applyDeltaVec3Quaternion( v, startQuaternion, endQuaternion ){
-	
-	var targetQuaternion = new THREE.Quaternion();
-	
-	THREE.Quaternion.slerp( startQuaternion, endQuaternion, targetQuaternion, 1 );
-	
-	return applyQuaternionToVec3( v, targetQuaternion );
-	
-}
-*/
-/* End testing Quaternion Rotation behavior fixes. */
 
 /* END 3D VECTOR3D ROTATION QUATERNION HELPER FUNCTIONS */
