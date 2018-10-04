@@ -22,6 +22,7 @@ Array.prototype.clone = function() {
 var nodeCounter = 0;
 var paneCounter = 0;
 var groupCounter = 0;
+var guideCounter = 0;
 
 var encodeId = function( type, counter ){
 	
@@ -35,10 +36,14 @@ var encodeId = function( type, counter ){
 		prefix = "p";
 		b36string = paneCounter.toString( 36 );
 		paneCounter++ }
-	else if ( type === "group" ){ 
+/*	else if ( type === "group" ){ 
 		prefix = "g";
 		b36string = groupCounter.toString( 36 );
-		groupCounter++ }	
+		groupCounter++ } */
+	else if ( type === "guide" ){ 
+		prefix = "g";
+		b36string = guideCounter.toString( 36 );
+		guideCounter++ }		
 	
 	var id = b36string + "";
 	var digits = 3;
@@ -76,7 +81,7 @@ var getMaxGraphElementId = function( type ){
 		}
 	}
 	
-	console.log( maxId );
+	debug.master && debug.idEncoding && console.log( maxId );
 	return maxId;
 };
 
@@ -118,16 +123,17 @@ var globalAppSettings = {
 	castShadow: true,
 	receiveShadow: true,
 	defaultNodeColor: 0x808080,
-	defaultNodeOpacity: 0.75,
+	defaultNodeOpacity: /* 0.75, */ 1,
 	defaultLabelScale: { x: 4, y: 2, z: 1 },
 	defaultEdgeColor: 0x808080,
 	defaultEdgeThickness: 4,
 	defaultEdgeLineType: "solid" /* dashed */,
-	defaultEdgeOpacity: 0.5,
-	nodeScaleOnMouseOver: 1.5,
+	defaultEdgeOpacity: /* 0.5, */ 1,
+	defaultGuideOpacity: 0.5,
+	nodeScaleOnMouseOver: 1.1,
 	nodeColorOnSelect: 0x0000ff,
 	nodeColorOnEdgePairingSelect: 0xff0000,
-	nodeScaleOnSelect: 1.5,
+	nodeScaleOnSelect: 1.1,
 	edgeColorOnMouseOver: 0x000000,
 	edgeColorOnSelect: 0x0000ff,
 	showGroupCenterPoints: true,
@@ -139,32 +145,20 @@ var globalAppSettings = {
 // THE LUCIDNODE MASTER OBJECT
 var LUCIDNODES = {
 	
-	computeNodeArrayCenter: function( nodeArr /* nodeArr, subgraph or series of graphs */ , technique = "average" ){
+	computeNodeArrayCenter: function( nodeArr, technique = "average" ){
 		
 		var center = new THREE.Vector3();
 		var sum = new THREE.Vector3();
 		
 		/* average (average of all values alonng each axis) */
 		if ( technique === "average" ) { 
-			/* take the positionns of all objects in the nodeArray and compute from their centerpoints the center of the nodeArray.	*/
-			
-			for ( var n = 0; n < nodeArr.length; n++ ){
-			
-				sum.addVectors( sum, nodeArr[n].position );
-			}
-			
-			center = sum.divideScalar( nodeArr.length );
-			
-			console.log( "computeNodeArrayCenter( ", nodeArr , ", ", technique , " ) ", center );
-			return center;
+			/* take the positions of all objects in the nodeArray and compute from their centerpoints the center of the nodeArray.	*/
+			return _Math.computeCentroid( getNodePositionsAsArray( nodeArr ) )
 		};
 		
 		/* Extents (average the furthest apart in each direction) */
-		if ( technique === "extents" ) {
-			
-			
+		if ( technique === "extents" ) {	
 		}
-		
 			
 	},
 	
@@ -226,7 +220,7 @@ var LUCIDNODES = {
 			avgPosition: _Math.avgPosition( node1, node2 )		
 		};
 		
-		console.log( "nodePositionComparison: ", this.relativePosition );
+		debug.master && debug.positioning && console.log( "nodePositionComparison: ", this.relativePosition );
 		return this.relativePosition;	
 	},
 	
@@ -440,7 +434,7 @@ var LUCIDNODES = {
 		
 		this.adjacentNodes = []; /* What other nodes are connected to this object via edges? Initialize as empty */
 		
-		console.log( 'LUCIDNODES.Node(): ', this );
+		debug.master && debug.graphElements && console.log( 'LUCIDNODES.Node(): ', this );
 	},
 	
 	// EDGES
@@ -578,7 +572,7 @@ var LUCIDNODES = {
 		/* Create a hidden user input for changing labels */
 		attachHiddenInputToGraphElement( this );
 		
-		console.log( 'LUCIDNODES.Edge(): ', this );
+		debug.master && debug.graphElements && console.log( 'LUCIDNODES.Edge(): ', this );
 	},	
 	
 	// WHOLE GROUP
@@ -803,6 +797,8 @@ function removeNodeDisplayEntity( node ){
 
 function createEdgeDisplayEntity( edge ){
 
+//	edge.displayEntity = cylinderBetweenPoints( edge.ends[0], edge.ends[1], 0.05 ); /// Testing edges as cylinders for various widths.
+
 	edge.geom = new THREE.Geometry();
 	edge.geom.dynamic = true;
 	edge.geom.vertices.push( edge.ends[0], edge.ends[1]	);		
@@ -886,7 +882,7 @@ function edgesFromJson( arr ){
 															}
 														} );
 	}
-	console.log( cognition.edges );
+	debug.master && debug.parseJson && console.log( cognition.edges );
 	
 }
 
@@ -1258,8 +1254,8 @@ function restoreDeletedNode( node ){
 	// Restore any edges associated to the node. 
 	restoreDeletedNodeEdges( node ); 
 	
-	console.log( 'DELETED:', DELETED );
-	console.log( 'Cognition: ', cognition.nodes );
+	debug.master && debug.deletion && console.log( 'DELETED:', DELETED );
+	debug.master && debug.deletion && console.log( 'Cognition: ', cognition.nodes );
 } 
 
 function restoreDeletedEdge( edge ){
@@ -1271,11 +1267,11 @@ function restoreDeletedEdge( edge ){
 	cognition.edges.push( edge );	
 	
 	// Recreate the displayEntity and the edge's label
-	createEdgeDisplayEntity( edge );
+	debug.master && debug.restoreDeleted && createEdgeDisplayEntity( edge );
 	createEdgeLabel( edge );
 
-	console.log( 'DELETED:', DELETED );
-	console.log( 'Cognition: ', cognition.edges );
+	debug.master && debug.restoreDeleted && console.log( 'DELETED:', DELETED );
+	debug.master && debug.restoreDeleted && console.log( 'Cognition: ', cognition.edges );
 	
 }
 
@@ -1537,7 +1533,7 @@ function getAllEdgesInNodeArray( nodeArr ){
 	}
 	
 	edgeArray = removeDupsFromGraphElementArray( edgeArray );	
-	console.log( 'getAllEdgesInNodeArray: ', edgeArray );
+	debug.master && debug.graphElementHandling && console.log( 'getAllEdgesInNodeArray: ', edgeArray );
 	return edgeArray;
 
 }
@@ -1563,11 +1559,15 @@ function isCompleteGraph( nodeArr ){
 	
 	var isComplete = ( numEdges === pEdges );
 
-	if ( isComplete ) { console.log( "Complete Graph" ); }
+	if ( isComplete ) { 
+		debug.master && debug.checkGraphType && console.log( "Complete Graph" );
+		}
 	
 	else { 
 		if ( numEdges < pEdges ){ console.log( "Incomplete Graph" ) }
-		else if ( numEdges > pEdges ){ console.log ("More edges than possible in the graph... That's impossible!") }
+		else if ( numEdges > pEdges ){ 
+		debug.master && debug.checkGraphType && console.log ("More edges than possible in the graph... That's impossible!") 
+		}
 	}
 	
 	return isComplete;
@@ -1627,7 +1627,7 @@ var toggleGraphElementTransparency = function( graphElement ){
 
 function groupLog( group ){
 	
-	console.log( group );
+	debug.master && debug.groups && console.log( group );
 	
 };
 
@@ -1722,7 +1722,7 @@ function getPlaneIntersectPoint( plane ){
 function getPlaneIntersectPointRecursive( plane ){
 	
 	var intPlane = ray.intersectObject( plane, true )[0];
-	var backup = ray.intersectObject( guides.planes.camPerpendicular.plane, true )[0];
+	var backup = ray.intersectObject( presetGuides.planes.camPerpendicular.plane, true )[0];
 	
 	if ( intPlane ){
 		return intPlane;		
@@ -1764,7 +1764,7 @@ function deleteNode( node ){
 	
 	DELETED.nodes.push( node );
 	
-	console.log( 'DELETED:', DELETED );
+	debug.master && debug.deletion && console.log( 'DELETED:', DELETED );
 
 }
 
@@ -1788,7 +1788,7 @@ function deleteEdge( edge ){
 
 	DELETED.edges.push( edge );	
 
-	console.log( 'DELETED:', DELETED );
+	debug.master && debug.deletion && console.log( 'DELETED:', DELETED );
 }
 
 function deleteNodeArray( nodeArr ){

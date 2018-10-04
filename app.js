@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.32
+	* Version 0.1.32.1
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -67,10 +67,10 @@ var initUI = function(){
 	document.getElementById('addNode').addEventListener( 'click', function() { selectTool( "addNode" ) } );
 	document.getElementById('addEdge').addEventListener( 'click', function() { selectTool( "addEdge" ); });	
 	document.getElementById('deleteSelected').addEventListener('click', function() { deleteAllSelected() } );
-	document.getElementById('lockToXYPlane').addEventListener('click', function() { setActiveGuidePlane( guides.planes.xy ) });
-	document.getElementById('lockToXZPlane').addEventListener('click', function() { setActiveGuidePlane( guides.planes.xz ) });
-	document.getElementById('lockToYZPlane').addEventListener('click', function() { setActiveGuidePlane( guides.planes.yz ) });
-	document.getElementById('unLockToPlane').addEventListener('click', function() { setActiveGuidePlane( guides.planes.camPerpendicular ) });
+	document.getElementById('lockToXYPlane').addEventListener('click', function() { setActiveGuidePlane( presetGuides.planes.xy ) });
+	document.getElementById('lockToXZPlane').addEventListener('click', function() { setActiveGuidePlane( presetGuides.planes.xz ) });
+	document.getElementById('lockToYZPlane').addEventListener('click', function() { setActiveGuidePlane( presetGuides.planes.yz ) });
+	document.getElementById('unLockToPlane').addEventListener('click', function() { setActiveGuidePlane( presetGuides.planes.camPerpendicular ) });
 	
 	document.getElementById('projectToXYPlane').addEventListener('click', function() { projectNodesToOrthoPlane( filterArrayForNodes( SELECTED.nodes ), "xy", 0 ) });
 	document.getElementById('projectToXZPlane').addEventListener('click', function() { projectNodesToOrthoPlane( filterArrayForNodes( SELECTED.nodes ), "xz", 0 ) });

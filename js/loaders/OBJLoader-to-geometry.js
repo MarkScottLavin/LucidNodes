@@ -305,7 +305,7 @@ THREE.OBJLoader.prototype = {
 
 			} else {
 
-				// console.log( "THREE.OBJLoader: Unhandled line " + line );
+				debug.master && debug.loadObjs && console.log( "THREE.OBJLoader: Unhandled line " + line );
 
 			}
 

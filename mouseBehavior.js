@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.31.2
+	* Version 0.1.32.1
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -13,7 +13,7 @@
 // For Capturing what's intersected by the mouse
 var ray = new THREE.Raycaster();
 
-// For tracking mouse location at Mouse Events
+// For tracking mouse location on the 2D screen at Mouse Events
 var mouse = new THREE.Vector2();
 
 // What Keyboard keys are currently selected while working in the scene.
@@ -34,11 +34,28 @@ var INTERSECTED_OBJ3D;
 // Selected objects
 var SELECTED = {
 	nodes:[],
-	edges:[]
-	};	  
+	edges:[],
+	guides:{
+		planes:[],
+		lines:[],
+		points:[],
+		faces:[],
+		circles:[]
+	}
+};	  
 
 // Deleted Graph Elements
-var DELETED = { nodes:[], edges:[] };
+var DELETED = { 
+	nodes:[], 
+	edges:[], 
+	guides:{
+		planes:[],
+		lines:[],
+		points:[],
+		faces:[],
+		circles:[]
+	} 
+};
 
 // What Hidden text input (associated with a Graph Element) is now active? (Enables user to alter the text)
 var ACTIVE_HIDDEN_TEXT_INPUT;	
@@ -71,11 +88,9 @@ function mouseEventHandler( event ){
 	
 	// update the picking ray with the camera and mouse position
 	ray.setFromCamera( mouse, camera );
-	//ray.set ( camera.position, vector.sub( camera.position ).normalize() );
 	
-	// update the guidePlane to be perpendicular to the current camera position
-//	guides.planes.camPerpendicular.plane.lookAt( camera.position );
-	guides.planes.camPerpendicular.plane.quaternion.copy( camera.quaternion );
+	// update presetGuides.planes.camPerpendicular to be perpendicular to the current camera direction.
+	presetGuides.planes.camPerpendicular.plane.quaternion.copy( camera.quaternion );
 	
 /*	if ( snap ){
 		var nearestIntersctedSnapPoint = nearestIntersectedSnapPoint();
@@ -85,7 +100,6 @@ function mouseEventHandler( event ){
 	var nearestIntersected = nearestIntersectedObject3D();
 
 	// if there's at least one intersected object...
-	//if ( object3DsIntersectedByRay && object3DsIntersectedByRay[0] && object3DsIntersectedByRay[0].object ){
 	if ( nearestIntersected ){
 	
 		// Check if the event is a mouse move, INTERSECTED_OBJ3D exists and we're sitting on the same INTERSECTED_OBJ3D object as the last time this function ran...		
@@ -113,7 +127,22 @@ function mouseEventHandler( event ){
 			contextMenuActivate( event, nearestIntersected );
 		}
 		
-		INTERSECTED_OBJ3D && console.log( "mouseEventHandler(): INTERSECTED_OBJ3D: ", INTERSECTED_OBJ3D, " isGraphElementPart: " , INTERSECTED_OBJ3D.isGraphElementPart, " isLabel: ", INTERSECTED_OBJ3D.isLabel, "INTERSECTED_OBJ3D.uv: ", INTERSECTED_OBJ3D.uv , ' MouseEvent: ', event.type );			
+//		INTERSECTED_OBJ3D && debug.master && debug.intersectionHandling && console.log( "mouseEventHandler(): INTERSECTED_OBJ3D: ", INTERSECTED_OBJ3D, " isGraphElementPart: " , INTERSECTED_OBJ3D.isGraphElementPart, " isLabel: ", INTERSECTED_OBJ3D.isLabel, "INTERSECTED_OBJ3D.uv: ", INTERSECTED_OBJ3D.uv , ' MouseEvent: ', event.type );	
+
+		INTERSECTED_OBJ3D && debug.master && debug.intersectionHandling && ( function(){
+			console.log( "mouseEventHandler(): INTERSECTED_OBJ3D: ", INTERSECTED_OBJ3D );
+			if ( INTERSECTED_OBJ3D.isGraphElementPart ){
+				console.log( "mouseEventHandler(): INTERSECTED_OBJ3D.isGraphElementPart = ", INTERSECTED_OBJ3D.isGraphElementPart );
+				console.log( "mouseEventHandler(): INTERSECTED_OBJ3D.graphElementPartType = ", INTERSECTED_OBJ3D.graphElementPartType );
+				console.log( "mouseEventHandler(): INTERSECTED_OBJ3D.referent.id = ", INTERSECTED_OBJ3D.referent.id );			
+			}
+			else if ( INTERSECTED_OBJ3D.isGuidePart ){
+				console.log( "mouseEventHandler(): INTERSECTED_OBJ3D.isGuidePart = ", INTERSECTED_OBJ3D.isGuidePart );		
+				console.log( "mouseEventHandler(): INTERSECTED_OBJ3D.guidePartType = ", INTERSECTED_OBJ3D.guidePartType );	
+				console.log( "mouseEventHandler(): INTERSECTED_OBJ3D.referent.id = ", INTERSECTED_OBJ3D.referent.id );				
+			}
+		})();
+		
 	}
 }
 
@@ -196,9 +225,9 @@ function onMouseDown( event, camera ){
 
 	if ( SELECTED.nodes.length > 0 ){
 		// update the guidePlane to be perpendicular to the current camera position
-		guides.planes.camPerpendicular.plane.lookAt( camera.position );	
+		presetGuides.planes.camPerpendicular.plane.lookAt( camera.position );	
 		// position the guidePlane to match that of the selected node...
-		moveGuidePlaneToEntityPosition( guides.planes.camPerpendicular.plane, SELECTED.nodes[0] );
+		moveGuidePlaneToEntityPosition( presetGuides.planes.camPerpendicular.plane, SELECTED.nodes[0] );
 		moveAxialGuideLinesToEntityPosition( SELECTED.nodes[0] );
 	}
 }
@@ -237,40 +266,48 @@ function onDblClick( event ){
 
 // KEYPRESS EVENT HANDLING
 	
-function onKeyDown( event ){
+function onAppKeyDown( event ){
 
 	keysPressed.isTrue = true;
 	if ( !keysPressed.keys.includes( event.key ) ){
 		keysPressed.keys.push( event.key );		
 	}
-	console.log( "onKeyDown(): ", keysPressed );
+	debug.master && debug.keyHandling && console.log( "onAppKeyDown(): ", keysPressed );
 	
 }
 
-function onKeyUp( event ){
+function onAppKeyUp( event ){
 	
 	keysPressed.keys[0] === "Delete" && deleteAllSelected();	
 	keysPressed.keys[0] === "Escape" && onEscapeKey();
 	
-	if ( !toolState.toolIsActive ){
-		keysPressed.keys[0] === "m" && selectTool( "move" );
-		keysPressed.keys[0] === "r" && selectTool( "rotate" );	
-		keysPressed.keys[0] === "s" && selectTool( "select" );
-		keysPressed.keys[0] === "i" && selectTool( "eyedropper" );	
-		keysPressed.keys[0] === "p" && selectTool( "paint" );
-		keysPressed.keys[0] === "e" && selectTool( "addEdge" );
-		keysPressed.keys[0] === "a" && selectTool( "addNode" );
-		keysPressed.keys[0] === "z" && toggleBrowserZoom();
-		keysPressed.keys[0] === "n" && toggleBrowserPan();
-		keysPressed.keys[0] === "=" && zoomIn( zoomScale );
-		keysPressed.keys[0] === "-" && zoomOut( zoomScale );
+	if ( !toolState.toolIsActive && keysPressed.keys.includes( "Alt" ) ){
+		if ( keysPressed.keys.includes( "m" )){ selectTool( "move" ); }
+		else if ( keysPressed.keys.includes( "r" )){ selectTool( "rotate" ); }	
+		else if ( keysPressed.keys.includes( "s" )){ selectTool( "select" ); }
+		else if ( keysPressed.keys.includes( "i" )){ selectTool( "eyedropper" ); }	
+		else if ( keysPressed.keys.includes( "p" ) && !keysPressed.keys.includes( "Control" ) ){ 
+			selectTool( "paint" );
+			}
+		else if ( keysPressed.keys.includes( "l" )){ selectTool( "addEdge" ); }
+		else if ( keysPressed.keys.includes( "n" )){ selectTool( "addNode" ); }
+		else if ( keysPressed.keys.includes( "t" )){ selectTool( "addGuideLine" ); }
+		else if ( keysPressed.keys.includes( "c" )){ selectTool( "addGuideCircle" ); }		
+		else if ( keysPressed.keys.includes( "z" ) && keysPressed.keys.includes( "Control" ) ){ 
+			toggleBrowserZoom(); 
+			}
+		else if ( keysPressed.keys.includes( "a" ) && keysPressed.keys.includes( "Control" ) ){ 
+			toggleBrowserPan(); 
+			}
+		else if ( keysPressed.keys.includes( "=" )){ zoomIn( zoomScale ); }
+		else if ( keysPressed.keys.includes( "-" )){ zoomOut( zoomScale ); }
 	}
 
-	console.log( "onKeyUp(): ", keysPressed.keys ); 		
-	if (keysPressed.keys.length < 2 ){ 
-		keysPressed.isTrue = false; 
-	}
-	keysPressed.keys.splice( keysPressed.keys.indexOf( event.key ), 1 );
+	keysPressed.keys.splice( keysPressed.keys.indexOf( event.key ), 1 );	
+	
+	if ( keysPressed.keys.length < 1 ){ keysPressed.isTrue = false; }
+	
+	debug.master && debug.keyHandling && console.log( "onAppKeyUp(): ", keysPressed.keys ); 		
 }
 
 function onEscapeKey(){
@@ -423,7 +460,7 @@ function getPointOnCanvasInCanvasUnits( ptInGlobalUnits, geometry, canvas ){
 		/* y */	_Math.convertValue( convertFactor.y, "global", "px", ptInGlobalUnits.y )
 			);	
 
-	console.log( "getPointOnCanvasInLocalUnits() :" , pointInLocalUnits );
+	debug.master & debug.intersectionHandling && console.log( "getPointOnCanvasInLocalUnits() :" , pointInLocalUnits );
 	
 	return pointInLocalUnits;
 }
@@ -433,171 +470,17 @@ function getCameraUnProjectedVector( camera ){
 	
 	// Get 3D vector from 3D mouse position using 'unproject' function
 	var vec3 = new THREE.Vector3( event.clientX, event.clientY, 1);
-	console.log( 'getCameraUnProjectedVector() before Unproject: ', vec3 );
+	debug.master & debug.intersectionHandling && console.log( 'getCameraUnProjectedVector() before Unproject: ', vec3 );
 	
 	vec3.unproject( camera );
-	console.log( 'getCameraUnProjectedVector() after Unproject: ', vec3 );	
+	debug.master & debug.intersectionHandling && console.log( 'getCameraUnProjectedVector() after Unproject: ', vec3 );	
 	
 	return vec3;
 }
 
 // END PROJECTION HANDLING
 
-// SELECTION HANDLING
 
-function selectNodeArray( nodeArr ){
-	
-	unSelectAll();
-	doToGraphElementArray( "selectNode", nodeArr );
-	
-}
-
-function selectNode( node ){
-	
-	if ( node ){
-		SELECTED.nodes.push( node );
-		onSelectGraphElement( node );
-	}
-	else { console.error( 'selectNode(): Node not found.' ) }
-}
-
-function selectEdge( edge ){
-	
-	if ( edge ){
-		SELECTED.edges.push( edge );
-		onSelectGraphElement( edge );		
-	}
-	else { console.error( 'selectEdge(): Edge not found.' )}
-}
-
-function selectAllNodes(){
-	
-	selectNodeArray( cognition.nodes );
-
-};
-
-function selectAll(){
-	
-	unSelectAll();
-	doToGraphElementArray( "selectNode", cognition.nodes );
-	doToGraphElementArray( "selectEdge", cognition.edges );
-
-}
-
-function selectEdgeArray( edgeArr ){
-
-	unSelectAll();
-	doToGraphElementArray( "selectEdge", edgeArr );
-}
-
-function selectAllEdges(){
-	
-	selectEdgeArray( cognition.edges );
-}
-
-function unSelectNode( node ){
-	
-	if ( node && SELECTED.nodes.includes( node ) ){
-		SELECTED.nodes.splice( SELECTED.nodes.indexOf( node ), 1 );
-		unTransformGraphElementOnUnSelect( node );
-	}
-	else { console.error( 'unSelectNode(): Node not found.' ) }
-	
-}
-
-function unSelectEdge( edge ){
-	
-	if ( edge && SELECTED.edges.includes( edge ) ){
-		SELECTED.edges.splice( SELECTED.edges.indexOf( edge ), 1 );
-		unTransformGraphElementOnUnSelect( edge );		
-	}
-	else { console.error( 'unSelectEdge(): Edge not found.' )}
-}
-
-function unSelectNodeArray( nodeArr ){
-	
-	var passArr = nodeArr.slice();
-	doToGraphElementArray( "unSelectNode", passArr );
-
-}
-
-function unSelectEdgeArray( edgeArr ){
-	
-	var passArr = edgeArr.slice();
-	doToGraphElementArray( "unSelectEdge", passArr );
-} 
-
-function unSelectAll(){
-	
-	unSelectNodeArray( SELECTED.nodes );
-	unSelectEdgeArray( SELECTED.edges );
-	
-}
-
-function getGraphElementsInArrayWithEquivalentPropVal( property, value, graphElementArr ){
-	
-	var arrayElementPropVal;
-	var graphElementsWithPropVal = [];
-	
-	// Compare each node in the array for equivalent value for this property, and selet all the ones that are equivalent.
-	for ( var n = 0; n < graphElementArr.length; n++ ){	
-	
-		arrayElementPropVal = getGraphElementPropertyValue( graphElementArr[ n ], property );
-		
-		if ( arrayElementPropVal ){ 
-			
-			if ( arrayElementPropVal === value ) {
-				graphElementsWithPropVal.push( graphElementArr[ n ] );
-			}
-			else if ( propValIsObj( arrayElementPropVal ) && propValIsObj( value ) ){
-				if ( objectsAreIdentical( [ arrayElementPropVal, value ] ) ){
-				graphElementsWithPropVal.push( graphElementArr[ n ] );
-				}
-			}
-		}  
-	}
-
-	return graphElementsWithPropVal;
-}
-
-function getGraphElementPropertyValue( graphElement, property ){
-	
-	if ( graphElement.hasOwnProperty( property ) ){
-		return graphElement[ property ];
-	}
-}
-
-function selectNodesInArrayWithSamePropValAs( node, property, nodeArr ){
-	
-	var propValue = getGraphElementPropertyValue( node, property );
-	if ( propValue ){ 
-
-		var nodesWithEquivPropVal = getGraphElementsInArrayWithEquivalentPropVal( property, propValue, nodeArr );
-		doToGraphElementArray( "selectNode", nodesWithEquivPropVal );		
-		
-		}
-	else { 
-		console.error( "selectNodesInArrayWithSamePropValAs: No such property exists for the node passed." );
-		return; 
-	}
-}
-
-function selectEdgesInArrayWithSamePropValAs( edge, property, edgeArr ){
-	
-	var propValue = getGraphElementPropertyValue( edge, property );
-	if ( propValue ){ 
-
-		var nodesWithEquivPropVal = getGraphElementsInArrayWithEquivalentPropVal( property, propValue, edgeArr );
-		doToGraphElementArray( "selectNode", nodesWithEquivPropVal );		
-		
-		}
-	else { 
-		console.error( "selectNodesInArrayWithSamePropValAs: No such property exists for the edge passed." );
-		return; 
-	}
-}
-
-// END SELECTION HANDLING
 
 function propValIsObj( propVal ){
 	
@@ -608,7 +491,7 @@ function propValIsObj( propVal ){
 	}
 	else { isObj = false };
 	
-	console.log( 'propValIsObj: ', propVal, " is object: " , isObj );
+	debug.master && debug.graphElementHandling && console.log( 'propValIsObj: ', propVal, " is object: " , isObj );
 	return isObj;
 	
 }
@@ -631,7 +514,7 @@ function getObjectLength( obj ){
  * author: Mark Scott Lavin 
  *
  * parameters: 
- * objs: <array> 	an array of two objects.
+ * objs: <array> 	an array of two Objects.
  *
  * This function compare the contents of two Javascript objects. If it identifies that they're identical, then it returns true, otherwise it returns false.
  *
@@ -677,7 +560,7 @@ function objectsAreIdentical( objs ){
 		}
 	}
 	
-	console.log( 'objectsAreIdentical(): ', identical  );
+	debug.master && debug.generalUtils && console.log( 'objectsAreIdentical(): ', identical  );
 	return identical;
 }
 
@@ -794,6 +677,40 @@ function getAllGraphElementPartsOfType( type ){
 	return partsOfType;
 }
 
+/*
+ * getPartsOfTypeInGraphElementArray()
+ *
+ *  parameters: 
+ *		arr: <Array> - An array of GraphElements
+ *		type: <String> - a type of graphElementPart
+ *
+ *	returns an array of the graphElementParts of type "type" associated with the array provided.
+ *
+ *	Notes: Traverses array GraphElement.partsInScene to find all object3Ds associated with the GraphElement, regardless of any parent/child relationships. 
+ *
+ */
+function getPartsOfTypeInGraphElementArray( arr, type ){
+
+	var partsOfType = [];
+	var partOfType;
+	
+	if ( arr && arr.length ){
+	
+		for ( var i = 0; i < arr.length; i++ ){
+			
+			if ( arr[ i ].isGraphElement && arr[ i ].partsInScene && arr[ i ].partsInScene.length > 0 ){
+				for ( var j = 0; j < arr[ i ].partsInScene.length; j++ ){
+					if ( arr[ i ].partsInScene[ j ].isGraphElementPart && arr[ i ].partsInScene[ j ].graphElementPartType === type ){				
+						partsOfType.push( arr[ i ].partsInScene[ j ] );
+					}
+				}
+			}
+		}
+		
+		return partsOfType;
+	}
+}
+
 function hideAllGraphElementPartsOfType( type ){
 	
 	var arr = getAllGraphElementPartsOfType( type );
@@ -820,7 +737,7 @@ function callMethodOnParent( obj, method ) {
 		parentWithMethod[method]();
 	}	
 	else { 
-		console.log( "callMethodOnParent(): No Parent with that method found" );
+		debug.master && debug.generalUtils && console.log( "callMethodOnParent(): No Parent with that method found" );
 		return false;
 	}
 }
@@ -834,7 +751,7 @@ function recursiveFindParentWithProp( obj, prop ){
 		else { recursiveFindParentWithProp( obj.parent, prop ); }
 	}
 	else { 
-		console.log( "recursiveFindParentWithProp(): No parent with that property was found" ); 
+		debug.master && debug.generalUtils && console.log( "recursiveFindParentWithProp(): No parent with that property was found" ); 
 		return false;
 	}	
 }
@@ -866,10 +783,6 @@ function positionInput( event, input ){
 }
 
 // END HIDDEN INPUT (LABEL TEXT) HANDLING
-
-
-
-
 
 
 var menu = document.querySelector("#context-menu");

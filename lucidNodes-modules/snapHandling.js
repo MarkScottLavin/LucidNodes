@@ -33,6 +33,8 @@ function snapSphere( position, radius = snapRadius, parent = scene ){
 	this.sphere.isSnapPoint = true;
 	this.sphere.snapOn = true;
 	
+//	this.sphere.referent = this;
+	
 	parent.add( this.sphere );
 }
 
@@ -55,29 +57,13 @@ function snapSphere( position, radius = snapRadius, parent = scene ){
 
 function snapCylinder( point1, point2, radius = snapRadius, parent = scene ) {
 	
-	var direction = new THREE.Vector3().subVectors( point2, point1 );
-	
-	var orientation = new THREE.Matrix4();
-	orientation.lookAt( point1, point2, new THREE.Object3D().up );
-	orientation.multiply( new THREE.Matrix4().set( 1, 0, 0, 0,
-		0, 0, 1, 0,
-		0, -1, 0, 0,
-		0, 0, 0, 1)); 
-		
-	var geometry = new THREE.CylinderGeometry( radius, radius, direction.length(), 8 );
-	var material = new THREE.MeshBasicMaterial( { color: 0xff0000, transparent: true, opacity: 0.3, visible: false } );	
-
-	this.cylinder = new THREE.Mesh( geometry, material );
-	this.cylinder.applyMatrix( orientation );
-	
-	// position based on midpoints - there may be a better solution than this
-	this.cylinder.position.x = ( point2.x + point1.x ) / 2;
-	this.cylinder.position.y = ( point2.y + point1.y ) / 2;
-	this.cylinder.position.z = ( point2.z + point1.z ) / 2;
+	this.cylinder = cylinderBetweenPoints( point1, point2, snapRadius, false );
 	
 	this.cylinder.isSnapObj = true;
 	this.cylinder.isSnapCylinder = true;
 	this.cylinder.snapOn = true;
+	
+//	this.cylinder.referent = this;	
 	
 	parent.add( this.cylinder );
 }
@@ -108,6 +94,8 @@ function snapTorus( position, radius, tubeRadius = snapRadius, radialSegments = 
 	this.torus.isSnapObj = true;
 	this.torus.isSnapTorus = true;
 	this.torus.snapOn = true;
+	
+//	this.torus.referent = this;
 	
 	parent.add( this.torus );
 }
@@ -225,17 +213,19 @@ function snapBox( position, xLimit, yLimit, snapDist = snapRadius, parent = scen
 	var geometry = new THREE.BoxBufferGeometry( position, xLimit, yLimit, snapDist );
 	var material = new THREE.MeshBasicMaterial( { color: 0xff0000, visible: true } );	
 
-	var box = new THREE.Mesh( geometry, material );
+	this.box = new THREE.Mesh( geometry, material );
 //	box.applyMatrix( orientation );
 	
 	// position based on midpoints - there may be a better solution than this
 	box.position.set( position.x, position.y, position.z );
 	
-	box.isSnapObj = true;
-	box.isSnapBox = true;
-	box.snapOn = true;
+	this.box.isSnapObj = true;
+	this.box.isSnapBox = true;
+	this.box.snapOn = true;
 	
-	parent.add( box );	
+//	this.box.referent = this;
+	
+	parent.add( this.box );	
 	
 }
 
@@ -249,6 +239,19 @@ function fractionOfCylinderHeight( cylinder ){
 	}
 }
 
+
+/*
+ * snapToNearest()
+ *
+ * Author: Mark Scott Lavin
+ *
+ * parameters: 
+ *	position: <Vector3>
+ *
+ * Takes a given position, tests it against the nearest intersected snap object, and if it is within snap range, returns the snap object position.
+ *
+ */
+
 function snapToNearest( position ){
 
 	if ( snap ){
@@ -256,29 +259,40 @@ function snapToNearest( position ){
 		var nearestSnap = nearestIntersectedSnapObj();
 		if ( nearestSnap ){
 			if ( nearestSnap.object.isSnapPoint ){
+				if ( nearestSnap.object.referent.isGuide && nearestSnap.object.referent.id ){
+					debug.master && debug.snap && console.log( "snapToNearest(): ", nearestSnap.object.referent.id ); 
+				}
 				return snapPositionTo( position, nearestSnap.object.position );
 			}
 			if ( nearestSnap.object.isSnapCylinder ){
+				if ( nearestSnap.object.referent.isGuide && nearestSnap.object.referent.id ){
+					debug.master && debug.snap && console.log( "snapToNearest(): ", nearestSnap.object.referent.id ); 
+				}				
 				return snapPositionTo( position, applyPositionOnSnapCylinderToLine( nearestSnap, nearestSnap.object.referent.line ) );
 			}
 			if ( nearestSnap.object.isSnapFace ){
-				console.log( "distances on face: ", triangulatePositionOnFaceLinear( getFaceIntersectPoint( nearestSnap.object ), nearestSnap.object.geometry ) );
+			/*	if ( nearestSnap.object.referent.isGuide && nearestSnap.object.referent.id ){
+					debug.master && debug.snap && console.log( "snapToNearest(): ", nearestSnap.object.referent.id ); 
+				} */				
+				debug.master && debug.snap && console.log( "distances on face: ", triangulatePositionOnFaceLinear( getFaceIntersectPoint( nearestSnap.object ), nearestSnap.object.geometry ) );
 				
 				return snapPositionTo( position, getFaceIntersectPoint( nearestSnap.object ) );
 			}
 			if ( nearestSnap.object.isSnapTorus ){
-				
+				if ( nearestSnap.object.referent.isGuide && nearestSnap.object.referent.id ){
+					debug.master && debug.snap && console.log( "snapToNearest(): ", nearestSnap.object.referent.id ); 
+				}
 				// note in testing that the snap only works properly if all instances of the the Quaternion are normalized.
 				
 				var p = applyWorldPosToVec( rotateVecQuat( positionOnArc( nearestSnap.object.referent.radius,  getCircleArcTraversed ( getFractionOfTorusArc( nearestSnap) ) ), cQuaternion.normalize() ) , nearestSnap.object.referent.circle.position );
 				
-				console.log( "fraction of torus radius: ", getFractionOfTorusArc( nearestSnap ) );
+				debug.master && debug.snap && console.log( "fraction of torus radius: ", getFractionOfTorusArc( nearestSnap ) );
 				
 				return snapPositionTo( position, p );
 				
 			}
 			if ( nearestSnap.object.isSnapBox ){
-				console.log( );
+				debug.master && debug.snap && console.log( );
 			}
 		}
 		else { return position; }

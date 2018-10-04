@@ -1,6 +1,6 @@
 /****************************************************
 	* FILEHANDLINGUTILS.JS: 
-	* Version 0.1.20
+	* Version 0.1.3.1
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -45,7 +45,7 @@ var loadCognitionFile = function( parameters ){
 	httpRequest.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var response = this.responseText;
-			console.log( response );
+			debug.master && debug.loadCognition && console.log( response );
 			var loadedFile = fileTypeHandle( response, ext );
 			cognitionFromJson( loadedFile ); 
 		}
@@ -80,7 +80,7 @@ var fileTypeHandle = function( file, ext ){
 	if ( ext === 'json' || 'JSON' || 'Json' ) {
 		
 		var parsedJson = JSON.parse( file );
-		console.log( "fileTypeHandle(): ", parsedJson );
+		debug.master && debug.parseJson && console.log( "fileTypeHandle(): ", parsedJson );
 		return parsedJson;
 	}
 	
@@ -101,6 +101,10 @@ var circRefFilter = [ 		/* Toplevel File Admin Paramas */
 							/* GraphElement Params */
 							'nodes',
 							'edges',
+							/* Node Params */
+							'contentType',
+							'displayEntityQuaternion',
+							'displayEntityRotation',
 							/* Edge Params */
 							'sourceNode',
 							'targetNode',
@@ -116,6 +120,7 @@ var circRefFilter = [ 		/* Toplevel File Admin Paramas */
 							'x',
 							'y',
 							'z', 
+							'w',  /* In quaternion rotations */
 							'opacity', 
 							'label', 
 							'labelColor', 
@@ -157,7 +162,7 @@ var saveCognitionFile = function( filename, content, url ){
     httpRequest.setRequestHeader( "Content-Type", "application/json;charset=UTF-8" );
 	httpRequest.send( jBody );	
 
-	console.log( httpRequest );
+	debug.master && debug.saveCognition && console.log( httpRequest );
 }; 
 
 
@@ -188,7 +193,7 @@ var loadThemeFile = function( parameters ){
 	httpRequest.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var response = this.responseText;
-			console.log( response );
+			debug.master && debug.loadTheme && console.log( response );
 			var loadedTheme = fileTypeHandle( response, ext );
 			themeFromJson( loadedTheme ); 
 		}
@@ -263,22 +268,22 @@ function checkThemeProperties( theme = {} ){
 	
 		if ( !theme.name  ){	
 			theme.name = "noname";
-			console.log ( "Theme name not found. Setting to ", theme.name );
+			debug.master && debug.loadTheme && console.log ( "Theme name not found. Setting to ", theme.name );
 		}
 		
 		if ( !theme.skyColor1 ){ 
 			theme.skyColor1 = "#0077ff"; 
-			console.log ( "Theme Sky Color 1 not found. Setting to ", theme.skyColor1 );			
+			debug.master && debug.loadTheme && console.log ( "Theme Sky Color 1 not found. Setting to ", theme.skyColor1 );			
 		}
 		
 		if ( !theme.skyColor2 ){
 			theme.skyColor2 = "#ffffff";
-			console.log ( "Theme Sky Color 2 not found. Setting to ", theme.skyColor2 );						
+			debug.master && debug.loadTheme && console.log ( "Theme Sky Color 2 not found. Setting to ", theme.skyColor2 );						
 		}
 		
 		if ( !theme.groundColor ){
 			theme.groundColor = "#dddddd";
-			console.log ( "Theme Ground Color not found. Setting to ", theme.groundColor );									
+			debug.master && debug.loadTheme && console.log ( "Theme Ground Color not found. Setting to ", theme.groundColor );									
 		}
 		
 		// Linear Axes - If the theme specifically sets axes to false, don't show them. Otherwise show them.
@@ -295,7 +300,7 @@ function checkThemeProperties( theme = {} ){
 		}
 		else if ( theme.showRadialAxes || !theme.hasOwnProperty( "showRadialAxes" ) ) {
 			theme.showRadialAxes = true;
-			console.log ( "Theme doesn't specify whether to show radial axes. Setting to true" );												
+			debug.master && debug.loadTheme && console.log ( "Theme doesn't specify whether to show radial axes. Setting to true" );												
 		}		
 //	}
 	
@@ -354,7 +359,7 @@ var saveThemeFile = function( filename, content, url ){
     httpRequest.setRequestHeader( "Content-Type", "application/json;charset=UTF-8" );
 	httpRequest.send( jBody );	
 
-	console.log( httpRequest );
+	debug.master && debug.saveTheme && console.log( httpRequest );
 };
 
 
@@ -388,7 +393,7 @@ var loadImgFile = function( parameters ){
 			httpRequest.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 					var response = this.responseText;
-					console.log( response );
+					debug.master && debug.loadUserImages && console.log( response );
 					var img = imgFromSrcUrl( fullpath );
 					loadImgToLibrary( img );
 					loadThumbIntoDiv( img, "panel-thumb-area", 75, 75, "thumb" );
@@ -420,18 +425,43 @@ function imgFromSrcUrl( imgURL ){
 	return img;
 } 
 
-function loadThumbIntoDiv( img, divId = "panel-thumb-area", width = 150, height = 150, cssClass = "thumb" ){
+function loadThumbIntoDiv( img, divId = "panel-thumb-area", width = 75, height = 75, cssClass = "thumb" ){
 	
-	img.width = width;
-	img.height = height;
-	img.class = cssClass;
-	
-	var cell = document.createElement( "div" );
-	cell.classList.add( "panel-thumb-cell" );	
-	
-	document.getElementById( divId ).appendChild( cell );
-	cell.appendChild( img ); 
-	addThumbListener( img );
+	img.onload = function(){
+	//if (document.readyState == "complete" || document.readyState == "loaded" ){
+		
+		var aspect = img.naturalWidth / img.naturalHeight;
+		// If the image is taller than it is wide... 
+		if ( aspect <= 1 ){
+			img.width = width * aspect;
+			//img.height = height * aspect;
+			/* texture.repeat.set( ( ( 0.5 / node.radius ) / aspect ), 0.5 / node.radius );	 */					
+		}
+		// If the image is wider than it is tall
+		else { 
+			/* texture.repeat.set( 0.5 / node.radius, ( ( 0.5 / node.radius ) * aspect ) ); */
+			img.width = width * aspect;
+			img.height = height;
+			}		
+		
+//		img.width = width;
+//		img.height = height;
+		img.class = cssClass;
+		
+//		var styleHeightTxt = "min-height:" + width + "px;";
+//		var styleWidthTxt = "min-width:" + width + "px;";
+		
+//		img.setAttribute("style", styleHeightTxt );
+//		img.setAttribute("style", styleWidthTxt );
+//		img.setAttribute("style", "overflow:hidden" );
+		
+		var cell = document.createElement( "div" );
+		cell.classList.add( "panel-thumb-cell" );	
+		
+		document.getElementById( divId ).appendChild( cell );
+		cell.appendChild( img ); 
+		addThumbListener( img );		
+	}
 
 }
 
@@ -454,7 +484,7 @@ function loadImageLibrary( routeURL = "/loadUserImages", folderURL = "/userImage
 						loadImgFile( { url: folderURL, filename: images[i] } );
 					}
 				}
-				else { console.log( 'Image folder ', + routeURL, + " is empty." ) };
+				else { debug.master && debug.loadUserImages && console.log( 'Image folder ', + routeURL, + " is empty." ) };
 			});
 		}
 		else if( this.readyState === 4 && this.status !== 200 )   {
@@ -551,21 +581,15 @@ function addThumbListener( thumb ){
 // PATH HANDLING HELPERS
 
 function getFileNameFromPath( fullPath ){
-	
 	return fullPath.replace(/^.*[\\\/]/, '');
-	
 }
 
 function getExtentionFromFilename ( filename ){
-	
 	return filename.split('.').pop();
-	
 };
 
 function removeExtentionFromFileName( filename ){
-	
 	return filename.split('.')[0];
-	
 } 
 
 function getNameFromFullPath( filename ){
@@ -577,7 +601,6 @@ function getNameFromFullPath( filename ){
 }
 
 function fileNameFromInput( inputId ){
-
 	return document.getElementById( inputId ).value;
 }
 

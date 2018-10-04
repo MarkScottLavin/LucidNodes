@@ -37,23 +37,6 @@ var renderer;
 
 var activeGuidePlane;
 
-// Debug obj - if debug.master = true, we'll flags what areas o the code to debug.
-var debug = { 
-	master: false, 
-/*	events: true, */
-/*	entities: true,  */
-/*	externalLoading: true,
-	renderer: true,
-	lucidChart: true, */
-/*	colorLib: true,  */
-/*	scene: true, 
-	cameras: true, 
-	lights: true, 
-	axes: true, 
-	materials: true, 
-	math: true */
-};
-
 /****** RUN CODE ******/
 document.addEventListener( "DOMContentLoaded", init );
 													  
@@ -263,15 +246,44 @@ function lights() {
 	
 	entities.lights = {
 		
-		pureWhiteLight: new THREE.PointLight(0xffffff, 7, 1000),
-		pureWhiteLight2: new THREE.PointLight(0xffffff, 7, 1000),
+		pureWhiteLight: new THREE.PointLight( 0xffffff, 7, 1000 ),
+		pureWhiteLight2: new THREE.PointLight( 0xffffff, 7, 1000 ),
+		spotlight: new THREE.SpotLight( 0xffffff, 0.5 )
 	};
 
 	entities.lights.pureWhiteLight.position.set(500,500,500);
+	entities.lights.pureWhiteLight.castShadow = true;
+    entities.lights.pureWhiteLight.shadowCameraNear = 200;
+    entities.lights.pureWhiteLight.shadowCameraFar = entities.cameras.perspCamera.far;
+    entities.lights.pureWhiteLight.shadowCameraFov = 50;
+    entities.lights.pureWhiteLight.shadowBias = -0.00022;
+    entities.lights.pureWhiteLight.shadowDarkness = 0.5;
+    entities.lights.pureWhiteLight.shadowMapWidth = 1024;
+    entities.lights.pureWhiteLight.shadowMapHeight = 1024;
+
+
 	entities.lights.pureWhiteLight2.position.set(-500,500,-500);
+	entities.lights.pureWhiteLight2.castShadow = true;
+    entities.lights.pureWhiteLight2.shadowCameraNear = 200;
+    entities.lights.pureWhiteLight2.shadowCameraFar = entities.cameras.perspCamera.far;
+    entities.lights.pureWhiteLight2.shadowCameraFov = 50;
+    entities.lights.pureWhiteLight2.shadowBias = -0.00022;
+    entities.lights.pureWhiteLight2.shadowDarkness = 0.5;
+    entities.lights.pureWhiteLight2.shadowMapWidth = 1024;
+    entities.lights.pureWhiteLight2.shadowMapHeight = 1024;	
+	
+	
+	entities.lights.spotlight.position.set( 0, 100, 1000 );
+	entities.lights.spotlight.castShadow = true;
+	entities.lights.spotlight.shadow.mapSize.width = 1024;
+	entities.lights.spotlight.shadow.mapSize.height = 1024;
+	entities.lights.spotlight.shadow.camera.near = 500;
+	entities.lights.spotlight.shadow.camera.far = 4000;
+	entities.lights.spotlight.shadow.camera.fov = 30;
 
 	scene.add(entities.lights.pureWhiteLight);
-	scene.add(entities.lights.pureWhiteLight2);
+	scene.add(entities.lights.pureWhiteLight2); 
+	scene.add( entities.lights.spotlight );	
 	
 	debug.master && debug.lights && console.log ( 'lights(): ', entities.lights );
 };

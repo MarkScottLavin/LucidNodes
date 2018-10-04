@@ -16,7 +16,7 @@
 
 function circle( parent = scene, radius = 1, segments, thetaStart = 0 , thetaLength = ( Math.PI * 2 ) ){
 	
-	segments = segments !== undefined ? Math.max( 3, segments ) : 24;
+	segments = segments !== undefined ? Math.max( 24, segments ) : 24;
 	
 	var vertices = [];
 	var vertex;
@@ -65,6 +65,34 @@ function Point( position, size = 0.25, color = 0x888888, opacity = 1, parent = s
 	parent.add( this.displayEntity );
 
 }
+
+
+function cylinderBetweenPoints( point1, point2, radius, visible ){
+	
+	var direction = new THREE.Vector3().subVectors( point2, point1 );
+	
+	var orientation = new THREE.Matrix4();
+	orientation.lookAt( point1, point2, new THREE.Object3D().up );
+	orientation.multiply( new THREE.Matrix4().set( 1, 0, 0, 0,
+		0, 0, 1, 0,
+		0, -1, 0, 0,
+		0, 0, 0, 1)); 
+		
+	var geometry = new THREE.CylinderGeometry( radius, radius, direction.length(), 8 );
+	var material = new THREE.MeshBasicMaterial( { color: 0xff0000, transparent: true, opacity: 0.3, visible: visible } );	
+
+	var cylinder = new THREE.Mesh( geometry, material );
+	cylinder.applyMatrix( orientation );
+	
+	// position based on midpoints - there may be a better solution than this
+	cylinder.position.x = ( point2.x + point1.x ) / 2;
+	cylinder.position.y = ( point2.y + point1.y ) / 2;
+	cylinder.position.z = ( point2.z + point1.z ) / 2;
+	
+	return cylinder;
+	
+}
+
 
 /* addGhostOfObj3D()
  *

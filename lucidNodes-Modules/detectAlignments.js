@@ -70,113 +70,37 @@ var snapProximity = 0.5;
 
 // HELPER FUNCTIONS
 
-/*
- * vecComponentIsNearEqual();
- *
- * author @markscottlavin
- *
- * parameters:
- *	
- *	v1: <Vector> - A vector of any length. Presumably a THREE.Vector2 or Vector3,
- *  v2: <Vector> - A vector of any length. Presumably a THREE.Vector2 or Vector3,
- *	component: <String> - Example: "x", "y", or "z" for a THREE.Vector3,
- *	proximity: <Number> - The acceptable distance between the two vector components to return true
- *
- * takes the component of the two vectors and compares them. If they're within the distance "proximity" of one another, returns true. Otherwise returns false. 
- *
- */
-
-function vecComponentIsNearEqual( v1, v2, component, proximity ){
-	
-	if ( _Math.valNear( v1[component], v2[component], proximity ) ){
-		return true;
-	}
-	
-	else { return false; }	
-}
-
-/*
- * vecComponentAreNearEqual();
- *
- * author @markscottlavin
- *
- * parameters:
- *	
- *	v1: <Vector> - A vector of any length. Presumably a THREE.Vector2 or Vector3,
- *  v2: <Vector> - A vector of any length. Presumably a THREE.Vector2 or Vector3,
- *	components: <Array> of <Strings> - Example: ["x", "y"] for a THREE.Vector3,
- *	proximity: <Number> - The acceptable distance between the two vector components to return true
- *
- * Compares the specified components of the two vectors. If they're all within the distance "proximity" of one another, returns true. Otherwise returns false. 
- *
- */
-
-function vecComponentAreNearEqual( v1, v2, components, proximity ){
-	
-	var nearEquiv = [];
-	
-	for ( var c = 0; c < components.length; c++ ){
-		if ( vecComponentIsNearEqual( v1, v2, components[c], proximity ) ){
-			nearEquiv.push( components[c] );
-		}
-	}
-	
-	if ( nearEquiv.length === components.length ){
-		return true;
-	}
-	
-	else { return false; }
-}
-
 
 // Check if a number of vectors have alignments
-function vecAlignments( vectors, proximity ){
+function vecAlignments( vectors, epsilon ){
 	
 	//First we'll see what dimensions all the vectors share.
-	var sharedDimensions = _Math.getSharedDimensions( vectors );
+	var sharedDimensions = _Math.getVecSharedDimensions( vectors );
 	
-	//vecComponentAreNearEqual( )
-	
-}
-
-function getAxisPerpendicularToOrthoPlane( planeAxes ){
-	
-	if ( planeAxes === "xy" ){ return "z" }
-	if ( planeAxes === "xz" ){ return "y" }
-	if ( planeAxes === "yz" ){ return "x" }	
-
-}
-
-function getOrthoPlaneAxesPerpendicularToAxis( axis ){
-	
-	if ( axis === "z" ){ return "xy" }
-	if ( axis === "y" ){ return "xz" }
-	if ( axis === "x" ){ return "yz" }		
-
 }
 
 // END HELPER FUNCTIONS
 
 // APPROXIMATE VALUES
 
-function areNearlyOrthoCoplanar( node1, node2, proximity = snapProximity ){
+function areNearlyOrthoCoplanar( node1, node2, epsilon = snapProximity ){
 	
 	var nearlyOrthoCoplanar = { xy: false, xz: false, yz: false }
 	
-	if ( vecComponentIsNearEqual( node1.position, node2.position, "x", proximity ) ){ nearlyOrthoCoplanar.yz = true; }
-	if ( vecComponentIsNearEqual( node1.position, node2.position, "y", proximity ) ){ nearlyOrthoCoplanar.xz = true; }
-	if ( vecComponentIsNearEqual( node1.position, node2.position, "z", proximity ) ){ nearlyOrthoCoplanar.xy = true; }
+	if ( _Math.vecComponentIsNearEqual( node1.position, node2.position, "x", epsilon ) ){ nearlyOrthoCoplanar.yz = true; }
+	if ( _Math.vecComponentIsNearEqual( node1.position, node2.position, "y", epsilon ) ){ nearlyOrthoCoplanar.xz = true; }
+	if ( _Math.vecComponentIsNearEqual( node1.position, node2.position, "z", epsilon ) ){ nearlyOrthoCoplanar.xy = true; }
 	
 	return nearlyOrthoCoplanar;
 }
 
-function areNearlyOrthoColinear( node1, node2, proximity = snapProximity ){
+function areNearlyOrthoColinear( node1, node2, epsilon = snapProximity ){
 	
 	var nearlyOrthoColinear = { x: false, y: false,	z: false }
 	
-	if ( vecComponentAreNearEqual( node1.position, node2.position, ["x","y"], proximity ) ){ nearlyOrthoColinear.z = true; }
-	if ( vecComponentAreNearEqual( node1.position, node2.position, ["x","z"], proximity ) ){ nearlyOrthoColinear.y = true; }
-	if ( vecComponentAreNearEqual( node1.position, node2.position, ["y","z"], proximity ) ){ nearlyOrthoColinear.x = true; }
+	if ( _Math.vecComponentsAreNearEqual( node1.position, node2.position, ["x","y"], epsilon ) ){ nearlyOrthoColinear.z = true; }
+	if ( _Math.vecComponentsAreNearEqual( node1.position, node2.position, ["x","z"], epsilon ) ){ nearlyOrthoColinear.y = true; }
+	if ( _Math.vecComponentsAreNearEqual( node1.position, node2.position, ["y","z"], epsilon ) ){ nearlyOrthoColinear.x = true; }
 	
 	return nearlyOrthoColinear;
 }
@@ -300,9 +224,9 @@ function detectAllCommonOrthoPlanes(){
 
 function detectAllCommonParallelOrthoPlanes( orthoPlane ){
 	
-	var perpendicular = getAxisPerpendicularToOrthoPlane( orthoPlane );
+	var perpAxis = _Math.getAxisPerpendicularToOrthoPlane( orthoPlane );
 	
-	return getMidPointOfEachBucket( _Math.sortNumbersInArrayIntoBuckets( common.rawDistilledComponentValues[ perpendicular ], snapProximity ) );
+	return getMidPointOfEachBucket( _Math.sortNumbersInArrayIntoBuckets( common.rawDistilledComponentValues[ perpAxis ], snapProximity ) );
 }
 
 function detectAllCommonOrthoLines( precision = "rounded" ){
@@ -311,33 +235,32 @@ function detectAllCommonOrthoLines( precision = "rounded" ){
 	
 	common.orthoLines.x = detectAllCommonOrthoLinesAlongAxis( "x" );
 	common.orthoLines.y = detectAllCommonOrthoLinesAlongAxis( "y" );
-	common.orthoLines.z = detectAllCommonOrthoLinesAlongAxis( "z" );	
+	common.orthoLines.z = detectAllCommonOrthoLinesAlongAxis( "z" );
+	
 }
 
 
 function detectAllCommonOrthoLinesAlongAxis( orthoLine, precision = "rounded" ){
 	
-	var perpendicular = getOrthoPlaneAxesPerpendicularToAxis;
-	var complimentary;
+//	var perpendicular = _Math.getOrthoPlaneAxesPerpendicularToAxis;
+	var complimentary = _Math.getOrthoPlaneAxesComplimentaryToAxis( orthoLine );
+	var compDims = _Math.getOrthoPlaneDimensionsComplimentaryToAxis( orthoLine );
 	var intersectPlanes = [];
 	var potentialOrthoLines = [];
+	var actualOrthoLines = [];
 	
-	if ( orthoLine === "x" ){ complimentary = [ "xy" , "xz" ]; compDims = [ "y", "z" ] }
-	if ( orthoLine === "y" ){ complimentary = [ "xy" , "yz" ]; compDims = [ "x", "z" ] }
-	if ( orthoLine === "z" ){ complimentary = [ "xz" , "yz" ]; compDims = [ "x", "y" ] }
-	
-	// Detect the planes complimentary to the orthoLine	
+	// Detect the planes complimentary to the orthoLine provided	
 	detectAllCommonOrthoPlanes();	
 		
 	// And sort the planes...
-	var planeSets = {}
+	var planeSets = {};
 	
 	planeSets[ complimentary[0] ] = common.orthoPlanes[ complimentary[0] ][precision];
 	planeSets[ complimentary[1] ] = common.orthoPlanes[ complimentary[1] ][precision];
 	
-	var guideLines = []
+	var guideLines = [];
 	
- 	// For each plane in one direction, get the pair of values perpendicular to the orthoLine that it shares with each plane it intersects with in the other direction	
+ 	// For all planes along one orthoLine, get the pair of values perpendicular to the orthoLine that it shares with each plane it intersects with in the other direction	
 		
 	for ( var i = 0; i < planeSets[ complimentary[0] ].length; i++ ){
 		
@@ -347,25 +270,25 @@ function detectAllCommonOrthoLinesAlongAxis( orthoLine, precision = "rounded" ){
 			for ( var j = 0; j < planeSets[ complimentary[1] ].length; j++ ){
 				var y = planeSets[ complimentary[1] ][j];
 				potentialOrthoLines.push( { x: 0, y: y , z: z } ); 
-				guideLines.push( new guideLine( { x: -worldExtents, y: y, z: z }, { x: worldExtents, y: y, z: z } ) );
+				guideLines.push( new guideLine( { startPoint: { x: -worldExtents, y: y, z: z }, endPoint: { x: worldExtents, y: y, z: z }, definedBy: "situation" } ) );
 			}
 		}
-		if ( orthoLine === "y" ){ 
+		else if ( orthoLine === "y" ){ 
 			var z = planeSets[ complimentary[0] ][i];		
 
 			for ( var j = 0; j < planeSets[ complimentary[1] ].length; j++ ){			
 				var x = planeSets[ complimentary[1] ][j];
 				potentialOrthoLines.push( { x: x, y: 0, z: z } );
-				guideLines.push(  new guideLine( { x: x, y: -worldExtents, z: z }, { x: x, y: worldExtents, z: z } ) );
+				guideLines.push(  new guideLine( { startPoint: { x: x, y: -worldExtents, z: z }, endPoint: { x: x, y: worldExtents, z: z }, definedBy: "situation" } ) );
 			}
 		}
-		if ( orthoLine === "z" ){ 
+		else if ( orthoLine === "z" ){ 
 			var y = planeSets[ complimentary[0] ][i];		
 
 			for ( var j = 0; j < planeSets[ complimentary[1] ].length; j++ ){						
 				var x = planeSets[ complimentary[1] ][j];			
 				potentialOrthoLines.push( { x: x, y: y, z: 0 } ); 
-				guideLines.push( new guideLine( { x: x, y: y, z: -worldExtents }, { x: x, y: y, z: worldExtents } ) ); 
+				guideLines.push( new guideLine( { startPoint: { x: x, y: y, z: -worldExtents }, endPoint: { x: x, y: y, z: worldExtents }, definedBy: "situation" } ) ); 
 			}
 		}
 		
@@ -375,9 +298,7 @@ function detectAllCommonOrthoLinesAlongAxis( orthoLine, precision = "rounded" ){
 		showGuide( guideLines[g].line );
 	}
 		
-	potentialOrthoLines = Array.from(new Set( potentialOrthoLines ));
-	
-	var actualOrthoLines = [];
+	potentialOrthoLines = Array.from( new Set( potentialOrthoLines ));
 	
 	for ( var p = 0; p < potentialOrthoLines.length; p++ ){
 		
@@ -391,17 +312,19 @@ function detectAllCommonOrthoLinesAlongAxis( orthoLine, precision = "rounded" ){
 		else { removeGuideLine( guideLines[p] ) }
 	}
 	
+	guideLines.forEach( function( x ){ cognition.guides.lines.push( x ); });
+
 	return actualOrthoLines;
 }
 
-function isActualOrthoGuideLine( orthoLine, nodeArr, components, proximity ){ 
+function isActualOrthoGuideLine( orthoLine, nodeArr, components, epsilon ){ 
 
 	var isActual = false;
 	var actualCount = 0; 
 	
 	for ( n = 0; n < nodeArr.length; n++ ){
 		
-		if ( vecComponentAreNearEqual( orthoLine, nodeArr[n].position, components , proximity ) ){
+		if ( _Math.vecComponentsAreNearEqual( orthoLine, nodeArr[n].position, components , epsilon ) ){
 			actualCount++
 		}
 		
@@ -431,13 +354,13 @@ function getMidPointOfEachBucket( nestedNumArr ){
 	return midPoints;
 }
 
-function getNodesNear( nodeArr, component, testVal, proximity = snapProximity ){
+function getNodesNear( nodeArr, component, testVal, epsilon = snapProximity ){
 	
 	var nodesNear = [];
 	
 	for ( var n = 0; n < nodeArr.length; n++ ){
 		
-		if ( _Math.valNear ( nodeArr[n].position[component], testVal, proximity ) ){
+		if ( _Math.valNear ( nodeArr[n].position[component], testVal, epsilon ) ){
 			nodesNear.push( nodeArr[n] );
 		}
 	}
@@ -445,9 +368,9 @@ function getNodesNear( nodeArr, component, testVal, proximity = snapProximity ){
 	return nodesNear;
 }
 
-function getAllNodesNear( component, testVal, proximity = snapProximity ){
+function getAllNodesNear( component, testVal, epsilon = snapProximity ){
 
-	return getNodesNear( cognition.nodes, component, testVal, proximity );
+	return getNodesNear( cognition.nodes, component, testVal, epsilon );
 
 }
 
@@ -490,7 +413,7 @@ function projectNodesToOrthoPlane( nodeArr, planeAxes, offset ){
 
 function projectNodeToOrthoPlane( node, planeAxes, offset ){
 	
-	var component = getAxisPerpendicularToOrthoPlane( planeAxes );
+	var component = _Math.getAxisPerpendicularToOrthoPlane( planeAxes );
 	node.position[component] = offset;
 	moveNodeTo( node, node.position );	
 }

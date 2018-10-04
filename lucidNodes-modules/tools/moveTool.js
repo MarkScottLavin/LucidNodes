@@ -112,7 +112,7 @@ var moveNodesWithTool = function( e ){
 			// If only "X" is down, constrain to x-axis.
 			if ( keysPressed.keys.includes ( "x" ) && !keysPressed.keys.includes( "y" ) && !keysPressed.keys.includes( "z" ) ){
 				
-				showGuide( guides.lines.x );
+				showGuide( presetGuides.lines.x );
 			
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 
@@ -124,7 +124,7 @@ var moveNodesWithTool = function( e ){
 			// If only "Y" is down, constrain to y-axis.
 			if ( keysPressed.keys.includes( "y" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "z" ) ){
 
-				showGuide( guides.lines.y );
+				showGuide( presetGuides.lines.y );
 			
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 					
@@ -136,7 +136,7 @@ var moveNodesWithTool = function( e ){
 			// If only "Z" is down, constrain to z-axis.
 			if ( keysPressed.keys.includes( "z" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "y" ) ){
 				
-				showGuide( guides.lines.z );				
+				showGuide( presetGuides.lines.z );				
 
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 					
@@ -250,14 +250,14 @@ function onMoveToolKeyUp( event ){
 		bailMoveTool();		
 		
 		if ( toolState.move ){
-			document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initMoveTool0Point, false );			
+			document.getElementById('visualizationContainer').addEventListener( 'mousemove', initMoveTool0Point, false );			
 			document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveToolPoint0FollowMouse, false );			
 		}			
 	} 
 	
-	event.key === "x" && hideGuide( guides.lines.x );
-	event.key === "y" && hideGuide( guides.lines.y );
-	event.key === "z" && hideGuide( guides.lines.z );	
+	event.key === "x" && hideGuide( presetGuides.lines.x );
+	event.key === "y" && hideGuide( presetGuides.lines.y );
+	event.key === "z" && hideGuide( presetGuides.lines.z );	
 	
 }
 

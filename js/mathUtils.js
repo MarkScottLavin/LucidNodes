@@ -60,10 +60,10 @@ var _Math = {
 		return converted;
 	},
 	
-	valNear: function( val, testVal, proximity ){
+	valNear: function( val, testVal, epsilon ){
 		
-		var rangeMax = testVal + proximity;
-		var rangeMin = testVal - proximity;
+		var rangeMax = testVal + epsilon;
+		var rangeMin = testVal - epsilon;
 
 		if ( val >= rangeMin && val <= rangeMax ){
 			return true;
@@ -185,8 +185,6 @@ var _Math = {
 		var vecDist = _Math.vecAbsDistance( node1, node2 );
 		var threeVec = new THREE.Vector3( vecDist.x, vecDist.y, vecDist.z );
 		
-		// console.log( threeVec );
-		// console.log( "_Math.linearDistance( ", node1.id, ", ", node2.id, "  ): ", threeVec.length() );
 		return threeVec.length();
 	},
 	
@@ -199,7 +197,6 @@ var _Math = {
 		} 
 		else { absVal = val || 0; }
 		
-		// console.log( "_Math.absVal( ", val, " ): ", absVal );
 		return absVal;
 	},
 	
@@ -211,7 +208,6 @@ var _Math = {
 		addPos.addVectors( node1.position, node2.position );
 		avgPos = addPos.divideScalar( 2 );
 				
-		// console.log( "_Math.avgPosition( ", node1.id, ", ", node2.id, "  ): ", avgPos.x, ", ", avgPos.y, ", ", avgPos.z );
 		return addPos;
 	},	
 	
@@ -403,7 +399,129 @@ var _Math = {
 	
 		return Math.sqrt( ( Math.pow( a, 2 ) + Math.pow( b, 2 ) ) );
 	
+	},
+	
+	/* computeCentroid() 
+	 *
+	 * author: @markscottlavin
+	 *
+	 * parameters:
+	 * 	positions: <Array> of <Objects> of the form { x: <number>, y: <number>, z: <number> } 
+	 * 
+	 * Returns the centtroid position (center of the array of positions).
+	 *
+	 */		
+	
+	computeCentroid: function( positions ){
+		
+		var centroid = new THREE.Vector3();
+		var sum = new THREE.Vector3();
+		
+			// take the positionns of all objects in the positions array and compute their centroid
+			
+			for ( var n = 0; n < positions.length; n++ ){
+			
+				sum.addVectors( sum, positions[n] );
+			}
+			
+			centroid = sum.divideScalar( positions.length );
+			
+			debug.master && debug.math && console.log( "computeCentroid( ", positions , " ) ", centroid );
+			
+			return centroid;
+			
+	},
+
+	/*
+	 * vecComponentIsNearEqual();
+	 *
+	 * author @markscottlavin
+	 *
+	 * parameters:
+	 *	
+	 *	v1: <Vector> - A vector of any length. Presumably a THREE.Vector2 or Vector3,
+	 *  v2: <Vector> - A vector of any length. Presumably a THREE.Vector2 or Vector3,
+	 *	component: <String> - Example: "x", "y", or "z" for a THREE.Vector3,
+	 *	epsilon: <Number> - The acceptable distance between the two vector components to return true
+	 *
+	 * takes the component of the two vectors and compares them. If they're within the distance "epsilon" of one another, returns true. Otherwise returns false. 
+	 *
+	 */
+
+	vecComponentIsNearEqual: function( v1, v2, component, epsilon ){
+		
+		if ( _Math.valNear( v1[component], v2[component], epsilon ) ){
+			return true;
+		}
+		
+		else { return false; }	
+	},
+
+	/*
+	 * vecComponentAreNearEqual();
+	 *
+	 * author @markscottlavin
+	 *
+	 * parameters:
+	 *	
+	 *	v1: <Vector> - A vector of any length. Presumably a THREE.Vector2 or Vector3,
+	 *  v2: <Vector> - A vector of any length. Presumably a THREE.Vector2 or Vector3,
+	 *	components: <Array> of <Strings> - Example: ["x", "y"] for a THREE.Vector3,
+	 *	epsilon: <Number> - The acceptable distance between the two vector components to return true
+	 *
+	 * Compares multiple specified components of the two vectors. If they're all within the distance "epsilon" of one another, returns true. Otherwise returns false. 
+	 *
+	 */
+
+	vecComponentsAreNearEqual: function( v1, v2, components, epsilon ){
+		
+		var nearEquiv = [];
+		
+		for ( var c = 0; c < components.length; c++ ){
+			if ( _Math.vecComponentIsNearEqual( v1, v2, components[c], epsilon ) ){
+				nearEquiv.push( components[c] );
+			}
+		}
+		
+		if ( nearEquiv.length === components.length ){
+			return true;
+		}
+		
+		else { return false; }
+	},
+	
+	getAxisPerpendicularToOrthoPlane: function( planeAxes ){
+		
+		if ( planeAxes === "xy" ){ return "z" }
+		else if ( planeAxes === "xz" ){ return "y" }
+		else if ( planeAxes === "yz" ){ return "x" }	
+
+	},
+
+	getOrthoPlaneAxesPerpendicularToAxis: function( axis ){
+		
+		if ( axis === "x" ){ return "yz" }				
+		else if ( axis === "y" ){ return "xz" }
+		else if ( axis === "z" ){ return "xy" }
+
+	},
+	
+	getOrthoPlaneDimensionsComplimentaryToAxis: function( axis ){
+
+		if ( axis === "x" ){ return [ "y", "z" ]; }
+		else if ( axis === "y" ){ return [ "x", "z" ]; }
+		else if ( axis === "z" ){ return [ "x", "y" ]; }	
+		
+	},
+	
+	getOrthoPlaneAxesComplimentaryToAxis: function( axis ){
+		
+		if ( axis === "x" ){ return [ "xy" , "xz" ]; }
+		else if ( axis === "y" ){ return [ "xy" , "yz" ]; }
+		else if ( axis === "z" ){ return [ "xz" , "yz" ]; }
+		
 	}
+
 }
 
 /* Some trig helper functions that are now not needed but might be useful in the future. */
@@ -469,5 +587,6 @@ var _Trig = {
 		if ( !sinIsPositive( theta ) && cosIsPositive ( theta ) ){ quadrant = 4; }
 		
 		return quadrant;
-	},
+	}
+	
 }

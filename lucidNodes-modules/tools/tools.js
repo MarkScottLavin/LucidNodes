@@ -201,6 +201,8 @@ var toolState = {
 		del: 0,
 		paint: 0,
 		eyedropper: 0,
+		addGuideCircle: 0,
+		addGuideLine: 0,
 		toolIsActive: false
 };
 
@@ -289,7 +291,7 @@ function addToolListeners( tool = "select" ){
 		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initRotTool0Point, false );
 		
 		document.getElementById('visualizationContainer').addEventListener( 'mouseup', activateRotationTool, false );
-		document.addEventListener( 'keyup', function(e){ onRotToolKeyUp(e); }, false );		
+		document.addEventListener( 'keyup', onRotToolKeyUp, false );		
 	}
 	
 	if ( tool === "paint" ){
@@ -305,7 +307,7 @@ function addToolListeners( tool = "select" ){
 		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initMoveTool0Point, false );
 		
 		document.getElementById('visualizationContainer').addEventListener( 'mouseup', activateMoveTool, false );
-		document.addEventListener( 'keyup', function(e){ onMoveToolKeyUp(e); }, false );	
+		document.addEventListener( 'keyup', onMoveToolKeyUp, false );	
 	}
 	
 	if ( tool === "addEdge" ){
@@ -318,6 +320,21 @@ function addToolListeners( tool = "select" ){
 		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initAddNodeToolLine, false );			
 		document.getElementById('visualizationContainer').addEventListener( 'mouseup' , activateAddNodeTool, false );			
 	} 
+	
+	if ( tool === "addGuideLine" ){
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initAddGuideLineToolProposedLine, false );
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initAddGuideLineToolLine, false );			
+		document.getElementById('visualizationContainer').addEventListener( 'mouseup' , activateAddGuideLineTool, false );	
+		document.addEventListener( 'keyup', onAddGuideLineToolKeyUp, false );		
+	} 	
+	
+	if ( tool === "addGuideCircle" ){
+//		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , addGuideCircleCenterFollowMouse, false );
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initAddguideCircleToolHeightMarker, false );		
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initAddGuideCircleToolProposedCircle, false );			
+		document.getElementById('visualizationContainer').addEventListener( 'mouseup' , activateAddGuideCircleTool, false );	
+		document.addEventListener( 'keyup', onAddGuideCircleToolKeyUp, false );		
+	} 		
 }
 
 function removeToolListeners( tool ){
@@ -333,8 +350,8 @@ function removeToolListeners( tool ){
 	if ( tool === "rotate" ){
 		
 		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', activateRotationTool, false );
-		document.removeEventListener( 'keyup', function(e){ onRotToolKeyUp(e); }, false );	
-		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initRotTool0Point, false );	
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initRotTool0Point, false );
+		document.removeEventListener( 'keyup', onRotToolKeyUp, false );			
 		bailRotTool();
 
 	}	
@@ -353,8 +370,8 @@ function removeToolListeners( tool ){
 	if ( tool === "move" ){
 		
 		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', activateMoveTool, false );
-		document.removeEventListener( 'keyup', function(e){ onMoveToolKeyUp(e); }, false );	
 		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initMoveTool0Point, false );
+		document.removeEventListener( 'keyup', onMoveToolKeyUp, false );	
 		bailMoveTool();		
 		
 	}
@@ -369,13 +386,32 @@ function removeToolListeners( tool ){
 		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initAddNodeToolLine, false );		
 		document.getElementById('visualizationContainer').removeEventListener( 'mouseup' , activateAddNodeTool, false );			
 		bailAddNodeTool();
-	} 	
+	}
+
+	if ( tool === "addGuideLine" ){
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initAddGuideLineToolProposedLine, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initAddGuideLineToolLine, false );		
+		document.getElementById('visualizationContainer').removeEventListener( 'mouseup' , activateAddGuideLineTool, false );
+		document.removeEventListener( 'keyup', onAddGuideLineToolKeyUp, false );			
+		bailAddGuideLineTool();
+	}
+
+	if ( tool === "addGuideCircle" ){
+//		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , addGuideCircleCenterFollowMouse, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initAddguideCircleToolHeightMarker, false );		
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initAddGuideCircleToolProposedCircle, false );	
+		document.getElementById('visualizationContainer').removeEventListener( 'mouseup' , activateAddGuideCircleTool, false );		
+		document.removeEventListener( 'keyup', onAddGuideCircleToolKeyUp, false );				
+		bailAddGuideCircleTool();		
+	}  	
 }
 
 var activateAddEdgeTool = function( e ){ addEdgeTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
 var activateRotationTool = function( e ){ rotationTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
 var activateMoveTool = function( e ){ moveTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
 var activateAddNodeTool = function( e ){ addNodeTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
+var activateAddGuideLineTool = function( e ){ addGuideLineTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
+var activateAddGuideCircleTool = function( e ){ addGuideCircleTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
 var paintGraphElements = function( e ){ paintGraphElementOnMouseUp(); };
 var getGraphElementColor = function( e ){ selectGraphElementColorOnMouseUp(); };
 

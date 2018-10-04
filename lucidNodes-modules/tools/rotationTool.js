@@ -65,13 +65,13 @@ var angleLine1ToMouse = function( e ){
 var getRotToolQuaternion = function( e ){
 	
 	updateRotToolQuaternions();
-	console.log( "getRotToolQuaternion: Last ", rotToolState.quaternion.last );
-	console.log( "getRotToolQuaternion: Current ", rotToolState.quaternion.current );
+	debug.master && debug.rotation && console.log( "getRotToolQuaternion: Last ", rotToolState.quaternion.last );
+	debug.master && debug.rotation && console.log( "getRotToolQuaternion: Current ", rotToolState.quaternion.current );
 }
 
 var getRotToolEuler = function( e ){
 	rotToolState.eul = getEulerBetweenVec3sOriginatingAtPoint( rotToolState.points[1].position, rotToolState.points[2].position, rotToolState.points[0].position );
-	console.log( "getRotToolEul", rotToolState.eul );
+	debug.master && debug.rotation && console.log( "getRotToolEul", rotToolState.eul );
 }
 
 var rotNodesWithTool = function( e ){

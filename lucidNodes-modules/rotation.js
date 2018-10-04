@@ -164,7 +164,7 @@ function applyQuaternionToVec3( v, quaternion ){
 	
 	v.applyQuaternion( quaternion );
 	
-	console.log( "applyQuaternionToVec3(): ", v );
+	debug.master && debug.rotation && console.log( "applyQuaternionToVec3(): ", v );
 	
 	return v;
 }

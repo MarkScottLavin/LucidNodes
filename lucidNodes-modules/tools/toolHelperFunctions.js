@@ -63,3 +63,29 @@ function zoomOut( scale ){
 	entities.browserControls.dollyOut( scale );
 	entities.browserControls.update(); 		
 } 
+
+function getMousePoint(){
+	
+	var mousePoint = new THREE.Vector3();
+	
+	if ( !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes ( "y" ) && !keysPressed.keys.includes ( "z" ) ){	
+		mousePoint.copy( placeAtPlaneIntersectionPoint( activeGuidePlane ) );
+	}	
+	
+	// If only "X" is down, suppress movement along the x-axis.
+	if ( keysPressed.keys.includes ( "x" ) && !keysPressed.keys.includes( "y" ) && !keysPressed.keys.includes( "z" ) ){
+		mousePoint.set( 0, placeAtPlaneIntersectionPoint( activeGuidePlane ).y, placeAtPlaneIntersectionPoint( activeGuidePlane ).z );		
+	}
+	
+	// If only "Y" is down, supporess movement along the y-axis.
+	if ( keysPressed.keys.includes( "y" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "z" ) ){
+		mousePoint.set( placeAtPlaneIntersectionPoint( activeGuidePlane ).x, 0, placeAtPlaneIntersectionPoint( activeGuidePlane ).z );
+	}		
+	
+	// If only "Z" is down, supproess movement along the z-axis.
+	if ( keysPressed.keys.includes( "z" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "y" ) ){
+		mousePoint.set( placeAtPlaneIntersectionPoint( activeGuidePlane ).x, placeAtPlaneIntersectionPoint( activeGuidePlane ).y, 0 );				
+	}	
+	
+	return mousePoint;
+}

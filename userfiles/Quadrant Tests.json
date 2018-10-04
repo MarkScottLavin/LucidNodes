@@ -1,31 +1,25 @@
 {
   "nodes": [
     {
-      "id": "n000",
-      "name": "n000",
-      "color": 8421504,
-      "position": {
-        "x": 4.190309511894838,
-        "y": -2.0786899514393937e-15,
-        "z": 6.638412709278752
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
       },
-      "opacity": 0.75,
-      "label": {
-        "text": "n000",
-        "opacity": 0.2
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
       },
-      "labelOpacity": 0.2,
-      "castShadows": true,
-      "radius": 0.5,
-      "shape": "sphere"
-    },
-    {
       "id": "n001",
       "name": "Q3",
       "color": 0,
       "position": {
         "x": -10,
-        "y": 0,
+        "y": 1.2724619397688584,
         "z": -10
       },
       "opacity": 0.75,
@@ -34,17 +28,30 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "sphere"
     },
     {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
       "id": "n002",
       "name": "Q2",
       "color": 0,
       "position": {
         "x": 10,
-        "y": 0,
+        "y": 1.2724619397688584,
         "z": -10
       },
       "opacity": 0.75,
@@ -53,17 +60,30 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "sphere"
     },
     {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
       "id": "n004",
       "name": "Q1",
       "color": 0,
       "position": {
         "x": 10,
-        "y": 0,
+        "y": 1.2724619397688584,
         "z": 10
       },
       "opacity": 0.75,
@@ -72,17 +92,30 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "sphere"
     },
     {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
       "id": "n005",
       "name": "Q4",
       "color": 0,
       "position": {
         "x": -10,
-        "y": 0,
+        "y": 1.2724619397688584,
         "z": 10
       },
       "opacity": 0.75,
@@ -91,7 +124,7 @@
         "opacity": 0.2
       },
       "labelOpacity": 0.2,
-      "castShadows": true,
+      "src": null,
       "radius": 0.5,
       "shape": "sphere"
     }

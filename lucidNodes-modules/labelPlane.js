@@ -1,10 +1,11 @@
 // Label Variables
 
 globalAppSettings.defaultNodeLabelFontSize = 64;
-globalAppSettings.defaultNodeLabelOpacity = 0.2;
+globalAppSettings.defaultNodeLabelOpacity = 0.8;
+globalAppSettings.defaultNodeLabelBackgroundOpacity = 0.2;
 
 globalAppSettings.defaultEdgeLabelFontSize = 32;
-globalAppSettings.defaultEdgeLabelOpacity = 0.2;
+globalAppSettings.defaultEdgeLabelOpacity = 0.1;
 
 globalAppSettings.defaultTextLineSpacing = 1.2; 
 globalAppSettings.labelScaleBaseFactor = 3;
@@ -54,8 +55,9 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 
 	/* Background */
 	this.backgroundColor = parameters.hasOwnProperty("backgroundColor") ? parameters["backgroundColor"] : { r: 255, g: 255, b: 255 };
-	this.opacity = parameters.hasOwnProperty("opacity") ? parameters["opacity"] : 1 ;
-	this.backgroundColor.a = this.opacity;
+	this.opacity = parameters.hasOwnProperty("opacity") ? parameters["opacity"] : globalAppSettings.defaultNodeLabelOpacity;
+	this.backgroundOpacity = parameters.hasOwnProperty("backgroundOpacity") ? parameters["backgroundOpacity"] : globalAppSettings.defaultNodeLabelBackgroundOpacity;
+	this.backgroundColor.a = this.backgroundOpacity;
 	
 	this.textLineThickness = parameters.hasOwnProperty("textLineThickness") ? parameters["textLineThickness"] : this.borderThickness;
 	this.paddingX = parameters.hasOwnProperty("paddingX") ? parameters["paddingX"] : this.textLineThickness;
@@ -126,8 +128,8 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 
 		labelScale( this, this.scaleFactor * 1.333 );
 		
-		console.log( "newLabelType.onMouseOver(): uv coords: ", this.displayEntity.uv );
-		console.log( "newLabelType.onMouseOver(): ray: ", ray );
+		debug.master && debug.labels && console.log( "newLabelType.onMouseOver(): uv coords: ", this.displayEntity.uv );
+		debug.master && debug.labels && console.log( "newLabelType.onMouseOver(): ray: ", ray );
 		//isIntersectPointInContextFillPath( this.canvas.context );
 		
 		this.node.onMouseOverLabel();
@@ -145,7 +147,7 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	
 	this.onClick = function(){
 		
-		this.backgroundColor = { r: 0, g: 0, b: 255, a: this.opacity };
+		this.backgroundColor = { r: 0, g: 0, b: 255, a: this.backgroundOpacity };
 		
 		clearLabelText( this );			
 		makeFilledPathIn2DContext( this, this.textWidth, this.totalTextHeight, this.backgroundColor, this.borderThickness ); 
@@ -154,7 +156,7 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	
 	this.onClickOutside = function(){
 		
-		this.backgroundColor = { r: 255, g: 255, b: 255, a: this.opacity };
+		this.backgroundColor = { r: 255, g: 255, b: 255, a: this.backgroundOpacity };
 		
 		clearLabelText( this );			
 		makeFilledPathIn2DContext( this, this.textWidth, this.totalTextHeight, this.backgroundColor, this.borderThickness ); 
@@ -525,7 +527,7 @@ function createNodeLabel( node ){
 			fontsize: node.labelFontsize || globalAppSettings.defaultNodeLabelFontSize,
 			textColor: node.labelColor || node.color,
 			borderColor: node.labelColor || node.color,
-			opacity: node.labelOpacity || globalAppSettings.defaultNodeLabelOpacity
+			opacity: /* node.labelOpacity || */ globalAppSettings.defaultNodeLabelOpacity
 		});
 }
 

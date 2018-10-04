@@ -166,7 +166,7 @@ Object.assign( JSONLoader.prototype, {
 				hasFaceColor = isBitSet( type, 6 );
 				hasFaceVertexColor = isBitSet( type, 7 );
 
-				// console.log("type", type, "bits", isQuad, hasMaterial, hasFaceVertexUv, hasFaceNormal, hasFaceVertexNormal, hasFaceColor, hasFaceVertexColor);
+				debug.master && debug.loadObjs && console.log("type", type, "bits", isQuad, hasMaterial, hasFaceVertexUv, hasFaceNormal, hasFaceVertexNormal, hasFaceColor, hasFaceVertexColor);
 
 				if ( isQuad ) {
 
