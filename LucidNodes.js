@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.32
+	* Version 0.1.32.2
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -23,6 +23,7 @@ var nodeCounter = 0;
 var paneCounter = 0;
 var groupCounter = 0;
 var guideCounter = 0;
+var guideGroupCounter = 0;
 
 var encodeId = function( type, counter ){
 	
@@ -36,15 +37,15 @@ var encodeId = function( type, counter ){
 		prefix = "p";
 		b36string = paneCounter.toString( 36 );
 		paneCounter++ }
-/*	else if ( type === "group" ){ 
-		prefix = "g";
-		b36string = groupCounter.toString( 36 );
-		groupCounter++ } */
 	else if ( type === "guide" ){ 
 		prefix = "g";
 		b36string = guideCounter.toString( 36 );
 		guideCounter++ }		
-	
+	else if ( type === "guideGroup" ){ 
+		prefix = "gg";
+		b36string = groupCounter.toString( 36 );
+		guideGroupCounter++ }
+		
 	var id = b36string + "";
 	var digits = 3;
 	while ( id.length < ( digits ) ){
@@ -216,8 +217,8 @@ var LUCIDNODES = {
 			toTarget: node2,
 			distanceAsVec3: _Math.distanceAsVec3( node1.position, node2.position ),
 			vecAbsDistance: _Math.vecAbsDistance( node1, node2 ),
-			linearDistance: _Math.linearDistanceBetweenNodes( node1, node2 ),
-			avgPosition: _Math.avgPosition( node1, node2 )		
+			linearDistance: _Math.linearDistanceBetweenVec3s( node1.position, node2.position ),
+			avgPosition: _Math.avgPosition( node1.position, node2.position )		
 		};
 		
 		debug.master && debug.positioning && console.log( "nodePositionComparison: ", this.relativePosition );
@@ -560,7 +561,7 @@ var LUCIDNODES = {
 			cursorInScene( "crosshair" );
 		};
 		
-		this.centerPoint = _Math.avgPosition( this.nodes[0], this.nodes[1] );
+		this.centerPoint = _Math.avgPosition( this.nodes[0].position, this.nodes[1].position );
 		
 		createEdgeLabel( this );
 
@@ -1348,7 +1349,7 @@ function pullEdge( edge ){
 	
 	edge.geom.verticesNeedUpdate = true;
 	
-	edge.centerPoint = _Math.avgPosition( edge.nodes[0], edge.nodes[1] );	
+	edge.centerPoint = _Math.avgPosition( edge.nodes[0].position, edge.nodes[1].position );	
 	positionLabel( edge.label, edge.centerPoint );
 	
 }
@@ -1754,8 +1755,6 @@ function deleteNode( node ){
 	
 	var nodeIndex = cognition.nodes.indexOf( node );	
 	
-//	unSelectNode( node );
-	
 	removeNodeDisplayEntity( node );	
 	cognition.nodes.splice( nodeIndex, 1 );	
 
@@ -1779,8 +1778,6 @@ function deleteEdge( edge ){
 	removeEdgeDisplayEntity( edge );
 	deleteGraphElementLabel( edge );
 	
-//	unSelectEdge( edge );
-	
 	var edgeCognitionIndex = cognition.edges.indexOf( edge );
 	var edgeNodeIndex;
 	
@@ -1803,7 +1800,7 @@ function deleteEdgeArray( edgeArr ){
 
 }
 
-function deleteAllSelected(){
+function deleteSelectedGraphElements(){
 	
 	SELECTED.nodes.length > 0 && deleteNodeArray( SELECTED.nodes );
 	SELECTED.edges.length > 0 && deleteEdgeArray( SELECTED.edges );
@@ -1908,7 +1905,7 @@ function selectEdgesWithPhrase( phrase ){
 
 function selectAllWithPhrase( phrase ){
 	
-	unSelectAll();
+	unSelectAllGraphElements();
 	
 	if ( cognition.nodes && cognition.nodes.length > 0 && phrase ){
 		
@@ -1947,5 +1944,39 @@ function changeContentTypeOfNodes( nodeArr, contentType ){
 		for ( var n = 0; n < nodeArr.length; n++ ){
 			changeNodeContentType( nodeArr[n], contentType );
 		}
+	}
+}
+
+/* Searching for node at position */
+
+function getNodeAtPosition( position ){
+	
+	if ( position && position.x && position.y && position.z && cognition.nodes.length ){
+		for ( var x = 0; x < cognition.nodes.length; x++ ){
+			if ( position.x === cognition.nodes[ x ].position.x && position.y === cognition.nodes[ x ].position.y && position.z === cognition.nodes[ x ].position.z ){
+				return cognition.nodes[ x ];
+			}
+		}
+	}
+}
+
+function getNodesAtPositions( positions ){
+	
+	var nodeArr = [];
+	
+	if ( positions && positions.length > 0 ){
+		for ( var p = 0; p < positions.length; p++ ){
+			let node = getNodeAtPosition( positions[ p ] );
+			if ( node ){ nodeArr.push( node ); }
+		}
+	}
+	
+	return nodeArr;
+}
+
+function selectNearestNodesTo( position, number ){
+	
+	if ( position && position.x && position.y && position.z ){
+		selectNodeArray( getNodesAtPositions( _Math.findVectorsNearestTo ( position, getNodePositionsAsArray( cognition.nodes ), number ) ) );
 	}
 }

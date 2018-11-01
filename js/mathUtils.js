@@ -1,6 +1,6 @@
 /****************************************************
 	* MATHUTILS.JS: 
-	* Version 0.1.1
+	* Version 0.1.2
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -129,6 +129,68 @@ var _Math = {
 		
 		return captureKeys;
 	},
+	
+	vec3ExistsInArray: function( v, vArr ){
+		
+		var exists = false;
+		
+		for ( var i = 0; i < vArr.length; i++ ){
+			
+			if ( v.x === vArr[i].x && v.y === vArr[i].y && v.z === vArr[i].z ){
+				exists = true;
+				break;
+			}
+		}
+		
+		return exists;
+	},
+
+	findVectorsNearestTo: function( vec3, vecArray, number ){
+		
+		if ( !number ){ number = 1 };
+		
+		var distances = [];
+		
+		for ( var a = 0; a < vecArray.length; a++ ){
+			distances.push ( _Math.linearDistanceBetweenVec3s( vec3, vecArray[ a ] ) );
+		}	
+		
+		var minDistances = distances.slice();
+		minDistances.sort(function(a,b){return a - b});
+		minDistances = minDistances.slice( 0, number );
+
+		var nearestVectors = [];	
+		var last;
+		
+		console.log( distances );
+		console.log( vecArray );
+		
+		for ( var b = 0; b < number; b++ ){
+		
+			for ( var i = 0; i < distances.length; i++ ){
+				
+				last = nearestVectors.slice( -1 ).pop();
+				
+				if ( minDistances[b] === distances[i] && !last ){
+					nearestVectors.push( vecArray[ i ] );	
+					break;
+				}
+			
+				else if ( minDistances[ b ] === distances[ i ] && last ){
+					
+					let vertexIsInminDistances = _Math.vec3ExistsInArray( vecArray[ i ], nearestVectors );
+					
+					if ( !vertexIsInminDistances ){
+						nearestVectors.push( vecArray[ i ] );
+						break;				
+					}
+				}
+			}		
+		}
+
+		return nearestVectors;	
+	},		
+	
 
 	/*
 	 * getVecSharedDimensions( vec )
@@ -180,13 +242,9 @@ var _Math = {
 		return sharedDims;
 	},
 	
-	linearDistanceBetweenNodes: function ( node1, node2 ) {
-		
-		var vecDist = _Math.vecAbsDistance( node1, node2 );
-		var threeVec = new THREE.Vector3( vecDist.x, vecDist.y, vecDist.z );
-		
-		return threeVec.length();
-	},
+	linearDistanceBetweenVec3s: function ( v1, v2 ){
+		return new THREE.Vector3().subVectors( v1, v2 ).length();
+	},	
 	
 	absVal: function( val ) {
 		
@@ -200,12 +258,12 @@ var _Math = {
 		return absVal;
 	},
 	
-	avgPosition: function ( node1, node2 ) {
+	avgPosition: function ( position1, position2 ) {
 		
 		var addPos = new THREE.Vector3();		
 		var avgPos = new THREE.Vector3();
 		
-		addPos.addVectors( node1.position, node2.position );
+		addPos.addVectors( position1, position2 );
 		avgPos = addPos.divideScalar( 2 );
 				
 		return addPos;

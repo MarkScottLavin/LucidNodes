@@ -1,7 +1,7 @@
 /*
  * OriginalRotationHandling Module
  * Author: Mark Scott Lavin
- * Versioin 0.1
+ * Versioin 0.1.1
  *
  * Use these functions to manage situations where an Object3D's prior rotation must be stored and restored, for instance:
  *  - when a user escapes out of a tool or restricts obj3D movement to a particular plane or direction while a tool is active.
@@ -14,7 +14,6 @@
 function setOrigRotation( obj3D ){
 	
 	if ( obj3D && obj3D.isObject3D && !obj3DHasOrigRotation( obj3D ) ){
-	//	obj3D.origRotation = new THREE.Euler().copy( obj3D.rotation );
 		obj3D.origRotation = new THREE.Quaternion().setFromEuler( obj3D.rotation ); 
 	}
 }
@@ -59,11 +58,11 @@ function resetOrigArrRotations( obj3DArr ){
 
 function setOrigRotations( obj3DArr ){
 	
-	for ( var i = 0; i < obj3DArr.length; i++ ){
-		setOrigRotation( obj3DArr[ i ] );
+	if ( obj3DArr && obj3DArr.length ){
+		for ( var i = 0; i < obj3DArr.length; i++ ){
+			setOrigRotation( obj3DArr[ i ] );
+		}
 	}
-	
-//	doToGraphElementArray( "setOrigRotation" , obj3DArr );
 }
 
 function removeOrigRotations( obj3DArr ){
