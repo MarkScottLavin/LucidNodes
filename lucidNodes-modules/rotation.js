@@ -119,6 +119,74 @@ function quaternionRotateGraphElementPart( graphElementPart, quaternion ){
 }
 
 
+
+
+
+
+
+/* 3D ROTATION OF GUIDES AND GUIDE ARRAYS USING QUATERNIONS */
+
+function quaternionRotateGuideArrayAroundPoint( guideArr, quaternion, point ){
+
+	if ( !point ){ point = new THREE.Vector3( 0, 0, 0 ); }
+	guideArr.forEach( function( guide ){ 
+		quaternionRotateGuideAroundPoint( guideArr[ g ], quaternion, point ); 
+	});
+}
+
+function quaternionRotateSelectedGuidesAroundPoint( quaternion, point ){
+	
+	for ( var guideType in SELECTED.guides ){ 
+		if ( SELECTED.guides[ guideType ].length > 0 ){
+			quaternionRotateGuideArrayAroundPoint( SELECTED.guides[ guideType ], quaternion, point ); 
+		}
+	}
+}
+
+function quaternionRotateGuideAroundPoint( guide, quaternion, point ){
+	
+	if ( !point ){ point = new THREE.Vector3( 0, 0, 0 ); }
+
+	var guideIndex = cognition.guides[ guide.guideType + "s" ].indexOf( guide );
+	var startPos = guide.origPosition;
+	var endPoint = quaternionRotateVec3AroundPoint( startPos, quaternion, point );
+	
+	moveGuideTo( guide, endPoint );
+	quaternionRotateGuidePartsInScene( guide, quaternion )
+	
+}
+
+function quaternionRotateGuideArrayAroundPoint( guideArr, quaternion, point ){
+
+	if ( !point ){ point = new THREE.Vector3( 0, 0, 0 ); }
+	
+	for ( var n = 0; n < guideArr.length; n++ ){	
+		quaternionRotateGuideAroundPoint( guideArr[ n ], quaternion, point );
+	}	
+}
+
+function quaternionRotateGuideOnAxisAroundPoint( guide, axis, angle, point ){
+	
+	if ( !point ){ point = new THREE.Vector3( 0, 0, 0 ); }
+
+	moveGuideTo( guide, quaternionRotateVec3AroundAxisOnPoint( new THREE.Vector3( guide.position.x, guide.position.y, guide.position.z ), axis, angle, point ) ) ;
+}
+
+function quaternionRotateNodeArrayOnAxisAroundPoint( guideArr, axis, angle, point ){
+	
+	if ( !point ){ point = new THREE.Vector3( 0, 0, 0 ); }
+	
+	for ( var n = 0; n < guideArr.length; n++ ){	
+		quaternionRotateGuideOnAxisAroundPoint( guideArr[ n ], axis, angle, point );
+	}
+}
+
+
+
+
+
+
+
 /* 3D VECTOR3D ROTATION QUATERNION HELPER FUNCTIONS */
 
 function quaternionRotateVec3AroundAxisOnPoint( v, axis, angle, point ){

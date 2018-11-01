@@ -98,24 +98,66 @@ function cylinderBetweenPoints( point1, point2, radius, visible ){
  *
  * author @markscottlavin
  *
- * 
- * 
- *
+ * parameters:
+ *	obj3D: 				<THREE.Object3D>			- If nothing provided, empty result returned
+ * 	ghostPosition:		<THREE.Vector3>				- Default is { x: 0, y: 0, z: 0 }
+ *	color:				<Color Value>				- Default is 0x222222
+ *	opacity:			<Float> ( Betweem 0 & 1 )	- Default is 0.4
+ * 	parent:				<THREE.Object3D>			- Default is scene
  *
  * creates a "ghost" of an Object3D. Useful in situations where objects are being moved and one needs to see the original object position. 
  *
  */
 
-function addGhostOfObj3D( obj3D, ghostPosition, color = 0x222222, opacity = 0.4, parent = scene ){
+function addGhostOfObj3D( parameters ){
 	
-	if ( obj3D ){
+	if ( parameters.obj3D ){
 		
-		var geometry = new THREE.SphereBufferGeometry( 0.2, 32, 32 );
-		var material = new THREE.MeshPhongMaterial( { color: color, opacity: opacity, transparent: true } );
-		var ghost = new THREE.Mesh( geometry, material );
+		let obj3D = parameters.obj3D;
+		let ghost;
+		
+		let ghostPosition;
+		if ( parameters.ghostPosition ){
+			ghostPosition = new THREE.Vector3( parameters.ghostPosition.x, parameters.ghostPosition.y, parameters.ghostPosition.z );
+		}
+		else { ghostPosition = new THREE.Vector3( 0, 0, 0 ); }
+		
+		let color = new THREE.Color();
+		if ( parameters.color && parameters.color !== 0 ){ color.set( parameters.color ); }
+		else if ( parameters.color === 0 ){ color.set( 0x000000 ); }
+		else { color.set( 0x222222 ); }
+		
+		let opacity = parameters.opacity || 0.4;
+		let parent = parameters.parent || scene;
+		
+		var meshGhostMtl = new THREE.MeshPhongMaterial( { color: color, opacity: opacity, transparent: true, side: THREE.DoubleSide } );
+		var lineGhostMtl = new THREE.LineBasicMaterial ( { color: color, linewidth: 1, transparent: true, opacity: opacity } );
+		var pointGhostMtl = new THREE.PointsMaterial( { size: 0.1, color: color, opacity: opacity, transparent: true } ); 
+		
+		if ( obj3D.isGraphElementPart ){
+			var geometry = new THREE.SphereBufferGeometry( 0.2, 32, 32 );
+			ghost = new THREE.Mesh( geometry, meshGhostMtl );	
+			ghost.position.copy( ghostPosition );
+		}	
+		
+		if ( obj3D.isGuidePart ){
+			
+			ghost = obj3D.clone();
+			ghost.position.set( ghostPosition.x, ghostPosition.y, ghostPosition.z );
+			
+			if ( obj3D.referent.guideType === "face" ){
+				ghost.material = meshGhostMtl;					
+			}
+			if ( obj3D.referent.guideType === "point" ){
+				ghost.material = pointGhostMtl;					
+			}
+			if ( obj3D.referent.guideType === "line" || obj3D.referent.guideType === "circle" ){
+				ghost.material = lineGhostMtl;					
+			}			
+		}
 
 		ghost.isGhost = true;
-		ghost.position.copy( ghostPosition );
+		//ghost.position.copy( ghostPosition );
 		parent.add( ghost );
 		
 		obj3D.ghost = ghost;
@@ -130,7 +172,9 @@ function removeGhostOfObj3D( obj3D,  parent = scene ){
 }
 
 function addGhostOfNode( node ){
-	addGhostOfObj3D( node.displayEntity, ( node.origPosition || node.position ) );
+	
+	let position = node.origPosition || node.position; 
+	addGhostOfObj3D( { obj3D: node.displayEntity, ghostPosition: position } );
 }
 
 function removeGhostOfNode( node ){
@@ -146,6 +190,39 @@ function removeGhostsOfNodes( nodeArr ){
 }
 
 
+function addGhostOfGuide( guide ){
+	
+	let position = guide.origPosition || guide.position;
+	addGhostOfObj3D( { obj3D: guide[ guide.guideType ], ghostPosition: position } );
+}
+
+function removeGhostOfGuide( guide ){
+	removeGhostOfObj3D( guide[ guide.guideType ] );
+}
+
+function addGhostsOfGuidesInArray( guideArr ){
+	guideArr.forEach( function( guide ){ addGhostOfGuide( guide ); } );
+}
+
+function removeGhostsOfGuidesInArray( guideArr ){
+	guideArr.forEach( function( guide ){ removeGhostOfGuide( guide ); } );
+}
+
+function addGhostsOfSelectedGuides(){
+	for ( var guideType in SELECTED.guides ){
+		if ( SELECTED.guides[ guideType ].length > 0 ){
+			addGhostsOfGuidesInArray( SELECTED.guides[ guideType ] );			
+		}
+	}
+}
+
+function removeGhostsOfSelectedGuides(){
+	for ( var guideType in SELECTED.guides ){
+		if ( SELECTED.guides[ guideType ].length > 0 ){
+			removeGhostsOfGuidesInArray( SELECTED.guides[ guideType ] );				
+		}
+	}
+}
 
 
 			

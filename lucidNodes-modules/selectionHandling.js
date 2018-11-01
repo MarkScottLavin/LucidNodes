@@ -2,7 +2,7 @@
 
 function selectNodeArray( nodeArr ){
 	
-	unSelectAll();
+	unSelectAllGraphElements();
 	doToGraphElementArray( "selectNode", nodeArr );
 	
 }
@@ -33,7 +33,7 @@ function selectAllNodes(){
 
 function selectAll(){
 	
-	unSelectAll();
+	unSelectAllGraphElements();
 	doToGraphElementArray( "selectNode", cognition.nodes );
 	doToGraphElementArray( "selectEdge", cognition.edges );
 
@@ -41,7 +41,7 @@ function selectAll(){
 
 function selectEdgeArray( edgeArr ){
 
-	unSelectAll();
+	unSelectAllGraphElements();
 	doToGraphElementArray( "selectEdge", edgeArr );
 }
 
@@ -82,7 +82,7 @@ function unSelectEdgeArray( edgeArr ){
 	doToGraphElementArray( "unSelectEdge", passArr );
 } 
 
-function unSelectAll(){
+function unSelectAllGraphElements(){
 	
 	unSelectNodeArray( SELECTED.nodes );
 	unSelectEdgeArray( SELECTED.edges );

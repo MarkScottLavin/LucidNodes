@@ -17,7 +17,7 @@ initAddGuideLineTool();
 var addGuideLineToolPointFollowMouse = function( e ){
 	
 //	var mousePoint = getMousePoint();
-	var mousePoint = snapToNearest( getMousePoint() );	
+	var mousePoint = snapToNearestSnapObj( getMousePoint() );	
 	
 	if ( addGuideLineToolState.point ){ 
 		movePointTo( addGuideLineToolState.point, mousePoint );	
@@ -26,7 +26,7 @@ var addGuideLineToolPointFollowMouse = function( e ){
 
 var addGuideLineHeightMarkerStartFollowMouse = function( e ){
 	
-	var startPoint = limitPositionToExtents( snapToNearest( getMousePoint() ), workspaceExtents ); 
+	var startPoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents ); 
 	
 	var startXZ = new THREE.Vector3( startPoint.x, 0, startPoint.z );
 	
@@ -35,7 +35,7 @@ var addGuideLineHeightMarkerStartFollowMouse = function( e ){
 
 var addGuideLineHeightMarkerEndFollowMouse = function( e ){
 	
-	var endPoint = limitPositionToExtents( snapToNearest( getMousePoint() ), workspaceExtents ); 
+	var endPoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents ); 
 	
 	lineEndToPoint ( addGuideLineToolState.addGuideLineHeightMarker, endPoint );
 }
@@ -45,7 +45,7 @@ var addGuideLineProposedLineFollowMouse = function( e ){
 	 
 	if ( addGuideLineToolState.proposedLine ){
 	
-		var mousePoint = limitPositionToExtents( snapToNearest( getMousePoint() ), workspaceExtents );
+		var mousePoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents );
 		addGuideLineToolState.proposedLine.position.set( mousePoint.x, mousePoint.y, mousePoint.z );
 
 	}
@@ -134,7 +134,7 @@ var addGuideLineWithTool = function( e ){
 	startPoint.applyMatrix4( addGuideLineToolState.proposedLine.matrixWorld );
 	endPoint.applyMatrix4( addGuideLineToolState.proposedLine.matrixWorld );
 	 
-	addGuideLine( { startPoint: startPoint, endPoint: endPoint, visible: true, definedBy: "user" } ) 
+	addGuideLine( { startPoint: startPoint, endPoint: endPoint, visible: true, definedBy: [ "user" ] } ) 
 	
 } 
 

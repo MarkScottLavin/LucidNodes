@@ -4,6 +4,7 @@ var moveToolState;
 var moveLineMaterial = new THREE.LineBasicMaterial({ color: 0x888888 });
 
 var nodeRelativePositions = [];
+var guideRelativePositions = [];
 
 function initMoveTool(){
 	
@@ -34,7 +35,7 @@ function initMoveTool0Point( e ){
 
 var moveToolPoint0FollowMouse = function( e ){
 	
-	var mousePoint = snapToNearest( getMousePoint() );
+	var mousePoint = snapToNearestSnapObj( getMousePoint() );
 	
 	if ( moveToolState.points[0] ){ 
 		movePointTo( moveToolState.points[0], mousePoint );	
@@ -49,7 +50,7 @@ var moveToolPoint1FollowMouse = function( e ){
 	if ( !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes ( "y" ) && !keysPressed.keys.includes ( "z" ) ){
 		
 		// lets also always check if we're inside the fuctionalAppExtents
-		endPoint = limitPositionToExtents(  snapToNearest( getMousePoint() ), workspaceExtents );		
+		endPoint = limitPositionToExtents(  snapToNearestSnapObj( getMousePoint() ), workspaceExtents );		
 	}		
 	
 	// If any of the direction-limiting keys are down, we'll bypass snapping.
@@ -87,6 +88,23 @@ function getLineEndPoint(){
 	return endPoint;
 }
 
+var showOrthoGuidesWithTool = function( e ){
+	
+	// If only "X" is down, constrain to x-axis.
+	if ( keysPressed.keys.includes ( "x" ) && !keysPressed.keys.includes( "y" ) && !keysPressed.keys.includes( "z" ) ){	
+		showGuide( presetGuides.lines.x );	}
+	
+	// If only "Y" is down, constrain to y-axis.
+	if ( keysPressed.keys.includes( "y" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "z" ) ){
+		showGuide( presetGuides.lines.y );		
+	}		
+	
+	// If only "Z" is down, constrain to z-axis.
+	if ( keysPressed.keys.includes( "z" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "y" ) ){	
+		showGuide( presetGuides.lines.z );						
+	}	
+}
+
 var moveNodesWithTool = function( e ){
 
 	// Get the position where the guidePlane is intersected
@@ -99,7 +117,7 @@ var moveNodesWithTool = function( e ){
 		
 			for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 				
-				SELECTED.nodes[n].position.addVectors( snapToNearest ( toolPosition ), nodeRelativePositions[n] );				
+				SELECTED.nodes[n].position.addVectors( snapToNearestSnapObj ( toolPosition ), nodeRelativePositions[n] );				
 				moveNodeTo( SELECTED.nodes[n], SELECTED.nodes[n].position );		
 			}
 		}
@@ -111,8 +129,6 @@ var moveNodesWithTool = function( e ){
 
 			// If only "X" is down, constrain to x-axis.
 			if ( keysPressed.keys.includes ( "x" ) && !keysPressed.keys.includes( "y" ) && !keysPressed.keys.includes( "z" ) ){
-				
-				showGuide( presetGuides.lines.x );
 			
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 
@@ -123,20 +139,16 @@ var moveNodesWithTool = function( e ){
 			
 			// If only "Y" is down, constrain to y-axis.
 			if ( keysPressed.keys.includes( "y" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "z" ) ){
-
-				showGuide( presetGuides.lines.y );
 			
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 					
 					newNodePositions.push( new THREE.Vector3( SELECTED.nodes[n].origPosition.x, toolPosition.y + nodeRelativePositions[n].y, SELECTED.nodes[n].origPosition.z ) );								
-					moveNodeTo( SELECTED.nodes[n], newNodePositions[n] );			
+					moveNodeTo( SELECTED.nodes[n], newNodePositions[n] );				
 				}			
 			}		
 			
 			// If only "Z" is down, constrain to z-axis.
-			if ( keysPressed.keys.includes( "z" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "y" ) ){
-				
-				showGuide( presetGuides.lines.z );				
+			if ( keysPressed.keys.includes( "z" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "y" ) ){	
 
 				for ( var n = 0; n < SELECTED.nodes.length; n++ ){
 					
@@ -149,6 +161,78 @@ var moveNodesWithTool = function( e ){
 	}	
 } 
 
+var moveGuidesWithTool = function( e ){
+
+	// Get the position where the guidePlane is intersected
+	var toolPosition = moveToolState.points[ 1 ].position;
+	
+	for ( var guideType in SELECTED.guides ){
+		if ( SELECTED.guides[ guideType ].length > 0 ){
+			
+			// If none of the orthogonal keys are selected, move freely in three dimensions along the camera facing guidePlane, and also allow snapping.
+			if ( !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes ( "y" ) && !keysPressed.keys.includes ( "z" ) ){
+			
+				for ( var g = 0; g < SELECTED.guides[ guideType ].length; g++ ){
+					
+					SELECTED.guides[ guideType ][g].position.addVectors( snapToNearestSnapObj ( toolPosition ), guideRelativePositions[g] );				
+					moveGuideTo( SELECTED.guides[ guideType ][g], SELECTED.guides[ guideType ][g].position );		
+				}
+			}
+			
+			// If any of the orthogonal keys are down, we disable snapping.
+			else {
+				
+				var newGuidePositions = [];
+
+				// If only "X" is down, constrain to x-axis.
+				if ( keysPressed.keys.includes ( "x" ) && !keysPressed.keys.includes( "y" ) && !keysPressed.keys.includes( "z" ) ){
+					
+				//	showGuide( presetGuides.lines.x );
+				
+					for ( var g = 0; g < SELECTED.guides[ guideType ].length; g++ ){
+
+						newGuidePositions.push( new THREE.Vector3( toolPosition.x + guideRelativePositions[g].x, SELECTED.guides[ guideType ][g].origPosition.y, SELECTED.guides[ guideType ][g].origPosition.z ) );					
+						moveGuideTo( SELECTED.guides[ guideType ][g], newGuidePositions[g] );		
+					}			
+				}
+				
+				// If only "Y" is down, constrain to y-axis.
+				if ( keysPressed.keys.includes( "y" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "z" ) ){
+
+				//	showGuide( presetGuides.lines.y );
+				
+					for ( var g = 0; g < SELECTED.guides[ guideType ].length; g++ ){
+						
+						newGuidePositions.push( new THREE.Vector3( SELECTED.guides[ guideType ][g].origPosition.x, toolPosition.y + guideRelativePositions[g].y, SELECTED.guides[ guideType ][g].origPosition.z ) );								
+						moveGuideTo( SELECTED.guides[ guideType ][g], newGuidePositions[g] );			
+					}			
+				}		
+				
+				// If only "Z" is down, constrain to z-axis.
+				if ( keysPressed.keys.includes( "z" ) && !keysPressed.keys.includes( "x" ) && !keysPressed.keys.includes( "y" ) ){
+					
+				//	showGuide( presetGuides.lines.z );				
+
+					for ( var g = 0; g < SELECTED.guides[ guideType ].length; g++ ){
+						
+						newGuidePositions.push( new THREE.Vector3( SELECTED.guides[ guideType ][g].origPosition.x, SELECTED.guides[ guideType ][g].origPosition.y, toolPosition.z + guideRelativePositions[g].z ) );		
+						moveGuideTo( SELECTED.guides[ guideType ][g], newGuidePositions[g] );	
+					}			
+				}
+			}				
+			
+		}
+	}		
+} 
+
+
+
+
+
+
+
+
+
 function moveTool( position ){
 	
 	// First click: Set the starting positions & points, and move the selected nodes...
@@ -160,13 +244,16 @@ function moveTool( position ){
 		//Lock in the start point position
 		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveToolPoint0FollowMouse, false );			
 		
-		// Set the starting positions of nodes that are being moved.
+		// Set the starting positions of nodes and guides that are being moved.
 		setOrigNodeArrPositions( SELECTED.nodes );
+		setOrigSelectedGuidePositions();
 		
 		addGhostsOfNodes( SELECTED.nodes );
+		addGhostsOfSelectedGuides( SELECTED.guides );
 		
 		// And get all the positions of the nodes relative to the start point.
 		nodeRelativePositions = getNodePositionsRelativeTo( moveToolState.points[0].position, SELECTED.nodes );
+		guideRelativePositions = getSelectedGuidePositionsRelativeTo( moveToolState.points[0].position );
 		
 		// If we're in the browser, disable the controls
 		if ( entities.browserControls ){
@@ -230,8 +317,10 @@ function bailMoveTool(){
 		}		
 	}
 	
-	removeOrigNodeArrPositions( SELECTED.nodes );	
+	removeOrigNodeArrPositions( SELECTED.nodes );
+	removeOrigSelectedGuidePositions();
 	removeGhostsOfNodes( SELECTED.nodes );
+	removeGhostsOfSelectedGuides( SELECTED.nodes );
 	removeMoveToolListeners();
 	
 	// tell the app that a tool is no longer active.
@@ -247,6 +336,8 @@ function onMoveToolKeyUp( event ){
 	if ( event.key === "Escape" ){
 
 		restoreNodeArrToOrigPositions( SELECTED.nodes );
+		restoreOrigSelectedGuidePositions();
+		
 		bailMoveTool();		
 		
 		if ( toolState.move ){
@@ -267,10 +358,14 @@ function onMoveToolKeyUp( event ){
 
 function addMoveToolListeners(){
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveToolPoint1FollowMouse, false );
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', showOrthoGuidesWithTool, false );
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveNodesWithTool, false );
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveGuidesWithTool, false );	
 }
 
 function removeMoveToolListeners(){
 	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveToolPoint1FollowMouse, false );
-	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveNodesWithTool, false );			
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', showOrthoGuidesWithTool, false );
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveNodesWithTool, false );	
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', moveGuidesWithTool, false );		
 }

@@ -6,6 +6,19 @@ var snapPointsIntersectedByRay = [];	// The subset of Object3Ds intersected that
 var snapCylindersIntersectedByRay = [];	// The subset of Object3Ds intersected that are snapCylinders
 var snapRadius = 1;						// Default snapradius
 
+/* SNAP INTENSITY */
+
+globalAppSettings.snapIntensity = {
+	snapSphere: 1,
+	snapCylinder: 0.75,
+	snapTorus: 0.75,
+	snapFace: 0.5,
+	snapPlane: 0.25,
+	snapBox: 0.25
+}
+
+/* SNAP INTENSITY */
+
 /* SNAPPING TO POINTS */ 
 
 /*
@@ -32,6 +45,8 @@ function snapSphere( position, radius = snapRadius, parent = scene ){
 	this.sphere.isSnapObj = true;
 	this.sphere.isSnapPoint = true;
 	this.sphere.snapOn = true;
+	
+	this.sphere.snapIntensity = globalAppSettings.snapIntensity.snapSphere;
 	
 //	this.sphere.referent = this;
 	
@@ -62,6 +77,8 @@ function snapCylinder( point1, point2, radius = snapRadius, parent = scene ) {
 	this.cylinder.isSnapObj = true;
 	this.cylinder.isSnapCylinder = true;
 	this.cylinder.snapOn = true;
+	
+	this.cylinder.snapIntensity = globalAppSettings.snapIntensity.snapCylinder;
 	
 //	this.cylinder.referent = this;	
 	
@@ -94,6 +111,8 @@ function snapTorus( position, radius, tubeRadius = snapRadius, radialSegments = 
 	this.torus.isSnapObj = true;
 	this.torus.isSnapTorus = true;
 	this.torus.snapOn = true;
+	
+	this.torus.snapIntensity = globalAppSettings.snapIntensity.snapTorus;
 	
 //	this.torus.referent = this;
 	
@@ -136,11 +155,11 @@ function positionOnArc( radius, angle ){
 	
 }
 
-function rotateVecQuat( v, quat ){
+function rotateVecQuat( v, quaternion ){
 	
-	return v.applyQuaternion( quat );
+	return v.applyQuaternion( quaternion );
 	
-//	var qN = quat.normalize();
+//	var qN = quaternion.normalize();
 //	return v.applyQuaternion( qN );
 	
 }
@@ -223,6 +242,8 @@ function snapBox( position, xLimit, yLimit, snapDist = snapRadius, parent = scen
 	this.box.isSnapBox = true;
 	this.box.snapOn = true;
 	
+	this.box.snapIntensity = globalAppSettings.snapIntensity.snapBox;
+	
 //	this.box.referent = this;
 	
 	parent.add( this.box );	
@@ -241,7 +262,7 @@ function fractionOfCylinderHeight( cylinder ){
 
 
 /*
- * snapToNearest()
+ * snapToNearestSnapObj()
  *
  * Author: Mark Scott Lavin
  *
@@ -251,53 +272,87 @@ function fractionOfCylinderHeight( cylinder ){
  * Takes a given position, tests it against the nearest intersected snap object, and if it is within snap range, returns the snap object position.
  *
  */
-
-function snapToNearest( position ){
+ 
+function snapToNearestSnapObj( position ){
 
 	if ( snap ){
 
+		// get the neaarest intersected Object3D with the .snapObj property.
 		var nearestSnap = nearestIntersectedSnapObj();
+		
+		// If we've got a snap object, snap to it as appropriate.
 		if ( nearestSnap ){
-			if ( nearestSnap.object.isSnapPoint ){
-				if ( nearestSnap.object.referent.isGuide && nearestSnap.object.referent.id ){
-					debug.master && debug.snap && console.log( "snapToNearest(): ", nearestSnap.object.referent.id ); 
-				}
-				return snapPositionTo( position, nearestSnap.object.position );
-			}
-			if ( nearestSnap.object.isSnapCylinder ){
-				if ( nearestSnap.object.referent.isGuide && nearestSnap.object.referent.id ){
-					debug.master && debug.snap && console.log( "snapToNearest(): ", nearestSnap.object.referent.id ); 
-				}				
-				return snapPositionTo( position, applyPositionOnSnapCylinderToLine( nearestSnap, nearestSnap.object.referent.line ) );
-			}
-			if ( nearestSnap.object.isSnapFace ){
-			/*	if ( nearestSnap.object.referent.isGuide && nearestSnap.object.referent.id ){
-					debug.master && debug.snap && console.log( "snapToNearest(): ", nearestSnap.object.referent.id ); 
-				} */				
-				debug.master && debug.snap && console.log( "distances on face: ", triangulatePositionOnFaceLinear( getFaceIntersectPoint( nearestSnap.object ), nearestSnap.object.geometry ) );
-				
-				return snapPositionTo( position, getFaceIntersectPoint( nearestSnap.object ) );
-			}
-			if ( nearestSnap.object.isSnapTorus ){
-				if ( nearestSnap.object.referent.isGuide && nearestSnap.object.referent.id ){
-					debug.master && debug.snap && console.log( "snapToNearest(): ", nearestSnap.object.referent.id ); 
-				}
-				// note in testing that the snap only works properly if all instances of the the Quaternion are normalized.
-				
-				var p = applyWorldPosToVec( rotateVecQuat( positionOnArc( nearestSnap.object.referent.radius,  getCircleArcTraversed ( getFractionOfTorusArc( nearestSnap) ) ), cQuaternion.normalize() ) , nearestSnap.object.referent.circle.position );
-				
-				debug.master && debug.snap && console.log( "fraction of torus radius: ", getFractionOfTorusArc( nearestSnap ) );
-				
-				return snapPositionTo( position, p );
-				
-			}
-			if ( nearestSnap.object.isSnapBox ){
-				debug.master && debug.snap && console.log( );
-			}
+			
+			if ( nearestSnap.object.isSnapPoint ){ return snapToGuidePoint( position, nearestSnap ); }	
+			else if ( nearestSnap.object.isSnapCylinder ){ return snapToGuideLine( position, nearestSnap ); }			
+			else if ( nearestSnap.object.isSnapFace ){ return snapToGuideFace( position, nearestSnap ); }			
+//			else if ( nearestSnap.object.isSnapTorus ){ return snapToGuideCircle( position, nearestSnap ); }	
+
+			else if ( nearestSnap.object.isSnapTorus ){ return snapToGuideCircle( position, nearestSnap ); }	
+			
+			else if ( nearestSnap.object.isSnapBox ){ return snapToGuideBox( position, nearestSnap ); }
+
 		}
 		else { return position; }
+		
 	}
 }
+
+
+function snapToGuidePoint( position, guidePoint ){
+	
+	if ( guidePoint.isGuide && guidePoint.id ){	
+//	if ( guidePoint.object.referent.isGuide && guidePoint.object.referent.id ){
+		debug.master && debug.snap && console.log( "snapToNearestSnapObj(): ", guidePoint.object.referent.id ); 
+	}
+	return snapPositionTo( position, guidePoint.object.position );
+
+} 
+
+function snapToGuideLine( position, guideLine ){
+	
+	if ( guideLine.isGuide && guideLine.id ){	
+		debug.master && debug.snap && console.log( "snapToNearestSnapObj(): ", guideLine.object.referent.id ); 
+	}				
+	return snapPositionTo( position, applyPositionOnSnapCylinderToLine( guideLine, guideLine.object.referent.line ) );
+
+}
+
+function snapToGuideFace( position, guideFace ){
+					
+	debug.master && debug.snap && console.log( "distances on face: ", triangulatePositionOnFaceLinear( getFaceIntersectPoint( guideFace.object ), guideFace.object.geometry ) );
+	
+	return snapPositionTo( position, getFaceIntersectPoint( guideFace.object ) );	
+	
+}
+
+function snapToGuideCircle( position, guideCircle ){
+	
+	if ( guideCircle.object.referent.isGuide && guideCircle.object.referent.id ){	
+		debug.master && debug.snap && console.log( "snapToNearestSnapObj(): ", guideCircle.object.referent.id ); 
+	}
+	// note in testing that the snap only works properly if all instances of the the Quaternion are normalized.
+	
+	// Let's figure out we are on the circle.
+	var circleArcTraversed = getCircleArcTraversed ( getFractionOfTorusArc( guideCircle) );
+	var arcPosition = positionOnArc( guideCircle.object.referent.radius, circleArcTraversed );
+
+	debug.master && debug.snap && console.log( "fraction of torus radius: ", getFractionOfTorusArc( guideCircle ) );	
+	
+	// Then we apply the rotation & world position to get the position we're snapping to.
+	var rotationApplied = rotateVecQuat( arcPosition, guideCircle.object.referent.quaternionForRotation.normalize() );
+	var worldPosApplied = applyWorldPosToVec( rotationApplied, guideCircle.object.referent.circle.position );
+
+	return snapPositionTo( position, worldPosApplied );	
+	
+}
+
+function snapToGuideBox( position, guideBox ){
+	
+	debug.master && debug.snap && console.log( );
+	
+}
+
 
 function getFaceIntersectPoint( faceGeometry ){
 	
@@ -353,6 +408,16 @@ function findSnapObjsInObj3DArray( obj3DArr ){
 function getIntersectedSnapObjs(){
 	snapObjsIntersectedByRay = findSnapObjsInObj3DArray( object3DsIntersectedByRay );
 }
+
+/*
+ * nearestIntersectedSnapObj()
+ *
+ * Author: Mark Scott Lavin
+ *
+ * Takes all of the snapObjs (Object3Ds with the snapObj property) that have been intersected by the ray and returns the one that's nearest
+ ( to the camera.
+ *
+ */
 
 function nearestIntersectedSnapObj(){
 	

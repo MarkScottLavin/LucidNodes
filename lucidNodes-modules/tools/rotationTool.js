@@ -37,7 +37,7 @@ function initRotTool0Point( e ){
 
 var rotToolPoint0FollowMouse = function( e ){
 	
-	var mousePoint = snapToNearest( getMousePoint() );
+	var mousePoint = snapToNearestSnapObj( getMousePoint() );
 	
 	if ( rotToolState.points[0] ){ 
 		movePointTo( rotToolState.points[0], mousePoint );	
@@ -47,7 +47,7 @@ var rotToolPoint0FollowMouse = function( e ){
 
 var angleLine0ToMouse = function( e ){
 	
-	var pt = snapToNearest( limitPositionToExtents( placeAtPlaneIntersectionPoint( activeGuidePlane ), workspaceExtents ) );
+	var pt = snapToNearestSnapObj( limitPositionToExtents( placeAtPlaneIntersectionPoint( activeGuidePlane ), workspaceExtents ) );
 	
 	lineEndToPoint ( rotToolState.angleLines[0], pt );
 	movePointTo( rotToolState.points[ 1 ], pt );	
@@ -55,7 +55,7 @@ var angleLine0ToMouse = function( e ){
 
 var angleLine1ToMouse = function( e ){
 	
-	var pt = snapToNearest( limitPositionToExtents( placeAtPlaneIntersectionPoint( activeGuidePlane ), workspaceExtents ) );
+	var pt = snapToNearestSnapObj( limitPositionToExtents( placeAtPlaneIntersectionPoint( activeGuidePlane ), workspaceExtents ) );
 	
 	lineEndToPoint ( rotToolState.angleLines[1], pt );
 	movePointTo( rotToolState.points[ 2 ], pt );
@@ -81,10 +81,15 @@ var rotNodesWithTool = function( e ){
 	}
 }
 
+var rotGuidesWithTool = function( e ){
+	
+	quaternionRotateSelectedGuidesAroundPoint( rotToolState.quaternion.current, rotToolState.points[0].position );
+}
+
 function rotationTool( position ){
 	
 	//If snap is on and we're over a snap point, snap the position.
-	snapToNearest( position );
+	snapToNearestSnapObj( position );
 	
 	if ( rotToolState.clickCount === 0 ){
 		
@@ -137,11 +142,14 @@ function rotationTool( position ){
 
 		// Set the starting positions of nodes that are being moved.
 		setOrigNodeArrPositions( SELECTED.nodes );
+		// Set the starting positions of guides that are being moved.
+		setOrigSelectedGuidePositions();
 		
 		setOrigRotations( getPartsOfTypeInGraphElementArray( SELECTED.nodes, "nodeDisplayEntity" ) );
 		
 		// Add "ghosts" to stand in for where the nodes originally were.
-		addGhostsOfNodes( SELECTED.nodes );					
+		addGhostsOfNodes( SELECTED.nodes );	
+		addGhostsOfSelectedGuides();
 		
 		// add a third point ( rotToolState.points[2] ) and line that both moves with the mouse	
 		rotToolState.points.push ( new Point( position, 1.0, 0x0000ff ) );		
@@ -182,8 +190,10 @@ function bailRotTool(){
 	removeRotationToolListenersZeroSet();
 	removeRotationToolListenersOneSet();
 	removeOrigNodeArrPositions( SELECTED.nodes );
+	removeOrigSelectedGuidePositions();
 	removeOrigRotations( getPartsOfTypeInGraphElementArray( SELECTED.nodes, "nodeDisplayEntity" ) );	
 	removeGhostsOfNodes( SELECTED.nodes );	
+	removeGhostsOfSelectedGuides();
 	
 	// tell the app that a tool is no longer active
 	toolState.toolIsActive = false;
@@ -274,6 +284,8 @@ function onRotToolKeyUp( event ){
 	if ( event.key === "Escape" ){
 
 		restoreNodeArrToOrigPositions( SELECTED.nodes );
+		restoreOrigSelectedGuidePositions();
+		
 		bailRotTool();
 		
 		if ( toolState.rotate ){
@@ -299,6 +311,7 @@ function addRotationToolListenersOneSet(){
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', getRotToolQuaternion, false );	
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', getRotToolEuler, false );	
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', rotNodesWithTool, false );
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', rotGuidesWithTool, false );	
 }
 
 function removeRotationToolListenersOneSet(){
@@ -306,4 +319,5 @@ function removeRotationToolListenersOneSet(){
 	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', getRotToolQuaternion, false );
 	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', getRotToolEuler, false );	
 	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', rotNodesWithTool, false );	
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', rotGuidesWithTool, false );		
 }

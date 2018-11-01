@@ -16,7 +16,7 @@ initAddNodeTool();
 var addNodeToolPointFollowMouse = function( e ){
 	
 //	var mousePoint = getMousePoint();
-	var mousePoint = snapToNearest( getMousePoint() );	
+	var mousePoint = snapToNearestSnapObj( getMousePoint() );	
 	
 	if ( addNodeToolState.point ){ 
 		movePointTo( addNodeToolState.point, mousePoint );	
@@ -25,7 +25,7 @@ var addNodeToolPointFollowMouse = function( e ){
 
 var addNodeLineStartFollowMouse = function( e ){
 	
-	var startPoint = limitPositionToExtents( snapToNearest( getMousePoint() ), workspaceExtents ); 
+	var startPoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents ); 
 	
 	var startXZ = new THREE.Vector3( startPoint.x, 0, startPoint.z );
 	
@@ -34,7 +34,7 @@ var addNodeLineStartFollowMouse = function( e ){
 
 var addNodeLineEndFollowMouse = function( e ){
 	
-	var endPoint = limitPositionToExtents( snapToNearest( getMousePoint() ), workspaceExtents ); 
+	var endPoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents ); 
 	
 	lineEndToPoint ( addNodeToolState.addNodeLine, endPoint );
 }
@@ -86,7 +86,7 @@ function initAddNodeToolLine( e ){
 var addNodeWithTool = function( e ){
 
 	// Get the position where the guidePlane is intersected
-	addNode( limitPositionToExtents( snapToNearest ( getMousePoint() ), workspaceExtents ) );	
+	addNode( limitPositionToExtents( snapToNearestSnapObj ( getMousePoint() ), workspaceExtents ) );	
 	
 } 
 

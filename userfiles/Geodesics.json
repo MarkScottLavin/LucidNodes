@@ -927,6 +927,38 @@
       "src": null,
       "radius": 0.5,
       "shape": "sphere"
+    },
+    {
+      "contentType": "image",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00v",
+      "name": "Epcott Center",
+      "color": 8421504,
+      "position": {
+        "x": -16.485386503407177,
+        "y": 23.474583108410684,
+        "z": -0.12318664049880379
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Epcott Center",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": "http://127.0.0.1:3000/userImages/header-spaceshipearth.jpg",
+      "radius": 1,
+      "shape": "hexPlate"
     }
   ],
   "edges": [
@@ -2720,6 +2752,84 @@
       "label": {
         "color": 16777215,
         "text": "n00p-n00u",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00v",
+          "name": "Epcott Center",
+          "color": 8421504,
+          "position": {
+            "x": -16.485386503407177,
+            "y": 23.474583108410684,
+            "z": -0.12318664049880379
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Epcott Center",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "http://127.0.0.1:3000/userImages/header-spaceshipearth.jpg",
+          "radius": 1,
+          "shape": "hexPlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n002",
+          "name": "Examples around the world",
+          "color": 16777215,
+          "position": {
+            "x": -20.635394638604676,
+            "y": 16.64255464389104,
+            "z": -2
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Examples around the world",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00v-n002",
+      "name": "n00v-n002",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00v-n002",
         "opacity": 0.1
       },
       "labelColor": 8421504

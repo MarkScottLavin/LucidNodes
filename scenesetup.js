@@ -1,6 +1,6 @@
 /* SCENEETUP.JS
  * Name: Scene Setup
- * version 0.1.29.1
+ * version 0.1.29.2
  * Author: Mark Scott Lavin 
  * License: MIT
  * For Changelog see README.txt
@@ -253,24 +253,22 @@ function lights() {
 
 	entities.lights.pureWhiteLight.position.set(500,500,500);
 	entities.lights.pureWhiteLight.castShadow = true;
-    entities.lights.pureWhiteLight.shadowCameraNear = 200;
-    entities.lights.pureWhiteLight.shadowCameraFar = entities.cameras.perspCamera.far;
-    entities.lights.pureWhiteLight.shadowCameraFov = 50;
-    entities.lights.pureWhiteLight.shadowBias = -0.00022;
-    entities.lights.pureWhiteLight.shadowDarkness = 0.5;
-    entities.lights.pureWhiteLight.shadowMapWidth = 1024;
-    entities.lights.pureWhiteLight.shadowMapHeight = 1024;
+    entities.lights.pureWhiteLight.shadow.camera.near = 200;
+    entities.lights.pureWhiteLight.shadow.camera.far = entities.cameras.perspCamera.far;
+    entities.lights.pureWhiteLight.shadow.camera.fov = 50;
+    entities.lights.pureWhiteLight.shadow.bias = -0.00022;
+    entities.lights.pureWhiteLight.shadow.mapSize.width = 1024;
+    entities.lights.pureWhiteLight.shadow.mapSize.height = 1024;
 
 
 	entities.lights.pureWhiteLight2.position.set(-500,500,-500);
 	entities.lights.pureWhiteLight2.castShadow = true;
-    entities.lights.pureWhiteLight2.shadowCameraNear = 200;
-    entities.lights.pureWhiteLight2.shadowCameraFar = entities.cameras.perspCamera.far;
-    entities.lights.pureWhiteLight2.shadowCameraFov = 50;
-    entities.lights.pureWhiteLight2.shadowBias = -0.00022;
-    entities.lights.pureWhiteLight2.shadowDarkness = 0.5;
-    entities.lights.pureWhiteLight2.shadowMapWidth = 1024;
-    entities.lights.pureWhiteLight2.shadowMapHeight = 1024;	
+    entities.lights.pureWhiteLight2.shadow.camera.near = 200;
+    entities.lights.pureWhiteLight2.shadow.camera.far = entities.cameras.perspCamera.far;
+    entities.lights.pureWhiteLight2.shadow.camera.fov = 50;
+    entities.lights.pureWhiteLight2.shadow.bias = -0.00022;
+    entities.lights.pureWhiteLight2.shadow.mapSize.width = 1024;
+    entities.lights.pureWhiteLight2.shadow.mapSize.height = 1024;	
 	
 	
 	entities.lights.spotlight.position.set( 0, 100, 1000 );

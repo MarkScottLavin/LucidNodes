@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.32.1
+	* Version 0.1.32.2
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -60,9 +60,6 @@ var DELETED = {
 // What Hidden text input (associated with a Graph Element) is now active? (Enables user to alter the text)
 var ACTIVE_HIDDEN_TEXT_INPUT;	
 
-// Stores the original positions of Nodes currently being manipulated.
-var origPosition;	
-
 // Zoom scale in browserControls
 var zoomScale = 1.1; 
 
@@ -94,7 +91,7 @@ function mouseEventHandler( event ){
 	
 /*	if ( snap ){
 		var nearestIntersctedSnapPoint = nearestIntersectedSnapPoint();
-	} */
+	}  */
 	
 	// get the nearest graphElement intersected by the picking ray. If no graphElement, return the nearest object
 	var nearestIntersected = nearestIntersectedObject3D();
@@ -146,21 +143,41 @@ function mouseEventHandler( event ){
 	}
 }
 
-// HANDLE SPECIFIC MOUSE EVENTS
+// MOUSE EVENTS IN 'VISUALIZATIONCONTAINER'
 
 function onMouseMove( event, nearestIntersected ){
 	
 	// Check if the current top-level intersected object is the previous INTERSECTED_OBJ3D		
 	if ( nearestIntersected != INTERSECTED_OBJ3D ){
+		
 		// ... if there is a previous INTERSECTED_OBJ3D
 		if ( INTERSECTED_OBJ3D ) {	
+			
 			// restore the previous INTERSECTED_OBJ3D to its previous state.
-			unTransformGraphElementOnMouseOut( INTERSECTED_OBJ3D );									
+			
+			// whether it's a graph element part...
+			if ( INTERSECTED_OBJ3D.isGraphElementPart ){
+				unTransformGraphElementOnMouseOut( INTERSECTED_OBJ3D );
+				debug.master && debug.events && console.log( "onMouseMove(): INTERSECTED_OBJ3D.isGraphElementPart" );				
+			}
+			
+			// or a guide part...
+			else if ( INTERSECTED_OBJ3D.isGuidePart ){
+				INTERSECTED_OBJ3D.referent.onMouseLeave();	
+				debug.master && debug.events && console.log( "onMouseMove(): INTERSECTED_OBJ3D.isGuidePart" );
+			}
 		} 						
 		// set the currently intersected object to INTERSECTED_OBJ3D	
-		INTERSECTED_OBJ3D = nearestIntersected;   	
+		INTERSECTED_OBJ3D = nearestIntersected; 
 		// and transform it accordingly.
-		onMouseOverGraphElement( INTERSECTED_OBJ3D );							
+		
+		if ( INTERSECTED_OBJ3D.isGraphElementPart ){		
+			onMouseOverGraphElement( INTERSECTED_OBJ3D );	
+		}
+
+		else if ( INTERSECTED_OBJ3D.isGuidePart ){
+			INTERSECTED_OBJ3D.referent.onMouseOver();		
+		}		
 	}
 }
 
@@ -173,53 +190,89 @@ function onMouseDown( event, camera ){
 	if ( event.ctrlKey && !event.altKey ){ 
 
 		// If there's no INTERSECTED_OBJ3D object or if INTERSECTED_OBJ3D is not a GraphElement, do nothing.			
-		if ( !INTERSECTED_OBJ3D || !INTERSECTED_OBJ3D.isGraphElementPart ){				
+		if ( !INTERSECTED_OBJ3D ){				
 			return;
 		}
 		
-		// If INTERSECTED_OBJ3D is a GraphElement, choose the GraphElement it's a part of.				
-		var x = getReferentGraphElementOfIntersectedObj3D();
-		
-		if ( x ) { 
+		// If INTERSECTED_OBJ3D is a GraphElement, choose the GraphElement it's a part of.	
+		if ( INTERSECTED_OBJ3D.isGraphElementPart ){ 
 			
-			if ( x.isNode ) {
-				// If SELECTED includes the referent of the INTERSECTED_OBJ3D, unselect it.
-				if ( SELECTED.nodes.length > 0 && SELECTED.nodes.includes( x ) ) { 
-					unSelectNode( x );
-					}
+			console.log( "onmouseDown(): INTERSECTED_OBJ3D.isGraphElementPart" );			
+			
+			var x = getReferentGraphElementOfIntersectedObj3D();
+			
+			if ( x ) { 
 				
-				// If SELECTED Nodes doesn't include INTERSECTED_OBJ3D, select it.
-				else if ( !SELECTED.nodes.includes( x ) ) { 
-					selectNode( x );
-					}
+				if ( x.isNode ) {
+					// If SELECTED includes the referent of the INTERSECTED_OBJ3D, unselect it.
+					if ( SELECTED.nodes.length > 0 && SELECTED.nodes.includes( x ) ) { 
+						unSelectNode( x );
+						}
+					
+					// If SELECTED Nodes doesn't include INTERSECTED_OBJ3D, select it.
+					else if ( !SELECTED.nodes.includes( x ) ) { 
+						selectNode( x );
+						}
+				}
+				
+				else if ( x.isEdge ){
+					
+					// If SELECTED includes the referent of the INTERSECTED_OBJ3D, unselect it.
+					if ( SELECTED.edges.includes( x ) ) { 	
+						unSelectEdge( x );
+						}
+					
+					// If SELECTED Nodes doesn't include INTERSECTED_OBJ3D, select it.
+					else if ( !SELECTED.edges.includes( x ) ) { 
+						selectEdge( x );
+						}
+				} 			
+			}
+		} 
+		
+		else if ( INTERSECTED_OBJ3D.isGuidePart && !INTERSECTED_OBJ3D.referent.definedBy.includes( "preset" ) ){
+			
+			console.log( "onmouseDown(): INTERSECTED_OBJ3D.isGuidePart" );
+
+			var x = INTERSECTED_OBJ3D.referent;
+
+			if ( SELECTED.guides[ INTERSECTED_OBJ3D.referent.guideType + "s" ].includes( x ) ){
+				unSelectGuide( x );
 			}
 			
-			else if ( x.isEdge ){
-				
-				// If SELECTED includes the referent of the INTERSECTED_OBJ3D, unselect it.
-				if ( SELECTED.edges.includes( x ) ) { 	
-					unSelectEdge( x );
-					}
-				
-				// If SELECTED Nodes doesn't include INTERSECTED_OBJ3D, select it.
-				else if ( !SELECTED.edges.includes( x ) ) { 
-					selectEdge( x );
-					}
-			} 			
+			else if ( !SELECTED.guides[ INTERSECTED_OBJ3D.referent.guideType + "s" ].includes( x ) ){
+				selectGuide( x );
+			}			
+			
 		}
-	}
+		
+		else { return; }
+	} 
 
 	// SELECT SINGLE TOOL ( Hotkey: Mouse only )
 	else if ( !event.ctrlKey && !event.altKey ){ 
 		
-		unSelectAll();
+		unSelectAllGraphElements();
+		unSelectAllGuides();
 
-		// IF there's an INTERSECTED_OBJ3D and it's a GraphElement
-		var x = getReferentGraphElementOfIntersectedObj3D();
+		if ( INTERSECTED_OBJ3D.isGraphElementPart ){ 
 		
-		if ( x ){
-			if ( x.isNode ){ selectNode( x ); /* setOrigNodePosition( x ); */ /* origPosition = new THREE.Vector3(); origPosition.copy( x.position ); */ }
-			else if ( x.isEdge ){ selectEdge( x ); }
+			// IF there's an INTERSECTED_OBJ3D and it's a GraphElement
+			var x = getReferentGraphElementOfIntersectedObj3D();
+			
+			if ( x ){
+				if ( x.isNode ){ selectNode( x ); /* setOrigNodePosition( x ); */ /* origPosition = new THREE.Vector3(); origPosition.copy( x.position ); */ }
+				else if ( x.isEdge ){ selectEdge( x ); }
+			}
+			
+		}
+
+		else if ( INTERSECTED_OBJ3D.isGuidePart && !INTERSECTED_OBJ3D.referent.definedBy.includes( "preset" ) ){
+
+			var x = INTERSECTED_OBJ3D.referent;		
+		
+			selectGuide( x );
+	
 		}			
 	}
 
@@ -264,62 +317,6 @@ function onDblClick( event ){
 
 // END HANDLING SPECIFIC MOUSE EVENTS
 
-// KEYPRESS EVENT HANDLING
-	
-function onAppKeyDown( event ){
-
-	keysPressed.isTrue = true;
-	if ( !keysPressed.keys.includes( event.key ) ){
-		keysPressed.keys.push( event.key );		
-	}
-	debug.master && debug.keyHandling && console.log( "onAppKeyDown(): ", keysPressed );
-	
-}
-
-function onAppKeyUp( event ){
-	
-	keysPressed.keys[0] === "Delete" && deleteAllSelected();	
-	keysPressed.keys[0] === "Escape" && onEscapeKey();
-	
-	if ( !toolState.toolIsActive && keysPressed.keys.includes( "Alt" ) ){
-		if ( keysPressed.keys.includes( "m" )){ selectTool( "move" ); }
-		else if ( keysPressed.keys.includes( "r" )){ selectTool( "rotate" ); }	
-		else if ( keysPressed.keys.includes( "s" )){ selectTool( "select" ); }
-		else if ( keysPressed.keys.includes( "i" )){ selectTool( "eyedropper" ); }	
-		else if ( keysPressed.keys.includes( "p" ) && !keysPressed.keys.includes( "Control" ) ){ 
-			selectTool( "paint" );
-			}
-		else if ( keysPressed.keys.includes( "l" )){ selectTool( "addEdge" ); }
-		else if ( keysPressed.keys.includes( "n" )){ selectTool( "addNode" ); }
-		else if ( keysPressed.keys.includes( "t" )){ selectTool( "addGuideLine" ); }
-		else if ( keysPressed.keys.includes( "c" )){ selectTool( "addGuideCircle" ); }		
-		else if ( keysPressed.keys.includes( "z" ) && keysPressed.keys.includes( "Control" ) ){ 
-			toggleBrowserZoom(); 
-			}
-		else if ( keysPressed.keys.includes( "a" ) && keysPressed.keys.includes( "Control" ) ){ 
-			toggleBrowserPan(); 
-			}
-		else if ( keysPressed.keys.includes( "=" )){ zoomIn( zoomScale ); }
-		else if ( keysPressed.keys.includes( "-" )){ zoomOut( zoomScale ); }
-	}
-
-	keysPressed.keys.splice( keysPressed.keys.indexOf( event.key ), 1 );	
-	
-	if ( keysPressed.keys.length < 1 ){ keysPressed.isTrue = false; }
-	
-	debug.master && debug.keyHandling && console.log( "onAppKeyUp(): ", keysPressed.keys ); 		
-}
-
-function onEscapeKey(){
-	
-	toggleContextMenuOff();
-	if ( toolState.selected ){ unSelectAll() };
-	
-	escapeTools();
-}
-
-// END KEY EVENT HANDLING
-
 // MOUSE/RAY INTERSECTION HANDLING
 
 function placeAtPlaneIntersectionPoint( plane ){
@@ -349,9 +346,37 @@ function findGraphElementsInObject3DArray( object3DArray ){
 	return graphElementsInArray;	
 }
 
+function getNearestIntersectedObj3DType(){
+
+	let nearestIs;
+
+	if ( graphElementsIntersectedByRay.length && !snapObjsIntersectedByRay.length ){
+		nearestIs = "graphElementPart";	
+	}
+	
+	else if ( snapObjsIntersectedByRay.length && !graphElementsIntersectedByRay.length ){
+		nearestIs = "snapObj";
+	}
+	
+	else if ( snapObjsIntersectedByRay.length && graphElementsIntersectedByRay.length ){
+		if ( object3DsIntersectedByRay.indexOf( snapObjsIntersectedByRay[0] ) < object3DsIntersectedByRay.indexOf( graphElementsIntersectedByRay[0] )){
+			nearestIs = "snapObj";
+		} 
+		else { nearestIs = "graphElementPart"; }
+	}
+	
+	else if ( !snapObjsIntersectedByRay.length && !graphElementsIntersectedByRay.length ){
+		nearestIs =  "sceneElement";
+	}
+	
+	debug.master && debug.snap && console.log( nearestIs );
+	return nearestIs;
+}
+
 function nearestIntersectedObject3D(){
 	
 	var nearest;
+	var nearestIs;
 	
 	// Get the array of object3Ds that was intersected by the ray cast on the mouseEvent
 	updateIntersectedObject3Ds();
@@ -359,8 +384,20 @@ function nearestIntersectedObject3D(){
 	// Check for Graph Elements in the array of Object3Ds
 	graphElementsIntersectedByRay = findGraphElementsInObject3DArray( object3DsIntersectedByRay );
 	
+	/* Added version 0.1.32.2 */
+	if ( snap ){
+		snapObjsIntersectedByRay = findSnapObjsInObj3DArray( object3DsIntersectedByRay );
+	}
+	
+	/* Added version 0.1.32.2 */	
+	if ( snap ){
+		guidePartsIntersectedByRay = findGuidePartsInObj3DArray( object3DsIntersectedByRay );
+	}
+	
+	nearestIs = getNearestIntersectedObj3DType();
+	
 	// If we have intersected GraphElements, return the closest one, as long as it isn't a canvas and we're outside the path.
-	if ( graphElementsIntersectedByRay.length > 0 ){ 
+	if ( nearestIs === "graphElementPart" /* graphElementsIntersectedByRay.length > 0 */ ){ 
 
 		var rayInPath;
 	
@@ -383,8 +420,19 @@ function nearestIntersectedObject3D(){
 		}
 	}
 	
+	else if ( nearestIs === "snapObj" ){
+		
+		for ( var s = 0; s < snapObjsIntersectedByRay.length; s++ ){
+		
+			if ( snapObjsIntersectedByRay[ s ].object.referent.definedBy.includes( "user" ) ){
+				nearest = snapObjsIntersectedByRay[ s ].object;
+				break;
+			}	
+		}
+	}
+	
 	// Otherwise, return the closest intersected object, whatever it is. 
-	else  { nearest = object3DsIntersectedByRay[0].object; }
+	else if ( nearestIs === "sceneElement"){ nearest = object3DsIntersectedByRay[0].object; }
 	
 	return nearest;
 }

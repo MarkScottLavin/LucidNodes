@@ -1,7 +1,7 @@
 /*
  * OriginalPositionHandling Module
  * Author: Mark Scott Lavin
- * Versioin 0.1
+ * Versioin 0.1.1
  *
  * Use these functions to manage situations where a Node's prior position must be stored, for instance when a user escapes out of a tool or restricts node movement to a particular
  * plane or direction while a tool is active.

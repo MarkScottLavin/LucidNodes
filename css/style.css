@@ -2,11 +2,11 @@
  * STYLESHEET.CSS 
  * Stylesheet for LucidNodes Application
  * Author: Mark Scott Lavin
- * Version 0.2.2
+ * Version 0.2.3
  * 
 */
 
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300); 
 
 /* DESKTOP/MOBILE UI STYLES */
 
@@ -229,7 +229,7 @@ body {
 
 body {
   color: #595959;
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif; 
   font-size: 16px;
   font-weight: 300;
   line-height: 1.5;

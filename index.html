@@ -23,7 +23,7 @@
 
 <div class="topMenu">
 	<form method="GET" id="temp2" enctype="multipart/form-data">
-		<div class="appTitle"><strong>LucidNodes Version 0.1.32.1</strong></div>
+		<div class="appTitle"><strong>LucidNodes Version 0.1.32.2</strong></div>
 		<div class="saveBar-cell">
 		   <label for="fileInput">Open File</label>
 		   <input type="file" id="fileInput" name="fileInput" accept=".json">
@@ -71,10 +71,11 @@
 	<script src="lucidNodes-modules/selectionHandling.js"></script>
 	<script src="app.js"></script>	
 	<script src="lucidNodes-modules/tools/toolHelperFunctions.js"></script>
-	<script src="lucidNodes-modules/originalPosition.js"></script>
+	<script src="lucidNodes-modules/originalNodePosition.js"></script>
 	<script src="lucidNodes-modules/originalRotation.js"></script>	
 	<script src="lucidNodes-modules/detectAlignments.js"></script>
-	<script src="lucidNodes-modules/snapHandling.js"></script> 
+	<script src="lucidNodes-modules/snapHandling.js"></script>
+	<script src="lucidNodes-modules/originalGuidePosition.js"></script>	
 	<script src="lucidNodes-modules/guides.js"></script>
 	<script src="lucidNodes-modules/rotation.js"></script>
 	<script src="lucidNodes-modules/tools/rotationTool.js"></script>
@@ -256,7 +257,8 @@
 	</li>		
   </ul>
 </nav>
-	
+
+	<script src="js/keyHandling.js"></script>	
 	<script src="mouseBehavior.js"></script>
 	<script src="helpOverlay.js"></script>	
 	<script src="lucidNodes-modules/tools/tools.js"></script>	

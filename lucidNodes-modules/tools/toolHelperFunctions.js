@@ -27,6 +27,26 @@ function getNodePositionsRelativeTo( ptPosition, nodeArr ){
 	return getPositionsRelativeTo( ptPosition, getNodePositionsAsArray( nodeArr ) );
 }
 
+function getGuidePositionsRelativeTo( ptPosition, guideArr ){
+
+	return getPositionsRelativeTo( ptPosition, getGuidePositionsAsArray( guideArr ) );
+}
+
+function getSelectedGuidePositionsRelativeTo( ptPosition ){
+	
+	var relativePositions = [];
+	
+	for ( var guideType in SELECTED.guides ){
+		if ( SELECTED.guides[ guideType ].length > 0 ){
+				let positions = getGuidePositionsRelativeTo( ptPosition, SELECTED.guides[ guideType ] );
+				positions.forEach( function( position ){ 
+					relativePositions.push( position ); 
+				});
+		}
+	}
+	return relativePositions;
+}
+
 function getPositionsRelativeTo( ptPosition, comparePositions ){
 
 	var relativePositions = [];
@@ -53,6 +73,22 @@ function getNodePositionsAsArray( nodeArr ){
 	} 
 
 }
+
+function getGuidePositionsAsArray( guideArr ){
+	
+	if ( guideArr ){
+		
+		var positions = [];
+		
+		for ( var g = 0; g < guideArr.length; g++ ){
+			positions.push( guideArr[ g ].position )
+		}		
+		
+		return positions;
+	} 
+
+}
+
 
 function zoomIn( scale ){	
 	entities.browserControls.dollyIn( scale );

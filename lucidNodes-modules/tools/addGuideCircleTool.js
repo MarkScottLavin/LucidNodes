@@ -18,7 +18,7 @@ initAddGuideCircleTool();
 
 var addGuideCircleToolPointFollowMouse = function( e ){
 	
-	var mousePoint = snapToNearest( getMousePoint() );	
+	var mousePoint = snapToNearestSnapObj( getMousePoint() );	
 	
 	if ( addGuideCircleToolState.point ){ 
 		movePointTo( addGuideCircleToolState.point, mousePoint );	
@@ -27,7 +27,7 @@ var addGuideCircleToolPointFollowMouse = function( e ){
 
 var addGuideCircleHeightStartFollowMouse = function( e ){
 	
-	var startPoint = limitPositionToExtents( snapToNearest( getMousePoint() ), workspaceExtents ); 
+	var startPoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents ); 
 	
 	var startXZ = new THREE.Vector3( startPoint.x, 0, startPoint.z );
 	
@@ -36,7 +36,7 @@ var addGuideCircleHeightStartFollowMouse = function( e ){
 
 var addGuideCircleHeightEndFollowMouse = function( e ){
 	
-	var endPoint = limitPositionToExtents( snapToNearest( getMousePoint() ), workspaceExtents ); 
+	var endPoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents ); 
 	
 	lineEndToPoint ( addGuideCircleToolState.addGuideCircleHeightMarker, endPoint );
 }
@@ -45,7 +45,7 @@ var addGuideCircleCenterFollowMouse = function( e ){
 	 
 	if ( addGuideCircleToolState.proposedCircle ){
 	
-		var mousePoint = limitPositionToExtents( snapToNearest( getMousePoint() ), workspaceExtents );
+		var mousePoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents );
 		addGuideCircleToolState.proposedCircle.displayEntity.position.set( mousePoint.x, mousePoint.y, mousePoint.z );
 
 	}
@@ -56,7 +56,7 @@ var addGuideCircleRadiusFollowMouse = function( e ){
 	
 	if ( addGuideCircleToolState.proposedCircle ){
 	
-		var mousePoint = limitPositionToExtents( snapToNearest( getMousePoint() ), workspaceExtents );
+		var mousePoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents );
 		var center = addGuideCircleToolState.proposedCircle.displayEntity.position;		
 		
 		var dist = new THREE.Vector3();
@@ -127,7 +127,7 @@ function addGuideCircleWithTool(){
 	var center = addGuideCircleToolState.proposedCircle.displayEntity.position.clone();
 	var radius = addGuideCircleToolState.proposedCircle.radius;
 	 
-	addGuideCircle( { radius: radius, position: center, thetaStart: addGuideCircleToolState.proposedCircle.thetaStart, thetaLength: addGuideCircleToolState.thetaLength, visible: true, definedBy: "user" } ) 
+	addGuideCircle( { radius: radius, position: center, thetaStart: addGuideCircleToolState.proposedCircle.thetaStart, thetaLength: addGuideCircleToolState.thetaLength, visible: true, definedBy: [ "user" ] } ) 
 	
 } 
 
