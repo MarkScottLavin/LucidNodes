@@ -203,6 +203,7 @@ var toolState = {
 		eyedropper: 0,
 		addGuideCircle: 0,
 		addGuideLine: 0,
+		addVectorGuideLine: 0,
 		toolIsActive: false
 };
 
@@ -304,8 +305,7 @@ function addToolListeners( tool = "select" ){
 	
 	if ( tool === "move" ){
 		
-		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initMoveTool0Point, false );
-		
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initMoveTool0Point, false );	
 		document.getElementById('visualizationContainer').addEventListener( 'mouseup', activateMoveTool, false );
 		document.addEventListener( 'keyup', onMoveToolKeyUp, false );	
 	}
@@ -334,7 +334,14 @@ function addToolListeners( tool = "select" ){
 		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initAddGuideCircleToolProposedCircle, false );			
 		document.getElementById('visualizationContainer').addEventListener( 'mouseup' , activateAddGuideCircleTool, false );	
 		document.addEventListener( 'keyup', onAddGuideCircleToolKeyUp, false );		
-	} 		
+	} 	
+
+	if ( tool === "addVectorGuideLine" ){
+		
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initAddVectorGuideLineTool0Point, false );	
+		document.getElementById('visualizationContainer').addEventListener( 'mouseup', activateAddVectorGuideLineTool, false );
+		document.addEventListener( 'keyup', onAddVectorGuideLineToolKeyUp, false );	
+	}	
 }
 
 function removeToolListeners( tool ){
@@ -404,6 +411,16 @@ function removeToolListeners( tool ){
 		document.removeEventListener( 'keyup', onAddGuideCircleToolKeyUp, false );				
 		bailAddGuideCircleTool();		
 	}  	
+	
+	if ( tool === "addVectorGuideLine" ){
+		
+		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', activateAddVectorGuideLineTool, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initAddVectorGuideLineTool0Point, false );
+		document.removeEventListener( 'keyup', onAddVectorGuideLineToolKeyUp, false );	
+		bailAddVectorGuideLineTool();	
+		
+	}	
+	
 }
 
 var activateAddEdgeTool = function( e ){ addEdgeTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
@@ -412,6 +429,7 @@ var activateMoveTool = function( e ){ moveTool( placeAtPlaneIntersectionPoint( a
 var activateAddNodeTool = function( e ){ addNodeTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
 var activateAddGuideLineTool = function( e ){ addGuideLineTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
 var activateAddGuideCircleTool = function( e ){ addGuideCircleTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
+var activateAddVectorGuideLineTool = function( e ){ addVectorGuideLineTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
 var paintGraphElements = function( e ){ paintGraphElementOnMouseUp(); };
 var getGraphElementColor = function( e ){ selectGraphElementColorOnMouseUp(); };
 

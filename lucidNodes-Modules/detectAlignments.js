@@ -142,7 +142,8 @@ function checkNodeForAlignementsInNodeArr( node, nodeArr ){
 	
 	if ( node && nodeArr && Array.isArray ( nodeArr )){
 		for ( var i = 0; i < nodeArr.length; i++ ){
-			var identical = nodesIdentical( node, nodeArr[i] );
+		//	var identical = nodesIdentical( node, nodeArr[i] );
+			var identical = lucidNodesEntitiesIdentical( node, nodeArr[i] );
 			if ( !identical ){
 				logAlignedNodes( node, nodeArr[i] );
 			}
@@ -270,7 +271,7 @@ function detectAllCommonOrthoLinesAlongAxis( orthoLine, precision = "rounded" ){
 			for ( var j = 0; j < planeSets[ complimentary[1] ].length; j++ ){
 				var y = planeSets[ complimentary[1] ][j];
 				potentialOrthoLines.push( { x: 0, y: y , z: z } ); 
-				guideLines.push( new guideLine( { startPoint: { x: -worldExtents, y: y, z: z }, endPoint: { x: worldExtents, y: y, z: z }, definedBy: [ "situation" ] } ) );
+				guideLines.push( new LUCIDNODES.GuideLine( { startPoint: { x: -worldExtents, y: y, z: z }, endPoint: { x: worldExtents, y: y, z: z }, definedBy: [ "situation" ] } ) );
 			}
 		}
 		else if ( orthoLine === "y" ){ 
@@ -279,7 +280,7 @@ function detectAllCommonOrthoLinesAlongAxis( orthoLine, precision = "rounded" ){
 			for ( var j = 0; j < planeSets[ complimentary[1] ].length; j++ ){			
 				var x = planeSets[ complimentary[1] ][j];
 				potentialOrthoLines.push( { x: x, y: 0, z: z } );
-				guideLines.push(  new guideLine( { startPoint: { x: x, y: -worldExtents, z: z }, endPoint: { x: x, y: worldExtents, z: z }, definedBy: [ "situation" ] } ) );
+				guideLines.push(  new LUCIDNODES.GuideLine( { startPoint: { x: x, y: -worldExtents, z: z }, endPoint: { x: x, y: worldExtents, z: z }, definedBy: [ "situation" ] } ) );
 			}
 		}
 		else if ( orthoLine === "z" ){ 
@@ -288,7 +289,7 @@ function detectAllCommonOrthoLinesAlongAxis( orthoLine, precision = "rounded" ){
 			for ( var j = 0; j < planeSets[ complimentary[1] ].length; j++ ){						
 				var x = planeSets[ complimentary[1] ][j];			
 				potentialOrthoLines.push( { x: x, y: y, z: 0 } ); 
-				guideLines.push( new guideLine( { startPoint: { x: x, y: y, z: -worldExtents }, endPoint: { x: x, y: y, z: worldExtents }, definedBy: [ "situation" ] } ) ); 
+				guideLines.push( new LUCIDNODES.GuideLine( { startPoint: { x: x, y: y, z: -worldExtents }, endPoint: { x: x, y: y, z: worldExtents }, definedBy: [ "situation" ] } ) ); 
 			}
 		}
 		

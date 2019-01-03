@@ -1,0 +1,3799 @@
+{
+  "theme": "default.thm",
+  "themeURL": "/themes",
+  "dollyCam": {
+    "camera": {
+      "quaternion": {
+        "x": -0.06087523320383059,
+        "y": -0.572678598908503,
+        "z": -0.042702005047910496,
+        "w": 0.8164006167926755
+      },
+      "rotation": {
+        "x": -0.41493677875884205,
+        "y": -1.194062943709628,
+        "z": -0.3887724085847143
+      },
+      "aspect": 4,
+      "zoom": 1,
+      "position": {
+        "x": -46.0522909016264,
+        "y": 19.1790322784539,
+        "z": 29.48673498745425
+      }
+    },
+    "quaternion": {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "aspect": 1,
+    "zoom": 1,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  "nodes": [
+    {
+      "contentType": "image",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n000",
+      "name": "n000",
+      "color": 8421504,
+      "position": {
+        "x": -20.4587076809563,
+        "y": 12.459388028875287,
+        "z": -31.050650305531246
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n000",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": "/userImages/monarch-butterfly_large.jpg",
+      "radius": 2.5,
+      "shape": "hexPlate"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n001",
+      "name": "n001",
+      "color": 8421504,
+      "position": {
+        "x": -16.29542081150462,
+        "y": 12.93605571212777,
+        "z": -25.682469309655634
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n001",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n002",
+      "name": "n002",
+      "color": 8421504,
+      "position": {
+        "x": -18.637513078099538,
+        "y": 15.796061811642694,
+        "z": -29.68953977685618
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n002",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n003",
+      "name": "n003",
+      "color": 8421504,
+      "position": {
+        "x": -23.363148737133674,
+        "y": 14.194867439894866,
+        "z": -35.57818416845845
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n003",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    }
+  ],
+  "edges": [],
+  "guides": {
+    "circles": [
+      {
+        "isInGuideGroup": false,
+        "quaternionForRotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        },
+        "guideType": "circle",
+        "segments": 40.36902294078391,
+        "thetaStart": 0,
+        "thetaLength": 6.283185307179586,
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "id": "g00a",
+        "color": 16777215,
+        "position": {
+          "x": -26.476118870862592,
+          "y": 8.645538923625274,
+          "z": -29.667189411145262
+        },
+        "opacity": 0.5,
+        "radius": 3.3640852450653256
+      },
+      {
+        "isInGuideGroup": false,
+        "quaternionForRotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        },
+        "guideType": "circle",
+        "segments": 24,
+        "thetaStart": 0,
+        "thetaLength": 6.283185307179586,
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "id": "g00b",
+        "color": 16777215,
+        "position": {
+          "x": -26.881311831027233,
+          "y": 8.645538923625274,
+          "z": -29.667189411145262
+        },
+        "opacity": 0.5,
+        "radius": 1.6271686097443308
+      },
+      {
+        "isInGuideGroup": false,
+        "quaternionForRotation": {
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "w": 1
+        },
+        "guideType": "circle",
+        "segments": 42.95038426846804,
+        "thetaStart": 0,
+        "thetaLength": 6.283185307179586,
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "id": "g00c",
+        "color": 16777215,
+        "position": {
+          "x": -14.683030488570694,
+          "y": 4.257333254114325,
+          "z": -26.82352268142991
+        },
+        "opacity": 0.5,
+        "radius": 3.5791986890390035
+      }
+    ],
+    "points": [
+      {
+        "isInGuideGroup": false,
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00d",
+        "color": 16777215,
+        "position": {
+          "x": 2,
+          "y": 2,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00e",
+        "color": 16777215,
+        "position": {
+          "x": 4.598076211353316,
+          "y": 3.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00f",
+        "color": 16777215,
+        "position": {
+          "x": 7.196152422706632,
+          "y": 2,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00g",
+        "color": 16777215,
+        "position": {
+          "x": 9.794228634059948,
+          "y": 3.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00h",
+        "color": 16777215,
+        "position": {
+          "x": 12.392304845413264,
+          "y": 2,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00i",
+        "color": 16777215,
+        "position": {
+          "x": 14.99038105676658,
+          "y": 3.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00j",
+        "color": 16777215,
+        "position": {
+          "x": 17.588457268119896,
+          "y": 2,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00k",
+        "color": 16777215,
+        "position": {
+          "x": 20.186533479473212,
+          "y": 3.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00l",
+        "color": 16777215,
+        "position": {
+          "x": 22.784609690826528,
+          "y": 2,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00m",
+        "color": 16777215,
+        "position": {
+          "x": 25.382685902179844,
+          "y": 3.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00n",
+        "color": 16777215,
+        "position": {
+          "x": 27.98076211353316,
+          "y": 2,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00o",
+        "color": 16777215,
+        "position": {
+          "x": 30.578838324886476,
+          "y": 3.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00p",
+        "color": 16777215,
+        "position": {
+          "x": 33.17691453623979,
+          "y": 2,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00q",
+        "color": 16777215,
+        "position": {
+          "x": 2,
+          "y": 5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00r",
+        "color": 16777215,
+        "position": {
+          "x": 4.598076211353316,
+          "y": 6.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00s",
+        "color": 16777215,
+        "position": {
+          "x": 7.196152422706632,
+          "y": 5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00t",
+        "color": 16777215,
+        "position": {
+          "x": 9.794228634059948,
+          "y": 6.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00u",
+        "color": 16777215,
+        "position": {
+          "x": 12.392304845413264,
+          "y": 5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00v",
+        "color": 16777215,
+        "position": {
+          "x": 14.99038105676658,
+          "y": 6.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00w",
+        "color": 16777215,
+        "position": {
+          "x": 17.588457268119896,
+          "y": 5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00x",
+        "color": 16777215,
+        "position": {
+          "x": 20.186533479473212,
+          "y": 6.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00y",
+        "color": 16777215,
+        "position": {
+          "x": 22.784609690826528,
+          "y": 5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g00z",
+        "color": 16777215,
+        "position": {
+          "x": 25.382685902179844,
+          "y": 6.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g010",
+        "color": 16777215,
+        "position": {
+          "x": 27.98076211353316,
+          "y": 5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g011",
+        "color": 16777215,
+        "position": {
+          "x": 30.578838324886476,
+          "y": 6.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g012",
+        "color": 16777215,
+        "position": {
+          "x": 33.17691453623979,
+          "y": 5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g013",
+        "color": 16777215,
+        "position": {
+          "x": 2,
+          "y": 8,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g014",
+        "color": 16777215,
+        "position": {
+          "x": 4.598076211353316,
+          "y": 9.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g015",
+        "color": 16777215,
+        "position": {
+          "x": 7.196152422706632,
+          "y": 8,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g016",
+        "color": 16777215,
+        "position": {
+          "x": 9.794228634059948,
+          "y": 9.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g017",
+        "color": 16777215,
+        "position": {
+          "x": 12.392304845413264,
+          "y": 8,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g018",
+        "color": 16777215,
+        "position": {
+          "x": 14.99038105676658,
+          "y": 9.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g019",
+        "color": 16777215,
+        "position": {
+          "x": 17.588457268119896,
+          "y": 8,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01a",
+        "color": 16777215,
+        "position": {
+          "x": 20.186533479473212,
+          "y": 9.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01b",
+        "color": 16777215,
+        "position": {
+          "x": 22.784609690826528,
+          "y": 8,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01c",
+        "color": 16777215,
+        "position": {
+          "x": 25.382685902179844,
+          "y": 9.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01d",
+        "color": 16777215,
+        "position": {
+          "x": 27.98076211353316,
+          "y": 8,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01e",
+        "color": 16777215,
+        "position": {
+          "x": 30.578838324886476,
+          "y": 9.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01f",
+        "color": 16777215,
+        "position": {
+          "x": 33.17691453623979,
+          "y": 8,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01g",
+        "color": 16777215,
+        "position": {
+          "x": 2,
+          "y": 11,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01h",
+        "color": 16777215,
+        "position": {
+          "x": 4.598076211353316,
+          "y": 12.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01i",
+        "color": 16777215,
+        "position": {
+          "x": 7.196152422706632,
+          "y": 11,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01j",
+        "color": 16777215,
+        "position": {
+          "x": 9.794228634059948,
+          "y": 12.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01k",
+        "color": 16777215,
+        "position": {
+          "x": 12.392304845413264,
+          "y": 11,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01l",
+        "color": 16777215,
+        "position": {
+          "x": 14.99038105676658,
+          "y": 12.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01m",
+        "color": 16777215,
+        "position": {
+          "x": 17.588457268119896,
+          "y": 11,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01n",
+        "color": 16777215,
+        "position": {
+          "x": 20.186533479473212,
+          "y": 12.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01o",
+        "color": 16777215,
+        "position": {
+          "x": 22.784609690826528,
+          "y": 11,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01p",
+        "color": 16777215,
+        "position": {
+          "x": 25.382685902179844,
+          "y": 12.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01q",
+        "color": 16777215,
+        "position": {
+          "x": 27.98076211353316,
+          "y": 11,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01r",
+        "color": 16777215,
+        "position": {
+          "x": 30.578838324886476,
+          "y": 12.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01s",
+        "color": 16777215,
+        "position": {
+          "x": 33.17691453623979,
+          "y": 11,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01t",
+        "color": 16777215,
+        "position": {
+          "x": 2,
+          "y": 14,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01u",
+        "color": 16777215,
+        "position": {
+          "x": 4.598076211353316,
+          "y": 15.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01v",
+        "color": 16777215,
+        "position": {
+          "x": 7.196152422706632,
+          "y": 14,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01w",
+        "color": 16777215,
+        "position": {
+          "x": 9.794228634059948,
+          "y": 15.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01x",
+        "color": 16777215,
+        "position": {
+          "x": 12.392304845413264,
+          "y": 14,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01y",
+        "color": 16777215,
+        "position": {
+          "x": 14.99038105676658,
+          "y": 15.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g01z",
+        "color": 16777215,
+        "position": {
+          "x": 17.588457268119896,
+          "y": 14,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g020",
+        "color": 16777215,
+        "position": {
+          "x": 20.186533479473212,
+          "y": 15.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g021",
+        "color": 16777215,
+        "position": {
+          "x": 22.784609690826528,
+          "y": 14,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g022",
+        "color": 16777215,
+        "position": {
+          "x": 25.382685902179844,
+          "y": 15.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g023",
+        "color": 16777215,
+        "position": {
+          "x": 27.98076211353316,
+          "y": 14,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g024",
+        "color": 16777215,
+        "position": {
+          "x": 30.578838324886476,
+          "y": 15.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g025",
+        "color": 16777215,
+        "position": {
+          "x": 33.17691453623979,
+          "y": 14,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g026",
+        "color": 16777215,
+        "position": {
+          "x": 2,
+          "y": 17,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g027",
+        "color": 16777215,
+        "position": {
+          "x": 4.598076211353316,
+          "y": 18.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g028",
+        "color": 16777215,
+        "position": {
+          "x": 7.196152422706632,
+          "y": 17,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g029",
+        "color": 16777215,
+        "position": {
+          "x": 9.794228634059948,
+          "y": 18.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02a",
+        "color": 16777215,
+        "position": {
+          "x": 12.392304845413264,
+          "y": 17,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02b",
+        "color": 16777215,
+        "position": {
+          "x": 14.99038105676658,
+          "y": 18.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02c",
+        "color": 16777215,
+        "position": {
+          "x": 17.588457268119896,
+          "y": 17,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02d",
+        "color": 16777215,
+        "position": {
+          "x": 20.186533479473212,
+          "y": 18.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02e",
+        "color": 16777215,
+        "position": {
+          "x": 22.784609690826528,
+          "y": 17,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02f",
+        "color": 16777215,
+        "position": {
+          "x": 25.382685902179844,
+          "y": 18.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02g",
+        "color": 16777215,
+        "position": {
+          "x": 27.98076211353316,
+          "y": 17,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02h",
+        "color": 16777215,
+        "position": {
+          "x": 30.578838324886476,
+          "y": 18.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02i",
+        "color": 16777215,
+        "position": {
+          "x": 33.17691453623979,
+          "y": 17,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02j",
+        "color": 16777215,
+        "position": {
+          "x": 2,
+          "y": 20,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02k",
+        "color": 16777215,
+        "position": {
+          "x": 4.598076211353316,
+          "y": 21.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02l",
+        "color": 16777215,
+        "position": {
+          "x": 7.196152422706632,
+          "y": 20,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02m",
+        "color": 16777215,
+        "position": {
+          "x": 9.794228634059948,
+          "y": 21.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02n",
+        "color": 16777215,
+        "position": {
+          "x": 12.392304845413264,
+          "y": 20,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02o",
+        "color": 16777215,
+        "position": {
+          "x": 14.99038105676658,
+          "y": 21.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02p",
+        "color": 16777215,
+        "position": {
+          "x": 17.588457268119896,
+          "y": 20,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02q",
+        "color": 16777215,
+        "position": {
+          "x": 20.186533479473212,
+          "y": 21.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02r",
+        "color": 16777215,
+        "position": {
+          "x": 22.784609690826528,
+          "y": 20,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02s",
+        "color": 16777215,
+        "position": {
+          "x": 25.382685902179844,
+          "y": 21.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02t",
+        "color": 16777215,
+        "position": {
+          "x": 27.98076211353316,
+          "y": 20,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02u",
+        "color": 16777215,
+        "position": {
+          "x": 30.578838324886476,
+          "y": 21.5,
+          "z": 2
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": true,
+        "guideGroupId": "gg000",
+        "guideGroupName": "testHexGrid",
+        "guideType": "point",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "size": 0.1,
+        "id": "g02v",
+        "color": 16777215,
+        "position": {
+          "x": 33.17691453623979,
+          "y": 20,
+          "z": 2
+        },
+        "opacity": 0.5
+      }
+    ],
+    "faces": [],
+    "lines": [
+      {
+        "isInGuideGroup": false,
+        "guideType": "line",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "startPoint": {
+          "x": -8024.908006144156,
+          "y": -0.6355497755511939,
+          "z": -26.805366329713127
+        },
+        "endPoint": {
+          "x": 7975.091993855844,
+          "y": -0.6355497755511939,
+          "z": -26.805366329713127
+        },
+        "id": "g007",
+        "color": 16777215,
+        "position": {
+          "x": -24.90800614415639,
+          "y": -0.6355497755511939,
+          "z": -26.805366329713127
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": false,
+        "guideType": "line",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "startPoint": {
+          "x": -8023.30342555385,
+          "y": 4.257333254114325,
+          "z": -26.82352268142991
+        },
+        "endPoint": {
+          "x": 7976.69657444615,
+          "y": 4.257333254114325,
+          "z": -26.82352268142991
+        },
+        "id": "g008",
+        "color": 16777215,
+        "position": {
+          "x": -23.303425553849593,
+          "y": 4.257333254114325,
+          "z": -26.82352268142991
+        },
+        "opacity": 0.5
+      },
+      {
+        "isInGuideGroup": false,
+        "guideType": "line",
+        "visible": true,
+        "definedBy": [
+          "user"
+        ],
+        "startPoint": {
+          "x": -8025.117273190484,
+          "y": 8.645538923625274,
+          "z": -29.667189411145262
+        },
+        "endPoint": {
+          "x": 7974.882726809516,
+          "y": 8.645538923625274,
+          "z": -29.667189411145262
+        },
+        "id": "g009",
+        "color": 16777215,
+        "position": {
+          "x": -25.11727319048441,
+          "y": 8.645538923625274,
+          "z": -29.667189411145262
+        },
+        "opacity": 0.5
+      }
+    ],
+    "planes": []
+  },
+  "guideGroups": [
+    {
+      "guides": [
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00e",
+          "color": 16777215,
+          "position": {
+            "x": 4.598076211353316,
+            "y": 3.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00f",
+          "color": 16777215,
+          "position": {
+            "x": 7.196152422706632,
+            "y": 2,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00g",
+          "color": 16777215,
+          "position": {
+            "x": 9.794228634059948,
+            "y": 3.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00h",
+          "color": 16777215,
+          "position": {
+            "x": 12.392304845413264,
+            "y": 2,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00i",
+          "color": 16777215,
+          "position": {
+            "x": 14.99038105676658,
+            "y": 3.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00j",
+          "color": 16777215,
+          "position": {
+            "x": 17.588457268119896,
+            "y": 2,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00k",
+          "color": 16777215,
+          "position": {
+            "x": 20.186533479473212,
+            "y": 3.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00l",
+          "color": 16777215,
+          "position": {
+            "x": 22.784609690826528,
+            "y": 2,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00m",
+          "color": 16777215,
+          "position": {
+            "x": 25.382685902179844,
+            "y": 3.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00n",
+          "color": 16777215,
+          "position": {
+            "x": 27.98076211353316,
+            "y": 2,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00o",
+          "color": 16777215,
+          "position": {
+            "x": 30.578838324886476,
+            "y": 3.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00p",
+          "color": 16777215,
+          "position": {
+            "x": 33.17691453623979,
+            "y": 2,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00q",
+          "color": 16777215,
+          "position": {
+            "x": 2,
+            "y": 5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00r",
+          "color": 16777215,
+          "position": {
+            "x": 4.598076211353316,
+            "y": 6.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00s",
+          "color": 16777215,
+          "position": {
+            "x": 7.196152422706632,
+            "y": 5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00t",
+          "color": 16777215,
+          "position": {
+            "x": 9.794228634059948,
+            "y": 6.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00u",
+          "color": 16777215,
+          "position": {
+            "x": 12.392304845413264,
+            "y": 5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00v",
+          "color": 16777215,
+          "position": {
+            "x": 14.99038105676658,
+            "y": 6.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00w",
+          "color": 16777215,
+          "position": {
+            "x": 17.588457268119896,
+            "y": 5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00x",
+          "color": 16777215,
+          "position": {
+            "x": 20.186533479473212,
+            "y": 6.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00y",
+          "color": 16777215,
+          "position": {
+            "x": 22.784609690826528,
+            "y": 5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g00z",
+          "color": 16777215,
+          "position": {
+            "x": 25.382685902179844,
+            "y": 6.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g010",
+          "color": 16777215,
+          "position": {
+            "x": 27.98076211353316,
+            "y": 5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g011",
+          "color": 16777215,
+          "position": {
+            "x": 30.578838324886476,
+            "y": 6.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g012",
+          "color": 16777215,
+          "position": {
+            "x": 33.17691453623979,
+            "y": 5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g013",
+          "color": 16777215,
+          "position": {
+            "x": 2,
+            "y": 8,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g014",
+          "color": 16777215,
+          "position": {
+            "x": 4.598076211353316,
+            "y": 9.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g015",
+          "color": 16777215,
+          "position": {
+            "x": 7.196152422706632,
+            "y": 8,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g016",
+          "color": 16777215,
+          "position": {
+            "x": 9.794228634059948,
+            "y": 9.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g017",
+          "color": 16777215,
+          "position": {
+            "x": 12.392304845413264,
+            "y": 8,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g018",
+          "color": 16777215,
+          "position": {
+            "x": 14.99038105676658,
+            "y": 9.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g019",
+          "color": 16777215,
+          "position": {
+            "x": 17.588457268119896,
+            "y": 8,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01a",
+          "color": 16777215,
+          "position": {
+            "x": 20.186533479473212,
+            "y": 9.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01b",
+          "color": 16777215,
+          "position": {
+            "x": 22.784609690826528,
+            "y": 8,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01c",
+          "color": 16777215,
+          "position": {
+            "x": 25.382685902179844,
+            "y": 9.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01d",
+          "color": 16777215,
+          "position": {
+            "x": 27.98076211353316,
+            "y": 8,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01e",
+          "color": 16777215,
+          "position": {
+            "x": 30.578838324886476,
+            "y": 9.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01f",
+          "color": 16777215,
+          "position": {
+            "x": 33.17691453623979,
+            "y": 8,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01g",
+          "color": 16777215,
+          "position": {
+            "x": 2,
+            "y": 11,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01h",
+          "color": 16777215,
+          "position": {
+            "x": 4.598076211353316,
+            "y": 12.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01i",
+          "color": 16777215,
+          "position": {
+            "x": 7.196152422706632,
+            "y": 11,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01j",
+          "color": 16777215,
+          "position": {
+            "x": 9.794228634059948,
+            "y": 12.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01k",
+          "color": 16777215,
+          "position": {
+            "x": 12.392304845413264,
+            "y": 11,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01l",
+          "color": 16777215,
+          "position": {
+            "x": 14.99038105676658,
+            "y": 12.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01m",
+          "color": 16777215,
+          "position": {
+            "x": 17.588457268119896,
+            "y": 11,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01n",
+          "color": 16777215,
+          "position": {
+            "x": 20.186533479473212,
+            "y": 12.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01o",
+          "color": 16777215,
+          "position": {
+            "x": 22.784609690826528,
+            "y": 11,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01p",
+          "color": 16777215,
+          "position": {
+            "x": 25.382685902179844,
+            "y": 12.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01q",
+          "color": 16777215,
+          "position": {
+            "x": 27.98076211353316,
+            "y": 11,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01r",
+          "color": 16777215,
+          "position": {
+            "x": 30.578838324886476,
+            "y": 12.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01s",
+          "color": 16777215,
+          "position": {
+            "x": 33.17691453623979,
+            "y": 11,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01t",
+          "color": 16777215,
+          "position": {
+            "x": 2,
+            "y": 14,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01u",
+          "color": 16777215,
+          "position": {
+            "x": 4.598076211353316,
+            "y": 15.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01v",
+          "color": 16777215,
+          "position": {
+            "x": 7.196152422706632,
+            "y": 14,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01w",
+          "color": 16777215,
+          "position": {
+            "x": 9.794228634059948,
+            "y": 15.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01x",
+          "color": 16777215,
+          "position": {
+            "x": 12.392304845413264,
+            "y": 14,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01y",
+          "color": 16777215,
+          "position": {
+            "x": 14.99038105676658,
+            "y": 15.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g01z",
+          "color": 16777215,
+          "position": {
+            "x": 17.588457268119896,
+            "y": 14,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g020",
+          "color": 16777215,
+          "position": {
+            "x": 20.186533479473212,
+            "y": 15.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g021",
+          "color": 16777215,
+          "position": {
+            "x": 22.784609690826528,
+            "y": 14,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g022",
+          "color": 16777215,
+          "position": {
+            "x": 25.382685902179844,
+            "y": 15.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g023",
+          "color": 16777215,
+          "position": {
+            "x": 27.98076211353316,
+            "y": 14,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g024",
+          "color": 16777215,
+          "position": {
+            "x": 30.578838324886476,
+            "y": 15.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g025",
+          "color": 16777215,
+          "position": {
+            "x": 33.17691453623979,
+            "y": 14,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g026",
+          "color": 16777215,
+          "position": {
+            "x": 2,
+            "y": 17,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g027",
+          "color": 16777215,
+          "position": {
+            "x": 4.598076211353316,
+            "y": 18.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g028",
+          "color": 16777215,
+          "position": {
+            "x": 7.196152422706632,
+            "y": 17,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g029",
+          "color": 16777215,
+          "position": {
+            "x": 9.794228634059948,
+            "y": 18.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02a",
+          "color": 16777215,
+          "position": {
+            "x": 12.392304845413264,
+            "y": 17,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02b",
+          "color": 16777215,
+          "position": {
+            "x": 14.99038105676658,
+            "y": 18.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02c",
+          "color": 16777215,
+          "position": {
+            "x": 17.588457268119896,
+            "y": 17,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02d",
+          "color": 16777215,
+          "position": {
+            "x": 20.186533479473212,
+            "y": 18.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02e",
+          "color": 16777215,
+          "position": {
+            "x": 22.784609690826528,
+            "y": 17,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02f",
+          "color": 16777215,
+          "position": {
+            "x": 25.382685902179844,
+            "y": 18.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02g",
+          "color": 16777215,
+          "position": {
+            "x": 27.98076211353316,
+            "y": 17,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02h",
+          "color": 16777215,
+          "position": {
+            "x": 30.578838324886476,
+            "y": 18.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02i",
+          "color": 16777215,
+          "position": {
+            "x": 33.17691453623979,
+            "y": 17,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02j",
+          "color": 16777215,
+          "position": {
+            "x": 2,
+            "y": 20,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02k",
+          "color": 16777215,
+          "position": {
+            "x": 4.598076211353316,
+            "y": 21.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02l",
+          "color": 16777215,
+          "position": {
+            "x": 7.196152422706632,
+            "y": 20,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02m",
+          "color": 16777215,
+          "position": {
+            "x": 9.794228634059948,
+            "y": 21.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02n",
+          "color": 16777215,
+          "position": {
+            "x": 12.392304845413264,
+            "y": 20,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02o",
+          "color": 16777215,
+          "position": {
+            "x": 14.99038105676658,
+            "y": 21.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02p",
+          "color": 16777215,
+          "position": {
+            "x": 17.588457268119896,
+            "y": 20,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02q",
+          "color": 16777215,
+          "position": {
+            "x": 20.186533479473212,
+            "y": 21.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02r",
+          "color": 16777215,
+          "position": {
+            "x": 22.784609690826528,
+            "y": 20,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02s",
+          "color": 16777215,
+          "position": {
+            "x": 25.382685902179844,
+            "y": 21.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02t",
+          "color": 16777215,
+          "position": {
+            "x": 27.98076211353316,
+            "y": 20,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02u",
+          "color": 16777215,
+          "position": {
+            "x": 30.578838324886476,
+            "y": 21.5,
+            "z": 2
+          },
+          "opacity": 0.5
+        },
+        {
+          "isInGuideGroup": true,
+          "guideGroupId": "gg000",
+          "guideGroupName": "testHexGrid",
+          "guideType": "point",
+          "visible": true,
+          "definedBy": [
+            "user"
+          ],
+          "size": 0.1,
+          "id": "g02v",
+          "color": 16777215,
+          "position": {
+            "x": 33.17691453623979,
+            "y": 20,
+            "z": 2
+          },
+          "opacity": 0.5
+        }
+      ],
+      "definedBy": [
+        "user"
+      ],
+      "guideGroupType": "guidePointHexGrid",
+      "xSize": 32,
+      "ySize": 18,
+      "spacing": 3,
+      "id": "gg000",
+      "name": "testHexGrid",
+      "position": {
+        "x": 2,
+        "y": 2,
+        "z": 2
+      }
+    }
+  ],
+  "groups": []
+}

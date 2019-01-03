@@ -1,0 +1,8 @@
+{
+  "name": "darkGreen2",
+  "skyColor1": "#008080",
+  "skyColor2": "#000033",
+  "groundColor": "#c0c0c0",
+  "showLinearAxes": true,
+  "showRadialAxes": true
+}

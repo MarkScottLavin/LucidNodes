@@ -1,10 +1,41 @@
 // SELECTION HANDLING
 
-function selectNodeArray( nodeArr ){
+// Selected objects
+var SELECTED = {
+	nodes:[],
+	edges:[],
+	guides:{
+		planes:[],
+		lines:[],
+		points:[],
+		faces:[],
+		circles:[]
+	}
+};
+
+// Deleted LucidNodesObjects
+var DELETED = { 
+	nodes:[], 
+	edges:[], 
+	guides:{
+		planes:[],
+		lines:[],
+		points:[],
+		faces:[],
+		circles:[]
+	} 
+};
+
+function selectOnlyNodeArray( nodeArr ){
 	
 	unSelectAllGraphElements();
-	doToGraphElementArray( "selectNode", nodeArr );
+	unSelectAllGuides();
+	selectNodeArray( nodeArr );
 	
+}
+
+function selectNodeArray( nodeArr ){
+	nodeArr.forEach( function( node ){ selectNode( node ); } );	
 }
 
 function selectNode( node ){
@@ -33,21 +64,38 @@ function selectAllNodes(){
 
 function selectAll(){
 	
-	unSelectAllGraphElements();
-	doToGraphElementArray( "selectNode", cognition.nodes );
-	doToGraphElementArray( "selectEdge", cognition.edges );
+	unSelectAll();
+	
+	cognition.nodes.forEach( function( node ){ selectNode( node ); } );
+	cognition.edges.forEach( function( edge ){ selectEdge( edge ); } );
+	
+	if ( cognition.guides ){
+		selectAllGuides();
+	}	
+}
 
+function unSelectAll(){
+	
+	unSelectAllGraphElements();	
+	if ( cognition.guides ){
+		unSelectAllGuides();
+	}
+}
+
+function selectOnlyEdgeArray( edgeArr ){
+
+	unSelectAllGraphElements();
+	unSelectAllGuides();
+	selectEdgeArray( edgeArr );
 }
 
 function selectEdgeArray( edgeArr ){
-
-	unSelectAllGraphElements();
-	doToGraphElementArray( "selectEdge", edgeArr );
+	edgeArr.forEach( function( edge ){ selectEdge( edge ); } );	
 }
 
 function selectAllEdges(){
 	
-	selectEdgeArray( cognition.edges );
+	selectOnlyEdgeArray( cognition.edges );
 }
 
 function unSelectNode( node ){
@@ -70,16 +118,13 @@ function unSelectEdge( edge ){
 }
 
 function unSelectNodeArray( nodeArr ){
-	
 	var passArr = nodeArr.slice();
-	doToGraphElementArray( "unSelectNode", passArr );
-
+	passArr.forEach( function( node ){ unSelectNode( node ); } );
 }
 
 function unSelectEdgeArray( edgeArr ){
-	
 	var passArr = edgeArr.slice();
-	doToGraphElementArray( "unSelectEdge", passArr );
+	passArr.forEach( function( edge ){ unSelectEdge( edge ); } );	
 } 
 
 function unSelectAllGraphElements(){
@@ -89,47 +134,47 @@ function unSelectAllGraphElements(){
 	
 }
 
-function getGraphElementsInArrayWithEquivalentPropVal( property, value, graphElementArr ){
+function getArrayElementsWithSamePropVal( property, value, arr ){
 	
-	var arrayElementPropVal;
-	var graphElementsWithPropVal = [];
+	var propVal;
+	var elementsWithPropVal = [];
 	
 	// Compare each node in the array for equivalent value for this property, and selet all the ones that are equivalent.
-	for ( var n = 0; n < graphElementArr.length; n++ ){	
-	
-		arrayElementPropVal = getGraphElementPropertyValue( graphElementArr[ n ], property );
+
+	arr.forEach( function( entity ){
+
+		propVal = getEntityPropertyValue( entity, property );
 		
-		if ( arrayElementPropVal ){ 
+		if ( propVal ){ 
 			
-			if ( arrayElementPropVal === value ) {
-				graphElementsWithPropVal.push( graphElementArr[ n ] );
+			if ( propVal === value ) {
+				elementsWithPropVal.push( entity );
 			}
-			else if ( propValIsObj( arrayElementPropVal ) && propValIsObj( value ) ){
-				if ( objectsAreIdentical( [ arrayElementPropVal, value ] ) ){
-				graphElementsWithPropVal.push( graphElementArr[ n ] );
+			else if ( propValIsObj( propVal ) && propValIsObj( value ) ){
+				if ( objectsAreIdentical( [ propVal, value ] ) ){
+				elementsWithPropVal.push( entity );
 				}
 			}
-		}  
-	}
+		}	
+		
+	});
 
-	return graphElementsWithPropVal;
+	return elementsWithPropVal;
 }
 
-function getGraphElementPropertyValue( graphElement, property ){
+function getEntityPropertyValue( entity, property ){
 	
-	if ( graphElement.hasOwnProperty( property ) ){
-		return graphElement[ property ];
+	if ( entity && entity.hasOwnProperty( property ) ){
+		return entity[ property ];
 	}
 }
 
 function selectNodesInArrayWithSamePropValAs( node, property, nodeArr ){
 	
-	var propValue = getGraphElementPropertyValue( node, property );
+	var propValue = getEntityPropertyValue( node, property );
 	if ( propValue ){ 
-
-		var nodesWithEquivPropVal = getGraphElementsInArrayWithEquivalentPropVal( property, propValue, nodeArr );
-		doToGraphElementArray( "selectNode", nodesWithEquivPropVal );		
-		
+		var nodesWithSamePropVal = getArrayElementsWithSamePropVal( property, propValue, nodeArr );
+		nodesWithSamePropVal.forEach( function( node ){ selectNode( node ); } );
 		}
 	else { 
 		console.error( "selectNodesInArrayWithSamePropValAs: No such property exists for the node passed." );
@@ -139,17 +184,20 @@ function selectNodesInArrayWithSamePropValAs( node, property, nodeArr ){
 
 function selectEdgesInArrayWithSamePropValAs( edge, property, edgeArr ){
 	
-	var propValue = getGraphElementPropertyValue( edge, property );
+	var propValue = getEntityPropertyValue( edge, property );
 	if ( propValue ){ 
 
-		var nodesWithEquivPropVal = getGraphElementsInArrayWithEquivalentPropVal( property, propValue, edgeArr );
-		doToGraphElementArray( "selectNode", nodesWithEquivPropVal );		
-		
+		var edgesWithSamePropVal = getArrayElementsWithSamePropVal( property, propValue, edgeArr );	
+		edgesWithSamePropVal.forEach( function( edge ){ selectEdge( edge ); } );
 		}
 	else { 
-		console.error( "selectNodesInArrayWithSamePropValAs: No such property exists for the edge passed." );
+		console.error( "selectEdgesInArrayWithSamePropValAs: No such property exists for the edge passed." );
 		return; 
 	}
 }
+
+function selectNodeEdges( node ){ selectEdgeArray( getNodeEdges( node ) ); }	
+
+function selectNodeArrayEdges( nodeArr ){ if( nodeArr && nodeArr.length ){ nodeArr.forEach( function( node ){ selectNodeEdges( node ); } ); } }
 
 // END SELECTION HANDLING

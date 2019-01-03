@@ -26,7 +26,8 @@ function onAppKeyUp( event ){
 		else if ( keysPressed.keys.includes( "l" )){ selectTool( "addEdge" ); }
 		else if ( keysPressed.keys.includes( "n" )){ selectTool( "addNode" ); }
 		else if ( keysPressed.keys.includes( "t" )){ selectTool( "addGuideLine" ); }
-		else if ( keysPressed.keys.includes( "c" )){ selectTool( "addGuideCircle" ); }		
+		else if ( keysPressed.keys.includes( "c" )){ selectTool( "addGuideCircle" ); }	
+		else if ( keysPressed.keys.includes( "v" )){ selectTool( "addVectorGuideLine" ); }			
 		else if ( keysPressed.keys.includes( "z" ) && keysPressed.keys.includes( "Control" ) ){ 
 			toggleBrowserZoom(); 
 			}

@@ -1,0 +1,8 @@
+{
+  "name": "mars-light",
+  "skyColor1": "#ffff00",
+  "skyColor2": "#ff0000",
+  "groundColor": "#808040",
+  "showLinearAxes": true,
+  "showRadialAxes": true
+}

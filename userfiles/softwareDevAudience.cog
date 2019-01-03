@@ -1,0 +1,5219 @@
+{
+  "theme": "default.thm",
+  "themeURL": "/themes",
+  "dollyCam": {
+    "camera": {
+      "quaternion": {
+        "x": -0.04028315031668199,
+        "y": -0.7327522095631266,
+        "z": -0.04354231984976278,
+        "w": 0.6779052541196449
+      },
+      "rotation": {
+        "x": -2.147877656147522,
+        "y": -1.4290096826917693,
+        "z": -2.152498428826874
+      },
+      "aspect": 3.035573122529644,
+      "zoom": 1,
+      "position": {
+        "x": -51.74274143701262,
+        "y": 36.85431966057574,
+        "z": -1.688047459242625
+      }
+    },
+    "quaternion": {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "aspect": 1,
+    "zoom": 1,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  "nodes": [
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n000",
+      "name": "Audience: Software Develoepers",
+      "color": 8421504,
+      "position": {
+        "x": -33.798029173078916,
+        "y": 15.423543297225596,
+        "z": -5.3302875539026395
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Audience: Software Develoepers",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 2.5,
+      "shape": "v1icosahedron"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n001",
+      "name": "Subsegments",
+      "color": 8421504,
+      "position": {
+        "x": -43.4224146275917,
+        "y": 19.73033919920459,
+        "z": -0.1924654570268851
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Subsegments",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n002",
+      "name": "Science\nSoftware",
+      "color": 8421504,
+      "position": {
+        "x": -59.96775144958186,
+        "y": 13.944559785141815,
+        "z": 1.8560095173404552
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Science\nSoftware",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n003",
+      "name": "Astronomy",
+      "color": 8421504,
+      "position": {
+        "x": -67.84891241889093,
+        "y": 20.154349180158917,
+        "z": -10.156828989977091
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Astronomy",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n004",
+      "name": "Chemistry",
+      "color": 8421504,
+      "position": {
+        "x": -71.81135273335929,
+        "y": 16.594754918992294,
+        "z": -9.618455930457806
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Chemistry",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n005",
+      "name": "Biology",
+      "color": 8421504,
+      "position": {
+        "x": -73.64832221607136,
+        "y": 12.213715828325284,
+        "z": -7.896129105950925
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Biology",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n006",
+      "name": "Computational",
+      "color": 8421504,
+      "position": {
+        "x": -74.03159118654196,
+        "y": 7.504098805858554,
+        "z": -5.489834124098724
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Computational",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n007",
+      "name": "Crystallography",
+      "color": 8421504,
+      "position": {
+        "x": -73.00672984448654,
+        "y": 3.232585692458473,
+        "z": -2.8289296762848624
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Crystallography",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n008",
+      "name": "By Field",
+      "color": 8421504,
+      "position": {
+        "x": -65.58406721264586,
+        "y": 14.311032084056412,
+        "z": -6.4484954250193915
+      },
+      "opacity": 1,
+      "label": {
+        "text": "By Field",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n009",
+      "name": "Artificial Intelligence Applications",
+      "color": 8421504,
+      "position": {
+        "x": -61.7113420660464,
+        "y": 22.53379968483209,
+        "z": -10.059628805476713
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Artificial Intelligence Applications",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00a",
+      "name": "Biovisualization",
+      "color": 8421504,
+      "position": {
+        "x": -81.33616803293461,
+        "y": 10.13527371969355,
+        "z": -10.59085664559049
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Biovisualization",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00b",
+      "name": "Biosimulation",
+      "color": 8421504,
+      "position": {
+        "x": -80.68361189977921,
+        "y": 13.374072339158426,
+        "z": -12.391606396627177
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Biosimulation",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00c",
+      "name": "Source: Wikipedia",
+      "color": 8421504,
+      "position": {
+        "x": -63.36139438297085,
+        "y": 7.946773947189052,
+        "z": -2.5461390348358868
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Source: Wikipedia",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00d",
+      "name": "https://en.wikipedia.org/wiki/Category:Science_software",
+      "color": 8421504,
+      "position": {
+        "x": -58.54294588987504,
+        "y": 6.018859189802937,
+        "z": 0.6363726323834684
+      },
+      "opacity": 1,
+      "label": {
+        "text": "https://en.wikipedia.org/wiki/Category:Science_software",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00g",
+      "name": "Relevant Google Searches",
+      "color": 8421504,
+      "position": {
+        "x": -17.947858480520733,
+        "y": 19.466031076014907,
+        "z": -6.956893040506905
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Relevant Google Searches",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00h",
+      "name": "How do I sell my software online?",
+      "color": 8421504,
+      "position": {
+        "x": -8.102976972081844,
+        "y": 26.344902582167904,
+        "z": -1.091002397770672
+      },
+      "opacity": 1,
+      "label": {
+        "text": "How do I sell my software online?",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00i",
+      "name": "CIO.com",
+      "color": 8421504,
+      "position": {
+        "x": 2.284008135885058,
+        "y": 28.463563283750812,
+        "z": 8.121432589434779
+      },
+      "opacity": 1,
+      "label": {
+        "text": "CIO.com",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00k",
+      "name": "Cloud-Based & SaaS",
+      "color": 8421504,
+      "position": {
+        "x": 0.2183991578987161,
+        "y": 32.935695825659444,
+        "z": 2.5800808015569974
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Cloud-Based & SaaS",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00l",
+      "name": "Market",
+      "color": 8421504,
+      "position": {
+        "x": 3.016597015404031,
+        "y": 33.106460080777865,
+        "z": 15.098261311102679
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Market",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00m",
+      "name": "$32.2 Billion 2016 (2014 Gartner prediction in 2013",
+      "color": 8421504,
+      "position": {
+        "x": 7.059598223786638,
+        "y": 35.2153845854849,
+        "z": 21.03020310321768
+      },
+      "opacity": 1,
+      "label": {
+        "text": "$32.2 Billion 2016 (2014 Gartner prediction in 2013",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00o",
+      "name": "Dreams",
+      "color": 8421504,
+      "position": {
+        "x": -15.11319526395655,
+        "y": 15.76954907723625,
+        "z": 2.1656375183181362
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Dreams",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00q",
+      "name": "Frustrations",
+      "color": 8421504,
+      "position": {
+        "x": -29.797332199237907,
+        "y": 30.52985267974491,
+        "z": -2.6371954851508272
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Frustrations",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00r",
+      "name": "Great product but...",
+      "color": 8421504,
+      "position": {
+        "x": -23.21377851926676,
+        "y": 35.54715367165362,
+        "z": -3.8503819486702957
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Great product but...",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00s",
+      "name": "Get it to stand out",
+      "color": 8421504,
+      "position": {
+        "x": -7.813359327696292,
+        "y": 48.77888396208805,
+        "z": -16.28504968294989
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Get it to stand out",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00t",
+      "name": "Get it purchased",
+      "color": 8421504,
+      "position": {
+        "x": -19.48679998106575,
+        "y": 39.315110827358865,
+        "z": -4.981870019896819
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Get it purchased",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00u",
+      "name": "Get customers to keep using",
+      "color": 8421504,
+      "position": {
+        "x": -15.223020847338057,
+        "y": 37.24103350812047,
+        "z": -2.4613471162294345
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Get customers to keep using",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00v",
+      "name": "Maintaining reputation",
+      "color": 8421504,
+      "position": {
+        "x": -15.474430676711314,
+        "y": 34.40627203623671,
+        "z": -1.6130609908114422
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Maintaining reputation",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00w",
+      "name": "In the face of",
+      "color": 8421504,
+      "position": {
+        "x": -4.450402947224799,
+        "y": 39.32483741189087,
+        "z": -0.08528502034986696
+      },
+      "opacity": 1,
+      "label": {
+        "text": "In the face of",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00x",
+      "name": "Complexities I can't control",
+      "color": 8421504,
+      "position": {
+        "x": 4.850710884321565,
+        "y": 43.342691729794275,
+        "z": 0.5044362260683648
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Complexities I can't control",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 1.5,
+      "shape": "v1icosahedron"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00z",
+      "name": "IT Infrastructure dependencies",
+      "color": 8421504,
+      "position": {
+        "x": 18.122775858071737,
+        "y": 43.55673022731515,
+        "z": 8.61287384190323
+      },
+      "opacity": 1,
+      "label": {
+        "text": "IT Infrastructure dependencies",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n010",
+      "name": "Changes in the market",
+      "color": 8421504,
+      "position": {
+        "x": 17.682971941022895,
+        "y": 51.31288980165534,
+        "z": 5.564096614820221
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Changes in the market",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n011",
+      "name": "Security Threats",
+      "color": 8421504,
+      "position": {
+        "x": 9.2830337371093,
+        "y": 51.32359242584957,
+        "z": 16.41171745655497
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Security Threats",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n012",
+      "name": "IT Costs",
+      "color": 8421504,
+      "position": {
+        "x": 26.388150959799873,
+        "y": 43.843334603119466,
+        "z": 21.29711889627051
+      },
+      "opacity": 1,
+      "label": {
+        "text": "IT Costs",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n013",
+      "name": "Need to adapt to IT Infrastructure changes",
+      "color": 8421504,
+      "position": {
+        "x": 25.834213694667522,
+        "y": 40.182157867038526,
+        "z": 21.77633637109301
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Need to adapt to IT Infrastructure changes",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n014",
+      "name": "Need to keep developing",
+      "color": 8421504,
+      "position": {
+        "x": 28.684233598946637,
+        "y": 56.20433101161421,
+        "z": 8.190653128475237
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Need to keep developing",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n015",
+      "name": "Need to pivot quickly",
+      "color": 8421504,
+      "position": {
+        "x": 28.108956378911728,
+        "y": 58.764697731707514,
+        "z": 6.819708470015149
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Need to pivot quickly",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n016",
+      "name": "Need to be aware of and be able to respond to competitor behavior",
+      "color": 8421504,
+      "position": {
+        "x": 27.936792054252443,
+        "y": 53.28835780261734,
+        "z": 9.143949364643959
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Need to be aware of and be able to respond to competitor behavior",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n017",
+      "name": "Need to be highly niched to maintain relevance",
+      "color": 8421504,
+      "position": {
+        "x": 27.045867057421788,
+        "y": 49.646070015682426,
+        "z": 10.019417696555578
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Need to be highly niched to maintain relevance",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n018",
+      "name": "Need to contain internal development failures",
+      "color": 8421504,
+      "position": {
+        "x": 11.622727601146334,
+        "y": 58.92163866383606,
+        "z": -3.8630295227991196
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Need to contain internal development failures",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n019",
+      "name": "Bugs",
+      "color": 8421504,
+      "position": {
+        "x": 18.756654634204153,
+        "y": 64.72904221397806,
+        "z": -2.770263193195725
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Bugs",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n01a",
+      "name": "Security Mishaps",
+      "color": 8421504,
+      "position": {
+        "x": 19.37059847125953,
+        "y": 68.17412697518975,
+        "z": -4.134869390831481
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Security Mishaps",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n01b",
+      "name": "In the face of",
+      "color": 8421504,
+      "position": {
+        "x": -6.409215089276092,
+        "y": 51.75068378054331,
+        "z": -23.20874601524193
+      },
+      "opacity": 1,
+      "label": {
+        "text": "In the face of",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n01c",
+      "name": "The internet marketing issues everyone must deal with",
+      "color": 8421504,
+      "position": {
+        "x": -2.8906384182843627,
+        "y": 55.719972379541744,
+        "z": -33.52204677836261
+      },
+      "opacity": 1,
+      "label": {
+        "text": "The internet marketing issues everyone must deal with",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n01d",
+      "name": "Getting your needle to\nstand out in the haystack",
+      "color": 8421504,
+      "position": {
+        "x": 1.6079792364196743,
+        "y": 58.896382729367566,
+        "z": -47.856408396325925
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Getting your needle to\nstand out in the haystack",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n01e",
+      "name": "People in the software marketing space",
+      "color": 8421504,
+      "position": {
+        "x": -21.071352063478507,
+        "y": 30.344929792535048,
+        "z": -35.98047803102667
+      },
+      "opacity": 1,
+      "label": {
+        "text": "People in the software marketing space",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n01n",
+      "name": "ConsultIQ",
+      "color": 8421504,
+      "position": {
+        "x": -24.616783551177253,
+        "y": 36.981215559569314,
+        "z": -45.81303955574945
+      },
+      "opacity": 1,
+      "label": {
+        "text": "ConsultIQ",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n01p",
+      "name": "Waterstone Marketing Group",
+      "color": 8421504,
+      "position": {
+        "x": -24.652983861060854,
+        "y": 32.03842873175431,
+        "z": -46.493287548203675
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Waterstone Marketing Group",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    }
+  ],
+  "edges": [
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n000",
+          "name": "Audience: Software Develoepers",
+          "color": 8421504,
+          "position": {
+            "x": -33.798029173078916,
+            "y": 15.423543297225596,
+            "z": -5.3302875539026395
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Audience: Software Develoepers",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 2.5,
+          "shape": "v1icosahedron"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "Subsegments",
+          "color": 8421504,
+          "position": {
+            "x": -43.4224146275917,
+            "y": 19.73033919920459,
+            "z": -0.1924654570268851
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Subsegments",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n000-n001",
+      "name": "n000-n001",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n000-n001",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "Subsegments",
+          "color": 8421504,
+          "position": {
+            "x": -43.4224146275917,
+            "y": 19.73033919920459,
+            "z": -0.1924654570268851
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Subsegments",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n002",
+          "name": "Science\nSoftware",
+          "color": 8421504,
+          "position": {
+            "x": -59.96775144958186,
+            "y": 13.944559785141815,
+            "z": 1.8560095173404552
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Science\nSoftware",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n001-n002",
+      "name": "n001-n002",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n001-n002",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n008",
+          "name": "By Field",
+          "color": 8421504,
+          "position": {
+            "x": -65.58406721264586,
+            "y": 14.311032084056412,
+            "z": -6.4484954250193915
+          },
+          "opacity": 1,
+          "label": {
+            "text": "By Field",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "Astronomy",
+          "color": 8421504,
+          "position": {
+            "x": -67.84891241889093,
+            "y": 20.154349180158917,
+            "z": -10.156828989977091
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Astronomy",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n008-n003",
+      "name": "n008-n003",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n008-n003",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n008",
+          "name": "By Field",
+          "color": 8421504,
+          "position": {
+            "x": -65.58406721264586,
+            "y": 14.311032084056412,
+            "z": -6.4484954250193915
+          },
+          "opacity": 1,
+          "label": {
+            "text": "By Field",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "Chemistry",
+          "color": 8421504,
+          "position": {
+            "x": -71.81135273335929,
+            "y": 16.594754918992294,
+            "z": -9.618455930457806
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Chemistry",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n008-n004",
+      "name": "n008-n004",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n008-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n008",
+          "name": "By Field",
+          "color": 8421504,
+          "position": {
+            "x": -65.58406721264586,
+            "y": 14.311032084056412,
+            "z": -6.4484954250193915
+          },
+          "opacity": 1,
+          "label": {
+            "text": "By Field",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "Biology",
+          "color": 8421504,
+          "position": {
+            "x": -73.64832221607136,
+            "y": 12.213715828325284,
+            "z": -7.896129105950925
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Biology",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n008-n005",
+      "name": "n008-n005",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n008-n005",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n008",
+          "name": "By Field",
+          "color": 8421504,
+          "position": {
+            "x": -65.58406721264586,
+            "y": 14.311032084056412,
+            "z": -6.4484954250193915
+          },
+          "opacity": 1,
+          "label": {
+            "text": "By Field",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n006",
+          "name": "Computational",
+          "color": 8421504,
+          "position": {
+            "x": -74.03159118654196,
+            "y": 7.504098805858554,
+            "z": -5.489834124098724
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Computational",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n008-n006",
+      "name": "n008-n006",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n009",
+          "name": "Artificial Intelligence Applications",
+          "color": 8421504,
+          "position": {
+            "x": -61.7113420660464,
+            "y": 22.53379968483209,
+            "z": -10.059628805476713
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Artificial Intelligence Applications",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n008",
+          "name": "By Field",
+          "color": 8421504,
+          "position": {
+            "x": -65.58406721264586,
+            "y": 14.311032084056412,
+            "z": -6.4484954250193915
+          },
+          "opacity": 1,
+          "label": {
+            "text": "By Field",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n009-n008",
+      "name": "n009-n008",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n009-n008",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n008",
+          "name": "By Field",
+          "color": 8421504,
+          "position": {
+            "x": -65.58406721264586,
+            "y": 14.311032084056412,
+            "z": -6.4484954250193915
+          },
+          "opacity": 1,
+          "label": {
+            "text": "By Field",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n002",
+          "name": "Science\nSoftware",
+          "color": 8421504,
+          "position": {
+            "x": -59.96775144958186,
+            "y": 13.944559785141815,
+            "z": 1.8560095173404552
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Science\nSoftware",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n008-n002",
+      "name": "n008-n002",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n008-n002",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "Biology",
+          "color": 8421504,
+          "position": {
+            "x": -73.64832221607136,
+            "y": 12.213715828325284,
+            "z": -7.896129105950925
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Biology",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00b",
+          "name": "Biosimulation",
+          "color": 8421504,
+          "position": {
+            "x": -80.68361189977921,
+            "y": 13.374072339158426,
+            "z": -12.391606396627177
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Biosimulation",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n005-n00b",
+      "name": "n005-n00b",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n005-n00b",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "Biology",
+          "color": 8421504,
+          "position": {
+            "x": -73.64832221607136,
+            "y": 12.213715828325284,
+            "z": -7.896129105950925
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Biology",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "Biovisualization",
+          "color": 8421504,
+          "position": {
+            "x": -81.33616803293461,
+            "y": 10.13527371969355,
+            "z": -10.59085664559049
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Biovisualization",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n005-n00a",
+      "name": "n005-n00a",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n005-n00a",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n008",
+          "name": "By Field",
+          "color": 8421504,
+          "position": {
+            "x": -65.58406721264586,
+            "y": 14.311032084056412,
+            "z": -6.4484954250193915
+          },
+          "opacity": 1,
+          "label": {
+            "text": "By Field",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n007",
+          "name": "Crystallography",
+          "color": 8421504,
+          "position": {
+            "x": -73.00672984448654,
+            "y": 3.232585692458473,
+            "z": -2.8289296762848624
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Crystallography",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n008-n007",
+      "name": "n008-n007",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n008-n007",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n002",
+          "name": "Science\nSoftware",
+          "color": 8421504,
+          "position": {
+            "x": -59.96775144958186,
+            "y": 13.944559785141815,
+            "z": 1.8560095173404552
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Science\nSoftware",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00c",
+          "name": "Source: Wikipedia",
+          "color": 8421504,
+          "position": {
+            "x": -63.36139438297085,
+            "y": 7.946773947189052,
+            "z": -2.5461390348358868
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Source: Wikipedia",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n002-n00c",
+      "name": "n002-n00c",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n002-n00c",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00c",
+          "name": "Source: Wikipedia",
+          "color": 8421504,
+          "position": {
+            "x": -63.36139438297085,
+            "y": 7.946773947189052,
+            "z": -2.5461390348358868
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Source: Wikipedia",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00d",
+          "name": "https://en.wikipedia.org/wiki/Category:Science_software",
+          "color": 8421504,
+          "position": {
+            "x": -58.54294588987504,
+            "y": 6.018859189802937,
+            "z": 0.6363726323834684
+          },
+          "opacity": 1,
+          "label": {
+            "text": "https://en.wikipedia.org/wiki/Category:Science_software",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00c-n00d",
+      "name": "n00c-n00d",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00c-n00d",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00g",
+          "name": "Relevant Google Searches",
+          "color": 8421504,
+          "position": {
+            "x": -17.947858480520733,
+            "y": 19.466031076014907,
+            "z": -6.956893040506905
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Relevant Google Searches",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n000",
+          "name": "Audience: Software Develoepers",
+          "color": 8421504,
+          "position": {
+            "x": -33.798029173078916,
+            "y": 15.423543297225596,
+            "z": -5.3302875539026395
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Audience: Software Develoepers",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 2.5,
+          "shape": "v1icosahedron"
+        }
+      ],
+      "id": "n00g-n000",
+      "name": "n00g-n000",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00g-n000",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00g",
+          "name": "Relevant Google Searches",
+          "color": 8421504,
+          "position": {
+            "x": -17.947858480520733,
+            "y": 19.466031076014907,
+            "z": -6.956893040506905
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Relevant Google Searches",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00h",
+          "name": "How do I sell my software online?",
+          "color": 8421504,
+          "position": {
+            "x": -8.102976972081844,
+            "y": 26.344902582167904,
+            "z": -1.091002397770672
+          },
+          "opacity": 1,
+          "label": {
+            "text": "How do I sell my software online?",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00g-n00h",
+      "name": "n00g-n00h",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00g-n00h",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00i",
+          "name": "CIO.com",
+          "color": 8421504,
+          "position": {
+            "x": 2.284008135885058,
+            "y": 28.463563283750812,
+            "z": 8.121432589434779
+          },
+          "opacity": 1,
+          "label": {
+            "text": "CIO.com",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00h",
+          "name": "How do I sell my software online?",
+          "color": 8421504,
+          "position": {
+            "x": -8.102976972081844,
+            "y": 26.344902582167904,
+            "z": -1.091002397770672
+          },
+          "opacity": 1,
+          "label": {
+            "text": "How do I sell my software online?",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00i-n00h",
+      "name": "n00i-n00h",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00i-n00h",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00k",
+          "name": "Cloud-Based & SaaS",
+          "color": 8421504,
+          "position": {
+            "x": 0.2183991578987161,
+            "y": 32.935695825659444,
+            "z": 2.5800808015569974
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Cloud-Based & SaaS",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00h",
+          "name": "How do I sell my software online?",
+          "color": 8421504,
+          "position": {
+            "x": -8.102976972081844,
+            "y": 26.344902582167904,
+            "z": -1.091002397770672
+          },
+          "opacity": 1,
+          "label": {
+            "text": "How do I sell my software online?",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00k-n00h",
+      "name": "n00k-n00h",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00k-n00h",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00l",
+          "name": "Market",
+          "color": 8421504,
+          "position": {
+            "x": 3.016597015404031,
+            "y": 33.106460080777865,
+            "z": 15.098261311102679
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Market",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00m",
+          "name": "$32.2 Billion 2016 (2014 Gartner prediction in 2013",
+          "color": 8421504,
+          "position": {
+            "x": 7.059598223786638,
+            "y": 35.2153845854849,
+            "z": 21.03020310321768
+          },
+          "opacity": 1,
+          "label": {
+            "text": "$32.2 Billion 2016 (2014 Gartner prediction in 2013",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00l-n00m",
+      "name": "n00l-n00m",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00l-n00m",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00l",
+          "name": "Market",
+          "color": 8421504,
+          "position": {
+            "x": 3.016597015404031,
+            "y": 33.106460080777865,
+            "z": 15.098261311102679
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Market",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00k",
+          "name": "Cloud-Based & SaaS",
+          "color": 8421504,
+          "position": {
+            "x": 0.2183991578987161,
+            "y": 32.935695825659444,
+            "z": 2.5800808015569974
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Cloud-Based & SaaS",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00l-n00k",
+      "name": "n00l-n00k",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00l-n00k",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n000",
+          "name": "Audience: Software Develoepers",
+          "color": 8421504,
+          "position": {
+            "x": -33.798029173078916,
+            "y": 15.423543297225596,
+            "z": -5.3302875539026395
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Audience: Software Develoepers",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 2.5,
+          "shape": "v1icosahedron"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00o",
+          "name": "Dreams",
+          "color": 8421504,
+          "position": {
+            "x": -15.11319526395655,
+            "y": 15.76954907723625,
+            "z": 2.1656375183181362
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Dreams",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n000-n00o",
+      "name": "n000-n00o",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n000-n00o",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00t",
+          "name": "Get it purchased",
+          "color": 8421504,
+          "position": {
+            "x": -19.48679998106575,
+            "y": 39.315110827358865,
+            "z": -4.981870019896819
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Get it purchased",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00r",
+          "name": "Great product but...",
+          "color": 8421504,
+          "position": {
+            "x": -23.21377851926676,
+            "y": 35.54715367165362,
+            "z": -3.8503819486702957
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Great product but...",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00t-n00r",
+      "name": "n00t-n00r",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00t-n00r",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00r",
+          "name": "Great product but...",
+          "color": 8421504,
+          "position": {
+            "x": -23.21377851926676,
+            "y": 35.54715367165362,
+            "z": -3.8503819486702957
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Great product but...",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00q",
+          "name": "Frustrations",
+          "color": 8421504,
+          "position": {
+            "x": -29.797332199237907,
+            "y": 30.52985267974491,
+            "z": -2.6371954851508272
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Frustrations",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00r-n00q",
+      "name": "n00r-n00q",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00r-n00q",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00t",
+          "name": "Get it purchased",
+          "color": 8421504,
+          "position": {
+            "x": -19.48679998106575,
+            "y": 39.315110827358865,
+            "z": -4.981870019896819
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Get it purchased",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00s",
+          "name": "Get it to stand out",
+          "color": 8421504,
+          "position": {
+            "x": -7.813359327696292,
+            "y": 48.77888396208805,
+            "z": -16.28504968294989
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Get it to stand out",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00t-n00s",
+      "name": "n00t-n00s",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00t-n00s",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00t",
+          "name": "Get it purchased",
+          "color": 8421504,
+          "position": {
+            "x": -19.48679998106575,
+            "y": 39.315110827358865,
+            "z": -4.981870019896819
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Get it purchased",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00u",
+          "name": "Get customers to keep using",
+          "color": 8421504,
+          "position": {
+            "x": -15.223020847338057,
+            "y": 37.24103350812047,
+            "z": -2.4613471162294345
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Get customers to keep using",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00t-n00u",
+      "name": "n00t-n00u",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00t-n00u",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00t",
+          "name": "Get it purchased",
+          "color": 8421504,
+          "position": {
+            "x": -19.48679998106575,
+            "y": 39.315110827358865,
+            "z": -4.981870019896819
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Get it purchased",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00v",
+          "name": "Maintaining reputation",
+          "color": 8421504,
+          "position": {
+            "x": -15.474430676711314,
+            "y": 34.40627203623671,
+            "z": -1.6130609908114422
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Maintaining reputation",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00t-n00v",
+      "name": "n00t-n00v",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00t-n00v",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00u",
+          "name": "Get customers to keep using",
+          "color": 8421504,
+          "position": {
+            "x": -15.223020847338057,
+            "y": 37.24103350812047,
+            "z": -2.4613471162294345
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Get customers to keep using",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00w",
+          "name": "In the face of",
+          "color": 8421504,
+          "position": {
+            "x": -4.450402947224799,
+            "y": 39.32483741189087,
+            "z": -0.08528502034986696
+          },
+          "opacity": 1,
+          "label": {
+            "text": "In the face of",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00u-n00w",
+      "name": "n00u-n00w",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00u-n00w",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00v",
+          "name": "Maintaining reputation",
+          "color": 8421504,
+          "position": {
+            "x": -15.474430676711314,
+            "y": 34.40627203623671,
+            "z": -1.6130609908114422
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Maintaining reputation",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00w",
+          "name": "In the face of",
+          "color": 8421504,
+          "position": {
+            "x": -4.450402947224799,
+            "y": 39.32483741189087,
+            "z": -0.08528502034986696
+          },
+          "opacity": 1,
+          "label": {
+            "text": "In the face of",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00v-n00w",
+      "name": "n00v-n00w",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00v-n00w",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00w",
+          "name": "In the face of",
+          "color": 8421504,
+          "position": {
+            "x": -4.450402947224799,
+            "y": 39.32483741189087,
+            "z": -0.08528502034986696
+          },
+          "opacity": 1,
+          "label": {
+            "text": "In the face of",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00x",
+          "name": "Complexities I can't control",
+          "color": 8421504,
+          "position": {
+            "x": 4.850710884321565,
+            "y": 43.342691729794275,
+            "z": 0.5044362260683648
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Complexities I can't control",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 1.5,
+          "shape": "v1icosahedron"
+        }
+      ],
+      "id": "n00w-n00x",
+      "name": "n00w-n00x",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00w-n00x",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00z",
+          "name": "IT Infrastructure dependencies",
+          "color": 8421504,
+          "position": {
+            "x": 18.122775858071737,
+            "y": 43.55673022731515,
+            "z": 8.61287384190323
+          },
+          "opacity": 1,
+          "label": {
+            "text": "IT Infrastructure dependencies",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00x",
+          "name": "Complexities I can't control",
+          "color": 8421504,
+          "position": {
+            "x": 4.850710884321565,
+            "y": 43.342691729794275,
+            "z": 0.5044362260683648
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Complexities I can't control",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 1.5,
+          "shape": "v1icosahedron"
+        }
+      ],
+      "id": "n00z-n00x",
+      "name": "n00z-n00x",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00z-n00x",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n010",
+          "name": "Changes in the market",
+          "color": 8421504,
+          "position": {
+            "x": 17.682971941022895,
+            "y": 51.31288980165534,
+            "z": 5.564096614820221
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Changes in the market",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00x",
+          "name": "Complexities I can't control",
+          "color": 8421504,
+          "position": {
+            "x": 4.850710884321565,
+            "y": 43.342691729794275,
+            "z": 0.5044362260683648
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Complexities I can't control",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 1.5,
+          "shape": "v1icosahedron"
+        }
+      ],
+      "id": "n010-n00x",
+      "name": "n010-n00x",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n010-n00x",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n011",
+          "name": "Security Threats",
+          "color": 8421504,
+          "position": {
+            "x": 9.2830337371093,
+            "y": 51.32359242584957,
+            "z": 16.41171745655497
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Security Threats",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00x",
+          "name": "Complexities I can't control",
+          "color": 8421504,
+          "position": {
+            "x": 4.850710884321565,
+            "y": 43.342691729794275,
+            "z": 0.5044362260683648
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Complexities I can't control",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 1.5,
+          "shape": "v1icosahedron"
+        }
+      ],
+      "id": "n011-n00x",
+      "name": "n011-n00x",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n011-n00x",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00q",
+          "name": "Frustrations",
+          "color": 8421504,
+          "position": {
+            "x": -29.797332199237907,
+            "y": 30.52985267974491,
+            "z": -2.6371954851508272
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Frustrations",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n000",
+          "name": "Audience: Software Develoepers",
+          "color": 8421504,
+          "position": {
+            "x": -33.798029173078916,
+            "y": 15.423543297225596,
+            "z": -5.3302875539026395
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Audience: Software Develoepers",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 2.5,
+          "shape": "v1icosahedron"
+        }
+      ],
+      "id": "n00q-n000",
+      "name": "n00q-n000",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00q-n000",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n011",
+          "name": "Security Threats",
+          "color": 8421504,
+          "position": {
+            "x": 9.2830337371093,
+            "y": 51.32359242584957,
+            "z": 16.41171745655497
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Security Threats",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00z",
+          "name": "IT Infrastructure dependencies",
+          "color": 8421504,
+          "position": {
+            "x": 18.122775858071737,
+            "y": 43.55673022731515,
+            "z": 8.61287384190323
+          },
+          "opacity": 1,
+          "label": {
+            "text": "IT Infrastructure dependencies",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n011-n00z",
+      "name": "n011-n00z",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n011-n00z",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00z",
+          "name": "IT Infrastructure dependencies",
+          "color": 8421504,
+          "position": {
+            "x": 18.122775858071737,
+            "y": 43.55673022731515,
+            "z": 8.61287384190323
+          },
+          "opacity": 1,
+          "label": {
+            "text": "IT Infrastructure dependencies",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n012",
+          "name": "IT Costs",
+          "color": 8421504,
+          "position": {
+            "x": 26.388150959799873,
+            "y": 43.843334603119466,
+            "z": 21.29711889627051
+          },
+          "opacity": 1,
+          "label": {
+            "text": "IT Costs",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00z-n012",
+      "name": "n00z-n012",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00z-n012",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00z",
+          "name": "IT Infrastructure dependencies",
+          "color": 8421504,
+          "position": {
+            "x": 18.122775858071737,
+            "y": 43.55673022731515,
+            "z": 8.61287384190323
+          },
+          "opacity": 1,
+          "label": {
+            "text": "IT Infrastructure dependencies",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n013",
+          "name": "Need to adapt to IT Infrastructure changes",
+          "color": 8421504,
+          "position": {
+            "x": 25.834213694667522,
+            "y": 40.182157867038526,
+            "z": 21.77633637109301
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Need to adapt to IT Infrastructure changes",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00z-n013",
+      "name": "n00z-n013",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00z-n013",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n016",
+          "name": "Need to be aware of and be able to respond to competitor behavior",
+          "color": 8421504,
+          "position": {
+            "x": 27.936792054252443,
+            "y": 53.28835780261734,
+            "z": 9.143949364643959
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Need to be aware of and be able to respond to competitor behavior",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n010",
+          "name": "Changes in the market",
+          "color": 8421504,
+          "position": {
+            "x": 17.682971941022895,
+            "y": 51.31288980165534,
+            "z": 5.564096614820221
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Changes in the market",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n016-n010",
+      "name": "n016-n010",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n016-n010",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n017",
+          "name": "Need to be highly niched to maintain relevance",
+          "color": 8421504,
+          "position": {
+            "x": 27.045867057421788,
+            "y": 49.646070015682426,
+            "z": 10.019417696555578
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Need to be highly niched to maintain relevance",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n010",
+          "name": "Changes in the market",
+          "color": 8421504,
+          "position": {
+            "x": 17.682971941022895,
+            "y": 51.31288980165534,
+            "z": 5.564096614820221
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Changes in the market",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n017-n010",
+      "name": "n017-n010",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n017-n010",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n015",
+          "name": "Need to pivot quickly",
+          "color": 8421504,
+          "position": {
+            "x": 28.108956378911728,
+            "y": 58.764697731707514,
+            "z": 6.819708470015149
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Need to pivot quickly",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n010",
+          "name": "Changes in the market",
+          "color": 8421504,
+          "position": {
+            "x": 17.682971941022895,
+            "y": 51.31288980165534,
+            "z": 5.564096614820221
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Changes in the market",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n015-n010",
+      "name": "n015-n010",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n015-n010",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n014",
+          "name": "Need to keep developing",
+          "color": 8421504,
+          "position": {
+            "x": 28.684233598946637,
+            "y": 56.20433101161421,
+            "z": 8.190653128475237
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Need to keep developing",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n010",
+          "name": "Changes in the market",
+          "color": 8421504,
+          "position": {
+            "x": 17.682971941022895,
+            "y": 51.31288980165534,
+            "z": 5.564096614820221
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Changes in the market",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n014-n010",
+      "name": "n014-n010",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n014-n010",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n018",
+          "name": "Need to contain internal development failures",
+          "color": 8421504,
+          "position": {
+            "x": 11.622727601146334,
+            "y": 58.92163866383606,
+            "z": -3.8630295227991196
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Need to contain internal development failures",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00x",
+          "name": "Complexities I can't control",
+          "color": 8421504,
+          "position": {
+            "x": 4.850710884321565,
+            "y": 43.342691729794275,
+            "z": 0.5044362260683648
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Complexities I can't control",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 1.5,
+          "shape": "v1icosahedron"
+        }
+      ],
+      "id": "n018-n00x",
+      "name": "n018-n00x",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n018-n00x",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n01a",
+          "name": "Security Mishaps",
+          "color": 8421504,
+          "position": {
+            "x": 19.37059847125953,
+            "y": 68.17412697518975,
+            "z": -4.134869390831481
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Security Mishaps",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n018",
+          "name": "Need to contain internal development failures",
+          "color": 8421504,
+          "position": {
+            "x": 11.622727601146334,
+            "y": 58.92163866383606,
+            "z": -3.8630295227991196
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Need to contain internal development failures",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n01a-n018",
+      "name": "n01a-n018",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n01a-n018",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n019",
+          "name": "Bugs",
+          "color": 8421504,
+          "position": {
+            "x": 18.756654634204153,
+            "y": 64.72904221397806,
+            "z": -2.770263193195725
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Bugs",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n018",
+          "name": "Need to contain internal development failures",
+          "color": 8421504,
+          "position": {
+            "x": 11.622727601146334,
+            "y": 58.92163866383606,
+            "z": -3.8630295227991196
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Need to contain internal development failures",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n019-n018",
+      "name": "n019-n018",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n019-n018",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n01c",
+          "name": "The internet marketing issues everyone must deal with",
+          "color": 8421504,
+          "position": {
+            "x": -2.8906384182843627,
+            "y": 55.719972379541744,
+            "z": -33.52204677836261
+          },
+          "opacity": 1,
+          "label": {
+            "text": "The internet marketing issues everyone must deal with",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n01b",
+          "name": "In the face of",
+          "color": 8421504,
+          "position": {
+            "x": -6.409215089276092,
+            "y": 51.75068378054331,
+            "z": -23.20874601524193
+          },
+          "opacity": 1,
+          "label": {
+            "text": "In the face of",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n01c-n01b",
+      "name": "n01c-n01b",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n01c-n01b",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n01c",
+          "name": "The internet marketing issues everyone must deal with",
+          "color": 8421504,
+          "position": {
+            "x": -2.8906384182843627,
+            "y": 55.719972379541744,
+            "z": -33.52204677836261
+          },
+          "opacity": 1,
+          "label": {
+            "text": "The internet marketing issues everyone must deal with",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n01d",
+          "name": "Getting your needle to\nstand out in the haystack",
+          "color": 8421504,
+          "position": {
+            "x": 1.6079792364196743,
+            "y": 58.896382729367566,
+            "z": -47.856408396325925
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Getting your needle to\nstand out in the haystack",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n01c-n01d",
+      "name": "n01c-n01d",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n01c-n01d",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00s",
+          "name": "Get it to stand out",
+          "color": 8421504,
+          "position": {
+            "x": -7.813359327696292,
+            "y": 48.77888396208805,
+            "z": -16.28504968294989
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Get it to stand out",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n01b",
+          "name": "In the face of",
+          "color": 8421504,
+          "position": {
+            "x": -6.409215089276092,
+            "y": 51.75068378054331,
+            "z": -23.20874601524193
+          },
+          "opacity": 1,
+          "label": {
+            "text": "In the face of",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00s-n01b",
+      "name": "n00s-n01b",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00s-n01b",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n01e",
+          "name": "People in the software marketing space",
+          "color": 8421504,
+          "position": {
+            "x": -21.071352063478507,
+            "y": 30.344929792535048,
+            "z": -35.98047803102667
+          },
+          "opacity": 1,
+          "label": {
+            "text": "People in the software marketing space",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n000",
+          "name": "Audience: Software Develoepers",
+          "color": 8421504,
+          "position": {
+            "x": -33.798029173078916,
+            "y": 15.423543297225596,
+            "z": -5.3302875539026395
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Audience: Software Develoepers",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 2.5,
+          "shape": "v1icosahedron"
+        }
+      ],
+      "id": "n01e-n000",
+      "name": "n01e-n000",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n01e-n000",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n01e",
+          "name": "People in the software marketing space",
+          "color": 8421504,
+          "position": {
+            "x": -21.071352063478507,
+            "y": 30.344929792535048,
+            "z": -35.98047803102667
+          },
+          "opacity": 1,
+          "label": {
+            "text": "People in the software marketing space",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n01n",
+          "name": "ConsultIQ",
+          "color": 8421504,
+          "position": {
+            "x": -24.616783551177253,
+            "y": 36.981215559569314,
+            "z": -45.81303955574945
+          },
+          "opacity": 1,
+          "label": {
+            "text": "ConsultIQ",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n01e-n01n",
+      "name": "n01e-n01n",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n01e-n01n",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    }
+  ],
+  "groups": []
+}

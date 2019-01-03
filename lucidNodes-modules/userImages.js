@@ -60,10 +60,7 @@ function removeNodeImage( node ){
 
 }
 
-function removeImagesFromNodes( nodeArr ){
-	
-	doToGraphElementArray( "removeNodeImage", nodeArr );
-}
+function removeImagesFromNodes( nodeArr ){ nodeArr.forEach( function( node ){ removeNodeImage( node ); } ); }
 
 function changeImageNodeColor( node, color ){
 	
@@ -126,10 +123,12 @@ function assignVertexUVs( geometry ){
 function searchMediaLibraryForSrc( src ){
 	
 	var htmlImgs = [];
+	var imgLibPathnames = getImageLibrarySrcsPathnames();
 	
-	for ( var m = 0; m < media.images.length; m++ ){
-		if ( media.images[ m ].src === src ){
-			htmlImgs.push( media.images[ m ] );
+	for ( var m = 0; m < imgLibPathnames.length; m++ ){
+		if ( imgLibPathnames[ m ] === src ){
+			htmlImgs.push( imgLibPathnames[ m ] );
+			break;
 		}
 	}
 	
@@ -139,8 +138,9 @@ function searchMediaLibraryForSrc( src ){
 
 function getNodeImageNaturalAspect( node ){
 	
-	var htmlImg = searchMediaLibraryForSrc( node.src )[0];
-	var aspect = htmlImg.naturalWidth / htmlImg.naturalHeight;
+	var imgPath = searchMediaLibraryForSrc( node.src )[0];
+	var imgId = document.getElementById( 'img-' + getNameFromPath( node.src ) )
+	var aspect = imgId.naturalWidth / imgId.naturalHeight;
 	
 	return aspect;
 }

@@ -2,29 +2,17 @@
 
 function paintGraphElementOnMouseUp(){
 
-/*	if ( !INTERSECTED_OBJ3D || !INTERSECTED_OBJ3D.isGraphElementPart ){				
-		return;
-	} */
-	
-	// If INTERSECTED_OBJ3D is a GraphElement, choose the GraphElement it's a part of.				
-//	var x = getReferentGraphElementOfIntersectedObj3D();
+	var entity;
 
-	var graphElement;
-
-	if ( INTERSECTED_OBJ3D && INTERSECTED_OBJ3D.isGraphElementPart ){
-		graphElement = getReferentGraphElement( INTERSECTED_OBJ3D );
-		changeGraphElementColor( graphElement, document.getElementById( 'colorPicker' ).value );		
+	if ( INTERSECTED_OBJ3D && INTERSECTED_OBJ3D.isLucidNodesEntity && INTERSECTED_OBJ3D.isGraphElementPart ){
+		entity = getReferentGraphElement( INTERSECTED_OBJ3D );
+		changeGraphElementColor( entity, document.getElementById( 'colorPicker' ).value );		
 	}
-
-//	var x = getReferentGraphElement( INTERSECTED_OBJ3D );
-	
-//	changeGraphElementColor( x, document.getElementById( 'colorPicker' ).value );
-
 }
 
 function selectGraphElementColorOnMouseUp(){
 	
-	if ( !INTERSECTED_OBJ3D || !INTERSECTED_OBJ3D.isGraphElementPart ){				
+	if ( !INTERSECTED_OBJ3D || !INTERSECTED_OBJ3D.isLucidNodesEntity ){				
 		return;
 	}
 	
@@ -34,9 +22,9 @@ function selectGraphElementColorOnMouseUp(){
 	setColorPickerValueToGraphElementColor( x );
 }
 
-function setColorPickerValueToGraphElementColor( graphElement ){
+function setColorPickerValueToGraphElementColor( entity ){
 
-	var hexColor = "#" + graphElement.color.getHexString();
+	var hexColor = "#" + entity.color.getHexString();
 	
 	document.getElementById( 'colorPicker' ).value = hexColor;
 	

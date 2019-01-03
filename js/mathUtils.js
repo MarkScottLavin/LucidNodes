@@ -489,6 +489,65 @@ var _Math = {
 			return centroid;
 			
 	},
+	
+	weightedCentroid: function( entities, weightingPropertyName ){
+
+		let positions = [];
+		let weights = [];
+		let numerator;
+		let denominator = 0;
+		let centroid;
+
+		if ( entities && entities.length ){
+			entities.forEach( function( entity ){
+				if ( entity.position ){
+					positions.push ( entity.position.clone() );
+				}
+				else { 
+					positions.push ( new THREE.Vector3( 0, 0, 0 ) );
+					console.error( "weightedCentroid(): No position provided for entities.", entities.indexOf( entity ) ); 
+				}
+
+				if ( entity[ weightingPropertyName ] ){
+					if ( !isNaN( entity[ weightingPropertyName ] )){
+						weights.push( entity[ weightingPropertyName ] );
+					}
+					else {
+						weights.push( 1.0 );  
+						console.error( "weightedCentroid(): Weight of entities.", entities.indexOf( entity ), ".", weightingPropertyName ," is not a number. Value of 1.0 used." );
+					}
+				}
+				else {
+					weights.push( 1.0 );  
+					console.error( "weightedCentroid(): No weightingPropertyName provided for entities.", entities.indexOf( entity ), " is not a number. Value of 1.0 used." );				
+				}
+			});
+
+
+			positions.forEach( function( position ){
+						
+				var weighted = position.multiplyScalar( weights[ positions.indexOf( position ) ] );
+
+				if ( numerator ){
+					numerator.addVectors( numerator, weighted )
+				}
+				else {
+					numerator = weighted;
+				}
+
+				denominator = denominator + weights[ positions.indexOf( position ) ]; 	
+			});
+
+			centroid = numerator.divideScalar( denominator );
+
+			debug.master && debug.math && console.log( "weightedCentroid(): ( ", positions , "," , weights, " ) ", centroid );
+			return centroid;
+		}
+
+		else {
+			console.error ( "weightedCentroid(): Entities needed for center of gravity computation" );
+		}	
+	},	
 
 	/*
 	 * vecComponentIsNearEqual();
@@ -578,8 +637,72 @@ var _Math = {
 		else if ( axis === "y" ){ return [ "xy" , "yz" ]; }
 		else if ( axis === "z" ){ return [ "xz" , "yz" ]; }
 		
-	}
+	},
 
+	getLineEquationFromPoints: function( v1, v2 ){
+
+		var lineEq = {
+			slope: ( v1.y - v2.y ) / ( v1.x - v2.x )
+		}
+	 
+		lineEq.yIntercept = v1.y - lineEq.slope * v1.x;
+	 
+		return lineEq;
+	},
+	
+	// Adapted from: https://gist.github.com/gordonwoodhull/50eb65d2f048789f9558
+	
+	intersectionPointOfLines: function( v1, v2, v3, v4, epsilon = 0.0000001 ){
+
+		function between( a, b, c ) {
+			return a - epsilon <= b && b <= c + epsilon;
+		}
+
+		let x = ( ( v1.x * v2.y - v1.y * v2.x ) * ( v3.x - v4.x ) - ( v1.x - v2.x ) * ( v3.x * v4.y - v3.y * v4.x ) ) /
+				( ( v1.x - v2.x ) * ( v3.y - v4.y ) - ( v1.y - v2.y ) * ( v3.x - v4.x ) );
+				
+		let y = ( ( v1.x * v2.y - v1.y * v2.x ) * ( v3.y-v4.y ) - ( v1.y - v2.y ) * ( v3.x * v4.y - v3.y * v4.x ) ) /
+				( ( v1.x - v2.x ) * ( v3.y-v4.y ) - ( v1.y - v2.y ) * ( v3.x - v4.x ) );
+				
+		if ( isNaN( x ) || isNaN( y ) ) { return false; } 
+		
+		else {
+			if (v1.x >= v2.x ) {
+				if ( !between( v2.x, x, v1.x ) ){ return false; }
+			} 
+				
+			else {
+				if ( !between( v1.x, x, v2.x ) ){ return false; }
+			}
+			
+			if ( v1.y >= v2.y ) {
+				if ( !between( v2.y, y, v1.y ) ){ return false; }
+			} 
+			
+			else {
+				if ( !between( v1.y, y, v2.y ) ){ return false; }
+			}
+			
+			if ( v3.x >= v4.x ) {
+				if ( !between( v4.x, x, v3.x ) ) { return false; }
+			} 
+			
+			else {
+				if ( !between( v3.x, x, v4.x ) ) { return false; }
+			}
+			
+			if (v3.y>=v4.y ) {
+				if ( !between( v4.y, y, v3.y ) ) { return false; }
+			}
+			
+			else {
+				if ( !between( v3.y, y, v4.y ) ) { return false; }
+			}
+		}
+		
+		return {x: x, y: y};
+	}
+	
 }
 
 /* Some trig helper functions that are now not needed but might be useful in the future. */

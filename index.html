@@ -4,14 +4,22 @@
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<script src="js/DOMExtensions.js"></script>
+	
 	<!-- THREE.JS AND RELATED LIBRARY MODULES -->
-	<script src="js/three.js"></script>
-    <script src="js/stats.js"></script>
-	<script src="js/StereoEffect.js"></script>
-	<script src="js/DeviceOrientationControls.js"></script>
-	<script src="js/OrbitControls.js"></script>
+	<script src="libs/three.js"></script>
+    <script src="libs/stats.js"></script>
+	<script src="libs/StereoEffect.js"></script>
+	<script src="libs/DeviceOrientationControls.js"></script>
+	<script src="libs/OrbitControls.js"></script>
 	
 	<link rel="stylesheet" href="css/style.css">
+	
+	<script src="libs/three/VRControls.js"></script>		
+	<script src="libs/three/VREffect.js"></script>				
+	<script src="libs/three/webvr-polyfill.js"></script>				
+	
+	<script src="libs/webvr-ui/build/webvr-ui.js"></script>		
 	
 </header>
 
@@ -19,38 +27,52 @@
 
 <!-- Help Overlay -->
 
-<div class="helpOverlay" id="hotkeysOverlay" style="display:none;" include-html="helpDocs/hotkeys.html"></div>
+<div class="helpOverlay" id="hotkeysOverlay" style="display:none;" include-html="userHelpDocs/hotkeys.html"></div>
+<!--<div include-html="contextMenu/contextMenu.html"></div>  -->
+<nav class="context-menu" id="context-menu" include-html="contextMenu/contextMenu.html"></nav>
+
+
+<div id="ui">  
+	<div id="enterVRButton"></div>
+</div>  
+<a href="#" id="exitVR" onclick="enterVRButton.requestExit()">✕</a>
 
 <div class="topMenu">
 	<form method="GET" id="temp2" enctype="multipart/form-data">
-		<div class="appTitle"><strong>LucidNodes Version 0.1.32.2</strong></div>
+		<div class="appTitle"><strong>LucidNodes Version 0.1.33</strong></div>
 		<div class="saveBar-cell">
 		   <label for="fileInput">Open File</label>
-		   <input type="file" id="fileInput" name="fileInput" accept=".json">
-		</div>
+		   <input type="file" id="fileInput" name="fileInput" accept=".cog">
+		</div> 
 		<div class="saveBar-cell">
 			<input type="button" name="saveBtn" id="saveBtn" value="Save">
 		</div>
 		<div class="saveBar-cell">
 			<input type="button" name="saveAsBtnOpener" id="saveAsBtnOpener" value="Save As">
-		</div>	
+		</div>
+		<div class="saveBar-cell">
+			<div id="fileOpen">File</div> 
+		</div>
+		<div class="saveBar-cell">
+			<div><strong id="currentFile"></strong></div>
+		</div>
 		<div class="topMenu-link" id="help">Hotkeys</div>
 	</form>	
 </div>
 
-<div class="saveAsBox" id="saveAsBox">
+<div class="dialog" id="saveCognitionAsBox">
 	<h3>Save File Name</h1>
-	<div id="saveAsBoxInner">
-		<input type="text" id="filenameInput"></input>.json
+	<div id="saveCognitionAsBoxInner">
+		<input type="text" id="filenameInput"></input>
 		<input type="button" id="saveAsBtn" value="save"></input>
 		<input type="button" id="cancelSaveAsBtn" value="cancel"></input>
 	</div>
 </div>
 
-<div class="saveAsBox" id="saveThemeAsBox">
+<div class="dialog" id="saveThemeAsBox">
 	<h3>Save Theme Name</h1>
 	<div id="saveThemeAsBoxInner">
-		<input type="text" id="themeFilenameInput"></input>.json
+		<input type="text" id="themeFilenameInput"></input>
 		<input type="button" id="saveThemeAsBtn" value="save"></input>
 		<input type="button" id="cancelSaveThemeAsBtn" value="cancel"></input>
 	</div>
@@ -69,7 +91,8 @@
 	<script src="lucidNodes-modules/labelPlane.js"></script>	
 	<script src="js/fileHandlingUtils.js"></script>
 	<script src="lucidNodes-modules/selectionHandling.js"></script>
-	<script src="app.js"></script>	
+	<script src="lucidNodes-modules/ui/desktopUI.js"></script>
+	<script src="app.js"></script>
 	<script src="lucidNodes-modules/tools/toolHelperFunctions.js"></script>
 	<script src="lucidNodes-modules/originalNodePosition.js"></script>
 	<script src="lucidNodes-modules/originalRotation.js"></script>	
@@ -84,11 +107,15 @@
 	<script src="lucidNodes-modules/tools/addNodeTool.js"></script>		
 	<script src="lucidNodes-modules/tools/addGuideLineTool.js"></script>
 	<script src="lucidNodes-modules/tools/addGuideCircleTool.js"></script>	
+	<script src="lucidNodes-modules/tools/addVectorGuideLineTool.js"></script>		
 	<script src="lucidNodes-modules/tools/colorTools.js"></script>
 	<script src="lucidNodes-modules/dropZoneUtils.js"></script>	
 	<script src="lucidNodes-modules/userImages.js"></script>
 	<script src="lucidNodes-modules/nodeThreeGroups.js"></script>
-	<script src="lucidNodes-modules/treeClimber.js"></script>
+
+	<script src="lucidNodes-addons/guideGroups/guideGroups.js"></script>
+	<script src="lucidNodes-addons/taxonomy-layers/taxonomy-layers.js"></script>
+	<script src="lucidNodes-addons/treeclimber/treeClimber.js"></script>	
 </div>
 
 <div class="toolbar" id="toolbar">
@@ -110,10 +137,22 @@
 	<div class="toolbar-cell"><img id="unLockToPlane" title="Unlock node add, move & copy from planes" alt="Unlock node add, move & copy" src="assets/mindmap_symbols/Cube.png"></div>	
 	<div class="toolbar-cell"><img id="projectToXYPlane" title="Project selected nodes to XY plane" alt="Project selected nodes to XY plane" src="assets/tool_icons/Project-to-xy.png"></div>
 	<div class="toolbar-cell"><img id="projectToXZPlane" title="Project selected nodes to XZ plane" alt="Project selected nodes to XZ plane" src="assets/tool_icons/Project-to-xz.png"></div>
-	<div class="toolbar-cell"><img id="projectToYZPlane" title="Project selected nodes to XZ plane" alt="Project selected nodes to YZ plane" src="assets/tool_icons/Project-to-yz.png"></div>	
+	<div class="toolbar-cell"><img id="projectToYZPlane" title="Project selected nodes to XZ plane" alt="Project selected nodes to YZ plane" src="assets/tool_icons/Project-to-yz.png"></div>		
+</div>
+
+
+<div class="toolbar" id="guidebar">
+	<div class="toolbar-title" id="guidebar-title"><strong>Guides & Grids</strong></div>
+	<div class="toolbar-cell"><img id="addGuideLine" title="Add Orthagonal Guide Line" alt="Add Guide Line" src="assets/tool_icons/Ortho-Guide-Line.png"></div>
+	<div class="toolbar-cell"><img id="addVectorGuideLine" title="Add Guide Line Between Points" alt="Add Guide Line Between Points" src="assets/tool_icons/Vector-Guide-Line.png"></div>		
+	<div class="toolbar-cell"><img id="addGuideCircle" title="Add Guide Circle" alt="Add Guide Circle" src="assets/tool_icons/Circle-Guide.png"></div>	
+<!--	<div class="toolbar-cell"><img id="addGuidePoint" title="Add Guide Point" alt="Add Guide Point" src="assets/tool_icons/Select.png"></div>	
+	<div class="toolbar-cell"><img id="addGuideFace" title="Add Guide Face" alt="Add Guide Face" src="assets/tool_icons/Select.png"></div>	 -->
 	<div class="toolbar-cell"><img id="showSmartGuides" title="Show all smart guides" alt="Show all smart guides" src="assets/tool_icons/Toggle-Smart-Guides.png"></div>
 	<div class="toolbar-cell"><img id="snapAllNodesToGrid" title="Snap all nodes to grid" alt="Snap all nodes to grid" src="assets/tool_icons/Snap-All-To-Grid.png"></div>	
 </div>
+
+
 
 <div class="panel" id="theme">
 	<div class="panel-title" id="theme-panel-title"><strong>Theme</strong><span id="minimize-theme-panel" class="pull-right"><strong>>></strong></span></div>
@@ -121,8 +160,14 @@
 		<form method="GET" id="temp2" enctype="multipart/form-data">
 			<div class="saveBar-cell">
 			   <label for="fileInput">Theme</label>
-			   <input type="file" id="themeInput" name="themeInput" accept=".json">
+			   <input type="file" id="themeInput" name="themeInput" accept=".thm">
 			</div>
+			<div class="saveBar-cell">
+				<div id="themeOpen">Theme</div> 
+			</div>
+			<div class="saveBar-cell">
+				<div><strong id="currentTheme"></strong></div>
+			</div>						
 			<div class="saveBar-cell">
 				<input type="button" name="saveThemeBtn" id="saveThemeBtn" value="Save">
 			</div>
@@ -173,9 +218,9 @@
 			<div class="panel-cell-lg"><img id="v1tetrahedron" title="Tetrahedron Node" alt="Tetrahedron Node" src="assets/shape_icons/Tetrahedron.png"></div>
 			<div class="panel-cell-lg"><img id="v1octahedron" title="Octahedron Node" alt="Octahedron Node" src="assets/shape_icons/Octahedron.png"></div>	
 			<div class="panel-cell-lg"><img id="v1icosahedron" title="Icosahedron Node" alt="Icosahedron Node" src="assets/shape_icons/Icosahedron.png"></div>		
-			<div class="panel-cell-lg"><img id="hexPlate" title="HexPlate Node" alt="HexPlate Node" src="assets/shape_icons/hexPlate.png"></div>
-			<div class="panel-cell-lg"><img id="circlePlate" title="CirclePlate Node" alt="CirclePlate Node" src="assets/shape_icons/circlePlate.png"></div>			
-			<div class="panel-cell-lg"><img id="hexRing" title="HexRing Node" alt="HexRing Node" src="assets/shape_icons/hexRing.png"></div>					
+			<div class="panel-cell-lg"><img id="hexPlate" title="HexPlate Node" alt="HexPlate Node" src="assets/shape_icons/HexPlate.png"></div>
+			<div class="panel-cell-lg"><img id="circlePlate" title="CirclePlate Node" alt="CirclePlate Node" src="assets/shape_icons/CirclePlate.png"></div>			
+			<div class="panel-cell-lg"><img id="hexRing" title="HexRing Node" alt="HexRing Node" src="assets/shape_icons/HexRing.png"></div>					
 		</div>
 		<div class="panel-cell-label">Scale</div>	
 		<div>
@@ -204,63 +249,28 @@
 	</div>
 </div>
 
+<div class="panel dialog" id="loadFile">
+	<div class="panel-title" id="loadFile-panel-title"><strong>Load File</strong><span id="minimize-loadFile-panel" class="pull-right"><strong>X</strong></span></div>
+	<div class="panel-body" id="loadFile-panel-area">
+	</div>		
+</div>
+
+<div class="panel dialog" id="loadTheme">
+	<div class="panel-title" id="loadTheme-panel-title"><strong>Load Theme</strong><span id="minimize-loadTheme-panel" class="pull-right"><strong>X</strong></span></div>
+	<div class="panel-body" id="loadTheme-panel-area">
+	</div>		
+</div>
+
 <!-- Hidden response catcher Iframe to recieve HTTP Responses (Instead of reloading the app -->
 
 <iframe name="hiddenResponseCatcher" id="hiddenResponseCatcher" height="40px" width="200px" onload="updateImageLibraryFromInput()">		
 </iframe>
 
-<nav class="context-menu" id="context-menu">
-  <ul class="context-menu__items">
-	<li class="context-menu__item">
-	  <a href="#" class="context-menu__link" id="selectAll">
-	  </a>
-	</li>
-	<li class="context-menu__item">
-	  <a href="#" class="context-menu__link" id="selectAllEdges">
-	  </a>
-	</li>
-	<li class="context-menu__item">
-	  <a href="#" class="context-menu__link" id="selectAllNodes">
-	  </a>
-	</li>
-	<li class="context-menu__item">
-	  <a href="#" class="context-menu__link" id="rename">
-	  </a>
-	</li>
-	<li class="context-menu__item">
-	  <a href="#" class="context-menu__link" id="delete">
-	  </a>
-	</li>	
-	<li class="context-menu__item">
-	  <a href="#" class="context-menu__link" id="changeType">
-	  </a>
-	</li>
-	<li class="context-menu__item">
-	  <a href="#" class="context-menu__link" id="group">
-	  </a>
-	</li>	
-	<li class="context-menu__item">
-	  <a href="#" class="context-menu__link" id="selectAllOfSameColor">
-	  </a>
-	</li>
-	<li class="context-menu__item">
-	  <a href="#" class="context-menu__link" id="selectAllOfSameShape">
-	  </a>
-	</li>
-	<li class="context-menu__item">
-	  <a href="#" class="context-menu__link" id="scale">
-	  </a>
-	</li>
-	<li class="context-menu__item">
-	  <a href="#" class="context-menu__link" id="properties">
-	  </a>
-	</li>		
-  </ul>
-</nav>
-
 	<script src="js/keyHandling.js"></script>	
+	<script src="contextMenu/contextMenu.js"></script>
 	<script src="mouseBehavior.js"></script>
-	<script src="helpOverlay.js"></script>	
+	<script src="lucidNodes-modules/ui/panels.js"></script>
+	<script src="lucidNodes-modules/ui/helpOverlay.js"></script>	
 	<script src="lucidNodes-modules/tools/tools.js"></script>	
 
 	<script>

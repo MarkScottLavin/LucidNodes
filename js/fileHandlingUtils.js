@@ -8,8 +8,10 @@
 	*
 ****************************************************/
 
-var SELECTEDFILE;
-var SELECTEDTHEME;
+var selectedFile;
+var selectedTheme;
+
+var currentFile, currentTheme;
 
 // COGNITION FILE LOADING UTILS
 
@@ -32,10 +34,10 @@ var loadCognitionFile = function( parameters ){
 	var filename = parameters.filename;
 	
 	// Assemble the full file path
-	var fullpath; 
+	var path; 
 	
-	if ( url ){ fullpath = url + '/' + filename }
-	else { fullpath = filename }
+	if ( url ){ path = url + '/' + filename }
+	else { path = filename }
 	
 	var ext = getExtentionFromFilename( filename );
 	
@@ -46,49 +48,48 @@ var loadCognitionFile = function( parameters ){
 		if (this.readyState == 4 && this.status == 200) {
 			var response = this.responseText;
 			debug.master && debug.loadCognition && console.log( response );
-			var loadedFile = fileTypeHandle( response, ext );
-			cognitionFromJson( loadedFile ); 
+			var loadedFile = fileTypeCheck( response, ext );
+			updateDOMCurrentFile( filename );
+			cognitionFromJson( loadedFile );
+
 		}
 		else {
-			response = 'No file found at ' + fullpath + '!';
+			response = 'No file found at ' + path + '!';
 			console.error( response );
 		}
 	};
 	
 	// Send the request
-	httpRequest.open("GET", fullpath, true);
+	httpRequest.open("GET", path, true);
 	httpRequest.send();
 
 };
 
-// File loading version 2 ( Load any file from Input type=file )
+/* loadCognitionFileFromInput()
+ *
+ * parameters:
+ *		<event> - Event fired from the input
+ *
+ *
+ */
+
 
 var loadCognitionFileFromInput = function( event ){
 	
 	// If the user selected a file to upload...
 	if ( event.target.files.length > 0 ){
 	
-		SELECTEDFILE = event.target.files[0];
+		selectedFile = event.target.files[0];
 		
-		loadCognitionFile ({ filename: SELECTEDFILE.name });
+		loadCognitionFile ({ filename: selectedFile.name });
 	}
 }
 
-var fileTypeHandle = function( file, ext ){
-	
-	// Check if we have a JSON file
-	if ( ext === 'json' || 'JSON' || 'Json' ) {
-		
-		var parsedJson = JSON.parse( file );
-		debug.master && debug.parseJson && console.log( "fileTypeHandle(): ", parsedJson );
-		return parsedJson;
+function updateDOMCurrentFile( filename ){
+	if ( filename && document.getElementById( "currentFile" ) ){
+		document.getElementById( "currentFile" ).innerHTML = filename;		
 	}
-	
-	// We'll add other filetypes later if appropriate. For now, just JSON
-	else {
-		console.error('We need a JSON file!');
-	}
-};
+}
 
 // END COGNITION FILE LOAD UTILS
 
@@ -98,6 +99,16 @@ var circRefFilter = [ 		/* Toplevel File Admin Paramas */
 							'fullpath',
 							'data',
 							'cognition',
+							'theme',
+							'themeURL',
+							/* Camera Params */
+							'dollyCam',
+							'camera',
+							'quaternion',
+							'rotation',
+							'aspect',
+							'fov',
+							'zoom',
 							/* GraphElement Params */
 							'nodes',
 							'edges',
@@ -108,7 +119,43 @@ var circRefFilter = [ 		/* Toplevel File Admin Paramas */
 							/* Edge Params */
 							'sourceNode',
 							'targetNode',
-							/* Shared GraphElement Params */
+							/* Guide Params */
+							'guides',
+							'circles',
+							'points',
+							'faces',
+							'lines',
+							'planes',
+							'isInGuideGroup',
+							'guideGroupId',
+							'guideGroupName',
+							'quaternionForRotation',
+							'guideType',
+							'segments',
+							'thetaStart',
+							'thetaLength',
+							'visible',
+							'xLimit',
+							'yLimit',
+							'zLimit',
+						/*	'parent',  */
+							'definedBy',
+							'startPoint',
+							'endPoint',
+							'vertices',  
+							'size', 
+							/* GuideGroup Params */
+							'guideGroups',
+							'guideGroupType',
+							'xSize',
+							'ySize',
+							'zSize',
+							'spacing',
+							'innerRadius',
+							'outerRadius',
+							'circleCount',
+							'distanceBetween',
+							/* Shared GraphElement & Guide Params */
 							'id',
 							'name',
 							'color',
@@ -141,6 +188,9 @@ var circRefFilter = [ 		/* Toplevel File Admin Paramas */
 
 var saveCognitionFile = function( filename, content, url ){
 	
+	// Attach the camera state so that we can reinstate it at file load.
+	attachCameraStateToCognition();
+	
 	var httpRequest = new XMLHttpRequest();
 	
 	var body = {};
@@ -163,8 +213,9 @@ var saveCognitionFile = function( filename, content, url ){
 	httpRequest.send( jBody );	
 
 	debug.master && debug.saveCognition && console.log( httpRequest );
+	
+	updateUserFilesList();
 }; 
-
 
 // END COGNITION FILE SAVING UTILS
 
@@ -178,12 +229,14 @@ var loadThemeFile = function( parameters ){
 	// LOAD THE THEME FILE:
 	
 	// Assemble the full file path
-	var fullpath; 
+	var path; 
 	var url = parameters.url || '/themes';
-	var filename = parameters.filename || "default.json";
+	var filename = parameters.filename || "default.thm";
 	
-	if ( url ){ fullpath = url + '/' + filename }
-	else { fullpath = filename }
+	if ( url ){ path = url + '/' + filename }
+	else { path = filename }
+	
+	setCognitionTheme( filename, url );	
 	
 	var ext = getExtentionFromFilename( filename );
 	
@@ -194,20 +247,26 @@ var loadThemeFile = function( parameters ){
 		if (this.readyState == 4 && this.status == 200) {
 			var response = this.responseText;
 			debug.master && debug.loadTheme && console.log( response );
-			var loadedTheme = fileTypeHandle( response, ext );
-			themeFromJson( loadedTheme ); 
+			var loadedTheme = fileTypeCheck( response, ext );
+			updateDOMCurrentTheme( filename );			
+			themeFromJson( loadedTheme );
 		}
 		else {
-			response = 'No theme found at ' + fullpath + '!';
+			response = 'No theme found at ' + path + '!';
 			console.error( response );
 		}
 	};
 	
 	// Send the request
-	httpRequest.open("GET", fullpath, true);
+	httpRequest.open("GET", path, true);
 	httpRequest.send();	
 
 };
+
+function setCognitionTheme( filename, url ){	
+	cognition.theme = filename;	
+	cognition.themeURL = url || '/themes';
+}
 
 
 /* themeFromJson( json )
@@ -224,10 +283,6 @@ var loadThemeFile = function( parameters ){
 var themeFromJson = function( theme ){
 	
 	var checkedTheme = checkThemeProperties( theme );
-	
-	// For each property
-	
-	// Theme name in input
 	
 	// Sky Color
 	skyGeoColor( { topColor: checkedTheme.skyColor1, bottomColor: checkedTheme.skyColor2 } );
@@ -312,20 +367,26 @@ var loadThemeFileFromInput = function( event ){
 	// If the user selected a file to upload...
 	if ( event.target.files.length > 0 ){
 	
-		SELECTEDTHEME = event.target.files[0];
+		selectedTheme = event.target.files[0];
 		
-		loadThemeFile ({ filename: SELECTEDTHEME.name });
+		loadThemeFile ({ filename: selectedTheme.name });
 	}
+}
+
+function updateDOMCurrentTheme( filename ){
+	if ( filename && document.getElementById( "currentTheme" ) ){
+		document.getElementById( "currentTheme" ).innerHTML = filename;		
+	}	
 }
 
 // END THEME LOADING UTILS
 
-// THHME FILE SAVING UTILS
+// THEME FILE SAVING UTILS
 
 function getThemeState(){
 	
 	var themeState = {
-		name: getNameFromFullPath( fileNameFromInput( "themeInput" ) ) || "new theme",
+		name: getNameFromPath( fileNameFromInput( "themeInput" ) ) || "new theme",
 		skyColor1: document.getElementById( "skyColor1" ).value,
 		skyColor2: document.getElementById( "skyColor2" ).value,
 		groundColor: document.getElementById( "groundColor" ).value,
@@ -348,7 +409,7 @@ var saveThemeFile = function( filename, content, url ){
 	}			
 	else if ( !url || url === "" ){
 		body.fullpath = filename; 
-	}
+	} 
 	
 	body.data = content;
 
@@ -360,17 +421,60 @@ var saveThemeFile = function( filename, content, url ){
 	httpRequest.send( jBody );	
 
 	debug.master && debug.saveTheme && console.log( httpRequest );
+	updateDOMCurrentTheme( filename );
+	updateUserThemesList();		
+	
+	setCognitionTheme( filename );
+	
 };
 
 
 // END THEME FILE SAVING UTILS HELPERS
 
+// SAVING CAMERA STATE IN COGNITION FILE
+
+function attachCameraStateToCognition(){
+	
+	cognition.dollyCam = {
+		position: dollyCam.position,
+		aspect: dollyCam.aspect,
+		quaternion: dollyCam.quaternion,
+		rotation: dollyCam.rotation,
+		zoom: dollyCam.zoom,
+		lookAt: dollyCam.lookAt,
+		camera: {
+			position: camera.position,
+			aspect: camera.aspect,
+			quaternion: camera.quaternion,
+			rotation: camera.rotation,
+			zoom: camera.zoom,
+			lookAt: camera.lookAt
+		}
+	}
+}
+
+function updateCamerasFromFile( file ){
+	
+	dollyCam.position.set( file.dollyCam.position.x, file.dollyCam.position.y, file.dollyCam.position.z );
+	dollyCam.rotation.set( file.dollyCam.rotation.x, file.dollyCam.rotation.y, file.dollyCam.rotation.z );
+	dollyCam.zoom = file.dollyCam.zoom;
+	
+	camera.position.set( file.dollyCam.camera.position.x, file.dollyCam.camera.position.y, file.dollyCam.camera.position.z );
+	camera.rotation.set( file.dollyCam.camera.rotation.x, file.dollyCam.camera.rotation.y, file.dollyCam.camera.rotation.z );
+	camera.zoom = file.dollyCam.camera.zoom;	
+	
+}
+
+// END SAVING CAMERA STATE IN COGNITION FILE
+
 // MEDIA LIBRARY LOADING UTILS
+
+var userimages;
 
 var loadImgFile = function( parameters ){
 	
 	// Assemble the full file path
-	var fullpath; 
+	var path; 
 	var url = parameters.url || '/userImages';
 	
 	if ( parameters.filename ){
@@ -379,9 +483,9 @@ var loadImgFile = function( parameters ){
 	
 	if ( filename ){
 		if ( url ){ 
-			fullpath = url + '/' + filename 
+			path = url + '/' + filename 
 		}
-		else { fullpath = filename }
+		else { path = filename }
 	
 		var ext = getExtentionFromFilename( filename );
 		
@@ -394,12 +498,12 @@ var loadImgFile = function( parameters ){
 				if (this.readyState == 4 && this.status == 200) {
 					var response = this.responseText;
 					debug.master && debug.loadUserImages && console.log( response );
-					var img = imgFromSrcUrl( fullpath );
+					var img = imgFromSrcUrl( path );
 					loadImgToLibrary( img );
 					loadThumbIntoDiv( img, "panel-thumb-area", 75, 75, "thumb" );
 				}
 				else if( this.readyState === 4 && this.status !== 200 ){
-					console.error( this.status.toString() + ": Image Folder " + fullpath + " not found!" );					
+					console.error( this.status.toString() + ": Image Folder " + path + " not found!" );					
 				}
 			}
 		
@@ -408,7 +512,7 @@ var loadImgFile = function( parameters ){
 		else { console.error( "Filetype must be .jpg, .png, .gif, .bmp, .ico, or .svg" ) }
 		
 		// Send the request
-		httpRequest.open("GET", fullpath, true);
+		httpRequest.open("GET", path, true);
 		httpRequest.send();	
 
 	}
@@ -416,44 +520,46 @@ var loadImgFile = function( parameters ){
 	else { console.error( "No image filename provided") }
 }
 
+function removeImgFile( img ){
+	
+	img = document.getElementById ( 'img-' + getNameFromPath( img ) );
+	var children = document.getElementById( 'panel-thumb-area' ).children;	
+	
+	for ( var i = 0; i < children.length; i++ ){
+		if ( children[ i ].children[ 0 ] === img ){
+			document.getElementById( 'panel-thumb-area' ).removeChild( children[ i ] );
+			break;
+		}
+	}
+
+	removeImgFromLibrary( img );
+}
+
 
 function imgFromSrcUrl( imgURL ){
 	
 	var img = new Image();
 	img.src = imgURL;
-	img.id = ( "img-" + getNameFromFullPath( imgURL ).toString() );
+	img.id = ( "img-" + getNameFromPath( imgURL ).toString() );
 	return img;
 } 
 
 function loadThumbIntoDiv( img, divId = "panel-thumb-area", width = 75, height = 75, cssClass = "thumb" ){
 	
 	img.onload = function(){
-	//if (document.readyState == "complete" || document.readyState == "loaded" ){
 		
 		var aspect = img.naturalWidth / img.naturalHeight;
 		// If the image is taller than it is wide... 
 		if ( aspect <= 1 ){
-			img.width = width * aspect;
-			//img.height = height * aspect;
-			/* texture.repeat.set( ( ( 0.5 / node.radius ) / aspect ), 0.5 / node.radius );	 */					
+			img.width = width * aspect;				
 		}
 		// If the image is wider than it is tall
 		else { 
-			/* texture.repeat.set( 0.5 / node.radius, ( ( 0.5 / node.radius ) * aspect ) ); */
 			img.width = width * aspect;
 			img.height = height;
 			}		
 		
-//		img.width = width;
-//		img.height = height;
 		img.class = cssClass;
-		
-//		var styleHeightTxt = "min-height:" + width + "px;";
-//		var styleWidthTxt = "min-width:" + width + "px;";
-		
-//		img.setAttribute("style", styleHeightTxt );
-//		img.setAttribute("style", styleWidthTxt );
-//		img.setAttribute("style", "overflow:hidden" );
 		
 		var cell = document.createElement( "div" );
 		cell.classList.add( "panel-thumb-cell" );	
@@ -462,7 +568,6 @@ function loadThumbIntoDiv( img, divId = "panel-thumb-area", width = 75, height =
 		cell.appendChild( img ); 
 		addThumbListener( img );		
 	}
-
 }
 
 function loadImageLibrary( routeURL = "/loadUserImages", folderURL = "/userImages" ){
@@ -476,12 +581,12 @@ function loadImageLibrary( routeURL = "/loadUserImages", folderURL = "/userImage
 	httpRequest.onreadystatechange = function() {
 		if (this.readyState === 4 && this.status == 200) {
 			
-			var images = JSON.parse( this.responseText );			
+			userimages = JSON.parse( this.responseText );			
 			
 			window.addEventListener( "load", function( e ){			
-				if ( images && images.length > 0 ){
-					for ( var i = 0; i < images.length; i++ ){ 
-						loadImgFile( { url: folderURL, filename: images[i] } );
+				if ( userimages && userimages.length > 0 ){
+					for ( var i = 0; i < userimages.length; i++ ){ 
+						loadImgFile( { url: folderURL, filename: userimages[i] } );
 					}
 				}
 				else { debug.master && debug.loadUserImages && console.log( 'Image folder ', + routeURL, + " is empty." ) };
@@ -502,20 +607,27 @@ function updateImageLibrary( routeURL = "/loadUserImages", folderURL = "/userIma
 	httpRequest.send();
 		
 	httpRequest.onreadystatechange = function() {
-		if (this.readyState === 4 && this.status == 200) {
+		if (this.readyState === 4 && this.status == 200 ) {
 			
-			var images = JSON.parse( this.responseText );			
+			updatedUserImages = JSON.parse( this.responseText );			
 		
 			if (document.readyState == "complete" || document.readyState == "loaded"){
-
-				var existingLibrary = getImageLibrarySrcsNamesWithoutPath();
 				
-				if ( images && images.length > 0 ){
-					for ( var i = 0; i < images.length; i++ ){ 
-					if ( !existingLibrary.includes( images[i] ) ){
-							loadImgFile( { url: folderURL, filename: images[i] } );
+				if ( updatedUserImages && updatedUserImages.length > 0 ){
+					for ( var i = 0; i < updatedUserImages.length; i++ ){ 			
+						if ( !userimages.includes( updatedUserImages[i] ) ){
+							loadImgFile( { url: folderURL, filename: updatedUserImages[i] } );
 						}
 					}
+					
+					for ( var i = 0; i < userimages.length; i++ ){
+						if ( !updatedUserImages.includes( userimages[ i ] ) ){
+							//removeFileLink( userimages[ i ], document.getElementById( 'loadFile-panel-area' ) );
+							removeImgFile( userimages[ i ] );
+						}
+					}					
+					
+					userimages = updatedUserImages;
 				}
 				else { console.log( 'Image folder ', + routeURL, + " is empty." ) };
 			}
@@ -550,10 +662,29 @@ function getImageLibrarySrcsNamesWithoutPath(){
 	
 }
 
+function getImageLibrarySrcsPathnames(){
+	
+	var srcs = [];
+	
+	for ( var m = 0; m < media.images.length; m++ ){
+		srcs.push( 	getPathnameFromAbsPath( media.images[ m ].src ) );
+	}
+
+	return srcs;	
+
+}
+
 function loadImgToLibrary( img ){
 	
 	if ( !media.images.includes( img ) ){
 		media.images.push( img );
+	}
+}
+
+function removeImgFromLibrary( img ){
+	
+	if ( media.images.includes( img ) ){
+		media.images.splice( media.images.indexOf( img ), 1 );
 	}
 }
 
@@ -570,7 +701,7 @@ function addThumbListener( thumb ){
 
 		if ( extrudes && extrudes.length > 0 ){
 			for ( var n = 0; n < extrudes.length; n++ ){
-				nodeExtrudeImage( extrudes[ n ], e.target.src );						
+				nodeExtrudeImage( extrudes[ n ], getPathnameFromAbsPath ( e.target.src ) );						
 			}
 		}
 	});
@@ -578,7 +709,247 @@ function addThumbListener( thumb ){
 
 // END MEDIA LIBRARY LOADING UTILS
 
+/* USERFILE DIRECTORY LISTING */
+
+var userfiles;
+
+function listUserFiles( domElementId = 'loadFile-panel-area', routeURL = "/listUserFiles", folderURL = "/userfiles" ){
+	
+	var httpRequest = new XMLHttpRequest();
+	
+	// Send the request
+	httpRequest.open( "GET", routeURL, true );
+	httpRequest.send();
+		
+	httpRequest.onreadystatechange = function() {
+		if ( this.readyState === 4 && this.status == 200 ){
+			
+			userfiles = JSON.parse( this.responseText );
+			listFileLinks( folderURL, userfiles, document.getElementById( domElementId ) );
+
+		}  
+		
+		else if( this.readyState === 4 && this.status !== 200 ){
+			console.error( this.status.toString() + ": UserFiles Folder " + folderURL + " not found!" );
+		}
+	}
+}
+
+function updateUserFilesList( routeURL = "/listUserFiles", folderURL = "/userfiles" ){
+	
+	var httpRequest = new XMLHttpRequest();
+	
+	// Send the request
+	httpRequest.open( "GET", routeURL, true );
+	httpRequest.send();
+		
+	httpRequest.onreadystatechange = function() {
+		
+		if ( this.readyState === 4 && this.status == 200 ) {
+			
+			var updatedUserFiles = JSON.parse( this.responseText );			
+				
+				if ( updatedUserFiles && updatedUserFiles.length > 0 ){
+					
+					for ( var i = 0; i < updatedUserFiles.length; i++ ){ 
+						if ( !userfiles.includes( folderURL + '/' + updatedUserFiles[ i ] ) ){
+							createFileLink( folderURL , updatedUserFiles[ i ], document.getElementById( 'loadFile-panel-area' ) );
+						}
+					}
+					
+					for ( var i = 0; i < userfiles.length; i++ ){
+						if ( !updatedUserFiles.includes( folderURL + '/' + userfiles[ i ] ) ){
+							removeFileLink( userfiles[ i ], document.getElementById( 'loadFile-panel-area' ) );
+						}
+					}
+					
+					userfiles = updatedUserFiles;					
+				}
+		}
+		
+		else if ( this.readyState === 4 && this.status !== 200 ){
+			console.error( this.status.toString() + ": Userfiles Folder " + folderURL + " not found!" );
+		} 
+	}
+}
+
+function listFileLinks( path, fileArr, DOMElement ){
+	
+	if ( fileArr && fileArr.length > 0 ){
+		for ( var i = 0; i < fileArr.length; i++ ){ 
+			createFileLink( path , fileArr[ i ], DOMElement );
+		}
+	}	
+	
+	else { DOMElement.innerHTML = "Nothing to show here!" };	
+	
+}
+
+function createFileLink( path, filename, DOMElement ){
+	
+	var a = document.createElement( 'a' );
+	
+	a.setAttribute( 'id', removeExtentionFromFileName( filename ) );
+	a.innerHTML = filename;
+	a.onclick = function( e ){ 
+		toggleDialogClose( loadFile );		
+		loadCognitionFile({ url: path, filename: filename });
+	};
+	a.setAttribute( 'style', 'display:block' );
+	
+	DOMElement.appendChild( a );
+	
+}
+
+function removeFileLink( filename, DOMElement ){
+	
+	filename = getNameFromPath( filename );
+	
+	var children = DOMElement.children;
+	var a = document.getElementById( filename );
+	
+	for ( var i = 0; i < children.length; i++ ){
+		if ( children[ i ] === a ){
+			DOMElement.removeChild( a ); 
+			break;
+		}
+	}	
+}
+
+/* END USER FILE DIRECTORY LISTING */
+
+/* THEME DIRECTORY LISTING */
+
+var userthemes;
+
+function listUserThemes( domElementId = 'loadTheme-panel-area', routeURL = "/listThemes", folderURL = "/themes" ){
+	
+	var httpRequest = new XMLHttpRequest();
+	
+	// Send the request
+	httpRequest.open( "GET", routeURL, true );
+	httpRequest.send();
+		
+	httpRequest.onreadystatechange = function() {
+		if ( this.readyState === 4 && this.status == 200 ){
+			
+			userthemes = JSON.parse( this.responseText );
+			listThemeLinks( folderURL, userthemes, document.getElementById( domElementId ) );
+
+		}  
+		
+		else if( this.readyState === 4 && this.status !== 200 ){
+			console.error( this.status.toString() + ": Themes Folder " + folderURL + " not found!" );
+		}
+	}
+}
+
+
+function updateUserThemesList( routeURL = "/listThemes", folderURL = "/themes" ){
+	
+	var httpRequest = new XMLHttpRequest();
+	
+	// Send the request
+	httpRequest.open( "GET", routeURL, true );
+	httpRequest.send();
+		
+	httpRequest.onreadystatechange = function() {
+		
+		if ( this.readyState === 4 && this.status == 200 ) {
+			
+			var updatedUserThemes = JSON.parse( this.responseText );			
+				
+				if ( updatedUserThemes && updatedUserThemes.length > 0 ){
+					
+					for ( var i = 0; i < updatedUserThemes.length; i++ ){ 
+						if ( !userthemes.includes( folderURL + '/' + updatedUserThemes[ i ] ) ){
+							createThemeLink( folderURL , updatedUserThemes[ i ], document.getElementById( 'loadTheme-panel-area' ) );
+						}
+					}
+					
+					for ( var i = 0; i < userthemes.length; i++ ){
+						if ( !updatedUserThemes.includes( folderURL + '/' + userthemes[ i ] ) ){
+							removeFileLink( userthemes[ i ], document.getElementById( 'loadTheme-panel-area' ) );
+						}
+					}
+					
+					userthemes = updatedUserThemes;					
+				}
+		}
+		
+		else if ( this.readyState === 4 && this.status !== 200 ){
+			console.error( this.status.toString() + ": Themes folder " + folderURL + " not found!" );
+		} 
+	}
+}
+
+
+function listThemeLinks( path, fileArr, DOMElement ){
+	
+	if ( fileArr && fileArr.length > 0 ){
+		for ( var i = 0; i < fileArr.length; i++ ){ 
+			createThemeLink( path , fileArr[ i ], DOMElement );
+		}
+	}	
+	
+	else { DOMElement.innerHTML = "Nothing to show here!" };	
+	
+}
+
+function createThemeLink( path, filename, DOMElement ){
+	
+	var a = document.createElement( 'a' );
+	
+	a.setAttribute( 'id', removeExtentionFromFileName( filename ) );
+	a.innerHTML = filename;
+	a.onclick = function( e ){ 
+		toggleDialogClose( loadTheme );		
+		loadThemeFile({ url: path, filename: filename });
+	};
+	a.setAttribute( 'style', 'display:block' );
+	
+	DOMElement.appendChild( a );
+	
+}
+
+
+/* END THEME DIRECTORY LISTING */
+
 // PATH HANDLING HELPERS
+
+/* fileTypeCheck()
+ *
+ * parameters:
+ *		<file> 	- File passed from an HTTP Resuest. Format must be JSON, though allowed file extensions include .cog & .thm.
+ *		<ext>	- File extension 
+ *
+ * Checks that the file type is a valid Cognition or Theme file, and if it is, sends it to the JSON parser.
+ * 
+ */
+
+function fileTypeCheck( file, ext ){
+	
+	if ( ext === "thm" || "THM" || "Thm" ){
+		return parseJson( file );
+	}
+	
+	if ( ext === "cog" || "COG" || "Cog" ){
+		return parseJson( file );
+	}
+	
+	else{
+		console.error( "This is not a Theme or Cognition File" );
+	}
+	
+}
+
+function parseJson( file ){
+	
+	var parsedJson = JSON.parse( file );
+	debug.master && debug.parseJson && console.log( "parseJson(): ", parsedJson );
+	return parsedJson;
+	
+}
 
 function getFileNameFromPath( fullPath ){
 	return fullPath.replace(/^.*[\\\/]/, '');
@@ -592,7 +963,7 @@ function removeExtentionFromFileName( filename ){
 	return filename.split('.')[0];
 } 
 
-function getNameFromFullPath( filename ){
+function getNameFromPath( filename ){
 	
 	var f = getFileNameFromPath( filename );
 	f = removeExtentionFromFileName( f );
@@ -604,14 +975,15 @@ function fileNameFromInput( inputId ){
 	return document.getElementById( inputId ).value;
 }
 
+function getPathnameFromAbsPath( absPath ){
+	
+	var parser = document.createElement('a');
+	parser.href = absPath;
+	
+	return decodeURI( parser.pathname );	
+}
+
 // END PATH HANDLING HELPERS 
-
-
-
-
-
-//http://localhost:3000/uploadUserImages
-
 
 
 // HANDLE FILES DROPEED IN DROP ZONES

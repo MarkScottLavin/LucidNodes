@@ -1,0 +1,1809 @@
+{
+  "theme": "yellowpurple.thm",
+  "themeURL": "/themes",
+  "dollyCam": {
+    "camera": {
+      "quaternion": {
+        "x": 0.015392751598695492,
+        "y": 0.968635540435132,
+        "z": 0.24010883550016368,
+        "w": -0.06209669974254648
+      },
+      "rotation": {
+        "x": -2.652218718401161,
+        "y": -0.1131475408499145,
+        "z": -3.0815328745295925
+      },
+      "aspect": 2.12448132780083,
+      "zoom": 1,
+      "position": {
+        "x": 12.504290182459812,
+        "y": 71.31641110762307,
+        "z": -87.88108007414813
+      }
+    },
+    "quaternion": {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "aspect": 1,
+    "zoom": 1,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  "nodes": [
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n000",
+      "name": "LucidNodes Uses",
+      "color": 16777215,
+      "position": {
+        "x": 60.603161678756514,
+        "y": 28.827980665989926,
+        "z": -64.42414815701815
+      },
+      "opacity": 1,
+      "label": {
+        "text": "LucidNodes Uses",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 3,
+      "shape": "v1icosahedron"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n001",
+      "name": "Things to Model",
+      "color": 8421504,
+      "position": {
+        "x": 48.92363798871069,
+        "y": 39.76478338464537,
+        "z": -62.673454178894715
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Things to Model",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n002",
+      "name": "Integral Learning",
+      "color": 8421504,
+      "position": {
+        "x": 32.44083985543308,
+        "y": 50.394403517522306,
+        "z": -51.439079793008425
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Integral Learning",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "image",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n003",
+      "name": "Psychometrics Models",
+      "color": 8421504,
+      "position": {
+        "x": 39.60341814811084,
+        "y": 53.133554359562325,
+        "z": -50.30872282329413
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Psychometrics Models",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": "/userImages/psychometric-models.png",
+      "radius": 4,
+      "shape": "circlePlate"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n004",
+      "name": "$$$!",
+      "color": 8421504,
+      "position": {
+        "x": 33.4827077907902,
+        "y": 57.352894795328545,
+        "z": -46.103367773721644
+      },
+      "opacity": 1,
+      "label": {
+        "text": "$$$!",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n005",
+      "name": "Existing Examples",
+      "color": 8421504,
+      "position": {
+        "x": 33.07098673796623,
+        "y": 60.60736368489137,
+        "z": -42.89981205489317
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Existing Examples",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n006",
+      "name": "Brain Train (IVA-2)",
+      "color": 8421504,
+      "position": {
+        "x": 26.824773256811138,
+        "y": 64.7303015814978,
+        "z": -45.33634371720573
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Brain Train (IVA-2)",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n008",
+      "name": "Good Example because\nthey have a product to train\nattention, but they needed\nto screen out who would\nbenefit. In creating the\nscreening tool they created\na psychometric model and\neval that is lucrative in its \nown right.",
+      "color": 8421504,
+      "position": {
+        "x": 18.271927994083967,
+        "y": 67.43104228044399,
+        "z": -46.720224537017415
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Good Example because\nthey have a product to train\nattention, but they needed\nto screen out who would\nbenefit. In creating the\nscreening tool they created\na psychometric model and\neval that is lucrative in its \nown right.",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n009",
+      "name": "Matt Use & Pays for",
+      "color": 8421504,
+      "position": {
+        "x": 19.90793898157889,
+        "y": 64.71803989888996,
+        "z": -51.147556067145175
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Matt Use & Pays for",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00a",
+      "name": "$1,300 ",
+      "color": 8421504,
+      "position": {
+        "x": 21.406124942836886,
+        "y": 62.894188773505775,
+        "z": -53.79863767290513
+      },
+      "opacity": 1,
+      "label": {
+        "text": "$1,300 ",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00b",
+      "name": "Paradigms",
+      "color": 8421504,
+      "position": {
+        "x": 25.60644286139265,
+        "y": 46.69764667458743,
+        "z": -55.520951783870956
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Paradigms",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "image",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00c",
+      "name": "Center of Gravity Model",
+      "color": 8421504,
+      "position": {
+        "x": 16.269780243985434,
+        "y": 50.097630835071016,
+        "z": -52.49491700069567
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Center of Gravity Model",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": "/userImages/center-of-gravity.png",
+      "radius": 1.5,
+      "shape": "circlePlate"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00d",
+      "name": "Fixed Area, dynamic or logarithmic spread",
+      "color": 8421504,
+      "position": {
+        "x": 15.866831924222655,
+        "y": 43.93426470478259,
+        "z": -56.156029099906284
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Fixed Area, dynamic or logarithmic spread",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 1.5,
+      "shape": "circlePlate"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00e",
+      "name": "Combining both?",
+      "color": 16711680,
+      "position": {
+        "x": 18.724051022365412,
+        "y": 46.90963198160274,
+        "z": -54.8941564104827
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Combining both?",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 1,
+      "shape": "v1octahedron"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00f",
+      "name": "Equation",
+      "color": 8421504,
+      "position": {
+        "x": 12.906751075709549,
+        "y": 53.442625055432686,
+        "z": -49.73824234100112
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Equation",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00g",
+      "name": "https://www.khanacademy.org/science/physics/linear-momentum/center-of-mass/v/center-of-mass-equation",
+      "color": 8421504,
+      "position": {
+        "x": 6.40678305336166,
+        "y": 56.9150597832315,
+        "z": -43.892646392533905
+      },
+      "opacity": 1,
+      "label": {
+        "text": "https://www.khanacademy.org/science/physics/linear-momentum/center-of-mass/v/center-of-mass-equation",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    }
+  ],
+  "edges": [
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n000",
+          "name": "LucidNodes Uses",
+          "color": 16777215,
+          "position": {
+            "x": 60.603161678756514,
+            "y": 28.827980665989926,
+            "z": -64.42414815701815
+          },
+          "opacity": 1,
+          "label": {
+            "text": "LucidNodes Uses",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 3,
+          "shape": "v1icosahedron"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "Things to Model",
+          "color": 8421504,
+          "position": {
+            "x": 48.92363798871069,
+            "y": 39.76478338464537,
+            "z": -62.673454178894715
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Things to Model",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n000-n001",
+      "name": "l",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "l",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "Psychometrics Models",
+          "color": 8421504,
+          "position": {
+            "x": 39.60341814811084,
+            "y": 53.133554359562325,
+            "z": -50.30872282329413
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Psychometrics Models",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/psychometric-models.png",
+          "radius": 4,
+          "shape": "circlePlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "$$$!",
+          "color": 8421504,
+          "position": {
+            "x": 33.4827077907902,
+            "y": 57.352894795328545,
+            "z": -46.103367773721644
+          },
+          "opacity": 1,
+          "label": {
+            "text": "$$$!",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n003-n004",
+      "name": "n003-n004",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n003-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "Psychometrics Models",
+          "color": 8421504,
+          "position": {
+            "x": 39.60341814811084,
+            "y": 53.133554359562325,
+            "z": -50.30872282329413
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Psychometrics Models",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/psychometric-models.png",
+          "radius": 4,
+          "shape": "circlePlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "Existing Examples",
+          "color": 8421504,
+          "position": {
+            "x": 33.07098673796623,
+            "y": 60.60736368489137,
+            "z": -42.89981205489317
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Existing Examples",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n003-n005",
+      "name": "n003-n005",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n003-n005",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n008",
+          "name": "Good Example because\nthey have a product to train\nattention, but they needed\nto screen out who would\nbenefit. In creating the\nscreening tool they created\na psychometric model and\neval that is lucrative in its \nown right.",
+          "color": 8421504,
+          "position": {
+            "x": 18.271927994083967,
+            "y": 67.43104228044399,
+            "z": -46.720224537017415
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Good Example because\nthey have a product to train\nattention, but they needed\nto screen out who would\nbenefit. In creating the\nscreening tool they created\na psychometric model and\neval that is lucrative in its \nown right.",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n006",
+          "name": "Brain Train (IVA-2)",
+          "color": 8421504,
+          "position": {
+            "x": 26.824773256811138,
+            "y": 64.7303015814978,
+            "z": -45.33634371720573
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Brain Train (IVA-2)",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n008-n006",
+      "name": "n008-n006",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n008-n006",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n009",
+          "name": "Matt Use & Pays for",
+          "color": 8421504,
+          "position": {
+            "x": 19.90793898157889,
+            "y": 64.71803989888996,
+            "z": -51.147556067145175
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Matt Use & Pays for",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n006",
+          "name": "Brain Train (IVA-2)",
+          "color": 8421504,
+          "position": {
+            "x": 26.824773256811138,
+            "y": 64.7303015814978,
+            "z": -45.33634371720573
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Brain Train (IVA-2)",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n009-n006",
+      "name": "n009-n006",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n009-n006",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "$1,300 ",
+          "color": 8421504,
+          "position": {
+            "x": 21.406124942836886,
+            "y": 62.894188773505775,
+            "z": -53.79863767290513
+          },
+          "opacity": 1,
+          "label": {
+            "text": "$1,300 ",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n006",
+          "name": "Brain Train (IVA-2)",
+          "color": 8421504,
+          "position": {
+            "x": 26.824773256811138,
+            "y": 64.7303015814978,
+            "z": -45.33634371720573
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Brain Train (IVA-2)",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00a-n006",
+      "name": "n00a-n006",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00a-n006",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n006",
+          "name": "Brain Train (IVA-2)",
+          "color": 8421504,
+          "position": {
+            "x": 26.824773256811138,
+            "y": 64.7303015814978,
+            "z": -45.33634371720573
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Brain Train (IVA-2)",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "Existing Examples",
+          "color": 8421504,
+          "position": {
+            "x": 33.07098673796623,
+            "y": 60.60736368489137,
+            "z": -42.89981205489317
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Existing Examples",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n006-n005",
+      "name": "n006-n005",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n006-n005",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "Things to Model",
+          "color": 8421504,
+          "position": {
+            "x": 48.92363798871069,
+            "y": 39.76478338464537,
+            "z": -62.673454178894715
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Things to Model",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "Psychometrics Models",
+          "color": 8421504,
+          "position": {
+            "x": 39.60341814811084,
+            "y": 53.133554359562325,
+            "z": -50.30872282329413
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Psychometrics Models",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/psychometric-models.png",
+          "radius": 4,
+          "shape": "circlePlate"
+        }
+      ],
+      "id": "n001-n003",
+      "name": "n001-n003",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n001-n003",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "Psychometrics Models",
+          "color": 8421504,
+          "position": {
+            "x": 39.60341814811084,
+            "y": 53.133554359562325,
+            "z": -50.30872282329413
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Psychometrics Models",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/psychometric-models.png",
+          "radius": 4,
+          "shape": "circlePlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n002",
+          "name": "Integral Learning",
+          "color": 8421504,
+          "position": {
+            "x": 32.44083985543308,
+            "y": 50.394403517522306,
+            "z": -51.439079793008425
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Integral Learning",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n003-n002",
+      "name": "n003-n002",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n003-n002",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "Psychometrics Models",
+          "color": 8421504,
+          "position": {
+            "x": 39.60341814811084,
+            "y": 53.133554359562325,
+            "z": -50.30872282329413
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Psychometrics Models",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/psychometric-models.png",
+          "radius": 4,
+          "shape": "circlePlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00b",
+          "name": "Paradigms",
+          "color": 8421504,
+          "position": {
+            "x": 25.60644286139265,
+            "y": 46.69764667458743,
+            "z": -55.520951783870956
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Paradigms",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n003-n00b",
+      "name": "n003-n00b",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n003-n00b",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00b",
+          "name": "Paradigms",
+          "color": 8421504,
+          "position": {
+            "x": 25.60644286139265,
+            "y": 46.69764667458743,
+            "z": -55.520951783870956
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Paradigms",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00c",
+          "name": "Center of Gravity Model",
+          "color": 8421504,
+          "position": {
+            "x": 16.269780243985434,
+            "y": 50.097630835071016,
+            "z": -52.49491700069567
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Center of Gravity Model",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/center-of-gravity.png",
+          "radius": 1.5,
+          "shape": "circlePlate"
+        }
+      ],
+      "id": "n00b-n00c",
+      "name": "n00b-n00c",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00b-n00c",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00b",
+          "name": "Paradigms",
+          "color": 8421504,
+          "position": {
+            "x": 25.60644286139265,
+            "y": 46.69764667458743,
+            "z": -55.520951783870956
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Paradigms",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00d",
+          "name": "Fixed Area, dynamic or logarithmic spread",
+          "color": 8421504,
+          "position": {
+            "x": 15.866831924222655,
+            "y": 43.93426470478259,
+            "z": -56.156029099906284
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Fixed Area, dynamic or logarithmic spread",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 1.5,
+          "shape": "circlePlate"
+        }
+      ],
+      "id": "n00b-n00d",
+      "name": "n00b-n00d",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00b-n00d",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00e",
+          "name": "Combining both?",
+          "color": 16711680,
+          "position": {
+            "x": 18.724051022365412,
+            "y": 46.90963198160274,
+            "z": -54.8941564104827
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Combining both?",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 1,
+          "shape": "v1octahedron"
+        },
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00c",
+          "name": "Center of Gravity Model",
+          "color": 8421504,
+          "position": {
+            "x": 16.269780243985434,
+            "y": 50.097630835071016,
+            "z": -52.49491700069567
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Center of Gravity Model",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/center-of-gravity.png",
+          "radius": 1.5,
+          "shape": "circlePlate"
+        }
+      ],
+      "id": "n00e-n00c",
+      "name": "n00e-n00c",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00e-n00c",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00d",
+          "name": "Fixed Area, dynamic or logarithmic spread",
+          "color": 8421504,
+          "position": {
+            "x": 15.866831924222655,
+            "y": 43.93426470478259,
+            "z": -56.156029099906284
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Fixed Area, dynamic or logarithmic spread",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 1.5,
+          "shape": "circlePlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00e",
+          "name": "Combining both?",
+          "color": 16711680,
+          "position": {
+            "x": 18.724051022365412,
+            "y": 46.90963198160274,
+            "z": -54.8941564104827
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Combining both?",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 1,
+          "shape": "v1octahedron"
+        }
+      ],
+      "id": "n00d-n00e",
+      "name": "n00d-n00e",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00d-n00e",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00f",
+          "name": "Equation",
+          "color": 8421504,
+          "position": {
+            "x": 12.906751075709549,
+            "y": 53.442625055432686,
+            "z": -49.73824234100112
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Equation",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00g",
+          "name": "https://www.khanacademy.org/science/physics/linear-momentum/center-of-mass/v/center-of-mass-equation",
+          "color": 8421504,
+          "position": {
+            "x": 6.40678305336166,
+            "y": 56.9150597832315,
+            "z": -43.892646392533905
+          },
+          "opacity": 1,
+          "label": {
+            "text": "https://www.khanacademy.org/science/physics/linear-momentum/center-of-mass/v/center-of-mass-equation",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00f-n00g",
+      "name": "n00f-n00g",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00f-n00g",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00c",
+          "name": "Center of Gravity Model",
+          "color": 8421504,
+          "position": {
+            "x": 16.269780243985434,
+            "y": 50.097630835071016,
+            "z": -52.49491700069567
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Center of Gravity Model",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/center-of-gravity.png",
+          "radius": 1.5,
+          "shape": "circlePlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00f",
+          "name": "Equation",
+          "color": 8421504,
+          "position": {
+            "x": 12.906751075709549,
+            "y": 53.442625055432686,
+            "z": -49.73824234100112
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Equation",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00c-n00f",
+      "name": "n00c-n00f",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00c-n00f",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    }
+  ],
+  "groups": []
+}

@@ -1,0 +1,4375 @@
+{
+  "theme": "forestGreen.thm",
+  "themeURL": "/themes",
+  "dollyCam": {
+    "camera": {
+      "quaternion": {
+        "x": 0.07422168757801395,
+        "y": -0.18051249169561762,
+        "z": 0.013661985573987213,
+        "w": 0.9806731012855852
+      },
+      "rotation": {
+        "x": 0.16150019454178327,
+        "y": -0.3597277890400771,
+        "z": 0.05728793952071324
+      },
+      "aspect": 3.035573122529644,
+      "zoom": 1,
+      "position": {
+        "x": -46.8099006574421,
+        "y": 20.401669112795908,
+        "z": 42.51583505183891
+      }
+    },
+    "quaternion": {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "aspect": 1,
+    "zoom": 1,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  "nodes": [
+    {
+      "contentType": "image",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n001",
+      "name": "Week of 12/1/18",
+      "color": 8421504,
+      "position": {
+        "x": -32.04442187374012,
+        "y": 19.62755152175249,
+        "z": -3.0357824495959522
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Week of 12/1/18",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": "/userImages/Geo Eco Diagram.png",
+      "radius": 2.5,
+      "shape": "hexPlate"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n002",
+      "name": "Grant Applications",
+      "color": 16776960,
+      "position": {
+        "x": -41.066764682781866,
+        "y": 26.934705940695714,
+        "z": -3.0357824495959522
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Grant Applications",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "image",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n003",
+      "name": "Gender WTF",
+      "color": 33023,
+      "position": {
+        "x": -42.7239917694902,
+        "y": 15.072997503197293,
+        "z": -3.0357824495959522
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Gender WTF",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": "/userImages/20170718_181341_800px_sqare.jpg",
+      "radius": 1.5,
+      "shape": "circlePlate"
+    },
+    {
+      "contentType": "image",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n004",
+      "name": "n004",
+      "color": 8421504,
+      "position": {
+        "x": -20.484786776490154,
+        "y": 20.710146498914046,
+        "z": -3.0357824495959522
+      },
+      "opacity": 1,
+      "label": {
+        "text": "",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": "/userImages/dollar.png",
+      "radius": 1.5,
+      "shape": "circlePlate"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n005",
+      "name": "Sales & Outreach",
+      "color": 8421504,
+      "position": {
+        "x": -18.26690752350038,
+        "y": 36.46269062857172,
+        "z": -3.6595782144494358
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Sales & Outreach",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n006",
+      "name": "Funding\nLucidNodes\nand Related\nProjects",
+      "color": 8421504,
+      "position": {
+        "x": -34.59713557601946,
+        "y": 30.9536641920531,
+        "z": -3.0357824495959522
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Funding\nLucidNodes\nand Related\nProjects",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n007",
+      "name": "MVP Dev",
+      "color": 8421504,
+      "position": {
+        "x": -38.98077288911034,
+        "y": 37.36424273995807,
+        "z": -4.748577023505248
+      },
+      "opacity": 1,
+      "label": {
+        "text": "MVP Dev",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n008",
+      "name": "Pivot Projects",
+      "color": 8421504,
+      "position": {
+        "x": -28.439391964232627,
+        "y": 38.46099094098673,
+        "z": -4.6719683984998825
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Pivot Projects",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n009",
+      "name": "Psychometric\nModeling",
+      "color": 8421504,
+      "position": {
+        "x": -24.974151749049966,
+        "y": 42.55090266544017,
+        "z": -5.559725502638461
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Psychometric\nModeling",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00a",
+      "name": "MagicLeap",
+      "color": 16776960,
+      "position": {
+        "x": -51.79802534781865,
+        "y": 26.908486425092903,
+        "z": -3.380915662531523
+      },
+      "opacity": 1,
+      "label": {
+        "text": "MagicLeap",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00b",
+      "name": "Due 12/15/18",
+      "color": 16776960,
+      "position": {
+        "x": -58.76449975562345,
+        "y": 28.98329043426456,
+        "z": -4.1362271954738405
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Due 12/15/18",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00c",
+      "name": "Awards",
+      "color": 16776960,
+      "position": {
+        "x": -58.61489803328446,
+        "y": 25.283729322592404,
+        "z": -3.6946943707726496
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Awards",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00d",
+      "name": "2/15/18",
+      "color": 16776960,
+      "position": {
+        "x": -66.31122540419176,
+        "y": 26.8400225317961,
+        "z": -4.529166015167026
+      },
+      "opacity": 1,
+      "label": {
+        "text": "2/15/18",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00e",
+      "name": "20-500k",
+      "color": 16776960,
+      "position": {
+        "x": -64.05967852491496,
+        "y": 21.450967459632537,
+        "z": -3.6244760338550566
+      },
+      "opacity": 1,
+      "label": {
+        "text": "20-500k",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00f",
+      "name": "Support thru launch",
+      "color": 16776960,
+      "position": {
+        "x": -66.73878840177369,
+        "y": 23.714629916051685,
+        "z": -3.970856676669564
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Support thru launch",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00g",
+      "name": "Track Income & Outflow",
+      "color": 8421504,
+      "position": {
+        "x": -24.180052518337675,
+        "y": 21.85323759141297,
+        "z": -30.966164957408587
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Track Income & Outflow",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00h",
+      "name": "Goal - $800 income",
+      "color": 8421504,
+      "position": {
+        "x": -24.42193674556936,
+        "y": 17.819931071068673,
+        "z": -29.308956835538737
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Goal - $800 income",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00i",
+      "name": "Collecct Recievables",
+      "color": 8421504,
+      "position": {
+        "x": -23.64110734618604,
+        "y": 12.730282366824094,
+        "z": -27.924280318428842
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Collecct Recievables",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00j",
+      "name": "n00j",
+      "color": 8421504,
+      "position": {
+        "x": -23.007189348991368,
+        "y": 8.504913631224358,
+        "z": -26.765422844011994
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n00j",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00k",
+      "name": "Internal Obstacles?",
+      "color": 8421504,
+      "position": {
+        "x": -10.417053679312618,
+        "y": 19.107059449884215,
+        "z": -28.93100882920421
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Internal Obstacles?",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00m",
+      "name": "Sam",
+      "color": 8421504,
+      "position": {
+        "x": -13.650067627455686,
+        "y": 14.077397552270012,
+        "z": -30.04080955568187
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Sam",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00n",
+      "name": "Alamy",
+      "color": 8421504,
+      "position": {
+        "x": -13.765121688177738,
+        "y": 11.195546255345777,
+        "z": -29.651227149171962
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Alamy",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00o",
+      "name": "Guides",
+      "color": 8421504,
+      "position": {
+        "x": -26.27990812197033,
+        "y": 57.348695320650044,
+        "z": -29.31133413923691
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Guides",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00p",
+      "name": "What happens\nwhen a user saves\na file and the theme\nhas changed?",
+      "color": 8421504,
+      "position": {
+        "x": -31.364315373228315,
+        "y": 55.47583848412822,
+        "z": -35.597593234646816
+      },
+      "opacity": 1,
+      "label": {
+        "text": "What happens\nwhen a user saves\na file and the theme\nhas changed?",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00q",
+      "name": "n00q",
+      "color": 8421504,
+      "position": {
+        "x": -37.35189384403552,
+        "y": 53.49893404557767,
+        "z": -42.9292931738988
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n00q",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00r",
+      "name": "How much time\ns needed to develop\nthis?",
+      "color": 8421504,
+      "position": {
+        "x": -12.872926448710505,
+        "y": 48.56714067289616,
+        "z": -4.166255471674688
+      },
+      "opacity": 1,
+      "label": {
+        "text": "How much time\ns needed to develop\nthis?",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00s",
+      "name": "Create an estimate/\nproposal",
+      "color": 8421504,
+      "position": {
+        "x": -9.189262213017116,
+        "y": 53.60276291968424,
+        "z": 1.86707529073822
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Create an estimate/\nproposal",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00t",
+      "name": "Save Guides\nto the file when\nfile saved.",
+      "color": 8421504,
+      "position": {
+        "x": -26.56037693461964,
+        "y": 66.524181786468,
+        "z": -31.612001879747652
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Save Guides\nto the file when\nfile saved.",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00u",
+      "name": "Perpendicular\nguides to existing\nnodes.",
+      "color": 8421504,
+      "position": {
+        "x": -22.367381462501584,
+        "y": 67.44187932181197,
+        "z": -24.678554668501675
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Perpendicular\nguides to existing\nnodes.",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00v",
+      "name": "Speculative",
+      "color": 8421504,
+      "position": {
+        "x": -8.955203566220861,
+        "y": 24.259058264669775,
+        "z": -12.014511495563514
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Speculative",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00x",
+      "name": "Identify Smallest Viable Audience",
+      "color": 8421504,
+      "position": {
+        "x": -10.103833206671629,
+        "y": 41.594957542695454,
+        "z": -3.3498937414272953
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Identify Smallest Viable Audience",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00y",
+      "name": "To existing call list",
+      "color": 8421504,
+      "position": {
+        "x": -7.990494109381492,
+        "y": 38.63935509545175,
+        "z": -3.1740984875354683
+      },
+      "opacity": 1,
+      "label": {
+        "text": "To existing call list",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00z",
+      "name": "To SVA",
+      "color": 8421504,
+      "position": {
+        "x": -1.36141293391327,
+        "y": 45.967483955418416,
+        "z": -4.060773808255462
+      },
+      "opacity": 1,
+      "label": {
+        "text": "To SVA",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n010",
+      "name": "Prospective",
+      "color": 8421504,
+      "position": {
+        "x": -14.720218020657514,
+        "y": 29.402132529936715,
+        "z": -12.661761726441691
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Prospective",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n011",
+      "name": "Auditions?",
+      "color": 33023,
+      "position": {
+        "x": -52.65725681405744,
+        "y": 18.488048373445814,
+        "z": -6.152335844182623
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Auditions?",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n014",
+      "name": "Unveiled",
+      "color": 33023,
+      "position": {
+        "x": -59.0572727281342,
+        "y": 21.27488519725249,
+        "z": -8.024433010505172
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Unveiled",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n015",
+      "name": "Other?",
+      "color": 33023,
+      "position": {
+        "x": -58.452884674362295,
+        "y": 16.25298879004404,
+        "z": -8.713132191382353
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Other?",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n016",
+      "name": "When?",
+      "color": 33023,
+      "position": {
+        "x": -66.03637603184957,
+        "y": 19.214620004551662,
+        "z": -10.993348816071318
+      },
+      "opacity": 1,
+      "label": {
+        "text": "When?",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n017",
+      "name": "Leopard Print\nCowboy guy... \nget his info \nnext opportunity",
+      "color": 33023,
+      "position": {
+        "x": -72.42246801479052,
+        "y": 15.416006055509412,
+        "z": -14.057998005205231
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Leopard Print\nCowboy guy... \nget his info \nnext opportunity",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n018",
+      "name": "SBIR",
+      "color": 16776960,
+      "position": {
+        "x": -50.545946026933926,
+        "y": 31.83893468447649,
+        "z": -6.189963755553546
+      },
+      "opacity": 1,
+      "label": {
+        "text": "SBIR",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n019",
+      "name": "Who can help?",
+      "color": 8421504,
+      "position": {
+        "x": -58.571314157331834,
+        "y": 39.99996538181681,
+        "z": -9.54990115828589
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Who can help?",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n01a",
+      "name": "Christina?",
+      "color": 8421504,
+      "position": {
+        "x": -57.463087081364485,
+        "y": 43.2344246903272,
+        "z": -9.54990115828589
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Christina?",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n01b",
+      "name": "Aloma?",
+      "color": 8421504,
+      "position": {
+        "x": -61.71808308300123,
+        "y": 41.337029179381524,
+        "z": -9.54990115828589
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Aloma?",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n01c",
+      "name": "Review conference contacts from November Conference",
+      "color": 8421504,
+      "position": {
+        "x": -59.13121719790875,
+        "y": 36.62707302428901,
+        "z": -9.54990115828589
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Review conference contacts from November Conference",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n01d",
+      "name": "Joe M/ RAIN",
+      "color": 8421504,
+      "position": {
+        "x": -55.22386451484255,
+        "y": 40.696007881464,
+        "z": -9.54990115828589
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Joe M/ RAIN",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    }
+  ],
+  "edges": [
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n006",
+          "name": "Funding\nLucidNodes\nand Related\nProjects",
+          "color": 8421504,
+          "position": {
+            "x": -34.59713557601946,
+            "y": 30.9536641920531,
+            "z": -3.0357824495959522
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Funding\nLucidNodes\nand Related\nProjects",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n007",
+          "name": "MVP Dev",
+          "color": 8421504,
+          "position": {
+            "x": -38.98077288911034,
+            "y": 37.36424273995807,
+            "z": -4.748577023505248
+          },
+          "opacity": 1,
+          "label": {
+            "text": "MVP Dev",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n006-n007",
+      "name": "n006-n007",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n006-n007",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n006",
+          "name": "Funding\nLucidNodes\nand Related\nProjects",
+          "color": 8421504,
+          "position": {
+            "x": -34.59713557601946,
+            "y": 30.9536641920531,
+            "z": -3.0357824495959522
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Funding\nLucidNodes\nand Related\nProjects",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n008",
+          "name": "Pivot Projects",
+          "color": 8421504,
+          "position": {
+            "x": -28.439391964232627,
+            "y": 38.46099094098673,
+            "z": -4.6719683984998825
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Pivot Projects",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n006-n008",
+      "name": "n006-n008",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n006-n008",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n008",
+          "name": "Pivot Projects",
+          "color": 8421504,
+          "position": {
+            "x": -28.439391964232627,
+            "y": 38.46099094098673,
+            "z": -4.6719683984998825
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Pivot Projects",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n009",
+          "name": "Psychometric\nModeling",
+          "color": 8421504,
+          "position": {
+            "x": -24.974151749049966,
+            "y": 42.55090266544017,
+            "z": -5.559725502638461
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Psychometric\nModeling",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n008-n009",
+      "name": "n008-n009",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n008-n009",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n002",
+          "name": "Grant Applications",
+          "color": 16776960,
+          "position": {
+            "x": -41.066764682781866,
+            "y": 26.934705940695714,
+            "z": -3.0357824495959522
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Grant Applications",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "MagicLeap",
+          "color": 16776960,
+          "position": {
+            "x": -51.79802534781865,
+            "y": 26.908486425092903,
+            "z": -3.380915662531523
+          },
+          "opacity": 1,
+          "label": {
+            "text": "MagicLeap",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n002-n00a",
+      "name": "n002-n00a",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n002-n00a",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "MagicLeap",
+          "color": 16776960,
+          "position": {
+            "x": -51.79802534781865,
+            "y": 26.908486425092903,
+            "z": -3.380915662531523
+          },
+          "opacity": 1,
+          "label": {
+            "text": "MagicLeap",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00b",
+          "name": "Due 12/15/18",
+          "color": 16776960,
+          "position": {
+            "x": -58.76449975562345,
+            "y": 28.98329043426456,
+            "z": -4.1362271954738405
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Due 12/15/18",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00a-n00b",
+      "name": "n00a-n00b",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00a-n00b",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "MagicLeap",
+          "color": 16776960,
+          "position": {
+            "x": -51.79802534781865,
+            "y": 26.908486425092903,
+            "z": -3.380915662531523
+          },
+          "opacity": 1,
+          "label": {
+            "text": "MagicLeap",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00c",
+          "name": "Awards",
+          "color": 16776960,
+          "position": {
+            "x": -58.61489803328446,
+            "y": 25.283729322592404,
+            "z": -3.6946943707726496
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Awards",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00a-n00c",
+      "name": "n00a-n00c",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00a-n00c",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00c",
+          "name": "Awards",
+          "color": 16776960,
+          "position": {
+            "x": -58.61489803328446,
+            "y": 25.283729322592404,
+            "z": -3.6946943707726496
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Awards",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00d",
+          "name": "2/15/18",
+          "color": 16776960,
+          "position": {
+            "x": -66.31122540419176,
+            "y": 26.8400225317961,
+            "z": -4.529166015167026
+          },
+          "opacity": 1,
+          "label": {
+            "text": "2/15/18",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00c-n00d",
+      "name": "n00c-n00d",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00c-n00d",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00c",
+          "name": "Awards",
+          "color": 16776960,
+          "position": {
+            "x": -58.61489803328446,
+            "y": 25.283729322592404,
+            "z": -3.6946943707726496
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Awards",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00e",
+          "name": "20-500k",
+          "color": 16776960,
+          "position": {
+            "x": -64.05967852491496,
+            "y": 21.450967459632537,
+            "z": -3.6244760338550566
+          },
+          "opacity": 1,
+          "label": {
+            "text": "20-500k",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00c-n00e",
+      "name": "n00c-n00e",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00c-n00e",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00c",
+          "name": "Awards",
+          "color": 16776960,
+          "position": {
+            "x": -58.61489803328446,
+            "y": 25.283729322592404,
+            "z": -3.6946943707726496
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Awards",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00f",
+          "name": "Support thru launch",
+          "color": 16776960,
+          "position": {
+            "x": -66.73878840177369,
+            "y": 23.714629916051685,
+            "z": -3.970856676669564
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Support thru launch",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00c-n00f",
+      "name": "n00c-n00f",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00c-n00f",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00k",
+          "name": "Internal Obstacles?",
+          "color": 8421504,
+          "position": {
+            "x": -10.417053679312618,
+            "y": 19.107059449884215,
+            "z": -28.93100882920421
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Internal Obstacles?",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00h",
+          "name": "Goal - $800 income",
+          "color": 8421504,
+          "position": {
+            "x": -24.42193674556936,
+            "y": 17.819931071068673,
+            "z": -29.308956835538737
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Goal - $800 income",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00k-n00h",
+      "name": "n00k-n00h",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00k-n00h",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00h",
+          "name": "Goal - $800 income",
+          "color": 8421504,
+          "position": {
+            "x": -24.42193674556936,
+            "y": 17.819931071068673,
+            "z": -29.308956835538737
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Goal - $800 income",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "n004",
+          "color": 8421504,
+          "position": {
+            "x": -20.484786776490154,
+            "y": 20.710146498914046,
+            "z": -3.0357824495959522
+          },
+          "opacity": 1,
+          "label": {
+            "text": "",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/dollar.png",
+          "radius": 1.5,
+          "shape": "circlePlate"
+        }
+      ],
+      "id": "n00h-n004",
+      "name": "n00h-n004",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00h-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00m",
+          "name": "Sam",
+          "color": 8421504,
+          "position": {
+            "x": -13.650067627455686,
+            "y": 14.077397552270012,
+            "z": -30.04080955568187
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Sam",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00i",
+          "name": "Collecct Recievables",
+          "color": 8421504,
+          "position": {
+            "x": -23.64110734618604,
+            "y": 12.730282366824094,
+            "z": -27.924280318428842
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Collecct Recievables",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00m-n00i",
+      "name": "n00m-n00i",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00m-n00i",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00n",
+          "name": "Alamy",
+          "color": 8421504,
+          "position": {
+            "x": -13.765121688177738,
+            "y": 11.195546255345777,
+            "z": -29.651227149171962
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Alamy",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00i",
+          "name": "Collecct Recievables",
+          "color": 8421504,
+          "position": {
+            "x": -23.64110734618604,
+            "y": 12.730282366824094,
+            "z": -27.924280318428842
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Collecct Recievables",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00n-n00i",
+      "name": "n00n-n00i",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00n-n00i",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00i",
+          "name": "Collecct Recievables",
+          "color": 8421504,
+          "position": {
+            "x": -23.64110734618604,
+            "y": 12.730282366824094,
+            "z": -27.924280318428842
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Collecct Recievables",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "n004",
+          "color": 8421504,
+          "position": {
+            "x": -20.484786776490154,
+            "y": 20.710146498914046,
+            "z": -3.0357824495959522
+          },
+          "opacity": 1,
+          "label": {
+            "text": "",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/dollar.png",
+          "radius": 1.5,
+          "shape": "circlePlate"
+        }
+      ],
+      "id": "n00i-n004",
+      "name": "n00i-n004",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00i-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00g",
+          "name": "Track Income & Outflow",
+          "color": 8421504,
+          "position": {
+            "x": -24.180052518337675,
+            "y": 21.85323759141297,
+            "z": -30.966164957408587
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Track Income & Outflow",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "n004",
+          "color": 8421504,
+          "position": {
+            "x": -20.484786776490154,
+            "y": 20.710146498914046,
+            "z": -3.0357824495959522
+          },
+          "opacity": 1,
+          "label": {
+            "text": "",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/dollar.png",
+          "radius": 1.5,
+          "shape": "circlePlate"
+        }
+      ],
+      "id": "n00g-n004",
+      "name": "n00g-n004",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00g-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00o",
+          "name": "Guides",
+          "color": 8421504,
+          "position": {
+            "x": -26.27990812197033,
+            "y": 57.348695320650044,
+            "z": -29.31133413923691
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Guides",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n007",
+          "name": "MVP Dev",
+          "color": 8421504,
+          "position": {
+            "x": -38.98077288911034,
+            "y": 37.36424273995807,
+            "z": -4.748577023505248
+          },
+          "opacity": 1,
+          "label": {
+            "text": "MVP Dev",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00o-n007",
+      "name": "n00o-n007",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00o-n007",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00p",
+          "name": "What happens\nwhen a user saves\na file and the theme\nhas changed?",
+          "color": 8421504,
+          "position": {
+            "x": -31.364315373228315,
+            "y": 55.47583848412822,
+            "z": -35.597593234646816
+          },
+          "opacity": 1,
+          "label": {
+            "text": "What happens\nwhen a user saves\na file and the theme\nhas changed?",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n007",
+          "name": "MVP Dev",
+          "color": 8421504,
+          "position": {
+            "x": -38.98077288911034,
+            "y": 37.36424273995807,
+            "z": -4.748577023505248
+          },
+          "opacity": 1,
+          "label": {
+            "text": "MVP Dev",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00p-n007",
+      "name": "n00p-n007",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00p-n007",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00s",
+          "name": "Create an estimate/\nproposal",
+          "color": 8421504,
+          "position": {
+            "x": -9.189262213017116,
+            "y": 53.60276291968424,
+            "z": 1.86707529073822
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Create an estimate/\nproposal",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00r",
+          "name": "How much time\ns needed to develop\nthis?",
+          "color": 8421504,
+          "position": {
+            "x": -12.872926448710505,
+            "y": 48.56714067289616,
+            "z": -4.166255471674688
+          },
+          "opacity": 1,
+          "label": {
+            "text": "How much time\ns needed to develop\nthis?",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00s-n00r",
+      "name": "n00s-n00r",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00s-n00r",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n009",
+          "name": "Psychometric\nModeling",
+          "color": 8421504,
+          "position": {
+            "x": -24.974151749049966,
+            "y": 42.55090266544017,
+            "z": -5.559725502638461
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Psychometric\nModeling",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00r",
+          "name": "How much time\ns needed to develop\nthis?",
+          "color": 8421504,
+          "position": {
+            "x": -12.872926448710505,
+            "y": 48.56714067289616,
+            "z": -4.166255471674688
+          },
+          "opacity": 1,
+          "label": {
+            "text": "How much time\ns needed to develop\nthis?",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n009-n00r",
+      "name": "n009-n00r",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n009-n00r",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00t",
+          "name": "Save Guides\nto the file when\nfile saved.",
+          "color": 8421504,
+          "position": {
+            "x": -26.56037693461964,
+            "y": 66.524181786468,
+            "z": -31.612001879747652
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Save Guides\nto the file when\nfile saved.",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00o",
+          "name": "Guides",
+          "color": 8421504,
+          "position": {
+            "x": -26.27990812197033,
+            "y": 57.348695320650044,
+            "z": -29.31133413923691
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Guides",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00t-n00o",
+      "name": "n00t-n00o",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00t-n00o",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00u",
+          "name": "Perpendicular\nguides to existing\nnodes.",
+          "color": 8421504,
+          "position": {
+            "x": -22.367381462501584,
+            "y": 67.44187932181197,
+            "z": -24.678554668501675
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Perpendicular\nguides to existing\nnodes.",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00o",
+          "name": "Guides",
+          "color": 8421504,
+          "position": {
+            "x": -26.27990812197033,
+            "y": 57.348695320650044,
+            "z": -29.31133413923691
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Guides",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00u-n00o",
+      "name": "n00u-n00o",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00u-n00o",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00v",
+          "name": "Speculative",
+          "color": 8421504,
+          "position": {
+            "x": -8.955203566220861,
+            "y": 24.259058264669775,
+            "z": -12.014511495563514
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Speculative",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "n004",
+          "color": 8421504,
+          "position": {
+            "x": -20.484786776490154,
+            "y": 20.710146498914046,
+            "z": -3.0357824495959522
+          },
+          "opacity": 1,
+          "label": {
+            "text": "",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/dollar.png",
+          "radius": 1.5,
+          "shape": "circlePlate"
+        }
+      ],
+      "id": "n00v-n004",
+      "name": "n00v-n004",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00v-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00v",
+          "name": "Speculative",
+          "color": 8421504,
+          "position": {
+            "x": -8.955203566220861,
+            "y": 24.259058264669775,
+            "z": -12.014511495563514
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Speculative",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "MagicLeap",
+          "color": 16776960,
+          "position": {
+            "x": -51.79802534781865,
+            "y": 26.908486425092903,
+            "z": -3.380915662531523
+          },
+          "opacity": 1,
+          "label": {
+            "text": "MagicLeap",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00v-n00a",
+      "name": "n00v-n00a",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00v-n00a",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n006",
+          "name": "Funding\nLucidNodes\nand Related\nProjects",
+          "color": 8421504,
+          "position": {
+            "x": -34.59713557601946,
+            "y": 30.9536641920531,
+            "z": -3.0357824495959522
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Funding\nLucidNodes\nand Related\nProjects",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n002",
+          "name": "Grant Applications",
+          "color": 16776960,
+          "position": {
+            "x": -41.066764682781866,
+            "y": 26.934705940695714,
+            "z": -3.0357824495959522
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Grant Applications",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n006-n002",
+      "name": "n006-n002",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n006-n002",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "Sales & Outreach",
+          "color": 8421504,
+          "position": {
+            "x": -18.26690752350038,
+            "y": 36.46269062857172,
+            "z": -3.6595782144494358
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Sales & Outreach",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00x",
+          "name": "Identify Smallest Viable Audience",
+          "color": 8421504,
+          "position": {
+            "x": -10.103833206671629,
+            "y": 41.594957542695454,
+            "z": -3.3498937414272953
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Identify Smallest Viable Audience",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n005-n00x",
+      "name": "n005-n00x",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n005-n00x",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00z",
+          "name": "To SVA",
+          "color": 8421504,
+          "position": {
+            "x": -1.36141293391327,
+            "y": 45.967483955418416,
+            "z": -4.060773808255462
+          },
+          "opacity": 1,
+          "label": {
+            "text": "To SVA",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00x",
+          "name": "Identify Smallest Viable Audience",
+          "color": 8421504,
+          "position": {
+            "x": -10.103833206671629,
+            "y": 41.594957542695454,
+            "z": -3.3498937414272953
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Identify Smallest Viable Audience",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00z-n00x",
+      "name": "n00z-n00x",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00z-n00x",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00y",
+          "name": "To existing call list",
+          "color": 8421504,
+          "position": {
+            "x": -7.990494109381492,
+            "y": 38.63935509545175,
+            "z": -3.1740984875354683
+          },
+          "opacity": 1,
+          "label": {
+            "text": "To existing call list",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "Sales & Outreach",
+          "color": 8421504,
+          "position": {
+            "x": -18.26690752350038,
+            "y": 36.46269062857172,
+            "z": -3.6595782144494358
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Sales & Outreach",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00y-n005",
+      "name": "n00y-n005",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00y-n005",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00z",
+          "name": "To SVA",
+          "color": 8421504,
+          "position": {
+            "x": -1.36141293391327,
+            "y": 45.967483955418416,
+            "z": -4.060773808255462
+          },
+          "opacity": 1,
+          "label": {
+            "text": "To SVA",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00y",
+          "name": "To existing call list",
+          "color": 8421504,
+          "position": {
+            "x": -7.990494109381492,
+            "y": 38.63935509545175,
+            "z": -3.1740984875354683
+          },
+          "opacity": 1,
+          "label": {
+            "text": "To existing call list",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00z-n00y",
+      "name": "n00z-n00y",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00z-n00y",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n010",
+          "name": "Prospective",
+          "color": 8421504,
+          "position": {
+            "x": -14.720218020657514,
+            "y": 29.402132529936715,
+            "z": -12.661761726441691
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Prospective",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "n004",
+          "color": 8421504,
+          "position": {
+            "x": -20.484786776490154,
+            "y": 20.710146498914046,
+            "z": -3.0357824495959522
+          },
+          "opacity": 1,
+          "label": {
+            "text": "",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/dollar.png",
+          "radius": 1.5,
+          "shape": "circlePlate"
+        }
+      ],
+      "id": "n010-n004",
+      "name": "n010-n004",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n010-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n010",
+          "name": "Prospective",
+          "color": 8421504,
+          "position": {
+            "x": -14.720218020657514,
+            "y": 29.402132529936715,
+            "z": -12.661761726441691
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Prospective",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "Sales & Outreach",
+          "color": 8421504,
+          "position": {
+            "x": -18.26690752350038,
+            "y": 36.46269062857172,
+            "z": -3.6595782144494358
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Sales & Outreach",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n010-n005",
+      "name": "n010-n005",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n010-n005",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "Gender WTF",
+          "color": 33023,
+          "position": {
+            "x": -42.7239917694902,
+            "y": 15.072997503197293,
+            "z": -3.0357824495959522
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Gender WTF",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/20170718_181341_800px_sqare.jpg",
+          "radius": 1.5,
+          "shape": "circlePlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n011",
+          "name": "Auditions?",
+          "color": 33023,
+          "position": {
+            "x": -52.65725681405744,
+            "y": 18.488048373445814,
+            "z": -6.152335844182623
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Auditions?",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n003-n011",
+      "name": "n003-n011",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n003-n011",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n011",
+          "name": "Auditions?",
+          "color": 33023,
+          "position": {
+            "x": -52.65725681405744,
+            "y": 18.488048373445814,
+            "z": -6.152335844182623
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Auditions?",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n014",
+          "name": "Unveiled",
+          "color": 33023,
+          "position": {
+            "x": -59.0572727281342,
+            "y": 21.27488519725249,
+            "z": -8.024433010505172
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Unveiled",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n011-n014",
+      "name": "n011-n014",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n011-n014",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n014",
+          "name": "Unveiled",
+          "color": 33023,
+          "position": {
+            "x": -59.0572727281342,
+            "y": 21.27488519725249,
+            "z": -8.024433010505172
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Unveiled",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n016",
+          "name": "When?",
+          "color": 33023,
+          "position": {
+            "x": -66.03637603184957,
+            "y": 19.214620004551662,
+            "z": -10.993348816071318
+          },
+          "opacity": 1,
+          "label": {
+            "text": "When?",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n014-n016",
+      "name": "n014-n016",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n014-n016",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n016",
+          "name": "When?",
+          "color": 33023,
+          "position": {
+            "x": -66.03637603184957,
+            "y": 19.214620004551662,
+            "z": -10.993348816071318
+          },
+          "opacity": 1,
+          "label": {
+            "text": "When?",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n017",
+          "name": "Leopard Print\nCowboy guy... \nget his info \nnext opportunity",
+          "color": 33023,
+          "position": {
+            "x": -72.42246801479052,
+            "y": 15.416006055509412,
+            "z": -14.057998005205231
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Leopard Print\nCowboy guy... \nget his info \nnext opportunity",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n016-n017",
+      "name": "n016-n017",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n016-n017",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n018",
+          "name": "SBIR",
+          "color": 16776960,
+          "position": {
+            "x": -50.545946026933926,
+            "y": 31.83893468447649,
+            "z": -6.189963755553546
+          },
+          "opacity": 1,
+          "label": {
+            "text": "SBIR",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n002",
+          "name": "Grant Applications",
+          "color": 16776960,
+          "position": {
+            "x": -41.066764682781866,
+            "y": 26.934705940695714,
+            "z": -3.0357824495959522
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Grant Applications",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n018-n002",
+      "name": "n018-n002",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n018-n002",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n018",
+          "name": "SBIR",
+          "color": 16776960,
+          "position": {
+            "x": -50.545946026933926,
+            "y": 31.83893468447649,
+            "z": -6.189963755553546
+          },
+          "opacity": 1,
+          "label": {
+            "text": "SBIR",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n019",
+          "name": "Who can help?",
+          "color": 8421504,
+          "position": {
+            "x": -58.571314157331834,
+            "y": 39.99996538181681,
+            "z": -9.54990115828589
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Who can help?",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n018-n019",
+      "name": "n018-n019",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n018-n019",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n01a",
+          "name": "Christina?",
+          "color": 8421504,
+          "position": {
+            "x": -57.463087081364485,
+            "y": 43.2344246903272,
+            "z": -9.54990115828589
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Christina?",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "Gender WTF",
+          "color": 33023,
+          "position": {
+            "x": -42.7239917694902,
+            "y": 15.072997503197293,
+            "z": -3.0357824495959522
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Gender WTF",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/20170718_181341_800px_sqare.jpg",
+          "radius": 1.5,
+          "shape": "circlePlate"
+        }
+      ],
+      "id": "n01a-n003",
+      "name": "n01a-n003",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n01a-n003",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    }
+  ],
+  "groups": []
+}

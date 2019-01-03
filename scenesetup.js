@@ -1,6 +1,6 @@
 /* SCENEETUP.JS
  * Name: Scene Setup
- * version 0.1.29.2
+ * version 0.1.30
  * Author: Mark Scott Lavin 
  * License: MIT
  * For Changelog see README.txt
@@ -14,8 +14,14 @@
 var container = document.getElementById('visualizationContainer');
 
 var scene = new THREE.Scene();
+var sceneChildren = {};	
 var clock = new THREE.Clock();
 var stats = new Stats();
+var dollyCam;
+var camera;
+var lastRender = 0;
+var enterVRButton;
+var animationDisplay;
 
 var utils = {
 	entity: { 
@@ -28,7 +34,7 @@ var utils = {
 		},
 		remove: function( name ) {
 			scene.remove( scene.getObjectByName( name ) );
-			debug.master && debug.entities && console.log( 'utils.entity.remove(): ', name , ' removed from scene' );
+			debug.master && debug.sceneChildren && console.log( 'utils.entity.remove(): ', name , ' removed from scene' );
 		}
 	}	
 };
@@ -68,77 +74,187 @@ function init() {
 	cameras();
 	// Renderer
 	initRenderer();
-	// SkyGeo
+
+	initEnterVRButton();
+	initVRControls();	
+	initVREffect();
+	getHMD();			
+	initBrowserControls();
+	initWindowResizeHandling();	
 	
 	if ( loadThemeFile ){
-		loadThemeFile({ filename: "default.json" });
+		loadThemeFile({ filename: "default.thm" });
 	}
-	
-	skyGeo( /* defaultTheme.skyColor1, defaultTheme.skyColor2 */);
-
-	// Lights
+		
+	skyGeo();
 	lights();
-	
-	// Images
 	if ( loadImageLibrary ){ loadImageLibrary(); }
-	
-	// Materials
+	if ( listUserFiles ){ listUserFiles(); }
+	if ( listUserThemes	){ listUserThemes(); }
 	materials();	
-	
-	// Stats
 	initStats();
-	
-	/* Initialize the event listeners */
-	initEventListeners();
 	
 	// GEOMETRIES
 	entities();
-	
-	// Create the Stereoscopic viewing object (Not applied yet)
-	var effect = new THREE.StereoEffect( renderer );
 		
-	debug.master && debug.renderer && console.log ('About to call the render function' );
-	render();		  
-	debug.master && debug.renderer && console.log ( 'Now Rendering' );
 }
 
-function render() {
+// Request animation frame loop function
+
+function animate( timestamp ) {
 
 	stats.begin();
+	labelArrayFaceCamera( getLabels ( cognition.nodes ), camera );	
+
+	var delta = Math.min( timestamp - lastRender, 500 );
+	lastRender = timestamp;
+
+	if( enterVRButton.isPresenting() ){
+		vrControls.update();
+		renderer.render( scene, camera );
+		vrEffect.render( scene, camera );
+	} else {
+		renderer.render( scene,camera );
+	}
+	animationDisplay.requestAnimationFrame( animate );
 	
-	labelArrayFaceCamera( getLabels ( cognition.nodes ), entities.cameras.perspCamera );
-	//labelFaceCamera( newSprite, entities.cameras.perspCamera );
-	//objectFaceCamera( newSprite.displayEntity, entities.cameras.perspCamera );
+}
+
+/* VR */
+
+function initEnterVRButton(){
 	
-	renderer.render(scene, entities.cameras.perspCamera );
-	stats.end();
+    var options = {
+        color: 'black',
+        background: false,
+        corners: 'square'
+    };
+
+    enterVRButton = new webvrui.EnterVRButton(renderer.domElement, options)
+            .on("enter", function(){
+                console.log("enter VR")
+            })
+            .on("exit", function(){
+                console.log("exit VR");
+                camera.quaternion.set(0,0,0,1);
+                camera.position.set(0,vrControls.userHeight,0);
+            })
+            .on("error", function(error){
+                document.getElementById("learn-more").style.display = "inline";
+                console.error(error)
+            })
+            .on("hide", function(){
+                document.getElementById("ui").style.display = "none";
+                // On iOS there is no button to close fullscreen mode, so we need to provide one
+                if(enterVRButton.state == webvrui.State.PRESENTING_FULLSCREEN) document.getElementById("exitVR").style.display = "initial";
+            })
+            .on("show", function(){
+                document.getElementById("ui").style.display = "inherit";
+                document.getElementById("exitVR").style.display = "none";
+            });
+
+
+    // Add button to the #enterVRButton element
+    document.getElementById("enterVRButton").appendChild(enterVRButton.domElement);
+
+    // Append the canvas element created by the renderer to document body element.
+    document.getElementById("visualizationContainer").appendChild(renderer.domElement);
 	
-	requestAnimationFrame( render );
+}
+
+function initVRControls(){
+
+    vrControls = new THREE.VRControls( camera );
+    vrControls.standing = true;
+	vrControls.userHeight = 15.0;
+	camera.position.x = -20;
+	camera.position.z = 20;
+    camera.position.y = vrControls.userHeight;
+
+}	
+
+function initVREffect(){
+
+    // Create VR Effect rendering in stereoscopic mode
+    vrEffect = new THREE.VREffect(renderer);
+    vrEffect.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.floor(window.devicePixelRatio));
+}
+
+function getHMD(){
+	
+	enterVRButton.getVRDisplay()
+			.then( function( display ) {
+			
+				animationDisplay = display;
+				display.requestAnimationFrame(animate);
+				
+			})
+			.catch( function(){
+			
+				// ...and if there is no display available, fallback to window
+				animationDisplay = window;
+				window.requestAnimationFrame(animate);
+				
+			});
+
+}
+
+function initBrowserControls() {
+	
+	var controls;
+
+	sceneChildren.browserControls = new THREE.OrbitControls ( camera , document.getElementById('visualizationContainer') );
+	controls = sceneChildren.browserControls;
+	
+	controls.target.set(
+		camera.position.x + 0.15,
+		vrControls.userHeight,
+		camera.position.z 	
+	);  
+	
+	controls.maxDistance = workspaceExtents;		
 }
 	
-/****** Event Listeners ******/
+function initWindowResizeHandling(){
 
-function initEventListeners() {
-	
-	// Listen for Device Orientation events.
-	window.addEventListener('deviceorientation', setOrientationControls, true);
-	document.addEventListener('visibilitychange', onDocumentVisible, true);
+    // Hande canvas resizing
+    window.addEventListener('resize', onResize, true);
+    window.addEventListener('vrdisplaypresentchange', onResize, true);
 
+    function onResize(e) {
+        vrEffect.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+    }	
 }
+
 
 /****** INITIALIZE THE SCENE FRAMEWORK *******/
 
 function cameras() {
 	
-	entities.cameras = {
-		perspCamera: new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, worldExtents * 1.5 ),
-		init: function( camera ) {
-				camera.position.set( 0, 15, 20 );
-				camera.lookAt(new THREE.Vector3( 0, 15, 0 ));
-				camera.up = new THREE.Vector3( 0,1,0 );
-				debug.master && debug.cameras && console.log ('Camera Position Initialized: ' , camera.position );
+	dollyCam = new THREE.PerspectiveCamera();
+	
+	scene.add( dollyCam );
+	
+	camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, worldExtents * 1.5 );
+	
+	camera.position.init = function( camera ){
+			
+			camera.position.set( 0, 15, 20 );
+			camera.lookAt(new THREE.Vector3( 0, 15, 0 ));
+			camera.up = new THREE.Vector3( 0,1,0 );
+			debug.master && debug.cameras && console.log ('Camera Position Initialized: ' , camera.position );			
+			
 		}
-	};
+			
+	camera.position.update = function( camera, position ){
+			camera.position.set( position.x, position.y, position.z );
+		}
+
+	dollyCam.add( camera ); 				
+
 };
 
 function initRenderer() {
@@ -153,68 +269,12 @@ function initRenderer() {
 	
 };
 
-// if the device we're using has 'alpha' attribute, then it's a mixedReality-compatible mobile browser...
-function setOrientationControls(e) {
-	if (e.alpha) {
-		initVRControls ();
-	}
-	else {
-		var camera = entities.cameras.perspCamera;		
-		initbrowserControls ( camera );
-		entities.cameras.init( camera );
-	}
-}
-
-function onDocumentVisible(e){
-	
-	if ( document.visibilityState === "visible" ){
-		setOrientationControls(e);
-	/*	if( entities.browserControls ){ */
-			entities.browserControls.reset();
-	/*	} */
-	}
-}
-	
-function initbrowserControls( camera ) {
-	
-	// Create the Mouse-Based Controls - Hold down left mouse button and move around the window...
-	
-	// var camera = entities.cameras.perspCamera;
-
-	entities.browserControls = new THREE.OrbitControls ( camera , container );
-	
-	entities.browserControls.target.set(
-		camera.position.x + 0.15,
-		camera.position.y,
-		camera.position.z
-	);
-	
-	entities.browserControls.noPan = true;
-	entities.browserControls.noZoom = true;
-	entities.browserControls.maxDistance = workspaceExtents;
-}
-
 function toggleBrowserPan(){	
-	entities.browserControls.noPan = !entities.browserControls.noPan;	
+	sceneChildren.browserControls.noPan = !sceneChildren.browserControls.noPan;	
 }
 
 function toggleBrowserZoom(){
-	entities.browserControls.noZoom = !entities.browserControls.noZoom;
-}
-
-function initVRControls() {
-	
-	var camera = entities.cameras.perspCamera;
-	var controls;
-	
-	entities.VRControls = new THREE.DeviceOrientationControls( camera, true );
-	controls = entities.VRControls;
-	
-	controls.connect();
-	controls.update();
-	
-	container.addEventListener( 'click', fullscreen, false);
-	container.removeEventListener( 'deviceorientation', setOrientationControls, true);
+	sceneChildren.browserControls.noZoom = !sceneChildren.browserControls.noZoom;
 }
 
 function initStats(){
@@ -238,61 +298,46 @@ function initStats(){
 
 function groundColor( color ){
 	
-	color ? entities.materials.ground.color.set ( new THREE.Color( color )) : false;
+	color ? sceneChildren.materials.ground.color.set ( new THREE.Color( color )) : false;
 	
 }
 
 function lights() {
 	
-	entities.lights = {
+	sceneChildren.lights = [];
+	
+	sceneChildren.lights.push( new THREE.PointLight( 0xffffff, 7, 1000 ) );
+	sceneChildren.lights.push( new THREE.PointLight( 0xffffff, 7, 1000 ) );
+	sceneChildren.lights.push( new THREE.SpotLight( 0xffffff, 0.5 ) );
+	
+	sceneChildren.lights[0].position.set( 500,500,500 );
+	sceneChildren.lights[1].position.set( -500,500,-500 );
+	sceneChildren.lights[2].position.set( 0, 100, 1000 );
+	
+	for ( var n = 0; n < sceneChildren.lights.length; n++ ){
+
+		sceneChildren.lights[ n ].castShadow = true;
+		sceneChildren.lights[ n ].shadow.camera.near = 200;
+		sceneChildren.lights[ n ].shadow.camera.far = camera.far;
+		sceneChildren.lights[ n ].shadow.camera.fov = 50;
+		sceneChildren.lights[ n ].shadow.bias = -0.00022;
+		sceneChildren.lights[ n ].shadow.mapSize.width = 1024;
+		sceneChildren.lights[ n ].shadow.mapSize.height = 1024;	
 		
-		pureWhiteLight: new THREE.PointLight( 0xffffff, 7, 1000 ),
-		pureWhiteLight2: new THREE.PointLight( 0xffffff, 7, 1000 ),
-		spotlight: new THREE.SpotLight( 0xffffff, 0.5 )
-	};
-
-	entities.lights.pureWhiteLight.position.set(500,500,500);
-	entities.lights.pureWhiteLight.castShadow = true;
-    entities.lights.pureWhiteLight.shadow.camera.near = 200;
-    entities.lights.pureWhiteLight.shadow.camera.far = entities.cameras.perspCamera.far;
-    entities.lights.pureWhiteLight.shadow.camera.fov = 50;
-    entities.lights.pureWhiteLight.shadow.bias = -0.00022;
-    entities.lights.pureWhiteLight.shadow.mapSize.width = 1024;
-    entities.lights.pureWhiteLight.shadow.mapSize.height = 1024;
-
-
-	entities.lights.pureWhiteLight2.position.set(-500,500,-500);
-	entities.lights.pureWhiteLight2.castShadow = true;
-    entities.lights.pureWhiteLight2.shadow.camera.near = 200;
-    entities.lights.pureWhiteLight2.shadow.camera.far = entities.cameras.perspCamera.far;
-    entities.lights.pureWhiteLight2.shadow.camera.fov = 50;
-    entities.lights.pureWhiteLight2.shadow.bias = -0.00022;
-    entities.lights.pureWhiteLight2.shadow.mapSize.width = 1024;
-    entities.lights.pureWhiteLight2.shadow.mapSize.height = 1024;	
+		scene.add( sceneChildren.lights[ n ] );	
+		
+	}
 	
-	
-	entities.lights.spotlight.position.set( 0, 100, 1000 );
-	entities.lights.spotlight.castShadow = true;
-	entities.lights.spotlight.shadow.mapSize.width = 1024;
-	entities.lights.spotlight.shadow.mapSize.height = 1024;
-	entities.lights.spotlight.shadow.camera.near = 500;
-	entities.lights.spotlight.shadow.camera.far = 4000;
-	entities.lights.spotlight.shadow.camera.fov = 30;
-
-	scene.add(entities.lights.pureWhiteLight);
-	scene.add(entities.lights.pureWhiteLight2); 
-	scene.add( entities.lights.spotlight );	
-	
-	debug.master && debug.lights && console.log ( 'lights(): ', entities.lights );
+	debug.master && debug.lights && console.log ( 'lights(): ', sceneChildren.lights );
 };
 
 /******* COLOR & MATERIALS HANDLING */
 
 function materials() {
 	
-	entities.materials = {
+	sceneChildren.materials = {
 		hexRGBName: function( r, g, b, a = 1, type ) {			
-			var hexRGB = entities.materials.hexFromChannels ( entities.materials.channelDecToHex(r).toString(16) , entities.materials.channelDecToHex(g).toString(16) , entities.materials.channelDecToHex(b).toString(16) ) + '_alpha' + a + '_' + type;
+			var hexRGB = sceneChildren.materials.hexFromChannels ( sceneChildren.materials.channelDecToHex(r).toString(16) , sceneChildren.materials.channelDecToHex(g).toString(16) , sceneChildren.materials.channelDecToHex(b).toString(16) ) + '_alpha' + a + '_' + type;
 			return hexRGB;
 		},
 		hexToDec( hexInputString ) {	
@@ -339,9 +384,9 @@ function materials() {
 			},
 			phong: {
 				load: function( r, g, b, a ) {	
-					var hexRGB = entities.materials.hexRGBName( r, g, b, a, 'phong' );
+					var hexRGB = sceneChildren.materials.hexRGBName( r, g, b, a, 'phong' );
 					// Check whether the material already exists. If it does, load it; if not create it.
-					var loadMtl = entities.materials[hexRGB] || entities.materials.solid.phong.init( r, g, b, a );
+					var loadMtl = sceneChildren.materials[hexRGB] || sceneChildren.materials.solid.phong.init( r, g, b, a );
 					return loadMtl;
 				},
 				init: function( r, g, b, a ) {
@@ -349,15 +394,15 @@ function materials() {
 					var mtlColor = new THREE.Color('rgb(' + r + ',' + g + ',' + b + ')');
 					var mtlSpecColor = new THREE.Color(
 						'rgb(' + 
-						entities.materials.solid.specularColor( r , 127 ) + 
+						sceneChildren.materials.solid.specularColor( r , 127 ) + 
 						',' + 
-						entities.materials.solid.specularColor( g , 127 ) + 
+						sceneChildren.materials.solid.specularColor( g , 127 ) + 
 						',' + 
-						entities.materials.solid.specularColor( b , 127 ) + 
+						sceneChildren.materials.solid.specularColor( b , 127 ) + 
 						')');
-					var hexRGB = entities.materials.hexRGBName( r, g, b, a, 'phong' );
+					var hexRGB = sceneChildren.materials.hexRGBName( r, g, b, a, 'phong' );
 						
-					entities.materials[hexRGB] = new THREE.MeshPhongMaterial (
+					sceneChildren.materials[hexRGB] = new THREE.MeshPhongMaterial (
 						{
 							color: mtlColor,
 							specular: mtlSpecColor,
@@ -366,35 +411,35 @@ function materials() {
 							name: hexRGB 
 							} ); 
 
-					debug.master && debug.materials && console.log ( 'Dynamic Material Loaded' , entities.materials[hexRGB] );
-					return entities.materials[hexRGB];
+					debug.master && debug.materials && console.log ( 'Dynamic Material Loaded' , sceneChildren.materials[hexRGB] );
+					return sceneChildren.materials[hexRGB];
 				}
 			}
 		},
 		fromColor: function( color, pickBy ){
 			
 			var pickedColor = color.palette.colorArray[pickBy];
-			var material = entities.materials.solid.phong.load( pickedColor.r, pickedColor.g , pickedColor.b );
+			var material = sceneChildren.materials.solid.phong.load( pickedColor.r, pickedColor.g , pickedColor.b );
 			
 			return material;
 			
 		}
 	};
 		
-	debug.master && debug.materials && console.log ( 'materials(): ' , entities.materials );
+	debug.master && debug.materials && console.log ( 'materials(): ' , sceneChildren.materials );
 }
 
 /******* ENTITIES (GEOMETRY THAT APPEARS IN THE SCENE) HANDLING *******/
 
 var entities = function(){
 	
-	entities.geometries = {
+	sceneChildren.geometries = {
 		constant: {
 			
 			// GROUND PLANE
 			
 			/**
-			 * entities.geometries.constant.ground();
+			 * sceneChildren.geometries.constant.ground();
 			 * 
 			 * @author Mark Scott Lavin /
 			 *
@@ -415,7 +460,7 @@ var entities = function(){
 				this.opacity = parameters.opacity || 0.5;
 				
 				this.groundBuffer = new THREE.PlaneBufferGeometry( this.xSize, this.zSize, 1 );
-				this.groundMesh = new THREE.Mesh( this.groundBuffer , entities.materials.ground );
+				this.groundMesh = new THREE.Mesh( this.groundBuffer , sceneChildren.materials.ground );
 				
 				this.groundMesh.rotation.x = Math.PI / 2;
 				this.groundMesh.position.y = this.heightOffset;
@@ -433,7 +478,7 @@ var entities = function(){
 	};
 	
 	//	Render the Ground
-	entities.geometries.constant.ground( { xSize: 2000 , zSize: 2000 , heightOffset: -0.001, opacity: 0.5, name: "groundPlane" } );
+	sceneChildren.geometries.constant.ground( { xSize: 2000 , zSize: 2000 , heightOffset: -0.001, opacity: 0.5, name: "groundPlane" } );
 
 };
 

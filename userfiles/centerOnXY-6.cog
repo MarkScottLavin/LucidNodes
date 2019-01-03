@@ -1,0 +1,1691 @@
+{
+  "theme": "default.thm",
+  "themeURL": "/themes",
+  "nodes": [
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n000",
+      "name": "n000",
+      "color": 16711680,
+      "position": {
+        "x": 19.604354911096262,
+        "y": 4.3394761984826795,
+        "z": 0
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n000",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n001",
+      "name": "n001",
+      "color": 8421504,
+      "position": {
+        "x": 22.02386826928165,
+        "y": 7.984428549076213,
+        "z": 0
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n001",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n002",
+      "name": "n002",
+      "color": 16711680,
+      "position": {
+        "x": 14.585784936310386,
+        "y": 3.5724344952308495,
+        "z": 0
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n002",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n003",
+      "name": "n003",
+      "color": 65280,
+      "position": {
+        "x": 0.12140640853968776,
+        "y": 17.42770846547014,
+        "z": -5.445290373298258
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n003",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n004",
+      "name": "n004",
+      "color": 8421504,
+      "position": {
+        "x": 12.230928296578073,
+        "y": 16.993418896486215,
+        "z": 0
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n004",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n005",
+      "name": "n005",
+      "color": 65280,
+      "position": {
+        "x": -4.952349865183244,
+        "y": 24.325784537412055,
+        "z": -3.160669832739348
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n005",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n006",
+      "name": "n006",
+      "color": 8421504,
+      "position": {
+        "x": 21.583457284024856,
+        "y": 12.003902210033727,
+        "z": 0
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n006",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n007",
+      "name": "n007",
+      "color": 8421504,
+      "position": {
+        "x": 16.524006283950722,
+        "y": 15.476282939547742,
+        "z": 3.552713678800501e-15
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n007",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n008",
+      "name": "n008",
+      "color": 16711680,
+      "position": {
+        "x": 9.7767731414112,
+        "y": 16.11630178728007,
+        "z": 0
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n008",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n009",
+      "name": "n009",
+      "color": 65280,
+      "position": {
+        "x": -3.8634309111147385,
+        "y": 20.708706970208954,
+        "z": -3.8215330082353276
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n009",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00a",
+      "name": "n00a",
+      "color": 16711680,
+      "position": {
+        "x": 14.077276760920377,
+        "y": 11.989061718418991,
+        "z": 0
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00a",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00b",
+      "name": "n00b",
+      "color": 16711680,
+      "position": {
+        "x": -5,
+        "y": 11.09,
+        "z": -0.6377581487540178
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00b",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00c",
+      "name": "n00c",
+      "color": 16711680,
+      "position": {
+        "x": -5,
+        "y": 11.09,
+        "z": -4.529611540629833
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00c",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00f",
+      "name": "n00f",
+      "color": 16711680,
+      "position": {
+        "x": -5,
+        "y": 11.09,
+        "z": -8.09918076350363
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00f",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00g",
+      "name": "n00g",
+      "color": 65280,
+      "position": {
+        "x": -11.413427030852674,
+        "y": 15.915082735214284,
+        "z": 3.227681268084493
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00g",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00h",
+      "name": "n00h",
+      "color": 16711680,
+      "position": {
+        "x": -5,
+        "y": 11.09,
+        "z": 9.396620231310393
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00h",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    }
+  ],
+  "edges": [
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "n00a",
+          "color": 16711680,
+          "position": {
+            "x": 14.077276760920377,
+            "y": 11.989061718418991,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00a",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "n004",
+          "color": 8421504,
+          "position": {
+            "x": 12.230928296578073,
+            "y": 16.993418896486215,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n004",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00a-n004",
+      "name": "n00a-n004",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n00a-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "n00a",
+          "color": 16711680,
+          "position": {
+            "x": 14.077276760920377,
+            "y": 11.989061718418991,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00a",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n007",
+          "name": "n007",
+          "color": 8421504,
+          "position": {
+            "x": 16.524006283950722,
+            "y": 15.476282939547742,
+            "z": 3.552713678800501e-15
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n007",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00a-n007",
+      "name": "n00a-n007",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n00a-n007",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "n00a",
+          "color": 16711680,
+          "position": {
+            "x": 14.077276760920377,
+            "y": 11.989061718418991,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00a",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n008",
+          "name": "n008",
+          "color": 16711680,
+          "position": {
+            "x": 9.7767731414112,
+            "y": 16.11630178728007,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n008",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00a-n008",
+      "name": "n00a-n008",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n00a-n008",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "n00a",
+          "color": 16711680,
+          "position": {
+            "x": 14.077276760920377,
+            "y": 11.989061718418991,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00a",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "n005",
+          "color": 65280,
+          "position": {
+            "x": -4.952349865183244,
+            "y": 24.325784537412055,
+            "z": -3.160669832739348
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n005",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00a-n005",
+      "name": "n00a-n005",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n00a-n005",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "n00a",
+          "color": 16711680,
+          "position": {
+            "x": 14.077276760920377,
+            "y": 11.989061718418991,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00a",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n009",
+          "name": "n009",
+          "color": 65280,
+          "position": {
+            "x": -3.8634309111147385,
+            "y": 20.708706970208954,
+            "z": -3.8215330082353276
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n009",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00a-n009",
+      "name": "n00a-n009",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n00a-n009",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "n00a",
+          "color": 16711680,
+          "position": {
+            "x": 14.077276760920377,
+            "y": 11.989061718418991,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00a",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "n003",
+          "color": 65280,
+          "position": {
+            "x": 0.12140640853968776,
+            "y": 17.42770846547014,
+            "z": -5.445290373298258
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n003",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00a-n003",
+      "name": "n00a-n003",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n00a-n003",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "n00a",
+          "color": 16711680,
+          "position": {
+            "x": 14.077276760920377,
+            "y": 11.989061718418991,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00a",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n002",
+          "name": "n002",
+          "color": 16711680,
+          "position": {
+            "x": 14.585784936310386,
+            "y": 3.5724344952308495,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n002",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00a-n002",
+      "name": "n00a-n002",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n00a-n002",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "n00a",
+          "color": 16711680,
+          "position": {
+            "x": 14.077276760920377,
+            "y": 11.989061718418991,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00a",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n000",
+          "name": "n000",
+          "color": 16711680,
+          "position": {
+            "x": 19.604354911096262,
+            "y": 4.3394761984826795,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n000",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00a-n000",
+      "name": "n00a-n000",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n00a-n000",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "n00a",
+          "color": 16711680,
+          "position": {
+            "x": 14.077276760920377,
+            "y": 11.989061718418991,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00a",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "n001",
+          "color": 8421504,
+          "position": {
+            "x": 22.02386826928165,
+            "y": 7.984428549076213,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n001",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00a-n001",
+      "name": "n00a-n001",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n00a-n001",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "n00a",
+          "color": 16711680,
+          "position": {
+            "x": 14.077276760920377,
+            "y": 11.989061718418991,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00a",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n006",
+          "name": "n006",
+          "color": 8421504,
+          "position": {
+            "x": 21.583457284024856,
+            "y": 12.003902210033727,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n006",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00a-n006",
+      "name": "n00a-n006",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n00a-n006",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n009",
+          "name": "n009",
+          "color": 65280,
+          "position": {
+            "x": -3.8634309111147385,
+            "y": 20.708706970208954,
+            "z": -3.8215330082353276
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n009",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00f",
+          "name": "n00f",
+          "color": 16711680,
+          "position": {
+            "x": -5,
+            "y": 11.09,
+            "z": -8.09918076350363
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00f",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n009-n00f",
+      "name": "n009-n00f",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n009-n00f",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n009",
+          "name": "n009",
+          "color": 65280,
+          "position": {
+            "x": -3.8634309111147385,
+            "y": 20.708706970208954,
+            "z": -3.8215330082353276
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n009",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00c",
+          "name": "n00c",
+          "color": 16711680,
+          "position": {
+            "x": -5,
+            "y": 11.09,
+            "z": -4.529611540629833
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00c",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n009-n00c",
+      "name": "n009-n00c",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n009-n00c",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n009",
+          "name": "n009",
+          "color": 65280,
+          "position": {
+            "x": -3.8634309111147385,
+            "y": 20.708706970208954,
+            "z": -3.8215330082353276
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n009",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00b",
+          "name": "n00b",
+          "color": 16711680,
+          "position": {
+            "x": -5,
+            "y": 11.09,
+            "z": -0.6377581487540178
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00b",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n009-n00b",
+      "name": "n009-n00b",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n009-n00b",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n009",
+          "name": "n009",
+          "color": 65280,
+          "position": {
+            "x": -3.8634309111147385,
+            "y": 20.708706970208954,
+            "z": -3.8215330082353276
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n009",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00g",
+          "name": "n00g",
+          "color": 65280,
+          "position": {
+            "x": -11.413427030852674,
+            "y": 15.915082735214284,
+            "z": 3.227681268084493
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00g",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n009-n00g",
+      "name": "n009-n00g",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n009-n00g",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n009",
+          "name": "n009",
+          "color": 65280,
+          "position": {
+            "x": -3.8634309111147385,
+            "y": 20.708706970208954,
+            "z": -3.8215330082353276
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n009",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00h",
+          "name": "n00h",
+          "color": 16711680,
+          "position": {
+            "x": -5,
+            "y": 11.09,
+            "z": 9.396620231310393
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "n00h",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n009-n00h",
+      "name": "n009-n00h",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n009-n00h",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    }
+  ],
+  "groups": []
+}

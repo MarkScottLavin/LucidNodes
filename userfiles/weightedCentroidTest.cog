@@ -1,0 +1,653 @@
+{
+  "theme": "default.thm",
+  "themeURL": "/themes",
+  "dollyCam": {
+    "camera": {
+      "quaternion": {
+        "x": 0.1355921748240902,
+        "y": 0.8291633605210811,
+        "z": 0.49176794128177714,
+        "w": -0.22862015576791053
+      },
+      "rotation": {
+        "x": -2.0095638482847216,
+        "y": -0.2483110308246719,
+        "z": -2.659152884432143
+      },
+      "aspect": 3.5431472081218276,
+      "zoom": 1,
+      "position": {
+        "x": -16.147954725626036,
+        "y": 20.128316437755082,
+        "z": -0.10717552872200908
+      }
+    },
+    "quaternion": {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "aspect": 1,
+    "zoom": 1,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  "nodes": [
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n001",
+      "name": "mass = 1",
+      "color": 8421504,
+      "position": {
+        "x": 10,
+        "y": 3.688177255093053,
+        "z": 10
+      },
+      "opacity": 1,
+      "label": {
+        "text": "mass = 1",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n002",
+      "name": "mass = 1",
+      "color": 8421504,
+      "position": {
+        "x": -10,
+        "y": 3.688177255093053,
+        "z": 10
+      },
+      "opacity": 1,
+      "label": {
+        "text": "mass = 1",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n003",
+      "name": "mass = 2",
+      "color": 8421504,
+      "position": {
+        "x": 10,
+        "y": 3.688177255093053,
+        "z": -10
+      },
+      "opacity": 1,
+      "label": {
+        "text": "mass = 2",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n004",
+      "name": "mass = 1",
+      "color": 8421504,
+      "position": {
+        "x": -10,
+        "y": 3.688177255093053,
+        "z": -10
+      },
+      "opacity": 1,
+      "label": {
+        "text": "mass = 1",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    }
+  ],
+  "edges": [
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "mass = 1",
+          "color": 8421504,
+          "position": {
+            "x": 10,
+            "y": 3.688177255093053,
+            "z": 10
+          },
+          "opacity": 1,
+          "label": {
+            "text": "mass = 1",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n002",
+          "name": "mass = 1",
+          "color": 8421504,
+          "position": {
+            "x": -10,
+            "y": 3.688177255093053,
+            "z": 10
+          },
+          "opacity": 1,
+          "label": {
+            "text": "mass = 1",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n001-n002",
+      "name": "n001-n002",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n001-n002",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "mass = 1",
+          "color": 8421504,
+          "position": {
+            "x": 10,
+            "y": 3.688177255093053,
+            "z": 10
+          },
+          "opacity": 1,
+          "label": {
+            "text": "mass = 1",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "mass = 2",
+          "color": 8421504,
+          "position": {
+            "x": 10,
+            "y": 3.688177255093053,
+            "z": -10
+          },
+          "opacity": 1,
+          "label": {
+            "text": "mass = 2",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n001-n003",
+      "name": "n001-n003",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n001-n003",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "mass = 1",
+          "color": 8421504,
+          "position": {
+            "x": 10,
+            "y": 3.688177255093053,
+            "z": 10
+          },
+          "opacity": 1,
+          "label": {
+            "text": "mass = 1",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "mass = 1",
+          "color": 8421504,
+          "position": {
+            "x": -10,
+            "y": 3.688177255093053,
+            "z": -10
+          },
+          "opacity": 1,
+          "label": {
+            "text": "mass = 1",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n001-n004",
+      "name": "n001-n004",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n001-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n002",
+          "name": "mass = 1",
+          "color": 8421504,
+          "position": {
+            "x": -10,
+            "y": 3.688177255093053,
+            "z": 10
+          },
+          "opacity": 1,
+          "label": {
+            "text": "mass = 1",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "mass = 2",
+          "color": 8421504,
+          "position": {
+            "x": 10,
+            "y": 3.688177255093053,
+            "z": -10
+          },
+          "opacity": 1,
+          "label": {
+            "text": "mass = 2",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n002-n003",
+      "name": "n002-n003",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n002-n003",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n002",
+          "name": "mass = 1",
+          "color": 8421504,
+          "position": {
+            "x": -10,
+            "y": 3.688177255093053,
+            "z": 10
+          },
+          "opacity": 1,
+          "label": {
+            "text": "mass = 1",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "mass = 1",
+          "color": 8421504,
+          "position": {
+            "x": -10,
+            "y": 3.688177255093053,
+            "z": -10
+          },
+          "opacity": 1,
+          "label": {
+            "text": "mass = 1",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n002-n004",
+      "name": "n002-n004",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n002-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "mass = 2",
+          "color": 8421504,
+          "position": {
+            "x": 10,
+            "y": 3.688177255093053,
+            "z": -10
+          },
+          "opacity": 1,
+          "label": {
+            "text": "mass = 2",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "mass = 1",
+          "color": 8421504,
+          "position": {
+            "x": -10,
+            "y": 3.688177255093053,
+            "z": -10
+          },
+          "opacity": 1,
+          "label": {
+            "text": "mass = 1",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n003-n004",
+      "name": "n003-n004",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n003-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    }
+  ],
+  "guides": {
+    "circles": [],
+    "points": [],
+    "faces": [],
+    "lines": [],
+    "planes": []
+  },
+  "guideGroups": [],
+  "groups": []
+}

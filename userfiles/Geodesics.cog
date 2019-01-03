@@ -1,0 +1,3373 @@
+{
+  "theme": "default.thm",
+  "themeURL": "/themes",
+  "nodes": [
+    {
+      "contentType": "image",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n000",
+      "name": "Future Cities",
+      "color": 8421504,
+      "position": {
+        "x": 15.106974439779098,
+        "y": 11.481829644421586,
+        "z": -13.495726013040155
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Future Cities",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": "/userImages/future-cities.jpg",
+      "radius": 1.5,
+      "shape": "hexPlate"
+    },
+    {
+      "contentType": "image",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n001",
+      "name": "Geodesic Spheres",
+      "color": 16776960,
+      "position": {
+        "x": -2.846184319074382,
+        "y": 9,
+        "z": -15.284035363191588
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Geodesic Spheres",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": "/userImages/Geo Eco Diagram.png",
+      "radius": 2.5,
+      "shape": "hexPlate"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n002",
+      "name": "Examples around the world",
+      "color": 16777215,
+      "position": {
+        "x": -0.48157895767905856,
+        "y": 16.64255464389104,
+        "z": -12.72438162213075
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Examples around the world",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n003",
+      "name": "Earlier iterations",
+      "color": 8421504,
+      "position": {
+        "x": -21.373564221562845,
+        "y": 19.40763089649932,
+        "z": -10.72438162213075
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Earlier iterations",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n004",
+      "name": "Applications",
+      "color": 8421504,
+      "position": {
+        "x": 5.065131219987222,
+        "y": 10.187891594970848,
+        "z": -12.72438162213075
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Applications",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n005",
+      "name": "History Of",
+      "color": 8421504,
+      "position": {
+        "x": -8.514161693860679,
+        "y": 14.645709209560003,
+        "z": -12.72438162213075
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "History Of",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n006",
+      "name": "Types",
+      "color": 16711680,
+      "position": {
+        "x": -10.843882058513959,
+        "y": 8.808086299178521,
+        "z": -12.72438162213075
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Types",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n007",
+      "name": "Space Colonies",
+      "color": 8421504,
+      "position": {
+        "x": 13.651734904583115,
+        "y": 5.975804790751396,
+        "z": -12.058880248760673
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Space Colonies",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "image",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n008",
+      "name": "Moon",
+      "color": 8421504,
+      "position": {
+        "x": 20.153815680925618,
+        "y": 8.292933673306834,
+        "z": -10.72438162213075
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Moon",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": "/userImages/808px-FullMoon2010.jpg",
+      "radius": 1.2,
+      "shape": "circlePlate"
+    },
+    {
+      "contentType": "image",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n009",
+      "name": "Mars",
+      "color": 8421504,
+      "position": {
+        "x": 20.153815680925618,
+        "y": 5.294465717570347,
+        "z": -10.72438162213075
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Mars",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": "/userImages/768px-OSIRIS_Mars_true_color.jpg",
+      "radius": 1.25,
+      "shape": "circlePlate"
+    },
+    {
+      "contentType": "image",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00a",
+      "name": "Interstellar",
+      "color": 8421504,
+      "position": {
+        "x": 20.153815680925618,
+        "y": 2.4133759822525462,
+        "z": -10.72438162213075
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Interstellar",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": "/userImages/heic0602a_800px.jpg",
+      "radius": 1.2600000000000002,
+      "shape": "circlePlate"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00b",
+      "name": "Treehouses",
+      "color": 8421504,
+      "position": {
+        "x": 20.153815680925618,
+        "y": 13.443243286077632,
+        "z": -10.72438162213075
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Treehouses",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00d",
+      "name": "Examples",
+      "color": 8421504,
+      "position": {
+        "x": 20.153815680925618,
+        "y": 15.84996933585353,
+        "z": -6.72438162213075
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Examples",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00e",
+      "name": "Information Modeling",
+      "color": 8421504,
+      "position": {
+        "x": 14.210738579646705,
+        "y": 16.860856012435818,
+        "z": -8.586929259982972
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Information Modeling",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "image",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00f",
+      "name": "Bucky \nFuller",
+      "color": 8421504,
+      "position": {
+        "x": -16.92394977992928,
+        "y": 14.642549265310691,
+        "z": -10.72438162213075
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Bucky \nFuller",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": "/userImages/buckminster fuller.jpg",
+      "radius": 1.5,
+      "shape": "circlePlate"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00h",
+      "name": "Icosahedron",
+      "color": 16711680,
+      "position": {
+        "x": -15.065568694273367,
+        "y": 5.3631760834432125,
+        "z": -10.72438162213075
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Icosahedron",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "v1icosahedron"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00i",
+      "name": "Tetrahedron",
+      "color": 16711680,
+      "position": {
+        "x": -18.483385502967863,
+        "y": 7.2058209053505715,
+        "z": -10.72438162213075
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Tetrahedron",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "v1tetrahedron"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00j",
+      "name": "Octahedron",
+      "color": 16711680,
+      "position": {
+        "x": -21.209937261992415,
+        "y": 8.675784558068418,
+        "z": -10.72438162213075
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Octahedron",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.2,
+      "src": null,
+      "radius": 0.5,
+      "shape": "v1octahedron"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00k",
+      "name": "Platonic Solids",
+      "color": 8421504,
+      "position": {
+        "x": -9.383054437244045,
+        "y": 6.279091234914583,
+        "z": -11.593927597594387
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Platonic Solids",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00l",
+      "name": "Romans",
+      "color": 8421504,
+      "position": {
+        "x": -34.22168709808649,
+        "y": 19.647684341509752,
+        "z": -18.306612522096515
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Romans",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00m",
+      "name": "Domes",
+      "color": 8421504,
+      "position": {
+        "x": -25.753953490828145,
+        "y": 18.30588937136342,
+        "z": -10.245671338133024
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Domes",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00n",
+      "name": "Byzantine",
+      "color": 8421504,
+      "position": {
+        "x": -31.22599176630457,
+        "y": 15.77520244866951,
+        "z": -9.280456717842474
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Byzantine",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "image",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00o",
+      "name": "Kostrama\nRessurection",
+      "color": 8421504,
+      "position": {
+        "x": -38.16681747298076,
+        "y": 15.101873010509586,
+        "z": -9.31344644550083
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Kostrama\nRessurection",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": "/userImages/330px-Kostroma_resurrection.jpg",
+      "radius": 1.5,
+      "shape": "hexPlate"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00p",
+      "name": "n00p",
+      "color": 8421504,
+      "position": {
+        "x": -50.152899137851904,
+        "y": 13.425269239883932,
+        "z": -14.309874892704165
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n00p",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 1.5,
+      "shape": "hexPlate"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00q",
+      "name": "n00q",
+      "color": 8421504,
+      "position": {
+        "x": -46.72422515780853,
+        "y": 19.112571917101885,
+        "z": -9.288339402240771
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n00q",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00r",
+      "name": "n00r",
+      "color": 8421504,
+      "position": {
+        "x": -46.04617549810757,
+        "y": 8.20645347857543,
+        "z": -9.288339402240771
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n00r",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00s",
+      "name": "n00s",
+      "color": 8421504,
+      "position": {
+        "x": -53.48584397120625,
+        "y": 7.681342382625607,
+        "z": -9.288339402240771
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n00s",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00t",
+      "name": "n00t",
+      "color": 8421504,
+      "position": {
+        "x": -56.71394906894783,
+        "y": 14.451836726892518,
+        "z": -9.288339402240771
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n00t",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00u",
+      "name": "n00u",
+      "color": 8421504,
+      "position": {
+        "x": -52.94142957229373,
+        "y": 19.452317855907253,
+        "z": -9.288339402240771
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n00u",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "image",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00v",
+      "name": "Epcott Center",
+      "color": 8421504,
+      "position": {
+        "x": 3.6684291775184406,
+        "y": 23.474583108410684,
+        "z": -10.847568262629554
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Epcott Center",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": "/userImages/header-spaceshipearth.jpg",
+      "radius": 1,
+      "shape": "hexPlate"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00w",
+      "name": "Frequency",
+      "color": 8421504,
+      "position": {
+        "x": -12.62687624256716,
+        "y": 4.802072753977251,
+        "z": -4.027663725415119
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Frequency",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00x",
+      "name": "O2 Treehouse",
+      "color": 8421504,
+      "position": {
+        "x": 23.672860816468,
+        "y": 10.9742282021759,
+        "z": -8.18448610339193
+      },
+      "opacity": 1,
+      "label": {
+        "text": "O2 Treehouse",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    }
+  ],
+  "edges": [
+    {
+      "nodes": [
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "Geodesic Spheres",
+          "color": 16776960,
+          "position": {
+            "x": -2.846184319074382,
+            "y": 9,
+            "z": -15.284035363191588
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Geodesic Spheres",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": "/userImages/Geo Eco Diagram.png",
+          "radius": 2.5,
+          "shape": "hexPlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "History Of",
+          "color": 8421504,
+          "position": {
+            "x": -8.514161693860679,
+            "y": 14.645709209560003,
+            "z": -12.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "History Of",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n001-n005",
+      "name": "n001-n005",
+      "color": 16777215,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n001-n005",
+        "opacity": 0.1
+      },
+      "labelColor": 16777215
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "Geodesic Spheres",
+          "color": 16776960,
+          "position": {
+            "x": -2.846184319074382,
+            "y": 9,
+            "z": -15.284035363191588
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Geodesic Spheres",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": "/userImages/Geo Eco Diagram.png",
+          "radius": 2.5,
+          "shape": "hexPlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n002",
+          "name": "Examples around the world",
+          "color": 16777215,
+          "position": {
+            "x": -0.48157895767905856,
+            "y": 16.64255464389104,
+            "z": -12.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Examples around the world",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n001-n002",
+      "name": "n001-n002",
+      "color": 16777215,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n001-n002",
+        "opacity": 0.1
+      },
+      "labelColor": 16777215
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "Geodesic Spheres",
+          "color": 16776960,
+          "position": {
+            "x": -2.846184319074382,
+            "y": 9,
+            "z": -15.284035363191588
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Geodesic Spheres",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": "/userImages/Geo Eco Diagram.png",
+          "radius": 2.5,
+          "shape": "hexPlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "Applications",
+          "color": 8421504,
+          "position": {
+            "x": 5.065131219987222,
+            "y": 10.187891594970848,
+            "z": -12.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Applications",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n001-n004",
+      "name": "n001-n004",
+      "color": 16777215,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n001-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 16777215
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n009",
+          "name": "Mars",
+          "color": 8421504,
+          "position": {
+            "x": 20.153815680925618,
+            "y": 5.294465717570347,
+            "z": -10.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Mars",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": "/userImages/768px-OSIRIS_Mars_true_color.jpg",
+          "radius": 1.25,
+          "shape": "circlePlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n007",
+          "name": "Space Colonies",
+          "color": 8421504,
+          "position": {
+            "x": 13.651734904583115,
+            "y": 5.975804790751396,
+            "z": -12.058880248760673
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Space Colonies",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n009-n007",
+      "name": "n009-n007",
+      "color": 16777215,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n009-n007",
+        "opacity": 0.1
+      },
+      "labelColor": 16777215
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n008",
+          "name": "Moon",
+          "color": 8421504,
+          "position": {
+            "x": 20.153815680925618,
+            "y": 8.292933673306834,
+            "z": -10.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Moon",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": "/userImages/808px-FullMoon2010.jpg",
+          "radius": 1.2,
+          "shape": "circlePlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n007",
+          "name": "Space Colonies",
+          "color": 8421504,
+          "position": {
+            "x": 13.651734904583115,
+            "y": 5.975804790751396,
+            "z": -12.058880248760673
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Space Colonies",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n008-n007",
+      "name": "n008-n007",
+      "color": 16777215,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n008-n007",
+        "opacity": 0.1
+      },
+      "labelColor": 16777215
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n007",
+          "name": "Space Colonies",
+          "color": 8421504,
+          "position": {
+            "x": 13.651734904583115,
+            "y": 5.975804790751396,
+            "z": -12.058880248760673
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Space Colonies",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "Applications",
+          "color": 8421504,
+          "position": {
+            "x": 5.065131219987222,
+            "y": 10.187891594970848,
+            "z": -12.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Applications",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n007-n004",
+      "name": "n007-n004",
+      "color": 16777215,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n007-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 16777215
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "Applications",
+          "color": 8421504,
+          "position": {
+            "x": 5.065131219987222,
+            "y": 10.187891594970848,
+            "z": -12.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Applications",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n000",
+          "name": "Future Cities",
+          "color": 8421504,
+          "position": {
+            "x": 15.106974439779098,
+            "y": 11.481829644421586,
+            "z": -13.495726013040155
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Future Cities",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": "/userImages/future-cities.jpg",
+          "radius": 1.5,
+          "shape": "hexPlate"
+        }
+      ],
+      "id": "n004-n000",
+      "name": "n004-n000",
+      "color": 16777215,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n004-n000",
+        "opacity": 0.1
+      },
+      "labelColor": 16777215
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00e",
+          "name": "Information Modeling",
+          "color": 8421504,
+          "position": {
+            "x": 14.210738579646705,
+            "y": 16.860856012435818,
+            "z": -8.586929259982972
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Information Modeling",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "Applications",
+          "color": 8421504,
+          "position": {
+            "x": 5.065131219987222,
+            "y": 10.187891594970848,
+            "z": -12.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Applications",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00e-n004",
+      "name": "n00e-n004",
+      "color": 16777215,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n00e-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 16777215
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "History Of",
+          "color": 8421504,
+          "position": {
+            "x": -8.514161693860679,
+            "y": 14.645709209560003,
+            "z": -12.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "History Of",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00f",
+          "name": "Bucky \nFuller",
+          "color": 8421504,
+          "position": {
+            "x": -16.92394977992928,
+            "y": 14.642549265310691,
+            "z": -10.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Bucky \nFuller",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": "/userImages/buckminster fuller.jpg",
+          "radius": 1.5,
+          "shape": "circlePlate"
+        }
+      ],
+      "id": "n005-n00f",
+      "name": "n005-n00f",
+      "color": 16777215,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n005-n00f",
+        "opacity": 0.1
+      },
+      "labelColor": 16777215
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "History Of",
+          "color": 8421504,
+          "position": {
+            "x": -8.514161693860679,
+            "y": 14.645709209560003,
+            "z": -12.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "History Of",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "Earlier iterations",
+          "color": 8421504,
+          "position": {
+            "x": -21.373564221562845,
+            "y": 19.40763089649932,
+            "z": -10.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Earlier iterations",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n005-n003",
+      "name": "n005-n003",
+      "color": 16777215,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n005-n003",
+        "opacity": 0.1
+      },
+      "labelColor": 16777215
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n006",
+          "name": "Types",
+          "color": 16711680,
+          "position": {
+            "x": -10.843882058513959,
+            "y": 8.808086299178521,
+            "z": -12.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Types",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "Geodesic Spheres",
+          "color": 16776960,
+          "position": {
+            "x": -2.846184319074382,
+            "y": 9,
+            "z": -15.284035363191588
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Geodesic Spheres",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": "/userImages/Geo Eco Diagram.png",
+          "radius": 2.5,
+          "shape": "hexPlate"
+        }
+      ],
+      "id": "n006-n001",
+      "name": "n006-n001",
+      "color": 16777215,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n006-n001",
+        "opacity": 0.1
+      },
+      "labelColor": 16777215
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n006",
+          "name": "Types",
+          "color": 16711680,
+          "position": {
+            "x": -10.843882058513959,
+            "y": 8.808086299178521,
+            "z": -12.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Types",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00k",
+          "name": "Platonic Solids",
+          "color": 8421504,
+          "position": {
+            "x": -9.383054437244045,
+            "y": 6.279091234914583,
+            "z": -11.593927597594387
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Platonic Solids",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n006-n00k",
+      "name": "n006-n00k",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n006-n00k",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00j",
+          "name": "Octahedron",
+          "color": 16711680,
+          "position": {
+            "x": -21.209937261992415,
+            "y": 8.675784558068418,
+            "z": -10.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Octahedron",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "v1octahedron"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00k",
+          "name": "Platonic Solids",
+          "color": 8421504,
+          "position": {
+            "x": -9.383054437244045,
+            "y": 6.279091234914583,
+            "z": -11.593927597594387
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Platonic Solids",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00j-n00k",
+      "name": "n00j-n00k",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00j-n00k",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00i",
+          "name": "Tetrahedron",
+          "color": 16711680,
+          "position": {
+            "x": -18.483385502967863,
+            "y": 7.2058209053505715,
+            "z": -10.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Tetrahedron",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "v1tetrahedron"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00k",
+          "name": "Platonic Solids",
+          "color": 8421504,
+          "position": {
+            "x": -9.383054437244045,
+            "y": 6.279091234914583,
+            "z": -11.593927597594387
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Platonic Solids",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00i-n00k",
+      "name": "n00i-n00k",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00i-n00k",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00h",
+          "name": "Icosahedron",
+          "color": 16711680,
+          "position": {
+            "x": -15.065568694273367,
+            "y": 5.3631760834432125,
+            "z": -10.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Icosahedron",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "v1icosahedron"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00k",
+          "name": "Platonic Solids",
+          "color": 8421504,
+          "position": {
+            "x": -9.383054437244045,
+            "y": 6.279091234914583,
+            "z": -11.593927597594387
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Platonic Solids",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00h-n00k",
+      "name": "n00h-n00k",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00h-n00k",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "Earlier iterations",
+          "color": 8421504,
+          "position": {
+            "x": -21.373564221562845,
+            "y": 19.40763089649932,
+            "z": -10.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Earlier iterations",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00m",
+          "name": "Domes",
+          "color": 8421504,
+          "position": {
+            "x": -25.753953490828145,
+            "y": 18.30588937136342,
+            "z": -10.245671338133024
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Domes",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n003-n00m",
+      "name": "n003-n00m",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n003-n00m",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00m",
+          "name": "Domes",
+          "color": 8421504,
+          "position": {
+            "x": -25.753953490828145,
+            "y": 18.30588937136342,
+            "z": -10.245671338133024
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Domes",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00l",
+          "name": "Romans",
+          "color": 8421504,
+          "position": {
+            "x": -34.22168709808649,
+            "y": 19.647684341509752,
+            "z": -18.306612522096515
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Romans",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00m-n00l",
+      "name": "n00m-n00l",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00m-n00l",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00n",
+          "name": "Byzantine",
+          "color": 8421504,
+          "position": {
+            "x": -31.22599176630457,
+            "y": 15.77520244866951,
+            "z": -9.280456717842474
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Byzantine",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00o",
+          "name": "Kostrama\nRessurection",
+          "color": 8421504,
+          "position": {
+            "x": -38.16681747298076,
+            "y": 15.101873010509586,
+            "z": -9.31344644550083
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Kostrama\nRessurection",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/330px-Kostroma_resurrection.jpg",
+          "radius": 1.5,
+          "shape": "hexPlate"
+        }
+      ],
+      "id": "n00n-n00o",
+      "name": "n00n-n00o",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00n-n00o",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00p",
+          "name": "n00p",
+          "color": 8421504,
+          "position": {
+            "x": -50.152899137851904,
+            "y": 13.425269239883932,
+            "z": -14.309874892704165
+          },
+          "opacity": 1,
+          "label": {
+            "text": "n00p",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 1.5,
+          "shape": "hexPlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00q",
+          "name": "n00q",
+          "color": 8421504,
+          "position": {
+            "x": -46.72422515780853,
+            "y": 19.112571917101885,
+            "z": -9.288339402240771
+          },
+          "opacity": 1,
+          "label": {
+            "text": "n00q",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00p-n00q",
+      "name": "n00p-n00q",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00p-n00q",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00p",
+          "name": "n00p",
+          "color": 8421504,
+          "position": {
+            "x": -50.152899137851904,
+            "y": 13.425269239883932,
+            "z": -14.309874892704165
+          },
+          "opacity": 1,
+          "label": {
+            "text": "n00p",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 1.5,
+          "shape": "hexPlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00r",
+          "name": "n00r",
+          "color": 8421504,
+          "position": {
+            "x": -46.04617549810757,
+            "y": 8.20645347857543,
+            "z": -9.288339402240771
+          },
+          "opacity": 1,
+          "label": {
+            "text": "n00r",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00p-n00r",
+      "name": "n00p-n00r",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00p-n00r",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00p",
+          "name": "n00p",
+          "color": 8421504,
+          "position": {
+            "x": -50.152899137851904,
+            "y": 13.425269239883932,
+            "z": -14.309874892704165
+          },
+          "opacity": 1,
+          "label": {
+            "text": "n00p",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 1.5,
+          "shape": "hexPlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00s",
+          "name": "n00s",
+          "color": 8421504,
+          "position": {
+            "x": -53.48584397120625,
+            "y": 7.681342382625607,
+            "z": -9.288339402240771
+          },
+          "opacity": 1,
+          "label": {
+            "text": "n00s",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00p-n00s",
+      "name": "n00p-n00s",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00p-n00s",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00p",
+          "name": "n00p",
+          "color": 8421504,
+          "position": {
+            "x": -50.152899137851904,
+            "y": 13.425269239883932,
+            "z": -14.309874892704165
+          },
+          "opacity": 1,
+          "label": {
+            "text": "n00p",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 1.5,
+          "shape": "hexPlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00t",
+          "name": "n00t",
+          "color": 8421504,
+          "position": {
+            "x": -56.71394906894783,
+            "y": 14.451836726892518,
+            "z": -9.288339402240771
+          },
+          "opacity": 1,
+          "label": {
+            "text": "n00t",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00p-n00t",
+      "name": "n00p-n00t",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00p-n00t",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00p",
+          "name": "n00p",
+          "color": 8421504,
+          "position": {
+            "x": -50.152899137851904,
+            "y": 13.425269239883932,
+            "z": -14.309874892704165
+          },
+          "opacity": 1,
+          "label": {
+            "text": "n00p",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 1.5,
+          "shape": "hexPlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00u",
+          "name": "n00u",
+          "color": 8421504,
+          "position": {
+            "x": -52.94142957229373,
+            "y": 19.452317855907253,
+            "z": -9.288339402240771
+          },
+          "opacity": 1,
+          "label": {
+            "text": "n00u",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00p-n00u",
+      "name": "n00p-n00u",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00p-n00u",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00v",
+          "name": "Epcott Center",
+          "color": 8421504,
+          "position": {
+            "x": 3.6684291775184406,
+            "y": 23.474583108410684,
+            "z": -10.847568262629554
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Epcott Center",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": "/userImages/header-spaceshipearth.jpg",
+          "radius": 1,
+          "shape": "hexPlate"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n002",
+          "name": "Examples around the world",
+          "color": 16777215,
+          "position": {
+            "x": -0.48157895767905856,
+            "y": 16.64255464389104,
+            "z": -12.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Examples around the world",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00v-n002",
+      "name": "n00v-n002",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00v-n002",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00m",
+          "name": "Domes",
+          "color": 8421504,
+          "position": {
+            "x": -25.753953490828145,
+            "y": 18.30588937136342,
+            "z": -10.245671338133024
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Domes",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00n",
+          "name": "Byzantine",
+          "color": 8421504,
+          "position": {
+            "x": -31.22599176630457,
+            "y": 15.77520244866951,
+            "z": -9.280456717842474
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Byzantine",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00m-n00n",
+      "name": "n00m-n00n",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00m-n00n",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n006",
+          "name": "Types",
+          "color": 16711680,
+          "position": {
+            "x": -10.843882058513959,
+            "y": 8.808086299178521,
+            "z": -12.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Types",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00w",
+          "name": "Frequency",
+          "color": 8421504,
+          "position": {
+            "x": -12.62687624256716,
+            "y": 4.802072753977251,
+            "z": -4.027663725415119
+          },
+          "opacity": 1,
+          "label": {
+            "text": "Frequency",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n006-n00w",
+      "name": "n006-n00w",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n006-n00w",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n007",
+          "name": "Space Colonies",
+          "color": 8421504,
+          "position": {
+            "x": 13.651734904583115,
+            "y": 5.975804790751396,
+            "z": -12.058880248760673
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Space Colonies",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "image",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "Interstellar",
+          "color": 8421504,
+          "position": {
+            "x": 20.153815680925618,
+            "y": 2.4133759822525462,
+            "z": -10.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Interstellar",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": "/userImages/heic0602a_800px.jpg",
+          "radius": 1.2600000000000002,
+          "shape": "circlePlate"
+        }
+      ],
+      "id": "n007-n00a",
+      "name": "n007-n00a",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n007-n00a",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00b",
+          "name": "Treehouses",
+          "color": 8421504,
+          "position": {
+            "x": 20.153815680925618,
+            "y": 13.443243286077632,
+            "z": -10.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Treehouses",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00x",
+          "name": "O2 Treehouse",
+          "color": 8421504,
+          "position": {
+            "x": 23.672860816468,
+            "y": 10.9742282021759,
+            "z": -8.18448610339193
+          },
+          "opacity": 1,
+          "label": {
+            "text": "O2 Treehouse",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.8,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00b-n00x",
+      "name": "n00b-n00x",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00b-n00x",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00e",
+          "name": "Information Modeling",
+          "color": 8421504,
+          "position": {
+            "x": 14.210738579646705,
+            "y": 16.860856012435818,
+            "z": -8.586929259982972
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Information Modeling",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00d",
+          "name": "Examples",
+          "color": 8421504,
+          "position": {
+            "x": 20.153815680925618,
+            "y": 15.84996933585353,
+            "z": -6.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Examples",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00e-n00d",
+      "name": "n00e-n00d",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00e-n00d",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00b",
+          "name": "Treehouses",
+          "color": 8421504,
+          "position": {
+            "x": 20.153815680925618,
+            "y": 13.443243286077632,
+            "z": -10.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Treehouses",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "Applications",
+          "color": 8421504,
+          "position": {
+            "x": 5.065131219987222,
+            "y": 10.187891594970848,
+            "z": -12.72438162213075
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Applications",
+            "opacity": 0.8
+          },
+          "labelOpacity": 0.2,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00b-n004",
+      "name": "n00b-n004",
+      "color": 8421504,
+      "opacity": 1,
+      "label": {
+        "color": 16777215,
+        "text": "n00b-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    }
+  ],
+  "groups": []
+}

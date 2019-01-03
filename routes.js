@@ -29,18 +29,28 @@ router.post('/saveCognition', function( req, res, next ) { console.log( 'Accessi
 						next(); 
 					},
 					function( req, res, next ) { 
+						
+						let reqData = [];
+						let buffer;
+					
 						req.on( 'error', function(){
 							console.log( 'error!' );
 						});
 						req.on( 'data', function( data ) {
+							
+							reqData.push( data );
 							console.log( 'data at router.post: ', data );
 							
-							var jParsed = JSON.parse( data );
-							console.log( 'data parsed: ', jParsed );
-							
-							jsonMethods.saveCognitionJson( jParsed.fullpath, jParsed.data );
 						});
 						req.on( 'end', function(){
+							
+							buffer = Buffer.concat( reqData ).toString();
+							
+							var jParsed = JSON.parse( buffer );
+							console.log( 'data parsed: ', jParsed );
+							
+							jsonMethods.saveCognitionJson( jParsed.fullpath, jParsed.data ); 							
+							
 							console.log( req );
 						});
 						next();
@@ -49,6 +59,20 @@ router.post('/saveCognition', function( req, res, next ) { console.log( 'Accessi
 						res.send('save the current cognition file!'); 
 					} 
 					); 
+					
+router.get('/listUserFiles' , 
+					function( req, res ) {
+						var userfiles = jsonMethods.listFilesInDir( (__dirname + '/userfiles'), res );
+						res.send();			
+					}
+					);	
+
+router.get('/listThemes' , 
+					function( req, res ) {
+						var themes = jsonMethods.listFilesInDir( (__dirname + '/themes'), res );
+						res.send();			
+					}
+					);						
 					
 router.get('/loadTheme' , function( req, res ) { res.send( 'Loading Theme File' ); });
 

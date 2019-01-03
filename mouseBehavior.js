@@ -29,33 +29,8 @@ var object3DsIntersectedByRay = [];
 var graphElementsIntersectedByRay = [];
 
 // What THREE.Object3D is intersected by the ray from the mouse. ( Sometimes will be a display entity related to a Node, Edge or Label of either )
-var INTERSECTED_OBJ3D; 
+var INTERSECTED_OBJ3D;   
 
-// Selected objects
-var SELECTED = {
-	nodes:[],
-	edges:[],
-	guides:{
-		planes:[],
-		lines:[],
-		points:[],
-		faces:[],
-		circles:[]
-	}
-};	  
-
-// Deleted Graph Elements
-var DELETED = { 
-	nodes:[], 
-	edges:[], 
-	guides:{
-		planes:[],
-		lines:[],
-		points:[],
-		faces:[],
-		circles:[]
-	} 
-};
 
 // What Hidden text input (associated with a Graph Element) is now active? (Enables user to alter the text)
 var ACTIVE_HIDDEN_TEXT_INPUT;	
@@ -80,8 +55,6 @@ function onMouse( event ) {
 }
 
 function mouseEventHandler( event ){
-	
-	var camera = entities.cameras.perspCamera;
 	
 	// update the picking ray with the camera and mouse position
 	ray.setFromCamera( mouse, camera );
@@ -123,8 +96,6 @@ function mouseEventHandler( event ){
 		if ( event.type === 'contextmenu' ){
 			contextMenuActivate( event, nearestIntersected );
 		}
-		
-//		INTERSECTED_OBJ3D && debug.master && debug.intersectionHandling && console.log( "mouseEventHandler(): INTERSECTED_OBJ3D: ", INTERSECTED_OBJ3D, " isGraphElementPart: " , INTERSECTED_OBJ3D.isGraphElementPart, " isLabel: ", INTERSECTED_OBJ3D.isLabel, "INTERSECTED_OBJ3D.uv: ", INTERSECTED_OBJ3D.uv , ' MouseEvent: ', event.type );	
 
 		INTERSECTED_OBJ3D && debug.master && debug.intersectionHandling && ( function(){
 			console.log( "mouseEventHandler(): INTERSECTED_OBJ3D: ", INTERSECTED_OBJ3D );
@@ -288,7 +259,7 @@ function onMouseDown( event, camera ){
 
 function onMouseUp( event ){
 	
-	entities.browserControls.enabled = true;			
+	sceneChildren.browserControls.enabled = true;			
 }
 
 function onClick( event ){
@@ -332,16 +303,15 @@ function updateIntersectedObject3Ds(){
 	object3DsIntersectedByRay = ray.intersectObjects( scene.children, true ).slice();
 } 
 
-function findGraphElementsInObject3DArray( object3DArray ){
+function findGraphElementsInObject3DArray( obj3DArr ){
 	
 	var graphElementsInArray = [];
 	
-	for ( var i = 0; i < object3DArray.length; i++ ){
-		
-		if ( object3DArray[i].object && object3DArray[i].object.isGraphElementPart ){
-			graphElementsInArray.push( object3DArray[i] );			
-		}
-	}
+	obj3DArr.forEach( function( obj3D ){
+		if ( obj3D.object && obj3D.object.isGraphElementPart ){
+			graphElementsInArray.push( obj3D );			
+		}		
+	});
 	
 	return graphElementsInArray;	
 }
@@ -726,7 +696,7 @@ function getAllGraphElementPartsOfType( type ){
 }
 
 /*
- * getPartsOfTypeInGraphElementArray()
+ * getPartsOfTypeInLucidNodesEntityArray()
  *
  *  parameters: 
  *		arr: <Array> - An array of GraphElements
@@ -737,27 +707,42 @@ function getAllGraphElementPartsOfType( type ){
  *	Notes: Traverses array GraphElement.partsInScene to find all object3Ds associated with the GraphElement, regardless of any parent/child relationships. 
  *
  */
-function getPartsOfTypeInGraphElementArray( arr, type ){
+function getPartsOfTypeInLucidNodesEntityArray( arr, type ){
 
 	var partsOfType = [];
 	var partOfType;
 	
 	if ( arr && arr.length ){
-	
-		for ( var i = 0; i < arr.length; i++ ){
-			
-			if ( arr[ i ].isGraphElement && arr[ i ].partsInScene && arr[ i ].partsInScene.length > 0 ){
-				for ( var j = 0; j < arr[ i ].partsInScene.length; j++ ){
-					if ( arr[ i ].partsInScene[ j ].isGraphElementPart && arr[ i ].partsInScene[ j ].graphElementPartType === type ){				
-						partsOfType.push( arr[ i ].partsInScene[ j ] );
-					}
-				}
+		arr.forEach( function( entity ){ 
+			if ( entity.isLucidNodesEntity && entity.partsInScene ){
+				entity.partsInScene.forEach( function( part ){
+					if ( part.isLucidNodesEntityPart && part.lucidNodesEntityPartType === type ){ partsOfType.push( part ); }				
+				});
 			}
-		}
+		});
 		
 		return partsOfType;
 	}
 }
+/*
+function getPartsOfTypeInLucidNodesEntityArray( arr, type ){
+
+	var partsOfType = [];
+	var partOfType;
+	
+	if ( arr && arr.length ){
+		arr.forEach( function( entity ){ 
+			if ( entity.isGraphElement && entity.partsInScene && entity.partsInScene.length > 0 ){
+				entity.partsInScene.forEach( function( part ){
+					if ( part.isGraphElementPart && part.graphElementPartType === type ){ partsOfType.push( part ); }				
+				});
+			}
+		});
+		
+		return partsOfType;
+	}
+}  */
+
 
 function hideAllGraphElementPartsOfType( type ){
 	
@@ -824,400 +809,10 @@ function blurActiveHiddenInput(){
 
 function positionInput( event, input ){
 	
-	clickCoords = getPosition( event );
+	clickCoords = getEventPagePosition( event );
 	
 	input.style.left = clickCoords.x + "px";
 	input.style.top = clickCoords.y + "px";
 }
 
 // END HIDDEN INPUT (LABEL TEXT) HANDLING
-
-
-var menu = document.querySelector("#context-menu");
-var menuState = 0;
-var menuActiveClassName = "context-menu--active";
-var menuPosition;
-var menuPositionX;
-var menuPositionY;
-var menuWidth;
-var menuHeight;
-var windowWidth;
-var windowHeight;
-var clickCoords;
-
-// Helper Punctions
-
-
-function getPosition( event ) {
-	var pos = { x: 0, y: 0 }
-
-	if (!event) var event = window.event;
-
-	if (event.pageX || event.pageY) {
-		pos.x = event.pageX;
-		pos.y = event.pageY;
-	} else if (event.clientX || event.clientY) {
-		pos.x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-		pos.y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-	}
-
-	return pos;
-}	
-
-// Menu Content Handling
-
-function contextMenuActions(){
-	
-	document.getElementById( "delete" ).addEventListener( "click", function( event ){ 
-		if ( INTERSECTED_OBJ3D.referent.isEdge ){ deleteEdge( INTERSECTED_OBJ3D.referent ) }
-		if ( INTERSECTED_OBJ3D.referent.isNode ){ deleteNode( INTERSECTED_OBJ3D.referent ) }
-		toggleContextMenuOff();
-		} );
-		
-	document.getElementById( "selectAll" ).addEventListener( "click", function( event ){ 
-		selectAll(); 
-		toggleContextMenuOff();
-		} );
-
-	document.getElementById( "selectAllEdges" ).addEventListener( "click", function( event ){ 
-		selectAllEdges(); 
-		toggleContextMenuOff();
-		} );			
-	
-	document.getElementById( "selectAllNodes" ).addEventListener( "click", function( event ){ 
-		selectAllNodes(); 
-		toggleContextMenuOff();
-		} );
-	document.getElementById( "selectAllOfSameShape").addEventListener( "click", function( event ){
-		var x = getReferentGraphElementOfIntersectedObj3D();
-		if ( x && x.isNode ){ selectNodesInArrayWithSamePropValAs( x, "shape", cognition.nodes ) }
-		toggleContextMenuOff();
-	} );
-	document.getElementById( "selectAllOfSameColor").addEventListener( "click", function( event ){
-		var x = getReferentGraphElementOfIntersectedObj3D();
-		if ( x && x.isNode ){ selectNodesInArrayWithSamePropValAs( x, "color", cognition.nodes ) }
-		toggleContextMenuOff();
-		if ( x && x.isEdge ){ selectEdgesInArrayWithSamePropValAs( x, "color", cognition.edges ) }
-		toggleContextMenuOff();		
-	} );
-}
-
-function contextMenuItems( forObj ){
-
-	document.getElementById( "selectAll" ).textContent = "Select All";
-	document.getElementById( "selectAllEdges").textContent = "Select All Edges";
-	document.getElementById( "selectAllNodes").textContent = "Select All Nodes";
-	document.getElementById( "rename" ).innerHTML = "Rename " + forObj;		
-	document.getElementById( "delete" ).innerHTML = "Delete " + forObj;
-	document.getElementById( "changeType" ).innerHTML = "Change To..."; 
-	document.getElementById( "group" ).innerHTML = "Group";
-	document.getElementById( "selectAllOfSameColor" ).innerHTML = "Select All " + forObj + " of Same Color";
-	document.getElementById( "selectAllOfSameShape" ).innerHTML = "Select All " + forObj + " of Same Shape";
-	document.getElementById( "scale" ).innerHTML = "Scale";
-	document.getElementById( "properties" ).innerHTML = forObj + " Properties";
-	
-}
-
-// Core Functions
-
-function initContextMenu(){
-  
-  contextMenuActions();
-  menuOffOnWindowResize();
-}
-
-function menuOffOnWindowResize() {
-	window.onresize = function(event) {
-		toggleContextMenuOff();
-	};
-}
-
-function contextMenuActivate( event ){
-	
-	event.preventDefault();
-	
-	var x = getReferentGraphElementOfIntersectedObj3D();
-	
-	if ( x ){
-
-		if ( x.isNode ){ contextMenuItems( "Node" );  }
-		else if ( x.isEdge ){ contextMenuItems( "Edge" ); }
-		
-	}
-	
-	else if ( INTERSECTED_OBJ3D && !INTERSECTED_OBJ3D.isGraphElementPart ){
-		
-		contextMenuItems( "Background" ); 
-	}
-
-	positionMenu( event );
-	toggleContextMenuOn();
-} 
-
-function toggleContextMenuOn(){
-	if ( menuState !== 1 ){
-		menuState = 1;
-		menu.classList.add(menuActiveClassName);
-	}
-}
-
-function toggleContextMenuOff() {
-  if ( menuState !== 0 ) {
-	menuState = 0;
-	menu.classList.remove(menuActiveClassName);
-  }
-}
-
-function positionMenu(event){
-	
-	clickCoords = getPosition(event);
-	
-	menuWidth = menu.offsetWidth + 4;
-	menuHeight = menu.offsetHeight + 4;		
-	
-	windowWidth = window.innerWidth;
-	windowHeight = window.innerHeight;
-	
-	if ( ( windowWidth - clickCoords.x ) < menuWidth ) {
-		menu.style.left = windowWidth - menuWidth + "px";
-		} 
-	else {
-		menu.style.left = clickCoords.x + "px";
-	}
-
-	if ( ( windowHeight - clickCoords.y ) < menuHeight ) {
-		menu.style.top = windowHeight - menuHeight + "px";
-	} 
-	else {
-		menu.style.top = clickCoords.y + "px";
-	}		
-}
-
-initContextMenu();
-
-/* saveAsBox */
-
-var saveAsBox = document.getElementById('saveAsBox');
-var saveThemeAsBox = document.getElementById('saveThemeAsBox');
-
-function initSaveAsBox( box ){
-	
-	box.state = 0;
-	box.activeClassName = box.id + "--active";	
-	positionSaveAsBox( box );
-
-}
-
-function toggleSaveAsBoxOn( box ){
-	if ( box.state !== 1 ){
-		box.state = 1;
-		box.classList.add( box.activeClassName );
-	}
-}
-
-function toggleSaveAsBoxOff( box ) {
-  if ( box.state !== 0 ) {
-	box.state = 0;
-	box.classList.remove( box.activeClassName );
-  }
-}
-
-function positionSaveAsBox( box ){
-	
-	windowWidth = window.innerWidth;
-	windowHeight = window.innerHeight;
-	
-	var windowCenter = { x: ( windowWidth / 2 ), y: ( windowHeight / 2 ) };
-	var boxHalf = { x: ( box.offsetWidth / 2 ), y: ( box.offsetHeight / 2 ) };
-	
-	var left = windowCenter.x - boxHalf.x;
-	var top = windowCenter.y - boxHalf.y;		
-	
-	box.style.left = left + "px";
-	box.style.top = top + "px";	
-}
-
-initSaveAsBox( saveAsBox );
-initSaveAsBox( saveThemeAsBox );
-
-
-/* Minimizing/Maximizing Panels */
-
-var panelMaximized = {
-	search: 1,
-	theme: 1,
-};
-
-var panelCoords = {};
-
-function initPanelDragCoords(){
-	
-	panelCoords.search = {
-		start:{ x: 0, y: 0 },
-		end:{ x:0, y:0 }
-	}
-	
-	panelCoords.theme = {
-		start:{ x: 0, y: 0 },
-		end:{ x:0, y:0 }
-	}
-	
-	panelCoords.editNode = {
-		start:{ x: 0, y: 0 },
-		end:{ x:0, y:0 }
-	}
-	
-	panelCoords.media = {
-		start:{ x: 0, y: 0 },
-		end:{ x:0, y:0 }
-	}	
-	
-	panelCoords.toolbar = {
-		start:{ x: 0, y: 0 },
-		end:{ x:0, y:0 }
-	}	
-}
-
-initPanelDragCoords();
-
-function togglePanelSize( panelID ){
-	
-	var panel = document.getElementById( panelID );
-	var fn;
-	
-	if ( panel && panelMaximized[ panelID ] !==1 ){
-		panelMaximized[ panelID ] = 1;
-		fn = panelID + "PanelMaximize";
-		window[ fn ]();
-		return;
-	}
-	
-	if ( panel && panelMaximized[ panelID ] !==0 ){
-		panelMaximized[ panelID ] = 0;
-		fn = panelID + "PanelMinimize";
-		window[ fn ]();
-		return;
-	}
-}
-
-function searchPanelMaximize(){
-	document.getElementById( "search" ).style.height = "150px";
-	document.querySelector( "#search .panel-body" ).style.display = "block";		
-}
-
-function searchPanelMinimize(){
-	document.getElementById( "search" ).style.height = "24px";	
-	document.querySelector( "#search .panel-body" ).style.display = "none";		
-}
- 
-function themePanelMaximize(){
-	document.getElementById( "theme" ).style.height = "400px";
-	document.querySelector( "#theme .panel-body" ).style.display = "block";	
-}
-
-function themePanelMinimize(){
-	document.getElementById( "theme" ).style.height = "24px";
-	document.querySelector( "#theme .panel-body" ).style.display = "none";			
-}
-
-function editNodePanelMaximize(){
-	document.getElementById( "editNode" ).style.height = "350px";
-	document.querySelector( "#editNode .panel-body" ).style.display = "block";	
-}
-
-function editNodePanelMinimize(){
-	document.getElementById( "editNode" ).style.height = "24px";
-	document.querySelector( "#editNode .panel-body" ).style.display = "none";			
-}
-
-function mediaPanelMaximize(){
-	document.getElementById( "media" ).style.height = "350px";
-	document.querySelector( "#media .panel-body" ).style.display = "block";	
-}
-
-function mediaPanelMinimize(){
-	document.getElementById( "media" ).style.height = "24px";
-	document.querySelector( "#media .panel-body" ).style.display = "none";			
-}
-
-function getCoordsInPanel( event, panelID ){
-	
-	var panelTop = document.getElementById( panelID ).offsetTop;
-	var panelLeft = document.getElementById( panelID ).offsetLeft;
-	
-	windowWidth = window.innerWidth;
-	windowHeight = window.innerHeight;	
-	
-	var windowCoords = getPosition( event );
-	
-	panelCoords.inside = { 
-		x: windowCoords.x - panelLeft,
-		y: windowCoords.y - panelTop
-	}
-}
-
-function getDragStartCoords( event, panelID ){
-	
-	var windowCoords = getPosition( event );
-	
-	panelCoords[ panelID ].start.x = windowCoords.x;
-	panelCoords[ panelID ].start.y = windowCoords.y;
-	
-	getCoordsInPanel( event, panelID );
-}
-
-function getDragEndCoords( event, panelID ){
-	
-	var windowCoords = getPosition( event );
-	
-	panelCoords[ panelID ].end.x = windowCoords.x;
-	panelCoords[ panelID ].end.y = windowCoords.y;
-	
-}
-
-function getDragCoordsDelta( panelID ){
-	
-	var delta = {
-		x: ( panelCoords[ panelID ].end.x - panelCoords[ panelID ].start.x ),
-		y: ( panelCoords[ panelID ].end.y - panelCoords[ panelID ].start.y )	
-	}
-	
-	return delta;
-}
-
-function setPanelNewPosition( panelID ){
-	
-	var delta = getDragCoordsDelta( panelID );
-	
-	document.getElementById( panelID ).style.left = panelCoords[ panelID ].start.x + delta.x - panelCoords.inside.x + "px";
-	document.getElementById( panelID ).style.top = panelCoords[ panelID ].start.y + delta.y + - panelCoords.inside.y + "px";
-  	
-}
-
-function movePanel( event, panelID ){
-	
-	getDragEndCoords( event, panelID );
-	getDragCoordsDelta( panelID );
-	setPanelNewPosition( panelID );
-	initPanelDragCoords();
-}
-
-var moveThemePanel = function( e ){
-	movePanel( e, "theme" );
-}
-
-var moveSearchPanel = function( e ){
-	movePanel( e, "search" );
-}
-
-var moveShapePanel = function( e ){
-	movePanel( e, "editNode" );
-}
-
-var moveMediaPanel = function( e ){
-	movePanel( e, "media" );
-}
-
-var moveToolbar = function( e ){
-	movePanel( e, "toolbar" );
-}

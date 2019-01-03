@@ -256,8 +256,8 @@ function moveTool( position ){
 		guideRelativePositions = getSelectedGuidePositionsRelativeTo( moveToolState.points[0].position );
 		
 		// If we're in the browser, disable the controls
-		if ( entities.browserControls ){
-			entities.browserControls.enabled = false;				
+		if ( sceneChildren.browserControls ){
+			sceneChildren.browserControls.enabled = false;				
 		}
 		
 		//Lock in the start point position
@@ -292,8 +292,8 @@ function moveTool( position ){
 	else if ( moveToolState.clickCount === 1 ){
 			
 		// If we're in the browser, turn the controls back on.
-		if ( entities.browserControls ){
-			entities.browserControls.enabled = true;				
+		if ( sceneChildren.browserControls ){
+			sceneChildren.browserControls.enabled = true;				
 		}			
 		
 		bailMoveTool();

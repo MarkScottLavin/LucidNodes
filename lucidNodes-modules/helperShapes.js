@@ -181,14 +181,8 @@ function removeGhostOfNode( node ){
 	removeGhostOfObj3D( node.displayEntity );
 }
 
-function addGhostsOfNodes( nodeArr ){
-	doToGraphElementArray( "addGhostOfNode" , nodeArr  );
-}
-
-function removeGhostsOfNodes( nodeArr ){
-	doToGraphElementArray( "removeGhostOfNode" , nodeArr );	
-}
-
+function addGhostsOfNodes( nodeArr ){ nodeArr.forEach( function( node ){ addGhostOfNode( node ); } ); }
+function removeGhostsOfNodes( nodeArr ){ nodeArr.forEach( function( node ){ removeGhostOfNode( node ); } ); }
 
 function addGhostOfGuide( guide ){
 	

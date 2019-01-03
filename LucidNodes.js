@@ -138,29 +138,40 @@ var globalAppSettings = {
 	edgeColorOnMouseOver: 0x000000,
 	edgeColorOnSelect: 0x0000ff,
 	showGroupCenterPoints: true,
-	centerTechnique: "average",
-	centerPointColor: 0x008800,
-	centerPointSize: 0.25
+	centroidColor: 0x008800,
+	centroidSize: 0.25,
+	weightedCentroidColor: 0x0088ff,
+	weightedCentroidSize: 0.25
 }
 
 // THE LUCIDNODE MASTER OBJECT
 var LUCIDNODES = {
 	
-	computeNodeArrayCenter: function( nodeArr, technique = "average" ){
-		
-		var center = new THREE.Vector3();
-		var sum = new THREE.Vector3();
-		
-		/* average (average of all values alonng each axis) */
-		if ( technique === "average" ) { 
-			/* take the positions of all objects in the nodeArray and compute from their centerpoints the center of the nodeArray.	*/
-			return _Math.computeCentroid( getNodePositionsAsArray( nodeArr ) )
-		};
-		
-		/* Extents (average the furthest apart in each direction) */
-		if ( technique === "extents" ) {	
-		}
-			
+	nodeArrayCentroid: function( nodeArr ){ 
+		if ( nodeArr ){ 
+			return _Math.computeCentroid( getNodePositionsAsArray( nodeArr ) ); 
+			} 
+	},
+	nodeArrayWeightedCentroid: function( nodeArr, weightingProp ){ 
+		if ( nodeArr ){ 
+			return _Math.weightedCentroid( nodeArr, weightingProp ); 
+		} 
+	},
+	showNodeArrayCentroid: function( nodeArr ){
+//		nodeArr.centroid = LUCIDNODES.nodeArrayCentroid( nodeArr );
+//		nodeArr.centroid.point = new Point( nodeArr.centroid, globalAppSettings.centroidSize, globalAppSettings.centroidColor );	
+		return new Point( LUCIDNODES.nodeArrayCentroid( nodeArr ), globalAppSettings.centroidSize, globalAppSettings.centroidColor );
+	},
+	showNodeArrayWeightedCentroid: function( nodeArr, weightingProp ){
+//		nodeArr.weightedCentroid = LUCIDNODES.nodeArrayWeightedCentroid( nodeArr, weightingProp );
+//		nodeArr.weightedCentroid.point = new Point( nodeArr.weightedCentroid, globalAppSettings.weightedCentroidSize, globalAppSettings.weightedCentroidColor );	
+		return new Point( LUCIDNODES.nodeArrayWeightedCentroid( nodeArr, weightingProp ), globalAppSettings.weightedCentroidSize, globalAppSettings.weightedCentroidColor );	
+	},
+	
+	showCognitionCentroid(){
+		if ( cognition.nodes && cognition.nodes.length > 0 ){
+			LUCIDNODES.showNodeArrayCentroid( cognition.nodes );
+		}		
 	},
 	
 	computeSubgraph: function( node ){
@@ -177,37 +188,6 @@ var LUCIDNODES = {
 						
 				return the object of subgraphs
 				*/
-	},
-	showNodeArrayCenterPoint: function( nodeArr, material = globalAppSettings.centerPointMaterial ){
-		
-		if ( globalAppSettings.showGroupCenterPoints ) {
-			
-			nodeArr.center = LUCIDNODES.computeNodeArrayCenter( nodeArr );
-			
-			nodeArr.center.point = new Point( nodeArr.center, globalAppSettings.centerPointSize, globalAppSettings.centerPointColor );
-		}
-		
-		else { return; }
-		
-	},
-	
-	showAllGroupCenterPoints( type ){
-		
-		//Later we'll enable this function to restrict groups by type.
-		
-		if ( cognition.groups && cognition.groups.length > 0 ){
-			for ( var g = 0; g < cognition.groups.length; g++ ){
-				
-				LUCIDNODES.showNodeArrayCenterPoint( cognition.groups[g].nodes );
-				
-			}
-		}
-	},
-	
-	showGlobalCenterPoint(){
-		if ( cognition.nodes && cognition.nodes.length > 0 ){
-			LUCIDNODES.showNodeArrayCenterPoint( cognition.nodes );
-		}		
 	},
 	
 	nodePositionComparison: function( node1, node2 ){
@@ -227,6 +207,7 @@ var LUCIDNODES = {
 	
 	Pane: function( parameters ){
 		
+		this.isLucidNodesEntity = true;
 		this.isPane = true;
 		this.id = parameters.id || encodeId( "pane" , paneCounter );
 		this.id.referent = this;
@@ -267,8 +248,9 @@ var LUCIDNODES = {
 	
 	Node: function( parameters ) {
 		
-		this.isNode = true;
+		this.isLucidNodesEntity = true;
 		this.isGraphElement = true;
+		this.isNode = true;		
 		this.contentType = parameters.contentType || "default";
 		this.partsInScene = [];
 		
@@ -416,7 +398,7 @@ var LUCIDNODES = {
 		
 		/* Createing a hidden user input for changing text labels */
 		
-		attachHiddenInputToGraphElement( this );
+		attachHiddenInputToLucidNodesEntity( this );
 		
 		/* Physics (Later) */
 		
@@ -462,8 +444,9 @@ var LUCIDNODES = {
 	
 	Edge: function( parameters ) {
 		
-		this.isEdge = true;
+		this.isLucidNodesEntity = true;
 		this.isGraphElement = true;
+		this.isEdge = true;		
 		this.partsInScene = [];
 		
 		/* What nodes are connected by this edge? */
@@ -571,7 +554,7 @@ var LUCIDNODES = {
 		};
 		
 		/* Create a hidden user input for changing labels */
-		attachHiddenInputToGraphElement( this );
+		attachHiddenInputToLucidNodesEntity( this );
 		
 		debug.master && debug.graphElements && console.log( 'LUCIDNODES.Edge(): ', this );
 	},	
@@ -587,7 +570,7 @@ var LUCIDNODES = {
 	 * }
 	 */ 
 	 
-	Group: function( name, type, centerTechnique = globalAppSettings.centerTechnique ){
+	Group: function( name, type ){
 		
 		this.id = encodeId( "group", groupCounter );
 		this.id.referent = this;
@@ -595,8 +578,8 @@ var LUCIDNODES = {
 		this.type = [];
 		this.nodes = [];
 		this.edges = [];
-		this.centerTechnique = centerTechnique;
-		this.center = function( centerTechnique = this.centerTechnique ) { return LUCIDNODES.computeNodeArrayCenter( this.nodes, centerTechnique ) };
+		this.guides = [];
+		this.center = function() { return LUCIDNODES.nodeArrayCentroid( this.nodes ) };
 		
 		if ( this.type.includes( "graph" ) ){    }
 		if ( this.type.includes( "mindmap") ){    } 
@@ -644,6 +627,8 @@ function createNodeDisplayEntity( node ){
 	}	
 	
 	node.displayEntity = new THREE.Mesh( node.bufferGeom, node.material );
+	node.displayEntity.isLucidNodesEntityPart = true;
+	node.displayEntity.lucidNodesEntityPartType = "nodeDisplayEntity";	
 	node.displayEntity.isGraphElementPart = true;
 	node.displayEntity.graphElementPartType = "nodeDisplayEntity";
 	node.partsInScene.push( node.displayEntity );
@@ -734,6 +719,8 @@ function createNodeDisplayEntity2( node ){
 	}	
 	
 	node.displayEntity = new THREE.Mesh( node.bufferGeom, node.material );
+	node.displayEntity.isLucidNodesEntityPart = true;
+	node.displayEntity.lucidNodesEntityPartType = "nodeDisplayEntity";	
 	node.displayEntity.isGraphElementPart = true;  // This can be simplified...
 	node.displayEntity.graphElementPartType = "nodeDisplayEntity"
 	node.displayEntity.referent = node;			// This simply becomes "parent"
@@ -783,11 +770,7 @@ function changeNodeShape( node, shape ){
 	node.displayEntity.geometry.uvsNeedUpdate = true;
 }
 
-function changeShapeAllNodesInArray( nodeArr, shape ){
-	
-	doToGraphElementArray( "changeNodeShape" , nodeArr, shape );
-
-}
+function changeShapeAllNodesInArray( nodeArr, shape ){ nodeArr.forEach( function( node ){ changeNodeShape( node, shape ); } ); }
 
 function removeNodeDisplayEntity( node ){
 	
@@ -805,6 +788,8 @@ function createEdgeDisplayEntity( edge ){
 	edge.geom.vertices.push( edge.ends[0], edge.ends[1]	);		
 	
 	edge.displayEntity = new THREE.Line( edge.geom, edge.material );
+	edge.displayEntity.isLucidNodesEntityPart = true;
+	edge.displayEntity.lucidNodesEntityPartType = "edgeDisplayEntity";	
 	edge.displayEntity.isGraphElementPart = true;
 	edge.displayEntity.graphElementPartType = "edgeDisplayEntity";
 	edge.partsInScene.push( edge.displayEntity );
@@ -821,19 +806,6 @@ function removeEdgeDisplayEntity( edge ){
 	
 	edge.partsInScene.splice( edge.partsInScene.indexOf( edge.displayEntity ), 1 );
 	scene.remove( edge.displayEntity );
-} 
- 
-function changeNodeName( node, string ){
-	
-	node.name = string;
-	changeLabelText2( node.label, node.name );
-	
-}
-
-function changeEdgeName( edge, string ){
-	
-	edge.name = string;
-	changeLabelText( edge.label, edge.name ); 
 }
 
 function nodesFromJson( arr ){
@@ -909,7 +881,7 @@ function getEdgeNodesFromEdgeId( edgeId ){
 	 * 
 	 */
 
-function getNodeById( nodeId ){
+function getNodeById( nodeId, searchDeleted = false ){
 	
 	var found = false;
 	var foundInDeleted = false;
@@ -937,7 +909,10 @@ function getNodeById( nodeId ){
 					
 					foundInDeleted = true;	
 					node = DELETED.nodes[d];
-					console.error( 'getNodeById( ', nodeId ,' ): Node was deleted.' );					
+					
+					if ( searchDeleted ){ return node; }
+					else { console.error( 'getNodeById( ', nodeId ,' ): Node was deleted.' ); }
+
 					break;
 				}
 			}	
@@ -958,7 +933,7 @@ function getNodeById( nodeId ){
 	 * 
 	 */
 
-function getEdgeById( edgeId ){
+function getEdgeById( edgeId, searchDeleted = false ){
 	
 	var found = false;
 	var foundInDeleted = false;
@@ -986,8 +961,11 @@ function getEdgeById( edgeId ){
 					
 					foundInDeleted = true;	
 					edge = DELETED.edges[d];
-					console.error( 'getEdgeById( ', edgeId ,' ): Edge was deleted.' );					
-					break;
+					
+					if ( searchDeleted ){ return edge; }
+					else { console.error( 'getEdgeById( ', edgeId ,' ): Edge was deleted.' ); }
+					
+					break;						
 				}
 			}	
 		}
@@ -1018,7 +996,8 @@ function connectNodeToArrayOfNodes( sourceNode, targetNodes ){
 
 			var id;
 			
-			var nIdentical = !nodesIdentical( sourceNode, targetNodes[i] );
+	//		var nIdentical = !nodesIdentical( sourceNode, targetNodes[i] );
+			var nIdentical = !lucidNodesEntitiesIdentical( sourceNode, targetNodes[i] );
 			var eExists = edgeExistsInGroup( { node1: sourceNode, node2: targetNodes[i] } );
 
 			if ( nIdentical && !eExists ){
@@ -1048,7 +1027,8 @@ function connectNodeToArrayOfNodes( sourceNode, targetNodes ){
 
 function addEdge( nodes, edgeParams ){
 	
-	var nIdentical = nodesIdentical( nodes[0], nodes[1] );
+//	var nIdentical = nodesIdentical( nodes[0], nodes[1] );
+	var nIdentical = lucidNodesEntitiesIdentical( nodes[0], nodes[1] );
 	var eExists = edgeExistsInGroup( { node1: nodes[0], node2: nodes[1] } );
 
 	if ( !nIdentical && !eExists ){
@@ -1192,11 +1172,7 @@ function snapNodeToGrid( node, precision = decimalPlaces ){
 	 * }
 	*/	
 
-function snapNodesToGrid( nodeArr, precision = decimalPlaces ){
-	
-	doToGraphElementArray( "snapNodeToGrid" , nodeArr, precision );
-
-}
+function snapNodesToGrid( nodeArr, precision = decimalPlaces ){	nodeArr.forEach( function( node ){ snapNodeToGrid( node, precision ); } ); }
 
 	/* snapAllNodesToGrid();
 	 *
@@ -1210,11 +1186,7 @@ function snapNodesToGrid( nodeArr, precision = decimalPlaces ){
 	*/	
 
 
-function snapAllNodesToGrid( precision = decimalPlaces ){
-	
-	snapNodesToGrid( cognition.nodes, precision );
-	
-} 
+function snapAllNodesToGrid( precision = decimalPlaces ){ snapNodesToGrid( cognition.nodes, precision ); } 
 
 /* End Snapping to decimal grid */
 
@@ -1234,11 +1206,7 @@ function scaleNode( node, scaleFactor ){
 	node.displayEntity.add( node.label.displayEntity );	
 }
 
-function scaleAllNodesInArray( nodeArr, scaleFactor ){
-	
-	doToGraphElementArray( "scaleNode" , nodeArr, scaleFactor );
-
-}
+function scaleAllNodesInArray( nodeArr, scaleFactor ){	nodeArr.forEach( function( node ){ scaleNode( node, scaleFactor ); } ); }
 
 function restoreDeletedNode( node ){
 	
@@ -1354,44 +1322,30 @@ function pullEdge( edge ){
 	
 }
 
-function pullAllNodeEdges( node ){
+function pullAllNodeEdges( node ){ getNodeEdges( node ).forEach( function( edge ){ pullEdge( edge ); } ); }
 
-	var edges = getNodeEdges( node );
-	doToGraphElementArray( "pullEdge", edges );
-
-}
-
-	/* nodesIdentical();
+	/* lucidNodesEntitiesIdentical();
 	 *
-	 * Checks for identity of two nodes using Node.id
+	 * Checks for identity of any two lucidNodesEntities ( Nodes, Edges, Guides, etc ) using their "id" property.
 	 *
 	 * @author Mark Scott Lavin /
 	 *
 	 * parameters = {
-	 *  sourceNode: <Node>	first node
-	 *  targetNode: <Node>  second node
+	 *  entity1: <lucidNodesEntity>		first entity
+	 *  entity2: <lucidNodesEntity>  	second entity
 	 * }
-	*/	
+	*/
 
-function nodesIdentical( node1, node2 ){
-	return node1.id === node2.id;
-};
+function lucidNodesEntitiesIdentical( entity1, entity2 ){
+	if ( entity1.isLucidNodesEntity && entity2.isLucidNodesEntity ){
+		if ( entity1.hasOwnProperty( "id") && entity2.hasOwnProperty( "id") ){
+			return entity1.id === entity2.id;
+		}
+		else { return false; }
+	}
+	else { return false; }
+}	
 
-	/* edgesIdentical();
-	 *
-	 * Checks for identity of two edges using Edge.id
-	 *
-	 * @author Mark Scott Lavin /
-	 *
-	 * parameters = {
-	 *  edge1: <Node>	first node
-	 *  edge2: <Node>  second node
-	 * }
-	*/	
-
-function edgesIdentical( edge1, edge2 ){
-	return edge1.id === edge2.id;
-};
 
 	/* edgeExistsInGroup();
 	 *
@@ -1478,8 +1432,8 @@ function getNodeEdges( node ){
 
 function getEdgesFromNodeToNodeArray( node, nodeArr ){
 
-	var nodeArrayNoDups = removeDupsFromGraphElementArray( nodeArr ); 
-	var nodeArrayNoIdenticals = removeIdenticalGraphElementsFromArray( nodeArrayNoDups, node ); 
+	var nodeArrayNoDups = removeDupsFromArray( nodeArr );
+	var nodeArrayNoIdenticals = removeAllInstancesOfElementFromArray( nodeArrayNoDups, node );
 	var edges = getNodeEdges( node );
 	var edgeArray = []; 
 	
@@ -1517,7 +1471,7 @@ function getEdgesFromNodeToNodeArray( node, nodeArr ){
 
 function getAllEdgesInNodeArray( nodeArr ){
 	
-	var nodeArrayNoDups = removeDupsFromGraphElementArray( nodeArr ); 
+	var nodeArrayNoDups = removeDupsFromArray( nodeArr );
 	var nodeArrayNoIdenticals;
 	var subSet = [];
 	var edgeArray = [];
@@ -1533,7 +1487,7 @@ function getAllEdgesInNodeArray( nodeArr ){
 		}
 	}
 	
-	edgeArray = removeDupsFromGraphElementArray( edgeArray );	
+	edgeArray = removeDupsFromArray( edgeArray );
 	debug.master && debug.graphElementHandling && console.log( 'getAllEdgesInNodeArray: ', edgeArray );
 	return edgeArray;
 
@@ -1594,7 +1548,7 @@ function getNodesAdjacentToNode( node ){
 	for ( var i = 0; i < edges.length; i++ ){
 		
 		for ( var j = 0; j < edges[i].nodes.length; j++ ){	
-			nIdentical = nodesIdentical( node, edges[i].nodes[j] );
+			nIdentical = lucidNodesEntitiesIdentical( node, edges[i].nodes[j] );
 			if ( !nIdentical ) {
 				adjacentNodes.push( edges[i].nodes[j] );
 			}
@@ -1602,20 +1556,6 @@ function getNodesAdjacentToNode( node ){
 	}
 	
 	return adjacentNodes;
-	
-}
-
-function removeDupsFromGraphElementArray( graphElementArray ){
-	
-	var graphElementArrayNoDups = Array.from(new Set( graphElementArray ));
-	return graphElementArrayNoDups;
-	
-}
-
-function removeIdenticalGraphElementsFromArray( graphElementArray, graphElement ){
-	
-	var graphElementArrayNoIdenticals = graphElementArray.filter( includes => includes !== graphElement );
-	return graphElementArrayNoIdenticals;
 	
 }
 
@@ -1632,40 +1572,23 @@ function groupLog( group ){
 	
 };
 
-function completeGraph( nodeArr ) {
-	
-	var nodeArrayCleaned = filterArrayForNodes( nodeArr );
-	doToGraphElementArray( "connectNodeToArrayOfNodes" , nodeArrayCleaned, nodeArrayCleaned );
-	
-};
+function completeGraph( nodeArr ){ filterArrayForNodes( nodeArr ).forEach( function( node ){ connectNodeToArrayOfNodes( node, nodeArr ); } ); };
 
 /* FILTER FUNCTIONS */
 
-function filterArrayForNodes( arr ){
-	return arr.filter( includes => includes.isNode );
-};
-
-function filterArrayForEdges( arr ){
-	return arr.filter( includes => includes.isEdge );
-};
-
-function filterArrayForNodeLabels( arr ){
-	return arr.filter( includes => includes.isNodeLabel );
-};
-
-function filterArrayForEdgeLabels( arr ){
-	return arr.filter( includes => includes.isEdgeLabel );
-}
-
-function filterArrayForGraphElementsWithProp( arr, prop ){
-	return arr.filter( includes => includes[prop] );	
-};
+function removeDupsFromArray( arr ){ return Array.from(new Set( arr ));	}
+function removeAllInstancesOfElementFromArray( arr, element){ return arr.filter( includes => includes !== element ); }
+function filterArrayForNodes( arr ){ return arr.filter( includes => includes.isNode ); };
+function filterArrayForEdges( arr ){ return arr.filter( includes => includes.isEdge ); };
+function filterArrayForNodeLabels( arr ){ return arr.filter( includes => includes.isNodeLabel ); };
+function filterArrayForEdgeLabels( arr ){ return arr.filter( includes => includes.isEdgeLabel ); }
+function getElementsWithPropInArray( arr, prop ){ return arr.filter( includes => includes[prop] ); };
 
 /* So far working for single values, but not for objects passed as values, for ex. "color: r, g, b " */
 
 function filterArrayForNodesWithPropVal( arr, prop, val ){
 	var nodeArr = filterArrayForNodes( arr );
-	var nodesWithProp = filterArrayForGraphElementsWithProp( nodeArr, prop );
+	var nodesWithProp = getElementsWithPropInArray( nodeArr, prop );
 	return nodesWithProp.filter ( ( includes ) => ( includes[prop] === val ) );
 
 };
@@ -1675,31 +1598,6 @@ function filterArrayForNodesOfContentType( arr, contentType ){
 }
 
 /* END FILTER FUNCTIONS */
-
-	/**
-	 * doToGraphElementArray();
-	 * 
-	 * @author Mark Scott Lavin
-	 *
-	 * Use this function to do something across all graph elements of a particular type, as in all Nodes, Edges, NodeLabels or EdgeLabels 
-	 *
-	 * parameters = 
-	 *  arr: <array> Array of Nodes or Edges
-	 *  callback: <function> the function to apply to the elements of type in the graph;
-	 *	params: <object> the parameters to pass to the callback function.
-	 * 
-	 */
-
-function doToGraphElementArray( callback, arr, params, scope = window ) {
-	
-	if ( !params ){ params = {} }
-	
-	if ( arr && arr.length > 0 ){ 	
-		for ( var a = 0; a < arr.length; a++ ){
-			window[ callback ]( arr[a], params ); 
-		}
-	}
-};
 
 function changeGraphElementColor( graphElement, color ){
 	
@@ -1736,16 +1634,25 @@ function changeGraphElementLabelText( graphElement, string ){
 	
 	var label = graphElement.label;
 	
-	changeGraphElementName( graphElement, string );
+	changeLucidNodesEntityName( graphElement, string );
 	
 	label.displayEntity.text = string;
 	label.displayEntity.changeText( string );
 	
 }
 
-function changeGraphElementName( graphElement, string ){
+function changeLucidNodesEntityName( entity, string ){
 	
-	graphElement.name = string;
+	if ( entity.isLucidNodesEntity && entity.hasOwnProperty( "name" ) ){
+		entity.name = string;
+		
+		if ( entity.isNode ){
+			changeLabelText2( entity.label, entity.name );	
+		}
+		else if ( entity.isEdge ){
+			changeLabelText( entity.label, entity.name ); 
+		}
+	}
 	
 }
 
@@ -1788,17 +1695,8 @@ function deleteEdge( edge ){
 	debug.master && debug.deletion && console.log( 'DELETED:', DELETED );
 }
 
-function deleteNodeArray( nodeArr ){
-
-	doToGraphElementArray( "deleteNode" , nodeArr );
-
-}
-
-function deleteEdgeArray( edgeArr ){
-	
-	doToGraphElementArray( "deleteEdge" , edgeArr );
-
-}
+function deleteNodeArray( nodeArr ){ nodeArr.forEach( function( node ){ deleteNode( node ) } ); }
+function deleteEdgeArray( edgeArr ){ edgeArr.forEach( function( edge ){ deleteEdge( edge ) } );	}
 
 function deleteSelectedGraphElements(){
 	
@@ -1814,13 +1712,32 @@ function deleteGraphElementLabel( graphElement ){
 
 function clearAll(){
 
+	// Delete Nodes ( Edges will get deleted too )
 	var nodeArr = cognition.nodes.clone();
 	deleteNodeArray( nodeArr );
 	
+	// Delete All GuideGroups
+	cognition.guideGroups.forEach( function( guideGroup ){ deleteGuideGroup( guideGroup ); } );
+	
+	// Delete All Remaining Guides
+	deleteAllGuides();
+
+	// And then wipe all deleted content.
 	DELETED.nodes = [];
 	DELETED.edges = [];
+	DELETED.guides = {
+		planes:[],
+		lines:[],
+		points:[],
+		faces:[],
+		circles:[]
+	};
+	DELETED.guideGroups = [];
 	
+	// And then we reset all counters
 	nodeCounter = 0;
+	guideCounter = 0;
+	guideGroupCounter = 0;
 	paneCounter = 0;
 	groupCounter = 0;	
 }
@@ -1830,6 +1747,8 @@ function clearAll(){
 function createPaneDisplayEntity( pane ){
 	
 	pane.displayEntity = new THREE.Mesh(new THREE.PlaneBufferGeometry( pane.size.x, pane.size.y, 8, 8), new THREE.MeshBasicMaterial( { color: 0xffffff, alphaTest: 0 }));
+	pane.displayEntity.isLucidNodesEntityPart = true;
+	pane.displayEntity.lucidNodesEntityPartType = "paneDisplayEntity";	
 	pane.displayEntity.isGraphElementPart = true;
 	pane.displayEntity.graphElementPartType = "paneDisplayEntity";
 	pane.displayEntity.referent = pane;
@@ -1879,54 +1798,23 @@ function searchObjArrForPhrase( objArr, phrase ){
 	var results = [];
 	
 	if ( objArr && objArr.length > 0 && phrase ){
-		
-		for ( var p = 0; p < objArr.length; p++ ){
-			
-			if ( objArr[p].label.text.includes( phrase ) ){
-				results.push( objArr[p] );
-			}
-		}
-	
-	return results;
-	};
+		objArr.forEach( function( obj ){
+			if ( obj.label.text.includes( phrase ) ){ results.push( obj ); }			
+		});
+		return results;
+	}
+	else if ( !phrase ){ console.error( "searchObjArrForPhrase(): No phrase provided" ); }
 }
 
-function selectNodesWithPhrase( phrase ){
-	
-	selectNodeArray( searchObjArrForPhrase( cognition.nodes, phrase ) );
-	
-}
-
-
-function selectEdgesWithPhrase( phrase ){
-	
-	selectEdgeArray( searchObjArrForPhrase( cognition.edges, phrase ) );
-}
+function selectNodesWithPhrase( phrase ){ selectOnlyNodeArray( searchObjArrForPhrase( cognition.nodes, phrase ) ); }
+function selectEdgesWithPhrase( phrase ){ selectOnlyEdgeArray( searchObjArrForPhrase( cognition.edges, phrase ) ); }
 
 function selectAllWithPhrase( phrase ){
 	
 	unSelectAllGraphElements();
-	
-	if ( cognition.nodes && cognition.nodes.length > 0 && phrase ){
-		
-		for ( var p = 0; p < cognition.nodes.length; p++ ){
-			
-			if ( cognition.nodes[p].label.text.includes( phrase ) ){
-				selectNode( cognition.nodes[p] );
-			}
-		}
-	}
-	
-	if ( cognition.edges && cognition.edges.length > 0 && phrase ){
-		
-		for ( var p = 0; p < cognition.edges.length; p++ ){
-			
-			if ( cognition.edges[p].label.text.includes( phrase ) ){
-				selectEdge( cognition.edges[p] );
-			}
-		}
-	}
-	
+	cognition.nodes.forEach( function( node ){ if ( node.label.text.includes( phrase ) ){ selectNode( node ); } } );
+	cognition.edges.forEach( function( edges ){ if ( edge.label.text.includes( phrase ) ){ selectEdge( edge ); } } );		
+
 }
 
 function changeNodeContentType( node, contentType ){
@@ -1938,14 +1826,7 @@ function changeNodeContentType( node, contentType ){
 	}
 }
 
-function changeContentTypeOfNodes( nodeArr, contentType ){
-	
-	if ( nodeArr && nodeArr.length > 0 ){
-		for ( var n = 0; n < nodeArr.length; n++ ){
-			changeNodeContentType( nodeArr[n], contentType );
-		}
-	}
-}
+function changeContentTypeOfNodes( nodeArr, contentType ){ nodeArr.forEach( function( node ){ changeNodeContentType( node, contentType ); } ); }
 
 /* Searching for node at position */
 
@@ -1977,6 +1858,6 @@ function getNodesAtPositions( positions ){
 function selectNearestNodesTo( position, number ){
 	
 	if ( position && position.x && position.y && position.z ){
-		selectNodeArray( getNodesAtPositions( _Math.findVectorsNearestTo ( position, getNodePositionsAsArray( cognition.nodes ), number ) ) );
+		selectOnlyNodeArray( getNodesAtPositions( _Math.findVectorsNearestTo ( position, getNodePositionsAsArray( cognition.nodes ), number ) ) );
 	}
 }

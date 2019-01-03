@@ -1,0 +1,8 @@
+{
+  "name": "purple majesty",
+  "skyColor1": "#400040",
+  "skyColor2": "#8080ff",
+  "groundColor": "#8000ff",
+  "showLinearAxes": true,
+  "showRadialAxes": true
+}

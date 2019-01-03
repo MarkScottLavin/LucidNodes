@@ -32,6 +32,7 @@ globalAppSettings.labelCanvasMinPxSize = 300;
 
 LUCIDNODES.nodeLabel = function( parameters ) {
 		
+	this.isLucidNodesEntity = true;		
 	this.isNewLabelType = true;
 	this.isNodeLabel = true;
 	
@@ -105,8 +106,11 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	//this.displayEntity = new THREE.Sprite( this.material );
 	this.bufferGeom = new THREE.PlaneBufferGeometry( 1, 1, 1, 1 );
 	this.displayEntity = new THREE.Mesh( this.bufferGeom, this.material );
+
+	this.displayEntity.isLucidNodesEntityPart = true;
+	this.displayEntity.lucidNodesEntityPartType = "nodeLabelDisplayEntity";	
 	this.displayEntity.isGraphElementPart = true;
-	this.displayEntity.graphElementPartType = "nodeLabelDisplayEntity";
+	this.displayEntity.graphElementPartType = "nodeLabelDisplayEntity";	
 	this.displayEntity.isLabel = true;
 	this.displayEntity.referent = this;
 	
@@ -258,7 +262,7 @@ function textAlignRight( label, textLineWidth ){
 // Temporary... for the newLabelType testing
 function attachHiddenInputToNewLabelType( label ){
 	
-	appendHiddenTextInputToObjInScene( label );
+	appendEntityHiddenInputToDOM( label );
 	
 	label.hiddenInput.onkeyup = function() { 
 		
@@ -408,6 +412,7 @@ function labelFaceCamera( label, camera ){
 
 LUCIDNODES.EdgeLabel = function( parameters ){
 		
+		this.isLucidNodesEntity = true;		
 		this.isEdgeLabel = true;
 		
 		this.text = parameters.text;
@@ -443,6 +448,8 @@ LUCIDNODES.EdgeLabel = function( parameters ){
 		this.displayEntity = new THREE.Sprite( this.material );
 		this.displayEntity.scale.set( globalAppSettings.defaultLabelScale.x, globalAppSettings.defaultLabelScale.y, globalAppSettings.defaultLabelScale.z );		
 		
+		this.displayEntity.isLucidNodesEntityPart = true;
+		this.displayEntity.lucidNodesEntityPartType = "edgeLabelDisplayEntity";		
 		this.displayEntity.isGraphElementPart = true;
 		this.displayEntity.graphElementPartType = "edgeLabelDisplayEntity";
 		this.displayEntity.isLabel = true;
@@ -548,7 +555,7 @@ function positionLabel( label, position ){
 }
 
 	/*
-	 * attachHiddenInputToGraphElement();
+	 * attachHiddenInputToLucidNodesEntity();
 	 *
 	 * Description: Creates a new hidden input that can then get called up when the app is taking user input
 	 *
@@ -556,23 +563,20 @@ function positionLabel( label, position ){
 	 *
 	 */
 
-function attachHiddenInputToGraphElement( graphElement ){
+function attachHiddenInputToLucidNodesEntity( entity ){
 
 	// Let's create a hidden HTML5 Input to handle user input
-	appendHiddenTextInputToObjInScene( graphElement );
+	appendEntityHiddenInputToDOM( entity );
 	
-	graphElement.hiddenInput.onkeyup = function() { 
+	entity.hiddenInput.onkeyup = function() { 
 	
 		var string = this.value;
-	
-		graphElement.isNode && changeNodeName( graphElement, string );
-		graphElement.isEdge && changeEdgeName( graphElement, string );
-		
+		changeLucidNodesEntityName( entity, string );
 	}
 }
 
 	/*
-	 * appendHiddenTextInputToObjInScene();
+	 * appendEntityHiddenInputToDOM();
 	 *
 	 * Description: Creates a new hidden input and attaches it to an object in the Scene that can get called up when the app is taking user input
 	 *
@@ -580,20 +584,20 @@ function attachHiddenInputToGraphElement( graphElement ){
 	 *
 	 */
 
-function appendHiddenTextInputToObjInScene( obj ){
+function appendEntityHiddenInputToDOM( entity ){
 	
-	obj.hiddenInput = document.createElement( "textarea" );
-	obj.hiddenInput.style.opacity = 0;
-	obj.hiddenInput.style.width = 0;
-	obj.hiddenInput.style.height = 0;
-	obj.hiddenInput.style.position = "absolute";
-	obj.hiddenInput.style.overflow = "hidden";
-	document.body.appendChild( obj.hiddenInput );
+	entity.hiddenInput = document.createElement( "textarea" );
+	entity.hiddenInput.style.opacity = 0;
+	entity.hiddenInput.style.width = 0;
+	entity.hiddenInput.style.height = 0;
+	entity.hiddenInput.style.position = "absolute";
+	entity.hiddenInput.style.overflow = "hidden";
+	document.body.appendChild( entity.hiddenInput );
 	
 }
 
 /*
- * destroyHiddenInput();
+ * destroyLucidNodesEntityHiddenInput();
  *
  * Description: Removes the hidden user input from a graphElement if needed.
  *
@@ -601,10 +605,10 @@ function appendHiddenTextInputToObjInScene( obj ){
  *
  */
 
-function destroyHiddenInput( graphElement ){
+function destroyLucidNodesEntityHiddenInput( entity ){
 
-	if ( graphElement.hiddenInput ){
-		document.body.removeChild( graphElement.hiddenInput );
+	if ( entity.isLucidNodesEntity && entity.hiddenInput ){
+		document.body.removeChild( entity.hiddenInput );
 	}
 }
 

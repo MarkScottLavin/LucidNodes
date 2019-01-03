@@ -91,13 +91,13 @@ function getGuidePositionsAsArray( guideArr ){
 
 
 function zoomIn( scale ){	
-	entities.browserControls.dollyIn( scale );
-	entities.browserControls.update();
+	sceneChildren.browserControls.dollyIn( scale );
+	sceneChildren.browserControls.update();
 }
 
 function zoomOut( scale ){	
-	entities.browserControls.dollyOut( scale );
-	entities.browserControls.update(); 		
+	sceneChildren.browserControls.dollyOut( scale );
+	sceneChildren.browserControls.update(); 		
 } 
 
 function getMousePoint(){

@@ -50,27 +50,15 @@ function resetOrigRotation( obj3D ){
 	
 }
 
-function resetOrigArrRotations( obj3DArr ){
-	
-	doToGraphElementArray( "resetOrigRotation" , obj3DArr );	
-	
-}
+function setOrigRotations( obj3DArr ){ 
 
-function setOrigRotations( obj3DArr ){
-	
 	if ( obj3DArr && obj3DArr.length ){
-		for ( var i = 0; i < obj3DArr.length; i++ ){
-			setOrigRotation( obj3DArr[ i ] );
-		}
+	obj3DArr.forEach( 
+		function( obj3D ){ setOrigRotation( obj3D ); } ); 
 	}
 }
-
-function removeOrigRotations( obj3DArr ){
-	doToGraphElementArray( "removeOrigRotation" , obj3DArr );
-}
-
-function restoreArrOrigRotations( obj3DArr ){
-	doToGraphElementArray( "restoreOrigRotation" , obj3DArr );	
-}
+function resetOrigArrRotations( obj3DArr ){ if ( obj3DArr && obj3DArr.length ){ obj3DArr.forEach( function( obj3D ){ resetOrigRotation( obj3D ); } ); } }
+function removeOrigRotations( obj3DArr ){ if ( obj3DArr && obj3DArr.length ){ obj3DArr.forEach( function( obj3D ){ removeOrigRotation( obj3D ); } ); } }
+function restoreArrOrigRotations( obj3DArr ){ if ( obj3DArr && obj3DArr.length ){ obj3DArr.forEach( function( obj3D ){ restoreOrigRotation( obj3D ); } ); } }
 
 // END ORIGINAL ROTATION HANDLING

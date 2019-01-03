@@ -13,7 +13,7 @@
 var debug = { 
 	master: false, 
 	events: false,
-	entities: false,
+	sceneChildren: false,
 	externalLoading: false,
 	renderer: false,
 	scene: false, 

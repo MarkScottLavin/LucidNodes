@@ -143,8 +143,8 @@ function addGuideCircleTool( position ){
 		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addGuideCircleCenterFollowMouse, false );			
 		
 		// If we're in the browser, disable the controls
-		if ( entities.browserControls ){
-			entities.browserControls.enabled = false;				
+		if ( sceneChildren.browserControls ){
+			sceneChildren.browserControls.enabled = false;				
 		}		
 		
 		document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideCircleRadiusFollowMouse, false );
@@ -158,8 +158,8 @@ function addGuideCircleTool( position ){
 
 		completeGuideCircleTool();
 		
-		if ( entities.browserControls ){
-			entities.browserControls.enabled = true;				
+		if ( sceneChildren.browserControls ){
+			sceneChildren.browserControls.enabled = true;				
 		}
 		
 		return;	
@@ -173,8 +173,8 @@ function completeGuideCircleTool(){
 	bailAddGuideCircleTool();
 	
 	// If we're in the browser, turn the controls back on.
-/*	if ( entities.browserControls ){
-		entities.browserControls.enabled = true;				
+/*	if ( sceneChildren.browserControls ){
+		sceneChildren.browserControls.enabled = true;				
 	}  */	
 	
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initAddguideCircleToolHeightMarker, false );		

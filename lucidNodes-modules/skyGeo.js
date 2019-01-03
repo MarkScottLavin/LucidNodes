@@ -37,7 +37,7 @@ function skyGeo( topColor = 0xffffff, bottomColor = 0xffffff, radius = worldExte
 	this.mesh.renderDepth = worldExtents * 1.5;
 	this.mesh.scale.set( -1, 1, 1 );
 	
-	entities.skyGeo = this.mesh;
+	sceneChildren.skyGeo = this.mesh;
 	
     this.scene.add( this.mesh );	
 	
@@ -60,11 +60,11 @@ function skyGeoColor( colors ){
 	
 	var topColor, bottomColor;
 	
-	colors.hasOwnProperty( "topColor" ) ? topColor = new THREE.Color ( colors.topColor ) : topColor = entities.skyGeo.material.uniforms.topColor;
-	colors.hasOwnProperty( "bottomColor" ) ? bottomColor = new THREE.Color ( colors.bottomColor ) : bottomColor = entities.skyGeo.material.uniforms.bottomColor;	
+	colors.hasOwnProperty( "topColor" ) ? topColor = new THREE.Color ( colors.topColor ) : topColor = sceneChildren.skyGeo.material.uniforms.topColor;
+	colors.hasOwnProperty( "bottomColor" ) ? bottomColor = new THREE.Color ( colors.bottomColor ) : bottomColor = sceneChildren.skyGeo.material.uniforms.bottomColor;	
 
-	entities.skyGeo.material.uniforms.topColor.value.set( topColor );
-	entities.skyGeo.material.uniforms.bottomColor.value.set( bottomColor );
+	sceneChildren.skyGeo.material.uniforms.topColor.value.set( topColor );
+	sceneChildren.skyGeo.material.uniforms.bottomColor.value.set( bottomColor );
 	
-	entities.skyGeo.material.needsUpdate = true;
+	sceneChildren.skyGeo.material.needsUpdate = true;
 }

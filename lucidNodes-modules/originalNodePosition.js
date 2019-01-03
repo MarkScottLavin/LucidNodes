@@ -50,22 +50,33 @@ function resetNodeOrigPosition( node ){
 	
 }
 
-function resetOrigNodeArrPositions( nodeArr ){
-	
-	doToGraphElementArray( "resetNodeOrigPosition" , nodeArr );	
-	
+function setOrigNodeArrPositions( nodeArr ){ 
+	if ( nodeArr && nodeArr.length ){ 
+		nodeArr.forEach( function( node ){ 
+			setOrigNodePosition( node ); 
+		}); 
+	} 
 }
-
-function setOrigNodeArrPositions( nodeArr ){
-	doToGraphElementArray( "setOrigNodePosition" , nodeArr );
+function resetOrigNodeArrPositions( nodeArr ){ 
+	if ( nodeArr && nodeArr.length ){ 
+		nodeArr.forEach( function( node ){ 
+			resetNodeOrigPosition( node ); 
+		}); 
+	} 
 }
-
-function removeOrigNodeArrPositions( nodeArr ){
-	doToGraphElementArray( "removeOrigNodePosition" , nodeArr );
-}
-
-function restoreNodeArrToOrigPositions( nodeArr ){
-	doToGraphElementArray( "restoreOrigNodePosition" , nodeArr );	
+function removeOrigNodeArrPositions( nodeArr ){ 
+	if ( nodeArr && nodeArr.length ){ 
+		nodeArr.forEach( function( node ){ 
+			removeOrigNodePosition( node ); 
+		}); 
+	}
+}	
+function restoreNodeArrToOrigPositions( nodeArr ){ 
+	if ( nodeArr && nodeArr.length ){ 
+		nodeArr.forEach( function( node ){ 
+			restoreOrigNodePosition( node ); 
+		}); 
+	}
 }
 
 // END ORIGINAL POSITION HANDLING

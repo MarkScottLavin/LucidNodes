@@ -27,33 +27,7 @@ var presetGuides = {
 }
 
 
-// GuidePlanes
-initPresetGuidePlanes();
-// GuideLines along axes
-initPresetGuideLines();	
-
-
-// PLANES
-
-function initPresetGuidePlanes(){ 
-
-//	presetGuides.planes = {};
-	
-	presetGuides.planes.camPerpendicular = new guidePlane( );
-	presetGuides.planes.yz = new guidePlane( );
-	presetGuides.planes.xy = new guidePlane( );
-	presetGuides.planes.xz = new guidePlane( );
-
-	presetGuides.planes.xy.plane.rotation.set( 0, _Math.degToRad( 90 ), 0 );
-	presetGuides.planes.xz.plane.rotation.set( _Math.degToRad( 90 ), 0, 0 ); 
-
-	setActiveGuidePlane( presetGuides.planes.camPerpendicular );
-}
-
-function setActiveGuidePlane( guidePlane ){
-	activeGuidePlane = guidePlane.plane;
-}
-
+// GUIDE PLANES
 
 	// GUIDE PLANE
 	
@@ -78,11 +52,13 @@ function setActiveGuidePlane( guidePlane ){
 	 *	guideGroup: 	<guideGroup>		Example: GuidePointHexGrid;
 	 *
 	 */
-
-function guidePlane( parameters ){
+	 
+LUCIDNODES.GuidePlane = function( parameters ){	 
+//function guidePlane( parameters ){
 	
 	if ( !parameters ){ parameters = {} }	
 	
+	this.isLucidNodesEntity = true;
 	this.isGuide = true;
 	this.guideType = "plane";
 
@@ -103,9 +79,18 @@ function guidePlane( parameters ){
 	else { this.color.set( 0x8888ff ); }
 
 	this.isInGuideGroup = parameters.isInGuideGroup || false;
-	if ( this.isInGuideGroup && parameters.guideGroup ){
-		this.guideGroup = parameters.guideGroup;
-	}
+	
+/*	if ( this.isInGuideGroup ){
+		// If this guide is being created from within a guideGroup-creating function
+		if ( parameters.guideGroup ){
+			addToGuideGroup( this, parameters.guideGroup );
+		}
+	
+		// Or if this guide is being created upon load from a file, and is already in a guide group
+		else if ( !parameters.guideGroup && parameters.guideGroupId && parameters.guideGroupName ){
+			addToGuideGroup( this, getGuideGroupById( parameters.guideGroupId ) );
+		}
+	} */
 	
 	this.material = new THREE.MeshBasicMaterial( { color: this.color, alphaTest: 0, visible: this.visible, side: THREE.DoubleSide, transparent: true } );
 
@@ -129,14 +114,36 @@ function guidePlane( parameters ){
 
 }
 
+function initPresetGuidePlanes(){ 
+
+//	presetGuides.planes = {};
+	
+	presetGuides.planes.camPerpendicular = new LUCIDNODES.GuidePlane( );
+	presetGuides.planes.yz = new LUCIDNODES.GuidePlane( );
+	presetGuides.planes.xy = new LUCIDNODES.GuidePlane( );
+	presetGuides.planes.xz = new LUCIDNODES.GuidePlane( );
+
+	presetGuides.planes.xy.plane.rotation.set( 0, _Math.degToRad( 90 ), 0 );
+	presetGuides.planes.xz.plane.rotation.set( _Math.degToRad( 90 ), 0, 0 ); 
+
+	setActiveGuidePlane( presetGuides.planes.camPerpendicular );
+}
+
+function setActiveGuidePlane( guidePlane ){
+	activeGuidePlane = guidePlane.plane;
+}
+
+
 function createGuidePlanePartsInScene( guide ){
 	
 	if ( guide && guide.guideType === "plane" ){
 	
 		guide.plane = new THREE.Mesh( new THREE.PlaneBufferGeometry( guide.xLimit, guide.yLimit, 8, 8 ), guide.material );
 		guide.plane.referent = guide;
+		guide.plane.isLucidNodesEntityPart = true;
+		guide.plane.lucidNodesEntityPartType = "guidePlaneDisplayEntity";		
 		guide.plane.isGuidePart = true;
-		guide.plane.guidePartType = "plane";
+		guide.plane.guidePartType = "guidePlaneDisplayEntity";
 		
 		guide.partsInScene.push( guide.plane );
 		
@@ -174,19 +181,12 @@ function removeGuidePlane( guidePlane ){	// FIX THIS! ... We can't (and shouldn'
 	}
 }
 
+// Let's Initialize our Preset GuidePlanes
+initPresetGuidePlanes();
+
 // END PLANES
 
-// LINES
-
-function initPresetGuideLines( limit = worldExtents ){
-	
-//	presetGuides.lines = {};
-	
-	presetGuides.lines.x = new guideLine( { startPoint: { x: -limit, y: 0, z: 0 }, endPoint: { x: limit, y: 0, z: 0 }, color: 0xff0000 } ); // x is red
-	presetGuides.lines.y = new guideLine( { startPoint: { x: 0, y: -limit, z: 0 }, endPoint: { x: 0, y: limit, z: 0 }, color: 0x00ff00 } ); // y is green 
-	presetGuides.lines.z = new guideLine( { startPoint: { x: 0, y: 0, z: -limit }, endPoint: { x: 0, y: 0, z: limit }, color: 0x0000ff } );  // z is blue
-
-}
+// GUIDE LINES
 
 	// GUIDE LINE
 	
@@ -197,8 +197,6 @@ function initPresetGuideLines( limit = worldExtents ){
 	 *
 	 * parameters = {
 	 *  visible: 	<boolean>				Default is false
-	 *	xLimit:  	<number>  				Default is worldExtents,
-	 *	yLimit:  	<number>
 	 * 	startPoint:	<Vector3>
 	 *	endPoint:	<Vector3>
 	 *  parent:  	<THREE.Object3D> - 		Default is scene,	 
@@ -213,16 +211,19 @@ function initPresetGuideLines( limit = worldExtents ){
 												"planeEdge", 
 												"edgeVertices". 
 											Default is [ "preset" ]
-	 *  opacity:	<number> ( 0 - 1 )	Default set by globalAppSettings.defaultGuideOpacity
+												
+	 * 	color: 		<Color value>			Default is 0xffffff (white)
+	 *  opacity:	<number> ( 0 - 1 )		Default set by globalAppSettings.defaultGuideOpacity
 	 * 	isInGuideGroup: <boolean>
 	 *	guideGroup: 	<guideGroup>		Example: GuidePointHexGrid;	 
 	 *
 	 */
 	 
-function guideLine( parameters ){
+LUCIDNODES.GuideLine = function( parameters ){
 	
 	if ( !parameters ){ parameters = {} }	
 	
+	this.isLucidNodesEntity = true;	
 	this.isGuide = true;
 	this.guideType = "line";
 	this.partsInScene = [];
@@ -246,9 +247,17 @@ function guideLine( parameters ){
 	else { this.color.set( 0xffffff ); }
 	
 	this.isInGuideGroup = parameters.isInGuideGroup || false;
-	if ( this.isInGuideGroup && parameters.guideGroup ){
-		this.guideGroup = parameters.guideGroup;
-	}	
+/*	if ( this.isInGuideGroup ){
+		// If this guide is being created from within a guideGroup-creating function
+		if ( parameters.guideGroup ){
+			addToGuideGroup( this, getGuideGroupById( parameters.guideGroup ) );
+		}
+	
+		// Or if this guide is being created upon load from a file, and is already in a guide group
+		else if ( !parameters.guideGroup && parameters.guideGroupId && parameters.guideGroupName ){
+			addToGuideGroup( this, getGuideGroupById( parameters.guideGroupId ) );
+		}
+	}	*/
 	
 	this.opacity = parameters.opacity || globalAppSettings.defaultGuideOpacity;
 
@@ -296,8 +305,10 @@ function createGuideLinePartsInScene( guide ){
 		
 		guide.line = new THREE.Line( guide.geometry, guide.material );
 		guide.line.referent = guide;
+		guide.line.isLucidNodesEntityPart = true;
+		guide.line.lucidNodesEntityPartType = "guideLineDisplayEntity";
 		guide.line.isGuidePart = true;
-		guide.line.guidePartType = "line";
+		guide.line.guidePartType = "guideLineDisplayEntity";
 		guide.partsInScene.push( guide.line );
 		
 		guide.parent.add( guide.line );		
@@ -312,6 +323,8 @@ function createGuideLineSnapObj( guide ){
 	
 		guide.snapCylinder = new snapCylinder( guide.geometry.vertices[0], guide.geometry.vertices[1] );
 		guide.snapCylinder.cylinder.referent = guide;
+		guide.snapCylinder.cylinder.isLucidNodesEntityPart = true;
+		guide.snapCylinder.cylinder.lucidNodesEntityPartType = "snapCylinder";		
 		guide.snapCylinder.cylinder.isGuidePart = true;
 		guide.snapCylinder.cylinder.guidePartType = "snapCylinder";
 		guide.partsInScene.push( guide.snapCylinder.cylinder );	
@@ -320,7 +333,7 @@ function createGuideLineSnapObj( guide ){
 
 function addGuideLine( parameters ){
 	
-	cognition.guides.lines.push( new guideLine( parameters ) );
+	cognition.guides.lines.push( new LUCIDNODES.GuideLine( parameters ) );
 	
 }
 
@@ -392,9 +405,22 @@ function hideAxialGuideLines(){
 	
 }
 
+function initPresetGuideLines( limit = worldExtents ){
+	
+//	presetGuides.lines = {};
+	
+	presetGuides.lines.x = new LUCIDNODES.GuideLine( { startPoint: { x: -limit, y: 0, z: 0 }, endPoint: { x: limit, y: 0, z: 0 }, color: 0xff0000 } ); // x is red
+	presetGuides.lines.y = new LUCIDNODES.GuideLine( { startPoint: { x: 0, y: -limit, z: 0 }, endPoint: { x: 0, y: limit, z: 0 }, color: 0x00ff00 } ); // y is green 
+	presetGuides.lines.z = new LUCIDNODES.GuideLine( { startPoint: { x: 0, y: 0, z: -limit }, endPoint: { x: 0, y: 0, z: limit }, color: 0x0000ff } );  // z is blue
+
+}
+
+// let's Intialize our Preset GuideLines
+initPresetGuideLines();	
+
 // END LINES
 
-// CIRCLES
+// GUIDE CIRCLES
 
 	// GUIDE CIRCLE
 	
@@ -409,6 +435,7 @@ function hideAxialGuideLines(){
 	 *	position:  	<object>				Default is { x: 0, y: 0, z: 0 }
 	 *	thetaStart	<radians>				Default is 0;
 	 * 	thetaLength <radians>				Default is Math.PI * 2 (360 degrees)
+	 *  quaternionForRotation <THREE.quaternion>	Default is { x: 0, y: 0, z: 0, w: 1 }
 	 *  parent:  	<THREE.Object3D> - 		Default is scene,	
 	 *  color: 		<Color value>			Default is 0xffffff (white)
 	 *  opacity:	<number> ( 0 - 1 )		Default set by globalAppSettings.defaultGuideOpacity	 
@@ -424,10 +451,11 @@ function hideAxialGuideLines(){
 	 *
 	 */
 
-function guideCircle( parameters ){	
+LUCIDNODES.GuideCircle = function( parameters ){	
 
 	if ( !parameters ){ parameters = {} }
 
+	this.isLucidNodesEntity = true;	
 	this.isGuide = true;
 	this.guideType = "circle";
 	this.partsInScene = [];
@@ -464,9 +492,17 @@ function guideCircle( parameters ){
 	else { this.color.set( 0xffffff ); }	
 	
 	this.isInGuideGroup = parameters.isInGuideGroup || false;
-	if ( this.isInGuideGroup && parameters.guideGroup ){
-		this.guideGroup = parameters.guideGroup;
-	}
+/*	if ( this.isInGuideGroup ){
+		// If this guide is being created from within a guideGroup-creating function
+		if ( parameters.guideGroup ){
+			addToGuideGroup( this, getGuideGroupById( parameters.guideGroup ) );
+		}
+	
+		// Or if this guide is being created upon load from a file, and is already in a guide group
+		else if ( !parameters.guideGroup && parameters.guideGroupId && parameters.guideGroupName ){
+			addToGuideGroup( this, getGuideGroupById( parameters.guideGroupId ) );
+		}
+	}  */
 	
 	this.opacity = parameters.opacity || globalAppSettings.defaultGuideOpacity;
 	
@@ -516,8 +552,10 @@ function createGuideCirclePartsInScene( guide ){
 	guide.circle = new THREE.Line( guide.geometry, guide.material );
 	guide.circle.position.set( guide.position.x, guide.position.y, guide.position.z );
 	guide.circle.referent = guide;	
+	guide.circle.isLucidNodesEntityPart = true;
+	guide.circle.lucidNodesEntityPartType = "guideCircleDisplayEntity";
 	guide.circle.isGuidePart = true;
-	guide.circle.guidePartType = "circle";
+	guide.circle.guidePartType = "guideCircleDisplayEntity";
 	guide.partsInScene.push( guide.circle );
 	
 	guide.parent.add( guide.circle );
@@ -530,6 +568,8 @@ function createGuideCircleSnapObjs( guide ){
 	
 	guide.snapSphere = new snapSphere( guide.circle.position );
 	guide.snapSphere.sphere.referent = guide;
+	guide.snapSphere.sphere.isLucidNodesEntityPart = true;
+	guide.snapSphere.sphere.lucidNodesEntityPartType = "snapSphere";
 	guide.snapSphere.sphere.isGuidePart = true;
 	guide.snapSphere.sphere.guidePartType = "snapSphere";
 	guide.partsInScene.push( guide.snapSphere.sphere );
@@ -544,7 +584,7 @@ function createGuideCircleSnapObjs( guide ){
 
 function addGuideCircle( parameters ){
 	
-	cognition.guides.circles.push( new guideCircle( parameters ) );
+	cognition.guides.circles.push( new LUCIDNODES.GuideCircle( parameters ) );
 	
 }
 
@@ -561,6 +601,7 @@ function addGuideCircle( parameters ){
 	 *
 	 * parameters = {
 	 * 	vertices:   <Array of 3 vertices>		Example: [ { x: 0, y: 0, z: 0 }, { x: 1, y: 1, z: 1 }, { x: -1, y: -1, z: -1 } ] (These numbers are the default value)
+	 *	position 	<THREE.Vector3>				Default is { x: 0, y: 0, z: 0 }. Changing position will translate the face without changing vertex values.
 	 *  color: 		<Color value>				Default is 0xffffff (white)
 	 *  visible: 	<boolean>					Default is true
 	 *  parent:  	<THREE.Object3D> 			Default is scene
@@ -576,10 +617,11 @@ function addGuideCircle( parameters ){
 	 *
 	 */
 
-function guideFace( parameters ){
+LUCIDNODES.GuideFace = function( parameters ){
 	
 	if ( !parameters ){ parameters = {} }	
 	
+	this.isLucidNodesEntity = true;	
 	this.isGuide = true;
 	this.guideType = "face";
 	this.partsInScene = [];
@@ -617,9 +659,17 @@ function guideFace( parameters ){
 	else { this.color.set( 0xffffff ); }
 	
 	this.isInGuideGroup = parameters.isInGuideGroup || false;
-	if ( this.isInGuideGroup && parameters.guideGroup ){
-		this.guideGroup = parameters.guideGroup;
-	}	
+/*	if ( this.isInGuideGroup ){
+		// If this guide is being created from within a guideGroup-creating function
+		if ( parameters.guideGroup ){
+			addToGuideGroup( this, getGuideGroupById( parameters.guideGroup ) );
+		}
+	
+		// Or if this guide is being created upon load from a file, and is already in a guide group
+		else if ( !parameters.guideGroup && parameters.guideGroupId && parameters.guideGroupName ){
+			addToGuideGroup( this, getGuideGroupById( parameters.guideGroupId ) );
+		}
+	}  */
 	
 	this.opacity = parameters.opacity || globalAppSettings.defaultGuideOpacity;	
 	
@@ -674,11 +724,19 @@ function createGuideFacePartsInScene( guide ){
 	guide.face.snapIntensity = globalAppSettings.snapIntensity.snapFace;
 	
 	guide.face.referent = guide;
+	guide.face.isLucidNodesEntityPart = true;
+	guide.face.lucidNodesEntityPartType = "guideFaceDisplayEntity";	
 	guide.face.isGuidePart = true;
-	guide.face.guidePartType = "face";
+	guide.face.guidePartType = "guideFaceDisplayEntity";
 	guide.partsInScene.push( guide.face );
 	
 	guide.parent.add( guide.face );	
+	
+}
+
+function addGuideFace( parameters ){
+	
+	cognition.guides.faces.push( new LUCIDNODES.GuideFace( parameters ) );
 	
 }
 
@@ -716,10 +774,11 @@ function createGuideFacePartsInScene( guide ){
 	 *
 	 */
 
-function guidePoint( parameters ){
+LUCIDNODES.GuidePoint = function( parameters ){
 	
 	if ( !parameters ){ parameters = {} }	
 	
+	this.isLucidNodesEntity = true;	
 	this.isGuide = true;
 	this.guideType = "point";	
 	this.partsInScene = [];
@@ -746,9 +805,17 @@ function guidePoint( parameters ){
 	else { this.color.set( 0xffffff ); }
 	
 	this.isInGuideGroup = parameters.isInGuideGroup || false;
-	if ( this.isInGuideGroup && parameters.guideGroup ){
-		this.guideGroup = parameters.guideGroup;
-	}	
+	if ( this.isInGuideGroup ){
+	/*	// If this guide is being created from within a guideGroup-creating function
+		if ( parameters.guideGroup ){
+			addToGuideGroup( this, getGuideGroupById( parameters.guideGroup ) );
+		}
+	
+		// Or if this guide is being created upon load from a file, and is already in a guide group
+		else if ( !parameters.guideGroup && parameters.guideGroupId && parameters.guideGroupName ){
+			addToGuideGroup( this, getGuideGroupById( parameters.guideGroupId ) );
+		} */
+	}
 	
 	this.opacity = parameters.opacity || globalAppSettings.defaultGuideOpacity;
 	
@@ -783,8 +850,10 @@ function createGuidePointPartsInScene( guide ){
 	guide.point = new THREE.Points( guide.geometry, guide.material );
 	guide.point.position.set( guide.position.x, guide.position.y, guide.position.z );
 	guide.point.referent = guide;
+	guide.point.isLucidNodesEntityPart = true;
+	guide.point.lucidNodesEntityPartType = "guidePointDisplayEntity";	
 	guide.point.isGuidePart = true;
-	guide.point.guidePartType = "point";
+	guide.point.guidePartType = "guidePointDisplayEntity";
 	guide.partsInScene.push( guide.point );
 	
 	guide.parent.add( guide.point );	
@@ -797,140 +866,19 @@ function createGuidePointSnapObj( guide ){
 	
 	guide.snapSphere = new snapSphere( guide.position );
 	guide.snapSphere.sphere.referent = guide;
+	guide.snapSphere.sphere.isLucidNodesEntityPart = true;
+	guide.snapSphere.sphere.lucidNodesEntityPartType = "snapSphere";	
 	guide.snapSphere.sphere.isGuidePart = true;
 	guide.snapSphere.sphere.guidePartType = "snapSphere";
 	guide.partsInScene.push( guide.snapSphere.sphere );
 	
 }
 
-
-/* COMPOUND GUIDE SETS */
-
-// GUIDE POINT SQUARE GRID
+function addGuidePoint( parameters ){
 	
-	/**
-	 * guidePointHexGrid();
-	 * 
-	 * @author Mark Scott Lavin /
-	 *
-	 * parameters = {
-	 *	xSize:		<number>				Default is 30
-	 *  ySize:		<number>				Default is 30
-	 *  ySize:		<number>				Default is 1	 
-	 *  spacing: 	<number>				Default is 3
-	 *	position:  	<object>				Default is { x: 0, y: 0, z: 0 }
-	 *	definedBy:	<array> of <strings>	Default is [ "user" ]
-	 *
-	 */
-
-function guidePointSquareGrid( parameters ){
+	cognition.guides.points.push( new LUCIDNODES.GuidePoint( parameters ) );
 	
-	if ( !parameters ){ parameters = {} }
-	
-	/* Identification */ 
-	
-	this.id = parameters.id || encodeId( "guideGroup", guideGroupCounter );  // If the Node already has an ID on load, use that
-	this.id.referent = this;
-	this.name = parameters.name || this.id; 		
-
-	this.xSize = parameters.xSize || 30;
-	this.ySize = parameters.ySize || 30;
-	this.zSize = parameters.zSize || 1;
-	this.position = parameters.position || { x:0, y:0, z:0 };
-	this.spacing = parameters.spacing || 3;	
-	this.definedBy = parameters.definedBy || [ "user" ];
-	
-	var pointCount = {
-		x: Math.floor( this.xSize / this.spacing ),
-		y: Math.floor( this.ySize / this.spacing ),
-		z: Math.floor( this.zSize / this.spacing )
-	}
-	
-	for ( var x = 0; x < pointCount.x; x++ ){
-		for ( var y = 0; y < pointCount.y; y++ ){
-			for ( var z = 0; z < pointCount.z; z++ ){
-				cognition.guides.points.push ( new guidePoint( { position: { x: this.position.x + ( x * this.spacing ), y: this.position.y + ( y * this.spacing ), z: this.position.z + ( z * this.spacing ) }, definedBy: this.definedBy, isInGuideGroup: true, guideGroup: this } ) );
-			}			
-		}			
-	}
 }
-
-// GUIDE POINT HEX GRID
-	
-	/**
-	 * guidePointHexGrid();
-	 * 
-	 * @author Mark Scott Lavin /
-	 *
-	 * parameters = {
-	 *	xSize:		<number>				Default is 30
-	 *  ySize:		<number>				Default is 30
-	 *  spacing: 	<number>				Default is 3
-	 *	position:  	<object>				Default is { x: 0, y: 0, z: 0 }
-	 *	definedBy:	<array> of <strings>	Default is [ "user" ]	 
-	 *
-	 */
-
-function guidePointHexGrid( parameters ){
-	
-	if ( !parameters ){ parameters = {} }
-
-	/* Identification */ 
-	
-	this.id = parameters.id || encodeId( "guideGroup", guideGroupCounter );  // If the Node already has an ID on load, use that
-	this.id.referent = this;
-	this.name = parameters.name || this.id; 	
-	
-	this.xSize = parameters.xSize || 30;
-	this.ySize = parameters.ySize || 30;
-	this.position = parameters.position || { x:0, y:0, z:0 };
-	this.spacing = parameters.spacing || 3;
-	this.definedBy = parameters.definedBy || [ "user" ];	
-	
-	var offset = {
-		x: Math.sin( THREE.Math.degToRad( 60 ) ) * this.spacing,		
-		y: this.spacing,
-	}
-	
-	var pointCount = {
-		x: Math.floor( this.xSize / offset.x ),
-		y: Math.floor( this.ySize / offset.y )
-	}	
-	
-	let y = 0;
-	while ( y <= pointCount.y ){
-		let x = 0;
-		while ( x <= pointCount.x ){
-			if ( x % 2 === 0 ){
-				cognition.guides.points.push( new guidePoint( { position: { y: this.position.y + ( y * offset.y ), x: this.position.x + ( x * offset.x ), z: this.position.z }, definedBy: this.definedBy, isInGuideGroup: true, guideGroup: this } ) );
-			}
-			else {
-				cognition.guides.points.push( new guidePoint( { position: { y: this.position.y + ( ( y * offset.y ) + ( offset.y / 2 ) ), x: this.position.x + ( x * offset.x ), z: this.position.z }, definedBy: this.definedBy, isInGuideGroup: true, guideGroup: this } ) );				
-			}
-			x++;
-		}
-		y++;
-	}
-}
-
-function guideCircleGroup( position = { x: 0, y: 0, z: 0 }, innerRadius = 5, outerRadius = 10, count = 3, thetaStart = 0, thetaLength = ( Math.PI * 2 ), parent = scene, definedBy = [ "user" ] ){
-	
-	/* Identification */ 
-	
-	this.id = /* parameters.id  || */ encodeId( "guideGroup", guideGroupCounter );  // If the Node already has an ID on load, use that
-	this.id.referent = this;
-	this.name = parameters.name || this.id; 		
-	
-	let distanceBetween = ( outerRadius - innerRadius ) / ( count - 1 )
-	let circRadius;	
-	
-	for ( var c = 0; c <= count; c++ ){
-		circRadius = innerRadius + ( c * distanceBetween );
-		cognition.guides.circles.push ( new guideCircle( { position: position, radius: circRadius, thetaStart: thetaStart, thetaLength: thetaLength, parent: scene, definedBy: definedBy, isInGuideGroup: true, guideGroup: this } ) ); 
-	}
-}
-
-// END GUIDE GROUPS
 
 
 function showGuide( guide ){
@@ -941,16 +889,10 @@ function hideGuide( guide ){
 	guide.material.visible = false;
 }
 
-
-
-function addGuide( ){
-	
-}
-
 /* SINGLE GUIDE SELECTION HANDLING */
 
 
-function getGuideById( guideId ){
+function getGuideById( guideId, searchDeleted = false ){
 	
 	var found = false;
 	var foundInDeleted = false;
@@ -987,7 +929,9 @@ function getGuideById( guideId ){
 						
 						foundInDeleted = true;	
 						guide = DELETED.guides[key][d];
-						console.error( 'getGuideById( ', guideId ,' ): Guide was deleted.' );					
+						
+						if ( searchDeleted ){ return guide; }
+						else { console.error( 'getGuideById( ', guideId ,' ): Guide was deleted.' ); }
 						break;
 					}
 				}
@@ -1014,10 +958,10 @@ function selectGuide( guide ){
 
 function selectGuidesOfType( guideType ){
 		
-	for ( var g = 0; g < cognition.guides[ guideType + "s" ].length; g++ ){
+	for ( var g = 0; g < cognition.guides[ guideType ].length; g++ ){
 		
-		if ( !SELECTED.guides[ guideType + "s" ].includes( cognition.guides[ guideType + "s" ][ g ]) ){
-			selectGuide( cognition.guides[ guideType + "s" ][ g ] );			
+		if ( !SELECTED.guides[ guideType ].includes( cognition.guides[ guideType ][ g ]) ){
+			selectGuide( cognition.guides[ guideType ][ g ] );			
 		}
 	}
 }
@@ -1047,6 +991,28 @@ function unSelectGuidesOfType( guideType ){
 		}
 	}
 }
+
+function selectAllGuides(){
+	
+	for ( var guideType in cognition.guides ){
+		selectGuidesOfType( guideType );
+	}	
+}
+
+function selectOnlyGuideArray( guideArr ){
+	
+	unSelectAllGraphElements();
+	unSelectAllGuides();
+
+	selectGuideArray( guideArr );	
+		
+}
+
+function selectGuideArray( guideArr ){
+	
+	if ( guideArr ){ guideArr.forEach( function( guide ){ selectGuide( guide ); });	}
+
+};
 
 function unSelectGuideArray( guideArr ){
 	
@@ -1086,11 +1052,10 @@ function removeGuidePartsInScene( guide ){
 	
 	var partsInScene = guide.partsInScene.slice();
 	
-	for ( var p = 0; p < guide.partsInScene.length; p++ ){
-	
-		partsInScene.splice( partsInScene.indexOf( guide.partsInScene[ p ] ), 1 );	
-		scene.remove( guide.partsInScene[ p ] );
-	}
+	partsInScene.forEach( function( part ){	
+		scene.remove( part );	
+		partsInScene.splice( partsInScene.indexOf( part ), 1 );	
+	});
 	
 	guide.partsInScene = partsInScene;
 }
@@ -1098,15 +1063,13 @@ function removeGuidePartsInScene( guide ){
 function removeGuideSnapObjs( guide ){
 	
 	var partsInScene = guide.partsInScene.slice();
-	var snapObjs;
 	
-	for ( var p = 0; p < partsInScene.length; p++ ){
-	
-		if ( partsInScene[ p ].isSnapObj ){
-			scene.remove( partsInScene[ p ] );				
-			guide.partsInScene.splice( guide.partsInScene.indexOf( partsInScene[ p ] ), 1 );			
-		}
-	}
+	partsInScene.forEach( function( part ){
+		if ( part.isSnapObj ){
+			scene.remove( part );				
+			guide.partsInScene.splice( guide.partsInScene.indexOf( part ), 1 );			
+		}	
+	});
 }
 
 function restoreDeletedGuide( guide ){
@@ -1127,23 +1090,14 @@ function restoreDeletedGuide( guide ){
 	debug.master && debug.guides && console.log( 'Cognition.guides. ', ( guide.guideType + "s" ) , ': ', cognition.guides[ guide.guideType + "s" ] );
 } 
 
-function deleteGuideArray( guideArr ){
-	
-	if ( guideArr ){
-		
-//		for ( var guide in guideArr ){ deleteGuide( guideArr[ guide ] ); }
-		
-		for ( var g = 0; g < guideArr.length; g++ ){
-			deleteGuide( guideArr[ g ] );
-		}	
+function deleteGuideArray( guideArr ){ if ( guideArr ){ guideArr.forEach( function( guide ){ deleteGuide( guide ); } ); } }
+function deleteSelectedGuides(){ for ( var guideType in SELECTED.guides ){ deleteGuideArray( SELECTED.guides[ guideType ] ); } }
+
+function deleteAllGuides(){
+	for ( var guideType in cognition.guides ){ 
+		var guideArr = cognition.guides[ guideType ].clone();
+		deleteGuideArray( guideArr ); 
 	}
-	
-}
-
-function deleteSelectedGuides(){
-
-	for ( var guideType in SELECTED.guides ){ deleteGuideArray( SELECTED.guides[ guideType ] ); }
-
 }
 
 /* END DELETION HANDLING */
@@ -1154,11 +1108,10 @@ function findGuidePartsInObj3DArray( obj3DArr ){
 	
 	var guideParts = [];
 
-	for ( var i = 0; i < obj3DArr.length; i++ ){
-		
-		if ( obj3DArr[i].object && obj3DArr[i].object.isGuidePart ){
-			guideParts.push( obj3DArr[i] );			
-		}
+	if ( obj3DArr ){
+		obj3DArr.forEach( function( obj3D ){
+			if ( obj3D.object && obj3D.object.isGuidePart ){ guideParts.push( obj3D ); }			
+		});
 	}
 	
 	return guideParts;		
@@ -1180,19 +1133,17 @@ function nearestIntersectedGuidePart(){
 
 /* END INTERSECTION HANDLING */
 
-function selectAllGuidesInGuideGroup( guideGroupId ){
+
+function filterArrayForGuides( arr ){
+	return arr.filter( includes => includes.isGuide );
+}
+
+function filterArrayForGuidesWithPropVal( arr, prop, val ){
 	
-	unSelectAllGraphElements();	
-	unSelectAllGuides();
+	var guideArr = filterArrayForGuides( arr );
+	var guidesWithProp = getElementsWithPropInArray( guideArr, prop );
+	return guidesWithProp.filter ( ( includes ) => ( includes[prop] === val ) );
 	
-	for ( var guideType in cognition.guides ){
-		
-		for ( var g = 0; g < cognition.guides[ guideType ].length; g++ ){
-			if ( cognition.guides[ guideType ][ g ].isInGuideGroup && cognition.guides[ guideType ][ g ].guideGroup.id === guideGroupId ){
-				selectGuide( cognition.guides[ guideType ][ g ] );
-			}  
-		}
-	}	
 }
 
 /* MOVING */
@@ -1257,14 +1208,4 @@ function quaternionRotateGuideArr( guideArr, quaternion ){
 }
 
 /* END ROTATING */
-
-// Test Functions
-
-//guidePointSquareGrid ( { xSize: 32, ySize: 18, zSize: 5, position: { x: 2, y: 2, z: 2 }, spacing: 3 } );
-var guideGrouop1 = new guidePointHexGrid( { xSize: 32, ySize: 18, position:{ x: 2, y: 2, z: 2 }, spacing: 3 } );
-//cognition.guides.lines.push( new guideLine( { startPoint: { x: 0, y: -worldExtents, z: worldExtents/2 }, endPoint: { x: 0, y: worldExtents, z: -worldExtents/2 } } ) );
-//guideCircleGroup( { x: -23, y: 9, z: -2}, 6, 12, 4 );
-cognition.guides.faces.push( new guideFace( { vertices: [ { x: 10, y: 1, z: 10 }, { x: 21, y: 11, z: 11 }, { x: 31, y: 1, z: 11 } ], definedBy: ["user" ] } ) ); 
-
-var cQuaternion = new THREE.Quaternion( 0, 0.33, 0.8, 1 );
 

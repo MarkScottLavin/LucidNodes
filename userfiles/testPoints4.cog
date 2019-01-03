@@ -1,0 +1,2223 @@
+{
+  "theme": "default.thm",
+  "themeURL": "/themes",
+  "nodes": [
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n000",
+      "name": "superduper",
+      "color": 8421504,
+      "position": {
+        "x": 0,
+        "y": 15.25731,
+        "z": 8.50651
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "superduper",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n001",
+      "name": "WTF",
+      "color": 8421504,
+      "position": {
+        "x": -8.50651,
+        "y": 10,
+        "z": 5.25731
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "WTF",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n002",
+      "name": "Wonder",
+      "color": 8421504,
+      "position": {
+        "x": 0,
+        "y": 5.25731,
+        "z": 8.50651
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Wonder",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n003",
+      "name": "Aye!",
+      "color": 8421504,
+      "position": {
+        "x": 5.25731,
+        "y": 18.50651,
+        "z": 0
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Aye!",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n004",
+      "name": "Ox",
+      "color": 8421504,
+      "position": {
+        "x": 8.50651,
+        "y": 10,
+        "z": -5.25731
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Ox",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n005",
+      "name": "Hello There! O My god this is workng! Wow@",
+      "color": 8421504,
+      "position": {
+        "x": 0,
+        "y": 15.25731,
+        "z": -8.50651
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Hello There! O My god this is workng! Wow@",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n006",
+      "name": "Youare beautifulrememeber that",
+      "color": 8421504,
+      "position": {
+        "x": 8.50651,
+        "y": 10,
+        "z": 5.25731
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Youare beautifulrememeber that",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n007",
+      "name": "Kindness",
+      "color": 16777088,
+      "position": {
+        "x": 5.25731,
+        "y": 2.50651,
+        "z": 0
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Kindness",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 3.6,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n008",
+      "name": "Institutions",
+      "color": 8421504,
+      "position": {
+        "x": -5.25731,
+        "y": 2.50651,
+        "z": 0
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Institutions",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n009",
+      "name": "Word",
+      "color": 8421504,
+      "position": {
+        "x": 0,
+        "y": 5.25731,
+        "z": -8.50651
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "Word",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00a",
+      "name": "n00a",
+      "color": 16744448,
+      "position": {
+        "x": 22,
+        "y": 15.25731,
+        "z": 8.50651
+      },
+      "opacity": 0.4,
+      "label": {
+        "text": "n00a",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 1,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00b",
+      "name": "n00b",
+      "color": 8397835,
+      "position": {
+        "x": 14.50651,
+        "y": 10,
+        "z": 5.25731
+      },
+      "opacity": 0.2,
+      "label": {
+        "text": "n00b",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 0.2,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00c",
+      "name": "n00c",
+      "color": 65280,
+      "position": {
+        "x": 22,
+        "y": 5.25731,
+        "z": 8.50651
+      },
+      "opacity": 0.7,
+      "label": {
+        "text": "n00c",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00d",
+      "name": "n00d",
+      "color": 8421504,
+      "position": {
+        "x": 27.25731,
+        "y": 18.50651,
+        "z": 0
+      },
+      "opacity": 0.1,
+      "label": {
+        "text": "n00d",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 1.6,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00e",
+      "name": "n00e",
+      "color": 8421504,
+      "position": {
+        "x": 44,
+        "y": 15.25731,
+        "z": 8.50651
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00e",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00f",
+      "name": "n00f",
+      "color": 8421504,
+      "position": {
+        "x": 46,
+        "y": 10,
+        "z": 5.25731
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00f",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00g",
+      "name": "n00g",
+      "color": 8421504,
+      "position": {
+        "x": 49,
+        "y": 5.25731,
+        "z": 8.50651
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00g",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n00h",
+      "name": "n00h",
+      "color": 8421504,
+      "position": {
+        "x": 44,
+        "y": 18.50651,
+        "z": 0
+      },
+      "opacity": 0.75,
+      "label": {
+        "text": "n00h",
+        "opacity": 0.8
+      },
+      "labelOpacity": null,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    }
+  ],
+  "edges": [
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n007",
+          "name": "Kindness",
+          "color": 16777088,
+          "position": {
+            "x": 5.25731,
+            "y": 2.50651,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Kindness",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 3.6,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "Hello There! O My god this is workng! Wow@",
+          "color": 8421504,
+          "position": {
+            "x": 0,
+            "y": 15.25731,
+            "z": -8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Hello There! O My god this is workng! Wow@",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n007-n005",
+      "name": "n007-n005",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n007-n005",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n007",
+          "name": "Kindness",
+          "color": 16777088,
+          "position": {
+            "x": 5.25731,
+            "y": 2.50651,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Kindness",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 3.6,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n009",
+          "name": "Word",
+          "color": 8421504,
+          "position": {
+            "x": 0,
+            "y": 5.25731,
+            "z": -8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Word",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n007-n009",
+      "name": "n007-n009",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n007-n009",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n007",
+          "name": "Kindness",
+          "color": 16777088,
+          "position": {
+            "x": 5.25731,
+            "y": 2.50651,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Kindness",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 3.6,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "Ox",
+          "color": 8421504,
+          "position": {
+            "x": 8.50651,
+            "y": 10,
+            "z": -5.25731
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Ox",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n007-n004",
+      "name": "n007-n004",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n007-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "Hello There! O My god this is workng! Wow@",
+          "color": 8421504,
+          "position": {
+            "x": 0,
+            "y": 15.25731,
+            "z": -8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Hello There! O My god this is workng! Wow@",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n009",
+          "name": "Word",
+          "color": 8421504,
+          "position": {
+            "x": 0,
+            "y": 5.25731,
+            "z": -8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Word",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n005-n009",
+      "name": "n005-n009",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n005-n009",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "Ox",
+          "color": 8421504,
+          "position": {
+            "x": 8.50651,
+            "y": 10,
+            "z": -5.25731
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Ox",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "Hello There! O My god this is workng! Wow@",
+          "color": 8421504,
+          "position": {
+            "x": 0,
+            "y": 15.25731,
+            "z": -8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Hello There! O My god this is workng! Wow@",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n004-n005",
+      "name": "n004-n005",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n004-n005",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n009",
+          "name": "Word",
+          "color": 8421504,
+          "position": {
+            "x": 0,
+            "y": 5.25731,
+            "z": -8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Word",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "Ox",
+          "color": 8421504,
+          "position": {
+            "x": 8.50651,
+            "y": 10,
+            "z": -5.25731
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Ox",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n009-n004",
+      "name": "n009-n004",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n009-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n008",
+          "name": "Institutions",
+          "color": 8421504,
+          "position": {
+            "x": -5.25731,
+            "y": 2.50651,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Institutions",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n009",
+          "name": "Word",
+          "color": 8421504,
+          "position": {
+            "x": 0,
+            "y": 5.25731,
+            "z": -8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Word",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n008-n009",
+      "name": "n008-n009",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n008-n009",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n008",
+          "name": "Institutions",
+          "color": 8421504,
+          "position": {
+            "x": -5.25731,
+            "y": 2.50651,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Institutions",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "WTF",
+          "color": 8421504,
+          "position": {
+            "x": -8.50651,
+            "y": 10,
+            "z": 5.25731
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "WTF",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n008-n001",
+      "name": "n008-n001",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n008-n001",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "WTF",
+          "color": 8421504,
+          "position": {
+            "x": -8.50651,
+            "y": 10,
+            "z": 5.25731
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "WTF",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n007",
+          "name": "Kindness",
+          "color": 16777088,
+          "position": {
+            "x": 5.25731,
+            "y": 2.50651,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Kindness",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 3.6,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n001-n007",
+      "name": "n001-n007",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n001-n007",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n007",
+          "name": "Kindness",
+          "color": 16777088,
+          "position": {
+            "x": 5.25731,
+            "y": 2.50651,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Kindness",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 3.6,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n008",
+          "name": "Institutions",
+          "color": 8421504,
+          "position": {
+            "x": -5.25731,
+            "y": 2.50651,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Institutions",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n007-n008",
+      "name": "n007-n008",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n007-n008",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "Aye!",
+          "color": 8421504,
+          "position": {
+            "x": 5.25731,
+            "y": 18.50651,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Aye!",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n000",
+          "name": "superduper",
+          "color": 8421504,
+          "position": {
+            "x": 0,
+            "y": 15.25731,
+            "z": 8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "superduper",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n003-n000",
+      "name": "n003-n000",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n003-n000",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "Aye!",
+          "color": 8421504,
+          "position": {
+            "x": 5.25731,
+            "y": 18.50651,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Aye!",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "Hello There! O My god this is workng! Wow@",
+          "color": 8421504,
+          "position": {
+            "x": 0,
+            "y": 15.25731,
+            "z": -8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Hello There! O My god this is workng! Wow@",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n003-n005",
+      "name": "n003-n005",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n003-n005",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n003",
+          "name": "Aye!",
+          "color": 8421504,
+          "position": {
+            "x": 5.25731,
+            "y": 18.50651,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Aye!",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "Ox",
+          "color": 8421504,
+          "position": {
+            "x": 8.50651,
+            "y": 10,
+            "z": -5.25731
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Ox",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n003-n004",
+      "name": "n003-n004",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n003-n004",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "WTF",
+          "color": 8421504,
+          "position": {
+            "x": -8.50651,
+            "y": 10,
+            "z": 5.25731
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "WTF",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n000",
+          "name": "superduper",
+          "color": 8421504,
+          "position": {
+            "x": 0,
+            "y": 15.25731,
+            "z": 8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "superduper",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n001-n000",
+      "name": "n001-n000",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n001-n000",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "WTF",
+          "color": 8421504,
+          "position": {
+            "x": -8.50651,
+            "y": 10,
+            "z": 5.25731
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "WTF",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "Hello There! O My god this is workng! Wow@",
+          "color": 8421504,
+          "position": {
+            "x": 0,
+            "y": 15.25731,
+            "z": -8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Hello There! O My god this is workng! Wow@",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n001-n005",
+      "name": "n001-n005",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n001-n005",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n005",
+          "name": "Hello There! O My god this is workng! Wow@",
+          "color": 8421504,
+          "position": {
+            "x": 0,
+            "y": 15.25731,
+            "z": -8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Hello There! O My god this is workng! Wow@",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n008",
+          "name": "Institutions",
+          "color": 8421504,
+          "position": {
+            "x": -5.25731,
+            "y": 2.50651,
+            "z": 0
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Institutions",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n005-n008",
+      "name": "n005-n008",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n005-n008",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n001",
+          "name": "WTF",
+          "color": 8421504,
+          "position": {
+            "x": -8.50651,
+            "y": 10,
+            "z": 5.25731
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "WTF",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n009",
+          "name": "Word",
+          "color": 8421504,
+          "position": {
+            "x": 0,
+            "y": 5.25731,
+            "z": -8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Word",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n001-n009",
+      "name": "n001-n009",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n001-n009",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00b",
+          "name": "n00b",
+          "color": 8397835,
+          "position": {
+            "x": 14.50651,
+            "y": 10,
+            "z": 5.25731
+          },
+          "opacity": 0.2,
+          "label": {
+            "text": "n00b",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.2,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00c",
+          "name": "n00c",
+          "color": 65280,
+          "position": {
+            "x": 22,
+            "y": 5.25731,
+            "z": 8.50651
+          },
+          "opacity": 0.7,
+          "label": {
+            "text": "n00c",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00b-n00c",
+      "name": "n00b-n00c",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n00b-n00c",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "n00a",
+          "color": 16744448,
+          "position": {
+            "x": 22,
+            "y": 15.25731,
+            "z": 8.50651
+          },
+          "opacity": 0.4,
+          "label": {
+            "text": "n00a",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 1,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00c",
+          "name": "n00c",
+          "color": 65280,
+          "position": {
+            "x": 22,
+            "y": 5.25731,
+            "z": 8.50651
+          },
+          "opacity": 0.7,
+          "label": {
+            "text": "n00c",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00a-n00c",
+      "name": "n00a-n00c",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n00a-n00c",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00b",
+          "name": "n00b",
+          "color": 8397835,
+          "position": {
+            "x": 14.50651,
+            "y": 10,
+            "z": 5.25731
+          },
+          "opacity": 0.2,
+          "label": {
+            "text": "n00b",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.2,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n00a",
+          "name": "n00a",
+          "color": 16744448,
+          "position": {
+            "x": 22,
+            "y": 15.25731,
+            "z": 8.50651
+          },
+          "opacity": 0.4,
+          "label": {
+            "text": "n00a",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 1,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n00b-n00a",
+      "name": "n00b-n00a",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n00b-n00a",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    },
+    {
+      "nodes": [
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n004",
+          "name": "Ox",
+          "color": 8421504,
+          "position": {
+            "x": 8.50651,
+            "y": 10,
+            "z": -5.25731
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "Ox",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        },
+        {
+          "contentType": "default",
+          "displayEntityQuaternion": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "displayEntityRotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "w": 1
+          },
+          "id": "n000",
+          "name": "superduper",
+          "color": 8421504,
+          "position": {
+            "x": 0,
+            "y": 15.25731,
+            "z": 8.50651
+          },
+          "opacity": 0.75,
+          "label": {
+            "text": "superduper",
+            "opacity": 0.8
+          },
+          "labelOpacity": null,
+          "src": null,
+          "radius": 0.5,
+          "shape": "sphere"
+        }
+      ],
+      "id": "n004-n000",
+      "name": "n004-n000",
+      "color": 8421504,
+      "opacity": 0.5,
+      "label": {
+        "color": 16777215,
+        "text": "n004-n000",
+        "opacity": 0.1
+      },
+      "labelColor": 8421504
+    }
+  ],
+  "groups": []
+}

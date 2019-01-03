@@ -1,0 +1,8 @@
+{
+  "name": "mars-dark",
+  "skyColor1": "#804040",
+  "skyColor2": "#ff0000",
+  "groundColor": "#808040",
+  "showLinearAxes": true,
+  "showRadialAxes": true
+}

@@ -1,0 +1,304 @@
+{
+  "theme": "default.thm",
+  "themeURL": "/themes",
+  "dollyCam": {
+    "camera": {
+      "quaternion": {
+        "x": -0.24303322078680745,
+        "y": -0.09899370576792432,
+        "z": -0.02494089247042884,
+        "w": 0.9646310443351401
+      },
+      "rotation": {
+        "x": -0.5024550547225793,
+        "y": -0.17982954800152914,
+        "z": -0.0979689806021004
+      },
+      "aspect": 2.12448132780083,
+      "zoom": 1,
+      "position": {
+        "x": -22.77879689347442,
+        "y": 34.82761268620347,
+        "z": 13.979273846760602
+      }
+    },
+    "quaternion": {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "aspect": 1,
+    "zoom": 1,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  "nodes": [
+    {
+      "contentType": "image",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n000",
+      "name": "Week of 11/26/18",
+      "color": 8421504,
+      "position": {
+        "x": -29.828335506996574,
+        "y": 25.80274400252366,
+        "z": -23.012605319411627
+      },
+      "opacity": 1,
+      "label": {
+        "text": "Week of 11/26/18",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": "/userImages/Geo Eco Diagram.png",
+      "radius": 2.5,
+      "shape": "hexPlate"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n001",
+      "name": "n001",
+      "color": 8421504,
+      "position": {
+        "x": -24.298349822600873,
+        "y": 36.05287847440804,
+        "z": -22.933262233514956
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n001",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n002",
+      "name": "n002",
+      "color": 8421504,
+      "position": {
+        "x": -37.53761071496551,
+        "y": 34.15416154350893,
+        "z": -22.933262233514956
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n002",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n003",
+      "name": "n003",
+      "color": 8421504,
+      "position": {
+        "x": -41.034459466143275,
+        "y": 27.49783229773428,
+        "z": -22.933262233514956
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n003",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n004",
+      "name": "n004",
+      "color": 8421504,
+      "position": {
+        "x": -39.58732292912688,
+        "y": 19.8726399307193,
+        "z": -22.933262233514956
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n004",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n005",
+      "name": "n005",
+      "color": 8421504,
+      "position": {
+        "x": -28.063271961989912,
+        "y": 18.982307340676773,
+        "z": -20.0214504300218
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n005",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n006",
+      "name": "n006",
+      "color": 8421504,
+      "position": {
+        "x": -18.42745376329498,
+        "y": 22.512995319776092,
+        "z": -22.933262233514956
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n006",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    },
+    {
+      "contentType": "default",
+      "displayEntityQuaternion": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "displayEntityRotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "n007",
+      "name": "n007",
+      "color": 8421504,
+      "position": {
+        "x": -28.126887402030434,
+        "y": 14.215294875812797,
+        "z": -22.933262233514956
+      },
+      "opacity": 1,
+      "label": {
+        "text": "n007",
+        "opacity": 0.8
+      },
+      "labelOpacity": 0.8,
+      "src": null,
+      "radius": 0.5,
+      "shape": "sphere"
+    }
+  ],
+  "edges": [],
+  "groups": []
+}

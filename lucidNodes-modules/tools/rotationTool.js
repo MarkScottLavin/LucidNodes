@@ -145,7 +145,15 @@ function rotationTool( position ){
 		// Set the starting positions of guides that are being moved.
 		setOrigSelectedGuidePositions();
 		
-		setOrigRotations( getPartsOfTypeInGraphElementArray( SELECTED.nodes, "nodeDisplayEntity" ) );
+		setOrigRotations( getPartsOfTypeInLucidNodesEntityArray( SELECTED.nodes, "nodeDisplayEntity" ) );
+		setOrigRotations( getPartsOfTypeInLucidNodesEntityArray( SELECTED.guides.circles, "circle" ) );
+		setOrigRotations( getPartsOfTypeInLucidNodesEntityArray( SELECTED.guides.lines, "line" ) );	
+		setOrigRotations( getPartsOfTypeInLucidNodesEntityArray( SELECTED.guides.faces, "face" ) );	
+		setOrigRotations( getPartsOfTypeInLucidNodesEntityArray( SELECTED.guides.plane, "plane" ) );
+		setOrigRotations( getPartsOfTypeInLucidNodesEntityArray( SELECTED.guides.points, "point" ) );	
+		
+		
+	//	setOrigSelectedGuideRotations();		
 		
 		// Add "ghosts" to stand in for where the nodes originally were.
 		addGhostsOfNodes( SELECTED.nodes );	
@@ -191,7 +199,13 @@ function bailRotTool(){
 	removeRotationToolListenersOneSet();
 	removeOrigNodeArrPositions( SELECTED.nodes );
 	removeOrigSelectedGuidePositions();
-	removeOrigRotations( getPartsOfTypeInGraphElementArray( SELECTED.nodes, "nodeDisplayEntity" ) );	
+	removeOrigRotations( getPartsOfTypeInLucidNodesEntityArray( SELECTED.nodes, "nodeDisplayEntity" ) );	
+	removeOrigRotations( getPartsOfTypeInLucidNodesEntityArray( SELECTED.guides.circles, "circle" ) );
+	removeOrigRotations( getPartsOfTypeInLucidNodesEntityArray( SELECTED.guides.lines, "line" ) );	
+	removeOrigRotations( getPartsOfTypeInLucidNodesEntityArray( SELECTED.guides.faces, "face" ) );	
+	removeOrigRotations( getPartsOfTypeInLucidNodesEntityArray( SELECTED.guides.plane, "plane" ) );
+	removeOrigRotations( getPartsOfTypeInLucidNodesEntityArray( SELECTED.guides.points, "point" ) );
+	
 	removeGhostsOfNodes( SELECTED.nodes );	
 	removeGhostsOfSelectedGuides();
 	
