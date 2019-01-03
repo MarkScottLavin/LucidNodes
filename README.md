@@ -4,6 +4,7 @@ Vision is to develop a 3D graphing library supporting visualization of all graph
 Changes: Version 0.1.33 (This version is the first formal public tracking of changes here):
 
 Initial success in viewing LucidNodes Mind Maps in VR (Updated sceneSetup file)
+
 Initial succesful test deployment on Google Cloud
 Testing GamePad console
 Removed duplicate files in GitHub repo resulting from case-insentitivity
