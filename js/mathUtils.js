@@ -72,14 +72,9 @@ var _Math = {
 		else { return false; }
 	},
 	
-	distanceAsVec3: function ( v1, v2 ){
-		
-		var dist = new THREE.Vector3();
-		
-		dist.subVectors ( v2, v1 );
-		
-		return dist;
-	},
+	distanceAsVec3: function ( v1, v2 ){ return new THREE.Vector3().subVectors ( v2, v1 ); },
+	
+	directionVec3: function( v1, v2 ){ return new THREE.Vector3().subVectors( v2, v1 ).normalize(); },	
 	
 	vec3AbsVal: function ( vec3 ){
 		
@@ -152,7 +147,7 @@ var _Math = {
 		var distances = [];
 		
 		for ( var a = 0; a < vecArray.length; a++ ){
-			distances.push ( _Math.linearDistanceBetweenVec3s( vec3, vecArray[ a ] ) );
+			distances.push ( _Math.magnitudeVec3( vec3, vecArray[ a ] ) );
 		}	
 		
 		var minDistances = distances.slice();
@@ -242,7 +237,7 @@ var _Math = {
 		return sharedDims;
 	},
 	
-	linearDistanceBetweenVec3s: function ( v1, v2 ){
+	magnitudeVec3: function ( v1, v2 ){
 		return new THREE.Vector3().subVectors( v1, v2 ).length();
 	},	
 	
@@ -701,7 +696,37 @@ var _Math = {
 		}
 		
 		return {x: x, y: y};
-	}
+	},
+	
+	lineIntersectionPoint3D: function( v1, v2, v3, v4 ){
+
+		var a;
+
+		let magLine1 = _Math.magnitudeVec3( v1, v2 );
+		let magLine2 = _Math.magnitudeVec3( v3, v4 );
+
+		let dirLine1 = _Math.directionVec3( v1, v2 );
+		let dirLine2 = _Math.directionVec3( v3, v4 );
+
+		let dirCross = new THREE.Vector3().crossVectors( dirLine1, dirLine2 );
+		let pointsCross = new THREE.Vector3().crossVectors( new THREE.Vector3().subVectors( v3, v1 ), dirLine2 ); 
+		
+		// Check that left side !== 0
+		if ( dirCross.x === 0 && dirCross.y === 0 && dirCross.z === 0 ){
+			console.info( "_Math.intersection3D(): Zero vector: The lines don't intersect." );
+		} 	
+		
+		// Check that the two cross product vectors of our equation are parallel;
+	//	if ( dirCross.normalize() === pointsCross.normalize() ){
+			a = pointsCross.length() / dirCross.length();	
+	//	}	
+	//	
+	/*	if ( dirCross.normalize() === - pointsCross.normalize() ){
+			a = - pointsCross.length() / dirCross.length();	
+		}  */
+		
+		return new THREE.Vector3().addVectors( v1, dirLine1.multiplyScalar( a ) );
+	}	
 	
 }
 
@@ -770,4 +795,16 @@ var _Trig = {
 		return quadrant;
 	}
 	
+}
+
+
+function testLineIntersectionPoint3D(){
+	
+	var testV1 = new THREE.Vector3( 0,0,0 );
+	var testV2 = new THREE.Vector3( 10, 10, 10 );
+	var testV3 = new THREE.Vector3( 10, 0, 10 );
+	var testV4 = new THREE.Vector3( 0, 10, 0 );
+	var testV5 = new THREE.Vector3( 0, 20, 0 );
+
+	addNode( _Math.intersection3D( SELECTED.guides.lines[0].startPoint, SELECTED.guides.lines[0].endPoint, SELECTED.guides.lines[1].startPoint, SELECTED.guides.lines[1].endPoint ) )
 }

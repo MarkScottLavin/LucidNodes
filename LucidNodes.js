@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.32.2
+	* Version 0.1.33.1
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -197,7 +197,7 @@ var LUCIDNODES = {
 			toTarget: node2,
 			distanceAsVec3: _Math.distanceAsVec3( node1.position, node2.position ),
 			vecAbsDistance: _Math.vecAbsDistance( node1, node2 ),
-			linearDistance: _Math.linearDistanceBetweenVec3s( node1.position, node2.position ),
+			linearDistance: _Math.magnitudeVec3( node1.position, node2.position ),
 			avgPosition: _Math.avgPosition( node1.position, node2.position )		
 		};
 		

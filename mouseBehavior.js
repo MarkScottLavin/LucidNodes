@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.32.2
+	* Version 0.1.33.1
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -357,6 +357,19 @@ function nearestIntersectedObject3D(){
 	/* Added version 0.1.32.2 */
 	if ( snap ){
 		snapObjsIntersectedByRay = findSnapObjsInObj3DArray( object3DsIntersectedByRay );
+		
+		/*
+		let topLevel = firstSnap;
+		
+		object3DsIntersectedByRay.forEach( function( intersectedObj ){
+			if ( intersectedObj.isSnapOj && intersectedObj.point ===  firstSnap.point ){
+				
+			}
+		});
+		
+		*/
+		
+		
 	}
 	
 	/* Added version 0.1.32.2 */	

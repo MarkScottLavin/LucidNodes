@@ -1039,7 +1039,7 @@ function deleteGuide( guide ){
 	
 	var guideIndex = cognition.guides[ guide.guideType + "s" ].indexOf( guide );
 	
-	removeGuidePartsInScene( guide );
+	removeGuidePartsInScene( guide, true );
 	cognition.guides[ guide.guideType + "s" ].splice( guideIndex, 1 );	
 	
 	DELETED.guides[ guide.guideType + "s" ].push( guide );
@@ -1048,16 +1048,15 @@ function deleteGuide( guide ){
 
 }
 
-function removeGuidePartsInScene( guide ){
+function removeGuidePartsInScene( guide, removeHistory = false ){
 	
-	var partsInScene = guide.partsInScene.slice();
-	
-	partsInScene.forEach( function( part ){	
+	guide.partsInScene.forEach( function( part ){
 		scene.remove( part );	
-		partsInScene.splice( partsInScene.indexOf( part ), 1 );	
 	});
 	
-	guide.partsInScene = partsInScene;
+	if ( removeHistory ){
+		guide.partsInScene = [];		
+	}
 }
 
 function removeGuideSnapObjs( guide ){

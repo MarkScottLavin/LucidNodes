@@ -395,12 +395,11 @@ function findSnapObjsInObj3DArray( obj3DArr ){
 	
 	var snapObjs = [];
 
-	for ( var i = 0; i < obj3DArr.length; i++ ){
-		
-		if ( obj3DArr[i].object && obj3DArr[i].object.isSnapObj && obj3DArr[i].object.snapOn ){
-			snapObjs.push( obj3DArr[i] );			
-		}
-	}
+	obj3DArr.forEach( function( obj3D ){
+		if ( obj3D.object && obj3D.object.isSnapObj && obj3D.object.snapOn ){
+			snapObjs.push( obj3D );			
+		}		
+	});
 	
 	return snapObjs;		
 }
@@ -426,3 +425,4 @@ function nearestIntersectedSnapObj(){
 		return snapObjsIntersectedByRay[ 0 ]; 
 	}		
 }
+

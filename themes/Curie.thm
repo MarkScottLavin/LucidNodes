@@ -1,0 +1,8 @@
+{
+  "name": "Curie",
+  "skyColor1": "#000000",
+  "skyColor2": "#0077ff",
+  "groundColor": "#000040",
+  "showLinearAxes": true,
+  "showRadialAxes": true
+}
