@@ -13,4 +13,4 @@ const routes = require('./routes');
 staticPaths.defineStaticPaths( app );
 app.use( routes );
 
-server.init( app, 3000 );
+server.init( app, 8080 );
