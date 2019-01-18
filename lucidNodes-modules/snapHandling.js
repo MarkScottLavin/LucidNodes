@@ -283,14 +283,11 @@ function snapToNearestSnapObj( position ){
 		// If we've got a snap object, snap to it as appropriate.
 		if ( nearestSnap ){
 			
-			if ( nearestSnap.object.isSnapPoint ){ return snapToGuidePoint( position, nearestSnap ); }	
-			else if ( nearestSnap.object.isSnapCylinder ){ return snapToGuideLine( position, nearestSnap ); }			
+			if ( nearestSnap.object.isSnapBox ){ return snapToGuideBox( position, nearestSnap ); }
+			else if ( nearestSnap.object.isSnapTorus ){ return snapToGuideCircle( position, nearestSnap ); }
 			else if ( nearestSnap.object.isSnapFace ){ return snapToGuideFace( position, nearestSnap ); }			
-//			else if ( nearestSnap.object.isSnapTorus ){ return snapToGuideCircle( position, nearestSnap ); }	
-
-			else if ( nearestSnap.object.isSnapTorus ){ return snapToGuideCircle( position, nearestSnap ); }	
-			
-			else if ( nearestSnap.object.isSnapBox ){ return snapToGuideBox( position, nearestSnap ); }
+			else if ( nearestSnap.object.isSnapCylinder ){ return snapToGuideLine( position, nearestSnap ); }	
+			if ( nearestSnap.object.isSnapPoint ){ return snapToGuidePoint( position, nearestSnap ); }								
 
 		}
 		else { return position; }
@@ -299,32 +296,37 @@ function snapToNearestSnapObj( position ){
 }
 
 
-function snapToGuidePoint( position, guidePoint ){
+function snapToGuideBox( position, guideBox ){
 	
-	if ( guidePoint.isGuide && guidePoint.id ){	
-//	if ( guidePoint.object.referent.isGuide && guidePoint.object.referent.id ){
-		debug.master && debug.snap && console.log( "snapToNearestSnapObj(): ", guidePoint.object.referent.id ); 
-	}
-	return snapPositionTo( position, guidePoint.object.position );
-
-} 
-
-function snapToGuideLine( position, guideLine ){
+	debug.master && debug.snap && console.log( );
 	
-	if ( guideLine.isGuide && guideLine.id ){	
-		debug.master && debug.snap && console.log( "snapToNearestSnapObj(): ", guideLine.object.referent.id ); 
-	}				
-	return snapPositionTo( position, applyPositionOnSnapCylinderToLine( guideLine, guideLine.object.referent.line ) );
-
 }
 
 function snapToGuideFace( position, guideFace ){
 					
 	debug.master && debug.snap && console.log( "distances on face: ", triangulatePositionOnFaceLinear( getFaceIntersectPoint( guideFace.object ), guideFace.object.geometry ) );
 	
-	return snapPositionTo( position, getFaceIntersectPoint( guideFace.object ) );	
+	// If we've intersected a line or a circle, we'll snap to that, because it has a higher priority...
+	let guideFaceWorldPt = object3DsIntersectedByRay[ object3DsIntersectedByRay.indexOf( guideFace ) ].point;
 	
+	for ( let s = 0; s < object3DsIntersectedByRay.length; s++ ){
+		if ( object3DsIntersectedByRay[ s ].isSnapObj && object3DsIntersectedByRay[ s ].point === guideFaceWorldPt ){
+			if ( object3DsIntersectedByRay[ s ].isSnapCylinder ){
+				snapToGuideLine( position, object3DsIntersectedByRay[ s ].referent );
+				break;
+				return;
+			}
+		}
+		if ( object3DsIntersectedByRay[ s ].isSnapTorus ){
+			snapToGuideCircle( position, object3DsIntersectedByRay[ s ].referent );
+			break;
+			return;
+		}
+	}
+	
+	return snapPositionTo( position, getFaceIntersectPoint( guideFace.object ) );		
 }
+
 
 function snapToGuideCircle( position, guideCircle ){
 	
@@ -342,17 +344,52 @@ function snapToGuideCircle( position, guideCircle ){
 	// Then we apply the rotation & world position to get the position we're snapping to.
 	var rotationApplied = rotateVecQuat( arcPosition, guideCircle.object.referent.quaternionForRotation.normalize() );
 	var worldPosApplied = applyWorldPosToVec( rotationApplied, guideCircle.object.referent.circle.position );
+	
+	// If we've intersected a point, we'll snap to that, because it has a higher priority...	
+	for ( let s = 0; s < object3DsIntersectedByRay.length; s++ ){
+		if ( object3DsIntersectedByRay[ s ].isSnapObj && object3DsIntersectedByRay[ s ].point === worldPosApplied ){
+			if ( object3DsIntersectedByRay[ s ].isSnapSphere ){
+				snapToGuidePoint( position, object3DsIntersectedByRay[ s ].referent );
+				break;
+				return;
+			}
+		}
+	}	
 
 	return snapPositionTo( position, worldPosApplied );	
 	
 }
 
-function snapToGuideBox( position, guideBox ){
+function snapToGuideLine( position, guideLine ){
 	
-	debug.master && debug.snap && console.log( );
+	if ( guideLine.isGuide && guideLine.id ){	
+		debug.master && debug.snap && console.log( "snapToNearestSnapObj(): ", guideLine.object.referent.id ); 
+	}	
+
+	// If we've intersected a point, we'll snap to that, because it has a higher priority...	
+	for ( let s = 0; s < object3DsIntersectedByRay.length; s++ ){
+		if ( object3DsIntersectedByRay[ s ].isSnapObj && object3DsIntersectedByRay[ s ].point === position ){
+			if ( object3DsIntersectedByRay[ s ].isSnapSphere ){
+				snapToGuidePoint( position, object3DsIntersectedByRay[ s ].referent );
+				break;
+				return;
+			}
+		}
+	}	
 	
+	return snapPositionTo( position, applyPositionOnSnapCylinderToLine( guideLine, guideLine.object.referent.line ) );
+
 }
 
+function snapToGuidePoint( position, guidePoint ){
+	
+	if ( guidePoint.isGuide && guidePoint.id ){	
+//	if ( guidePoint.object.referent.isGuide && guidePoint.object.referent.id ){
+		debug.master && debug.snap && console.log( "snapToNearestSnapObj(): ", guidePoint.object.referent.id ); 
+	}
+	return snapPositionTo( position, guidePoint.object.position );
+
+} 
 
 function getFaceIntersectPoint( faceGeometry ){
 	
