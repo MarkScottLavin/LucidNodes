@@ -40,8 +40,8 @@ handlers:
 - url: /libs
   static_dir: libs
   
-- url: /
-  static_dir: /
+#- url: /
+#  static_dir: /
 
 - url: /css/style\.css
   static_files: /css/style.css
