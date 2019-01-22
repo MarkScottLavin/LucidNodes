@@ -45,8 +45,10 @@ handlers:
 - url: /index\.html 
   static_files: index.html
   upload: index.html 
-  script: auto
  
+- url: /index\.html
+  script: auto  
+
 - url: /(.*)\.js 
   static_files: (.*).js
   upload: (.*).js
