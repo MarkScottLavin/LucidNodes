@@ -23,6 +23,10 @@ handlers:
 - url: /js
   static_dir: js
   
+- url: /js/(.*)\.js 
+  static_files: js/(.*).js
+  upload: js/(.*).js  
+  
 - url: /libs
   static_dir: libs
 
