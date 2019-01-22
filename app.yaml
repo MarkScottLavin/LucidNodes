@@ -46,14 +46,15 @@ handlers:
 - url: /css/style\.css
   static_files: /css/style.css
   upload: /css/style.css
-  
-- url: /(.*)\.js
-  static_files: /(.*).js
-  upload: /(.*).js
  
 - url: /index\.html 
   static_files: index.html
   upload: index.html 
+  
+# This handler is broken
+- url: (.*).js
+  static_files: (.*).js
+  upload: (.*).js
 
 - url: /.*
   secure: always
