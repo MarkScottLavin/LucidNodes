@@ -6,8 +6,6 @@ env_variables:
   BUCKET_NAME: "example-gcs-bucket"
 
 handlers:
-- url: /stylesheets
-  static_dir: stylesheets
 
 - url: /index\.html 
   static_files: index.html
@@ -18,6 +16,15 @@ handlers:
   
 - url: /css
   static_dir: css
+
+- url: /lucidNodes-modules
+  static_dir: lucidNodes-modules
+  
+- url: /js
+  static_dir: js
+  
+- url: /libs
+  static_dir: libs
 
 - url: /css/style\.css
   static_files: /css/style.css
