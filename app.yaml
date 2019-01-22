@@ -45,13 +45,9 @@ handlers:
 - url: /index\.html 
   static_files: index.html
   upload: index.html 
- 
-- url: /index\.html
-  script: auto  
 
-- url: /(.*)\.js 
-  static_files: (.*).js
-  upload: (.*).js
+- url: /.*
+  script: auto
   
 #- url: /LucidNodes
 #  static_files: index.html
