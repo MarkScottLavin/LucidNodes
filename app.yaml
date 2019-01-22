@@ -22,6 +22,12 @@ handlers:
 - url: /userfiles
   static_dir: userfiles
   
+- url: /themes
+  static_dir: themes
+  
+- url: /lucidNodes-addons
+  static_dir: lucidNodes-addons
+  
 - url: /contextMenu
   static_dir: contextMenu
 
@@ -30,10 +36,6 @@ handlers:
   
 - url: /js
   static_dir: js
-  
-- url: /js/(.*)\.js 
-  static_files: js/(.*).js
-  upload: js/(.*).js  
   
 - url: /libs
   static_dir: libs
@@ -47,6 +49,8 @@ handlers:
   upload: index.html 
 
 - url: /.*
+  secure: always
+  redirect_http_response_code: 301
   script: auto
   
 #- url: /LucidNodes
