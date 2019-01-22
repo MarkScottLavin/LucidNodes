@@ -16,12 +16,12 @@ handlers:
 - url: /assets
   static_dir: assets
   
-- url: /assets/css
-  static_dir: assets/css
+- url: /css
+  static_dir: css
 
-- url: /assets/css/style\.css
-  static_files: /assets/css/style.css
-  upload: /assets/css/style.css
+- url: /css/style\.css
+  static_files: /css/style.css
+  upload: /css/style.css
  
 - url: /(.*)\.js 
   static_files: (.*).js
