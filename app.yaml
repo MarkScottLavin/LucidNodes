@@ -13,6 +13,10 @@ handlers:
   static_files: index.html
   upload: index.html
   
+- url: /(.*)\.js 
+  static_files: (.*).js
+  upload: (.*).js
+  
 #- url: /LucidNodes
 #  static_files: index.html
 #  upload: index.html
