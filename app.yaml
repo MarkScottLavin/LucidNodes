@@ -9,7 +9,8 @@ handlers:
 - url: /stylesheets
   static_dir: stylesheets
 
-- url: /(.*)\.html
+- url: *.html
+  script: index.js
   secure: always
   redirect_http_response_code: 301
   script: auto
