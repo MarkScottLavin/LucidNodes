@@ -37,7 +37,6 @@ handlers:
   
 - url: /libs
   static_dir: libs
-  script: auto
 
 - url: /css/style\.css
   static_files: /css/style.css
@@ -46,6 +45,7 @@ handlers:
 - url: /index\.html 
   static_files: index.html
   upload: index.html 
+  script: auto
  
 - url: /(.*)\.js 
   static_files: (.*).js
