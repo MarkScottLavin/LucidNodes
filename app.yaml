@@ -45,13 +45,12 @@ handlers:
 - url: /index\.html 
   static_files: index.html
   upload: index.html 
+  
+- url: /.*
   script: libs/three.js
-  script: libs/stats.js
-  script: libs/StereoEffect.js
-  script: libs/DeviceOrientationControls.js
-  script: libs/OrbitControls.js 
-  secure: always
-  redirect_http_response_code: 301
+  
+- url: /.*
+  script: mouseBehavior.js
  
 - url: /(.*)\.js 
   static_files: (.*).js
