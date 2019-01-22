@@ -9,12 +9,14 @@ handlers:
 - url: /stylesheets
   static_dir: stylesheets
 
-- url: /LucidNodes
-  static_files: index.html
-  upload: index.html
+- url: /index\.html 
   
-- url: /
-  static_dir: LucidNodes
+#- url: /LucidNodes
+#  static_files: index.html
+#  upload: index.html
+  
+#- url: /
+#  static_dir: LucidNodes
   
 # - url: /(.*)\.html
 #  script: index.js
