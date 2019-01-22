@@ -16,6 +16,18 @@ handlers:
   
 - url: /css
   static_dir: css
+  
+- url: /userHelpDocs
+  static_dir: userHelpDocs
+  
+- url: /userImages
+  static_dir: userImages
+  
+- url: /userfiles
+  static_dir: userfiles
+  
+- url: /contextMenu
+  static_dir: contextMenu
 
 - url: /lucidNodes-modules
   static_dir: lucidNodes-modules
