@@ -10,8 +10,8 @@ handlers:
   static_dir: stylesheets
 
 - url: /
-  static_files: /index.html
-  upload: /index.html
+  static_files: LucidNodes/index.html
+  upload: LucidNodes/index.html
   
 # - url: /(.*)\.html
 #  script: index.js
