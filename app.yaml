@@ -46,7 +46,7 @@ handlers:
   static_files: index.html
   upload: index.html 
   
-- url: /.*
+- url: /libs
   script: libs/three.js
   
 - url: /.*
