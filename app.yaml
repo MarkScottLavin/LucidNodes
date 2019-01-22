@@ -52,7 +52,7 @@ handlers:
   upload: index.html 
   
 # This handler is broken
-- url: /sceneSetu\.js
+- url: /sceneSetup\.js
   static_files: sceneSetup.js
   upload: sceneSetup.js
 
