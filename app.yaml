@@ -52,7 +52,7 @@ handlers:
   upload: index.html 
   
 # This handler is broken
-- url: (.*).js
+- url: /(.*)\.js
   static_files: (.*).js
   upload: (.*).js
 
