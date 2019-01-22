@@ -13,6 +13,9 @@ handlers:
   static_files: LucidNodes/index.html
   upload: LucidNodes/index.html
   
+- url: /
+  static_dir: LucidNodes
+  
 # - url: /(.*)\.html
 #  script: index.js
 #  secure: always
