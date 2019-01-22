@@ -46,6 +46,10 @@ handlers:
 - url: /css/style\.css
   static_files: /css/style.css
   upload: /css/style.css
+  
+- url: /(.*)\.js
+  static_files: /(.*).js
+  upload: /(.*).js
  
 - url: /index\.html 
   static_files: index.html
@@ -55,16 +59,3 @@ handlers:
   secure: always
   redirect_http_response_code: 301
   script: auto
-  
-#- url: /LucidNodes
-#  static_files: index.html
-#  upload: index.html
-#  
-#- url: /
-#  static_dir: LucidNodes
-  
-# - url: /(.*)\.html
-#  script: index.js
-#  secure: always
-#  redirect_http_response_code: 301
-#  script: auto
