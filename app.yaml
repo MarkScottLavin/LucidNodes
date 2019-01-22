@@ -52,10 +52,10 @@ handlers:
   upload: index.html 
   
 # This handler is broken
-- url: /(.*)\.js
-  static_files: (.*).js
-  upload: (.*).js
-
+#- url: /(.*)\.js
+#  static_files: (.*).js
+#  upload: (.*).js
+#
 - url: /.*
   secure: always
   redirect_http_response_code: 301
