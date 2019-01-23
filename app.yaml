@@ -43,18 +43,13 @@ handlers:
 - url: /
   static_dir: /
 
-- url: /css/style\.css
+- url: /css/*\.css
   static_files: /css/style.css
   upload: /css/style.css
  
 - url: /index\.html 
   static_files: index.html
   upload: index.html 
-  
-# This handler is broken
-- url: /sceneSetup\.js
-  static_files: sceneSetup.js
-  upload: sceneSetup.js
 
 - url: /.*
   secure: always
