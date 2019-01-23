@@ -43,7 +43,7 @@ handlers:
 - url: /
   static_dir: /
 
-- url: /css/*\.css
+- url: /css/style\.css
   static_files: /css/style.css
   upload: /css/style.css
  
