@@ -43,9 +43,9 @@ handlers:
 - url: /
   static_dir: /
 
-- url: /css/style\.css
-  static_files: /css/style.css
-  upload: /css/style.css
+- url: /css/*\.css
+  static_files: /css/*.css
+  upload: /css/*.css
  
 - url: /index\.html 
   static_files: index.html
