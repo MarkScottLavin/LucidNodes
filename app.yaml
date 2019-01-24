@@ -18,10 +18,10 @@ handlers:
 - url: /userImages
   static_dir: userImages
   
-- url: /userImages/(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$
-  static_files: userImages/\1
-  upload: userImages\(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$  
-  
+#- url: /userImages/(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$
+#  static_files: /userImages/\1
+# upload: /userImages\(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$  
+#  
 - url: /userfiles
   static_dir: userfiles
   
@@ -47,9 +47,9 @@ handlers:
   static_files: /css/style.css
   upload: /css/style.css
  
-- url: /(.*\.(html|js))$
+- url: /(.*\.(html|js|png))$
   static_files: \1
-  upload: (.*\.(html|js))$
+  upload: (.*\.(html|js|png))$
   
 - url: /.*
   static_files: index.html
