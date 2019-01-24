@@ -54,5 +54,5 @@ handlers:
   static_files: /index.html
   upload: /index.html
   secure: always
-  redirect_http_response_code: 301
-  script: auto
+#  redirect_http_response_code: 301
+#  script: auto
