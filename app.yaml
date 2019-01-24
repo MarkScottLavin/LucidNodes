@@ -50,6 +50,10 @@ handlers:
   static_files: index.html
   upload: index.html 
 
+- url: /(.*\.(html|js))$
+  static_files: /\1
+  upload: /.*\.(html|js)$
+  
 - url: /.*
   secure: always
   redirect_http_response_code: 301
