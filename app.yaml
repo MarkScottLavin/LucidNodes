@@ -6,37 +6,37 @@ env_variables:
 
 handlers:
  
-- url: /assets
+- url: /
   static_dir: assets
   
-- url: /css
+- url: /
   static_dir: css
   
-- url: /userHelpDocs
+- url: /
   static_dir: userHelpDocs
   
-- url: /userImages
+- url: /
   static_dir: userImages
   
-- url: /userfiles
+- url: /
   static_dir: userfiles
   
-- url: /themes
+- url: /
   static_dir: themes
   
-- url: /lucidNodes-addons
+- url: /
   static_dir: lucidNodes-addons
   
-- url: /contextMenu
+- url: /
   static_dir: contextMenu
 
-- url: /lucidNodes-modules
+- url: /
   static_dir: lucidNodes-modules
   
-- url: /js
+- url: /
   static_dir: js
   
-- url: /libs
+- url: /
   static_dir: libs
   
 - url: /
