@@ -18,6 +18,10 @@ handlers:
 - url: /userImages
   static_dir: userImages
   
+- url: /userImages/(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$
+  static_files: /userImages/\1
+  upload: /userImages\(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$  
+  
 - url: /userfiles
   static_dir: userfiles
   
@@ -38,9 +42,6 @@ handlers:
   
 - url: /libs
   static_dir: libs
-  
-#- url: /
-#  static_dir: /
 
 - url: /css/style\.css
   static_files: /css/style.css
