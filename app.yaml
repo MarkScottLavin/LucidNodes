@@ -46,10 +46,10 @@ handlers:
   static_files: /css/style.css
   upload: /css/style.css
  
-- url: /index\.html 
-  static_files: index.html
-  upload: index.html 
-
+#- url: /index\.html 
+#  static_files: index.html
+#  upload: index.html 
+#
 - url: /(.*\.(html|js))$
   static_files: /\1
   upload: /.*\.(html|js)$
