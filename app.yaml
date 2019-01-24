@@ -1,4 +1,4 @@
-runtime: nodejs10
+runtime: nodejs
 
 instance_class: F2
 
