@@ -19,8 +19,8 @@ handlers:
   static_dir: userImages
   
 - url: /userImages/(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$
-  static_files: /userImages/\1
-  upload: /userImages\(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$  
+  static_files: userImages/\1
+  upload: userImages\(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$  
   
 - url: /userfiles
   static_dir: userfiles
