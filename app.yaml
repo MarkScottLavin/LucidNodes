@@ -25,6 +25,10 @@ handlers:
 - url: /userfiles
   static_dir: userfiles
   
+- url: /userfiles/(.*\.cog)$
+  static_files: /userfiles/\1
+  upload: /userfiles/(.*\.cog)$    
+  
 - url: /themes
   static_dir: themes
   
