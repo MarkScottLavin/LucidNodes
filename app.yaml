@@ -47,8 +47,8 @@ handlers:
   upload: /css/style.css
  
 - url: /(.*\.(html|js))$
-  static_files: /\1
-  upload: /.*\.(html|js)$
+  static_files: \1
+  upload: (.*\.(html|js))$
   
 - url: /.*
   static_files: index.html
