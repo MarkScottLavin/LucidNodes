@@ -15,16 +15,13 @@ handlers:
 - url: /userHelpDocs
   static_dir: userHelpDocs
   
-- url: /userImages
-  static_dir: userImages
-  
-#- url: /userImages/(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$
-#  static_files: /userImages/\1
-#  upload: /userImages/(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$ 
-#
-- url: /userImages/(.*\.png)$
+#- url: /userImages
+#  static_dir: userImages
+#  
+- url: /userImages/(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$
   static_files: /userImages/\1
-  upload: /userImages/(.*\.png)$  
+  upload: /userImages/(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$ 
+
  
 - url: /userfiles
   static_dir: userfiles
