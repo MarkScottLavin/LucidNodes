@@ -17,7 +17,10 @@ handlers:
   
 #- url: /userImages
 #  static_dir: userImages
-#  
+# 
+- url: /loadUserImages
+  static_dir: loadUserImages 
+ 
 - url: /userImages/(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$
   static_files: /userImages/\1
   upload: /userImages/(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$ 
