@@ -63,7 +63,7 @@ handlers:
 #  upload: (.*\.(html|js))$
 #
 - url: .*
-  script auto
+  script: auto
  
 - url: /.*
   static_files: index.html
