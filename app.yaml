@@ -32,8 +32,12 @@ handlers:
   static_files: /userfiles/\1
   upload: /userfiles/(.*\.cog)$    
   
-- url: /themes
-  static_dir: themes
+#- url: /themes
+#  static_dir: themes
+#  
+- url: /themes/(.*\.thm)$
+  static_files: /themes/\1
+  upload: /themes/(.*\.thm)$    
   
 - url: /lucidNodes-addons
   static_dir: lucidNodes-addons
