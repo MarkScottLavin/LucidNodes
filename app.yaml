@@ -22,9 +22,9 @@ handlers:
   static_files: /userImages/\1
   upload: /userImages/(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$ 
 
-- url: /userfiles
-  static_dir: userfiles
-  
+#- url: /userfiles
+#  static_dir: userfiles
+#  
 - url: /userfiles/(.*\.cog)$
   static_files: /userfiles/\1
   upload: /userfiles/(.*\.cog)$    
