@@ -59,15 +59,13 @@ handlers:
   upload: /css/style.css
  
 - url: /(.*\.(html|js))$
-#  static_files: \1
+  static_files: \1
   upload: (.*\.(html|js))$
-#
-#- url: .*
-#  script: auto
  
 - url: /.*
-  static_files: index.html
-  upload: index.html
+#  static_files: index.html
+#  upload: index.html
+  script: index.html
   secure: always
 #  redirect_http_response_code: 301
 #  script: auto
