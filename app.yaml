@@ -58,12 +58,12 @@ handlers:
   static_files: /css/style.css
   upload: /css/style.css
  
-#- url: /(.*\.(html|js))$
+- url: /(.*\.(html|js))$
 #  static_files: \1
-#  upload: (.*\.(html|js))$
+  upload: (.*\.(html|js))$
 #
-- url: .*
-  script: auto
+#- url: .*
+#  script: auto
  
 - url: /.*
   static_files: index.html
