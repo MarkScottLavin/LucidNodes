@@ -17,6 +17,7 @@ handlers:
   
 - url: /userImages
   static_dir: userImages
+  application_readable: true
 
 - url: /userfiles
   static_dir: userfiles   
