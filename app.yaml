@@ -15,29 +15,14 @@ handlers:
 - url: /userHelpDocs
   static_dir: userHelpDocs
   
-#- url: /userImages
-#  static_dir: userImages
-# 
-#- url: /loadUserImages
-#  static_dir: loadUserImages 
- 
-- url: /userImages/(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$
-  static_files: /userImages/\1
-  upload: /userImages/(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$ 
+- url: /userImages
+  static_dir: userImages
 
-#- url: /userfiles
-#  static_dir: userfiles
-#  
-- url: /userfiles/(.*\.cog)$
-  static_files: /userfiles/\1
-  upload: /userfiles/(.*\.cog)$    
+- url: /userfiles
+  static_dir: userfiles   
   
-#- url: /themes
-#  static_dir: themes
-#  
-- url: /themes/(.*\.thm)$
-  static_files: /themes/\1
-  upload: /themes/(.*\.thm)$    
+- url: /themes
+  static_dir: themes 
   
 - url: /lucidNodes-addons
   static_dir: lucidNodes-addons
@@ -53,11 +38,14 @@ handlers:
   
 - url: /libs
   static_dir: libs
+  
+- url: /css
+  static_dir: css
 
-- url: /css/style\.css
-  static_files: /css/style.css
-  upload: /css/style.css
- 
+#- url: /css/style\.css
+#  static_files: /css/style.css
+#  upload: /css/style.css
+# 
 - url: /(.*\.(html|js))$
   static_files: \1
   upload: (.*\.(html|js))$
