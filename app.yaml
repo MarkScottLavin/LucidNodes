@@ -18,8 +18,8 @@ handlers:
 #- url: /userImages
 #  static_dir: userImages
 # 
-- url: /loadUserImages
-  static_dir: loadUserImages 
+#- url: /loadUserImages
+#  static_dir: loadUserImages 
  
 - url: /userImages/(.*\.(jpg|png|svg|gif|bmp|JPG|PNG|SVG|GIF|BMP))$
   static_files: /userImages/\1
@@ -63,9 +63,8 @@ handlers:
   upload: (.*\.(html|js))$
  
 - url: /.*
-#  static_files: index.html
-#  upload: index.html
-  script: index.html
+  static_files: index.html
+  upload: index.html
   secure: always
 #  redirect_http_response_code: 301
 #  script: auto
