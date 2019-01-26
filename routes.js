@@ -62,7 +62,7 @@ router.post('/saveCognition', function( req, res, next ) { console.log( 'Accessi
 					
 router.get('/listUserFiles' , 
 					function( req, res ) {
-						var userfiles = jsonMethods.listFilesInDir( ( '/userfiles' ), res );
+						var userfiles = jsonMethods.listFilesInDir( (__dirname + '/userfiles'), res );
 						res.send();			
 					}
 					);	

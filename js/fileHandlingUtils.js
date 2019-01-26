@@ -717,6 +717,8 @@ function listUserFiles( domElementId = 'loadFile-panel-area', routeURL = "/listU
 	
 	var httpRequest = new XMLHttpRequest();
 	
+	console.log( "listUserFiles(): ", httpRequest );
+	
 	// Send the request
 	httpRequest.open( "GET", routeURL, true );
 	httpRequest.send();
