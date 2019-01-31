@@ -27,6 +27,9 @@ handlers:
 - url: /themes
   static_dir: themes 
   
+- url: /listThemes
+  script: auto
+  
 - url: /lucidNodes-addons
   static_dir: lucidNodes-addons
   
