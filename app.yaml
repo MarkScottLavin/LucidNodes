@@ -30,6 +30,12 @@ handlers:
 - url: /listThemes
   script: auto
   
+- url: /loadTheme
+  script: auto
+  
+- url /loadUserImages
+  script: auto
+  
 - url: /lucidNodes-addons
   static_dir: lucidNodes-addons
   
