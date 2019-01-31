@@ -22,7 +22,7 @@ handlers:
   static_dir: userfiles   
 
 - url: /listUserfiles
-  static_dir: listUserfiles
+  script: /tests/yamlTest.js
   
 - url: /themes
   static_dir: themes 
@@ -48,10 +48,6 @@ handlers:
 - url: /(.*\.(html|js))$
   static_files: \1
   upload: (.*\.(html|js))$
-  
-- url: /listUserfiles
-  static_files: listUserfiles
-  upload: listUserfiles
  
 - url: /.*
   static_files: index.html
