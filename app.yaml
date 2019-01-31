@@ -22,7 +22,7 @@ handlers:
   static_dir: userfiles   
 
 - url: /listUserfiles
-  script: /tests/yamlTest.js
+  script: auto
   
 - url: /themes
   static_dir: themes 
