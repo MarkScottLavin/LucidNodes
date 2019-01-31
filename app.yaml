@@ -33,7 +33,7 @@ handlers:
 - url: /loadTheme
   script: auto
   
-- url /loadUserImages
+- url: /loadUserImages
   script: auto
   
 - url: /lucidNodes-addons
