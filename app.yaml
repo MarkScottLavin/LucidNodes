@@ -21,7 +21,7 @@ handlers:
 - url: /userfiles
   static_dir: userfiles   
 
-- url: /listUserfiles
+- url: /listUserFiles
   script: auto
   
 - url: /themes
