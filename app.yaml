@@ -20,20 +20,32 @@ handlers:
 
 - url: /userfiles
   static_dir: userfiles   
-
-- url: /listUserFiles
-  script: auto
   
 - url: /themes
   static_dir: themes 
   
+- url: /listUserFiles
+  script: auto
+  
 - url: /listThemes
+  script: auto
+
+- url: /loadCognition
+  script: auto
+
+- url: /saveCognition
   script: auto
   
 - url: /loadTheme
   script: auto
   
+- url: /saveTheme
+  script: auto
+  
 - url: /loadUserImages
+  script: auto
+  
+- url: /uploadUserImages
   script: auto
   
 - url: /lucidNodes-addons
