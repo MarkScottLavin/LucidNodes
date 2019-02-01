@@ -27,9 +27,9 @@ handlers:
 - url: /listUserFiles
   script: auto
   
-- url: /listThemes
-  script: auto
-
+#- url: /listThemes
+#  script: auto
+#
 - url: /loadCognition
   script: auto
 
