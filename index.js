@@ -9,8 +9,9 @@ const htmlMethods = require('./js/htmlMethods');  // import custom methods for h
 const app = express();
 const routes = require('./routes');
 
+const PORT = process.env.PORT || 8080;
 
 staticPaths.defineStaticPaths( app );
 app.use( routes );
 
-server.init( app, 8080 );
+server.init( app, PORT );
