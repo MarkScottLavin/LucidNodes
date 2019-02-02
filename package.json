@@ -1,7 +1,7 @@
 {
   "name": "LucidNodes",
   "version": "0.1.0",
-  "description": "LucidNodes Mindmapping and Graphing Application",
+  "description": "LucidNodes 3D Mindmapping and Graphing Application",
   "main": "LucidNodes.js",
   "repository": {
     "type": "git",
@@ -27,7 +27,6 @@
     "express-fileupload": "^0.4.0",
     "formidable": "^1.1.1"
   },
-  "server-prod": "NODE_ENV=production node index.js",
   "scripts": {
     "start": "node index.js"
   }
