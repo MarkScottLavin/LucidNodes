@@ -29,6 +29,6 @@
   },
   "server-prod": "NODE_ENV=production node index.js",
   "scripts": {
-    "start": "npm run NODE_ENV=production node index.js"
+    "start": "node index.js"
   }
 }
