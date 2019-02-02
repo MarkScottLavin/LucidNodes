@@ -70,9 +70,9 @@ handlers:
   static_files: \1
   upload: (.*\.(html|js))$
  
-- url: /.*
-  static_files: index.html
-  upload: index.html
-  secure: always
+#- url: /.*
+#  static_files: index.html
+#  upload: index.html
+#  secure: always
 #  redirect_http_response_code: 301
 #  script: auto
