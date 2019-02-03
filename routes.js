@@ -23,6 +23,8 @@ router.use(fileUpload( { limits: { fileSize: 5 * 1e6 } } ));
 
 //initialize the file handling routes
 
+router.get('/', function( req, res ){ res.status( 200 ).sendFile( __dirname + '/index.html' ); } );
+
 router.get('/loadCognition', function( req, res ) { res.send('Load cognition file!'); });
 
 router.post('/saveCognition', function( req, res, next ) { console.log( 'Accessing the Save Cognition route...' );
