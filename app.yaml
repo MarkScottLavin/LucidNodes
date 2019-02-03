@@ -3,7 +3,7 @@
 #
 #env_variables:
 #  BUCKET_NAME: "example-gcs-bucket"
-runtimem: nodejs10
+runtime: nodejs10
 vm: true
 
 handlers:
