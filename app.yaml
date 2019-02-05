@@ -3,10 +3,6 @@ instance_class: F2
 
 env_variables:
   BUCKET_NAME: "example-gcs-bucket"
-
-dispatch:
-- url: '*/listUserFiles'
-  module: listUserFiles  
   
 handlers:
  
@@ -28,9 +24,9 @@ handlers:
 - url: /themes
   static_dir: themes 
   
-#- url: /listUserFiles
-#  script: auto
-#  
+- url: /listUserFiles
+  script: auto
+  
 #- url: /listThemes
 #  script: auto
 #
