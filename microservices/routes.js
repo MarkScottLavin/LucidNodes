@@ -19,6 +19,6 @@ router.use(fileUpload( { limits: { fileSize: 5 * 1e6 } } ));
 
 //initialize the file handling routes
 
-router.get('/', function( req, res ){ res.status( 200 ).send( 'Hello World!' ) );				
+router.get( '/microservices', function( req, res ){ res.status( 200 ).send( 'Hello World!' ); } );				
 
 module.exports = router;
