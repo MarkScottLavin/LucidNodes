@@ -1,4 +1,4 @@
 dispatch:
 
-- url: /listUserFiles
+- url: */listUserFiles
   service: default
