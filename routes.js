@@ -64,19 +64,20 @@ router.post('/saveCognition', function( req, res, next ) { console.log( 'Accessi
 					
 router.get('/listUserFiles' , 
 					function( req, res ) {
-						var userfiles = jsonMethods.listFilesInDir( (__dirname + '/userfiles'), res );
-						res.send();			
+						
+						var userfiles = jsonMethods.listFilesInDir( (__dirname + '/userfiles'), res );	
+						res.status( 200 ).send();				
 					}
 					);	
 
 router.get('/listThemes' , 
 					function( req, res ) {
 						var themes = jsonMethods.listFilesInDir( (__dirname + '/themes'), res );
-						res.send();			
+						res.status( 200 ).send();
 					}
 					);						
 					
-router.get('/loadTheme' , function( req, res ) { res.send( 'Loading Theme File' ); });
+router.get('/loadTheme' , function( req, res ) { res.status( 200 ).send( 'Loading Theme File' ); });
 
 router.post('/saveTheme' , function( req, res, next ) { console.log( 'Accessing the Save Cognition route...' );
 						next(); 
@@ -100,7 +101,7 @@ router.post('/saveTheme' , function( req, res, next ) { console.log( 'Accessing 
 router.get('/loadUserImages' , 
 					function( req, res ) {
 						var media = jsonMethods.listFilesInDir( (__dirname + '/userImages'), res );
-						res.send();			
+						res.status( 200 ).send();		
 					}
 					);
 					
