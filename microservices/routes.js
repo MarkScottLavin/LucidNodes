@@ -15,7 +15,7 @@ router.use( bodyParser.urlencoded({
     extended: true
 }));
 
-router.use(fileUpload( { limits: { fileSize: 5 * 1e6 } } )); 
+//router.use(fileUpload( { limits: { fileSize: 5 * 1e6 } } )); 
 
 //initialize the file handling routes
 

@@ -9,7 +9,7 @@ const path = require('path');
 const app = express();
 const routes = require('./routes');
 
-staticPaths.defineStaticPaths( app );
+//staticPaths.defineStaticPaths( app );
 app.use( routes );
 
 server.init( app, 8081 );
