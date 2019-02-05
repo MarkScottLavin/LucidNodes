@@ -1,4 +1,4 @@
 dispatch:
 
-- url: */microservices
+- url: "*/microservices"
   service: microservices
