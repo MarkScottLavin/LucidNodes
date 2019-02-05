@@ -1,34 +1,13 @@
 {
-  "name": "LucidNodes",
+  "name": "microservices",
   "version": "0.1.0",
-  "description": "LucidNodes 3D Mindmapping and Graphing Application",
-  "main": "LucidNodes.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MarkScottLavin/LucidNodes.git"
-  },
-  "keywords": [
-    "graphing",
-    "mindmapping",
-    "mind",
-    "map",
-    "graph",
-    "nodes",
-    "edges"
-  ],
-  "author": "Mark Scott Lavin",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/MarkScottLavin/LucidNodes/issues"
-  },
-  "homepage": "https://github.com/MarkScottLavin/LucidNodes#readme",
+  "description": "testing microservices model on GAE",
+  "main": "index.js",
   "engines": {
     "node": ">=10.0.0"
   },
   "dependencies": {
-    "express": "^4.16.2",
-    "express-fileupload": "^0.4.0",
-    "formidable": "^1.1.1"
+    "express": "^4.16.2"
   },
   "scripts": {
     "start": "node index.js"
