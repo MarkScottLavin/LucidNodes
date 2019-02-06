@@ -19,6 +19,8 @@ router.use( bodyParser.urlencoded({
 
 //initialize the file handling routes
 
-router.get( '/microservices', function( req, res ){ res.status( 200 ).send( 'Hello World!' ); } );				
+router.get( '/microservices', function( req, res ){ res.status( 200 ).send( 'Hello World!' );
+													res.status( 502 ).send( '502 WTF?' ); 
+													} );				
 
 module.exports = router;
