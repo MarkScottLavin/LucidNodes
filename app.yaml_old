@@ -1,0 +1,78 @@
+runtime: nodejs10
+instance_class: F2
+
+env_variables:
+  BUCKET_NAME: "example-gcs-bucket"
+  
+handlers:
+ 
+- url: /assets
+  static_dir: assets
+  
+- url: /css
+  static_dir: css
+  
+- url: /userHelpDocs
+  static_dir: userHelpDocs
+  
+- url: /userImages
+  static_dir: userImages
+
+- url: /userfiles
+  static_dir: userfiles   
+  
+- url: /themes
+  static_dir: themes 
+  
+#- url: /listUserFiles
+#  script: auto
+#  
+#- url: /listThemes
+#  script: auto
+#
+- url: /loadCognition
+  script: auto
+
+- url: /saveCognition
+  script: auto
+  
+- url: /loadTheme
+  script: auto
+  
+- url: /saveTheme
+  script: auto
+  
+- url: /loadUserImages
+  script: auto
+  
+- url: /uploadUserImages
+  script: auto
+  
+- url: /lucidNodes-addons
+  static_dir: lucidNodes-addons
+  
+- url: /contextMenu
+  static_dir: contextMenu
+
+- url: /lucidNodes-modules
+  static_dir: lucidNodes-modules
+  
+- url: /js
+  static_dir: js
+  
+- url: /libs
+  static_dir: libs
+  
+- url: /css
+  static_dir: css  
+  
+- url: /(.*\.(html|js))$
+  static_files: \1
+  upload: (.*\.(html|js))$
+ 
+- url: /.*
+  static_files: index.html
+  upload: index.html
+# secure: always
+#  redirect_http_response_code: 301
+#  script: auto
