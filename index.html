@@ -235,18 +235,19 @@
 	<div class="panel-title" id="media-panel-title"><strong>Media</strong><span id="minimize-media-panel" class="pull-right"><strong>>></strong></span></div>
 	<div class="panel-body">
 		<div class="panel-cell-label">Images</div>	
-	</div>
-	<div id="panel-thumb-area">
-	</div>	
-	<div id="remove-node-image">Remove Images from Selected
-	</div>
-	<div id="image-drop-zone" name="image-drop-zone" class="drop-zone">
-		Drop Image Files to Upload<br/> <!-- action="uploadUsrImages()" -->
-		- or - 
-		<form class="hiddenUploader" id="hiddenUploader" method="POST" enctype="multipart/form-data" action="http://localhost:3000/uploadUserImages" target="hiddenResponseCatcher">
-			<input type="file" name="hiddenUploader" multiple accept="image/*">
-			<input type="submit" value="upload images">
-		</form>
+		<div id="panel-thumb-area">
+		</div>	
+		<div id="remove-node-image">Remove Images from Selected
+		</div>
+		<div id="image-drop-zone" name="image-drop-zone" class="drop-zone">
+		<!--	Drop Image Files to Upload<br/> action="uploadUsrImages()"
+			- or - -->
+			Upload Images
+			<form class="hiddenUploader" id="hiddenUploader" method="POST" enctype="multipart/form-data" action="http://localhost:8080/uploadUserImages" target="hiddenResponseCatcher">
+				<input type="file" name="hiddenUploader" multiple accept="image/*">
+				<input type="submit" value="upload images">
+			</form>
+		</div>  
 	</div>
 </div>
 

@@ -221,12 +221,12 @@ var initDesktopUI = function(){
 			
 	document.getElementById('remove-node-image').addEventListener( "mouseup", function(e){ changeContentTypeOfNodes( SELECTED.nodes, "default" ); }, false );
 			
-	document.getElementById('image-drop-zone').addEventListener( "dragenter", transformDropZoneOnEnter, false );
-	document.getElementById('image-drop-zone').addEventListener( "dragover", dropZoneDragOverHandler, false );
+//	document.getElementById('image-drop-zone').addEventListener( "dragenter", transformDropZoneOnEnter, false );
+//	document.getElementById('image-drop-zone').addEventListener( "dragover", dropZoneDragOverHandler, false );
 	
 //	addEventHandler( document.getElementById( 'image-drop-zone' ), 'drop', function( e ){ getDroppedFiles( e ); } );
 	
 //	document.getElementById('image-drop-zone').addEventListener( "drop", imgDropHandler, false );
-	document.getElementById('image-drop-zone').addEventListener( "dragleave", transformDropZoneOnLeave, false );	
-	document.getElementById('image-drop-zone').addEventListener( "mouseleave", transformDropZoneOnLeave, false );		
+//	document.getElementById('image-drop-zone').addEventListener( "dragleave", transformDropZoneOnLeave, false );	
+//	document.getElementById('image-drop-zone').addEventListener( "mouseleave", transformDropZoneOnLeave, false );		
 };

@@ -71,7 +71,7 @@ body {
 
 .toolbar{
 	position: absolute;	
-	max-width: 960px;	
+	max-width: 720px;	
 	background-color: #ddd;
 	box-shadow: -1px 1px 2px 1px #888;
 	cursor: pointer;
@@ -88,8 +88,8 @@ body {
 
 .toolbar-cell{
 /*	width:auto;  */
-	width: 40px;
-	height: 40px;
+	width: 30px;
+	height: 30px;
 	padding: 1px;
 	display: inline-block;
 	border: 1px #888 solid;
@@ -98,28 +98,28 @@ body {
 }
 
 .toolbar-cell img{
-	width: 32px;
-	height: 32px;
+	width: 24px;
+	height: 24px;
 	
 }
 
 #toolbar{
 	z-index: 20;
 	left: 10px; 
-	top:60px;	
+	top:40px;	
 }
 
 #guidebar{
 	z-index: 20;
 	left: 10px; 
-	top:130px;	
+	top:96px;	
 }
 
 /* End Toolbars */
 
 .panel {
 	z-index: 10;
-	width: 200px;
+	width: 150px;
 	background-color: #ddd;
 	box-shadow: -1px 1px 2px 1px #888;
 	cursor: pointer;
@@ -129,24 +129,24 @@ body {
 #theme {
 	position: absolute;
 	right: 10px;
-	top: 60px;
-	height: 400px;
+	top: 45px;
+	height: 300px;
 }
 
 #loadFile,
 #loadTheme {
 	position: absolute;
-	width: 450px;
+	width: 330px;
 /*	right: 815px;  */
-	top: 400px;
-	height: 280px;
+	top: 300px;
+	height: 210px;
 }
 
 #loadFile-panel-area,
 #loadTheme-panel-area {
 	margin:5px;
 	padding:2px;
-	height: 230px;
+	height: 180px;
 	border-radius:2px 2px 0 0;
 	border: 1px #888 solid;	
 	overflow: auto;
@@ -160,28 +160,28 @@ body {
 #search {
 	position:absolute;
 	right: 10px;
-	top: 440px;
-	height: 150px;
+	top: 330px;
+	height: 120px;
 }
 
 #editNode {
 	position: absolute;
-	right: 220px;
-	top: 60px;
-	height: 350px;
+	right: 160px;
+	top: 45px;
+	height: 270px;
 }
 
 #media {
 	position: absolute;
-	right: 220px;
-	top: 400px;
-	height: 280px;
+	right: 160px;
+	top: 300px;
+	height: 210px;
 }
 
 #panel-thumb-area {
 	margin:5px;
 	padding:2px;
-	height: 205px;
+	height: 150px;
 	border-radius:2px 2px 0 0;
 	border: 1px #888 solid;	
 	overflow:auto;
@@ -197,8 +197,8 @@ body {
 
 .panel-cell-md{
 /*	width:auto;  */
-	width: 40px;
-	height: 40px;
+	width: 30px;
+	height: 30px;
 	padding: 1px;
 	display: inline-block;
 	border: 1px #888 solid;
@@ -208,8 +208,8 @@ body {
 
 .panel-cell-lg{
 /*	width:auto;  */
-	width: 60px;
-	height: 60px;
+	width: 45px;
+	height: 45px;
 	padding: 1px;
 	display: inline-block;
 	border: 1px #888 solid;
@@ -218,13 +218,13 @@ body {
 }
 
 .panel-cell-md img{
-	width: 32px;
-	height: 32px;
+	width: 24px;
+	height: 24px;
 }
 
 .panel-cell-lg img{
-	width: 56px;
-	height: 56px;
+	width: 42px;
+	height: 42px;
 	
 }
 
@@ -242,13 +242,13 @@ body {
 }
 
 .panel-thumb img {
-	min-width:75px;
-	min-height:75px;
+	min-width:56px;
+	min-height:56px;
 }
 
 .panel-cell-label{
-	width: 100px;
-	height: 40px;
+	width: 75px;
+	height: 30px;
 	padding: 1px 0px 1px 10px;
 	display: inline-block;
 }
@@ -264,7 +264,7 @@ body {
 body {
   color: #595959;
   font-family: "Roboto", sans-serif; 
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 300;
   line-height: 1.5;
 }
@@ -285,11 +285,11 @@ body {
 
 .primary-header__title {
   color: #393939;
-  font-size: 36px;
+  font-size: 27px;
 }
 
 .primary-header__title small {
-  font-size: 18px;
+  font-size: 14px;
   color: #898989;
 }
 
@@ -300,7 +300,7 @@ body {
   position: absolute;
   z-index: 10;
   padding: 12px 0;
-  width: 240px;
+  width: 180px;
   background-color: #fff;
   border: solid 1px #dfdfdf;
   box-shadow: 1px 1px 2px #cfcfcf;
@@ -318,7 +318,7 @@ body {
 
 .context-menu__item {
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 .context-menu__item:last-child {
@@ -327,7 +327,7 @@ body {
 
 .context-menu__link {
   display: block;
-  padding: 4px 12px;
+  padding: 3px 9px;
   color: #0066aa;
   text-decoration: none;
 }
@@ -370,19 +370,31 @@ body {
 
 /* Image uploading */
 
-.drop-zone{
+/*.drop-zone{
 	margin:5px;
 	padding:2px;
-	height: 60px;
+	height: 45px;
 	border-radius:2px 2px 0 0;
 	border: 1px #888 dashed;
 	text-align:center;
 	vertical-align:center;
 	background-color: #ddd;
-}
+}  */
 
 #hiddenResponseCatcher{
 	display:none;
+}
+
+/* User Text Inputs */
+
+#scaleInput,
+#searchBox{
+	width: 110px;
+	font-size: 12px;
+}
+
+input {
+	font-size: 12px;
 }
 
 /* Help Overlays */

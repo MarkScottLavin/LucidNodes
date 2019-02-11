@@ -114,42 +114,42 @@ function togglePanelSize( panelID ){
 }
 
 function searchPanelMaximize(){
-	document.getElementById( "search" ).style.height = "150px";
+	document.getElementById( "search" ).style.height = "120px";
 	document.querySelector( "#search .panel-body" ).style.display = "block";		
 }
 
 function searchPanelMinimize(){
-	document.getElementById( "search" ).style.height = "24px";	
+	document.getElementById( "search" ).style.height = "18px";	
 	document.querySelector( "#search .panel-body" ).style.display = "none";		
 }
  
 function themePanelMaximize(){
-	document.getElementById( "theme" ).style.height = "400px";
+	document.getElementById( "theme" ).style.height = "300px";
 	document.querySelector( "#theme .panel-body" ).style.display = "block";	
 }
 
 function themePanelMinimize(){
-	document.getElementById( "theme" ).style.height = "24px";
+	document.getElementById( "theme" ).style.height = "18px";
 	document.querySelector( "#theme .panel-body" ).style.display = "none";			
 }
 
 function editNodePanelMaximize(){
-	document.getElementById( "editNode" ).style.height = "350px";
+	document.getElementById( "editNode" ).style.height = "270px";
 	document.querySelector( "#editNode .panel-body" ).style.display = "block";	
 }
 
 function editNodePanelMinimize(){
-	document.getElementById( "editNode" ).style.height = "24px";
+	document.getElementById( "editNode" ).style.height = "18px";
 	document.querySelector( "#editNode .panel-body" ).style.display = "none";			
 }
 
 function mediaPanelMaximize(){
-	document.getElementById( "media" ).style.height = "350px";
+	document.getElementById( "media" ).style.height = "210px";
 	document.querySelector( "#media .panel-body" ).style.display = "block";	
 }
 
 function mediaPanelMinimize(){
-	document.getElementById( "media" ).style.height = "24px";
+	document.getElementById( "media" ).style.height = "18px";
 	document.querySelector( "#media .panel-body" ).style.display = "none";			
 }
 

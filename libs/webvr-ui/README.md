@@ -105,7 +105,7 @@ To run the example, install dependencies
 npm install
 ```
 
-and start the watcher and server (available on [localhost:3000/examples/basic.html](http://localhost:3000/examples/basic.html))
+and start the watcher and server (available on [localhost:8080/examples/basic.html](http://localhost:3000/examples/basic.html))
 
 ```
 npm start
