@@ -61,6 +61,7 @@ function mouseEventHandler( event ){
 	
 	// update presetGuides.planes.camPerpendicular to be perpendicular to the current camera direction.
 	presetGuides.planes.camPerpendicular.plane.quaternion.copy( camera.quaternion );
+	presetGuides.planes.camPerpendicular.plane.position.copy( cameraLookAtPosition( camera, globalAppSettings.camPerpendicularPlaneDist ) );
 	
 /*	if ( snap ){
 		var nearestIntersctedSnapPoint = nearestIntersectedSnapPoint();

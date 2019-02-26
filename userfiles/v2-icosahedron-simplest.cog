@@ -1,6 +1,46 @@
 {
   "theme": "default.thm",
   "themeURL": "/themes",
+  "dollyCam": {
+    "camera": {
+      "quaternion": {
+        "x": -0.013557648454109764,
+        "y": 0.8995407938458948,
+        "z": -0.027989133634267627,
+        "w": -0.4357283084376035
+      },
+      "rotation": {
+        "x": 3.041446913112578,
+        "y": -0.8997184161991091,
+        "z": 3.063061916822611
+      },
+      "aspect": 4.217821782178218,
+      "zoom": 1,
+      "position": {
+        "x": -5.534946355865172,
+        "y": -0.5309242886017128,
+        "z": 1.3887310123342584
+      }
+    },
+    "quaternion": {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "aspect": 1,
+    "zoom": 1,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
   "nodes": [
     {
       "contentType": "default",
@@ -20,9 +60,9 @@
       "name": "n000",
       "color": 8421504,
       "position": {
-        "x": 5,
-        "y": 3.09017,
-        "z": 8.09017
+        "x": 0.5,
+        "y": 0.30901700000000004,
+        "z": 0.8090170000000001
       },
       "opacity": 0.75,
       "label": {
@@ -31,7 +71,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -52,9 +92,9 @@
       "name": "n001",
       "color": 8421504,
       "position": {
-        "x": 3.09017,
-        "y": 8.09017,
-        "z": 5
+        "x": 0.30901700000000004,
+        "y": 0.8090170000000001,
+        "z": 0.5
       },
       "opacity": 0.75,
       "label": {
@@ -63,7 +103,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -85,8 +125,8 @@
       "color": 8421504,
       "position": {
         "x": 0,
-        "y": 5.25731,
-        "z": 8.50651
+        "y": 0.5257310000000001,
+        "z": 0.850651
       },
       "opacity": 0.75,
       "label": {
@@ -95,7 +135,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -116,9 +156,9 @@
       "name": "n003",
       "color": 8421504,
       "position": {
-        "x": 8.09017,
-        "y": 5,
-        "z": 3.09017
+        "x": 0.8090170000000001,
+        "y": 0.5,
+        "z": 0.30901700000000004
       },
       "opacity": 0.75,
       "label": {
@@ -127,7 +167,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -148,9 +188,9 @@
       "name": "n004",
       "color": 8421504,
       "position": {
-        "x": 8.50651,
+        "x": 0.850651,
         "y": 0,
-        "z": 5.25731
+        "z": 0.5257310000000001
       },
       "opacity": 0.75,
       "label": {
@@ -159,7 +199,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -180,8 +220,8 @@
       "name": "n005",
       "color": 8421504,
       "position": {
-        "x": 5.25731,
-        "y": 8.50651,
+        "x": 0.5257310000000001,
+        "y": 0.850651,
         "z": 0
       },
       "opacity": 0.75,
@@ -191,7 +231,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -212,9 +252,9 @@
       "name": "n006",
       "color": 8421504,
       "position": {
-        "x": -3.09017,
-        "y": 8.09017,
-        "z": 5
+        "x": -0.30901700000000004,
+        "y": 0.8090170000000001,
+        "z": 0.5
       },
       "opacity": 0.75,
       "label": {
@@ -223,7 +263,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -245,7 +285,7 @@
       "color": 8421504,
       "position": {
         "x": 0,
-        "y": 10,
+        "y": 1,
         "z": 0
       },
       "opacity": 0.75,
@@ -255,7 +295,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -276,8 +316,8 @@
       "name": "n008",
       "color": 8421504,
       "position": {
-        "x": -5.25731,
-        "y": 8.50651,
+        "x": -0.5257310000000001,
+        "y": 0.850651,
         "z": 0
       },
       "opacity": 0.75,
@@ -287,7 +327,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -308,9 +348,9 @@
       "name": "n009",
       "color": 8421504,
       "position": {
-        "x": -3.09017,
-        "y": 8.09017,
-        "z": 5
+        "x": -0.30901700000000004,
+        "y": 0.8090170000000001,
+        "z": 0.5
       },
       "opacity": 0.75,
       "label": {
@@ -319,7 +359,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -340,9 +380,9 @@
       "name": "n00a",
       "color": 8421504,
       "position": {
-        "x": -5,
-        "y": 3.09017,
-        "z": 8.09017
+        "x": -0.5,
+        "y": 0.30901700000000004,
+        "z": 0.8090170000000001
       },
       "opacity": 0.75,
       "label": {
@@ -351,7 +391,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -372,9 +412,9 @@
       "name": "n00b",
       "color": 8421504,
       "position": {
-        "x": -8.09017,
-        "y": 5,
-        "z": 3.09017
+        "x": -0.8090170000000001,
+        "y": 0.5,
+        "z": 0.30901700000000004
       },
       "opacity": 0.75,
       "label": {
@@ -383,7 +423,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -404,9 +444,9 @@
       "name": "n00c",
       "color": 8421504,
       "position": {
-        "x": -8.50651,
+        "x": -0.850651,
         "y": 0,
-        "z": 5.25731
+        "z": 0.5257310000000001
       },
       "opacity": 0.75,
       "label": {
@@ -415,7 +455,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -438,7 +478,7 @@
       "position": {
         "x": 0,
         "y": 0,
-        "z": 10
+        "z": 1
       },
       "opacity": 0.75,
       "label": {
@@ -447,7 +487,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -468,9 +508,9 @@
       "name": "n00e",
       "color": 8421504,
       "position": {
-        "x": -5,
-        "y": -3.09017,
-        "z": 8.09017
+        "x": -0.5,
+        "y": -0.30901700000000004,
+        "z": 0.8090170000000001
       },
       "opacity": 0.75,
       "label": {
@@ -479,7 +519,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -501,8 +541,8 @@
       "color": 8421504,
       "position": {
         "x": 0,
-        "y": -5.25731,
-        "z": 8.50651
+        "y": -0.5257310000000001,
+        "z": 0.850651
       },
       "opacity": 0.75,
       "label": {
@@ -511,7 +551,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -532,9 +572,9 @@
       "name": "n00g",
       "color": 8421504,
       "position": {
-        "x": 5,
-        "y": -3.09017,
-        "z": 8.09017
+        "x": 0.5,
+        "y": -0.30901700000000004,
+        "z": 0.8090170000000001
       },
       "opacity": 0.75,
       "label": {
@@ -543,7 +583,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -564,7 +604,7 @@
       "name": "n00h",
       "color": 8421504,
       "position": {
-        "x": 10,
+        "x": 1,
         "y": 0,
         "z": 0
       },
@@ -575,7 +615,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -596,9 +636,9 @@
       "name": "n00i",
       "color": 8421504,
       "position": {
-        "x": 8.09017,
-        "y": 5,
-        "z": -3.09017
+        "x": 0.8090170000000001,
+        "y": 0.5,
+        "z": -0.30901700000000004
       },
       "opacity": 0.75,
       "label": {
@@ -607,7 +647,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -628,9 +668,9 @@
       "name": "n00j",
       "color": 8421504,
       "position": {
-        "x": 8.50651,
+        "x": 0.850651,
         "y": 0,
-        "z": -5.25731
+        "z": -0.5257310000000001
       },
       "opacity": 0.75,
       "label": {
@@ -639,7 +679,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -660,9 +700,9 @@
       "name": "n00k",
       "color": 8421504,
       "position": {
-        "x": 3.09017,
-        "y": 8.09017,
-        "z": -5
+        "x": 0.30901700000000004,
+        "y": 0.8090170000000001,
+        "z": -0.5
       },
       "opacity": 0.75,
       "label": {
@@ -671,7 +711,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -693,8 +733,8 @@
       "color": 8421504,
       "position": {
         "x": 0,
-        "y": 5.25731,
-        "z": -8.50651
+        "y": 0.5257310000000001,
+        "z": -0.850651
       },
       "opacity": 0.75,
       "label": {
@@ -703,7 +743,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -724,9 +764,9 @@
       "name": "n00m",
       "color": 8421504,
       "position": {
-        "x": -3.09017,
-        "y": 8.09017,
-        "z": -5
+        "x": -0.30901700000000004,
+        "y": 0.8090170000000001,
+        "z": -0.5
       },
       "opacity": 0.75,
       "label": {
@@ -735,7 +775,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -756,9 +796,9 @@
       "name": "n00n",
       "color": 8421504,
       "position": {
-        "x": -8.09017,
-        "y": 5,
-        "z": -3.09017
+        "x": -0.8090170000000001,
+        "y": 0.5,
+        "z": -0.30901700000000004
       },
       "opacity": 0.75,
       "label": {
@@ -767,7 +807,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -788,9 +828,9 @@
       "name": "n00o",
       "color": 8421504,
       "position": {
-        "x": -8.50651,
+        "x": -0.850651,
         "y": 0,
-        "z": -5.25731
+        "z": -0.5257310000000001
       },
       "opacity": 0.75,
       "label": {
@@ -799,7 +839,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -820,7 +860,7 @@
       "name": "n00p",
       "color": 8421504,
       "position": {
-        "x": -10,
+        "x": -1,
         "y": 0,
         "z": 0
       },
@@ -831,7 +871,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -852,9 +892,9 @@
       "name": "n00q",
       "color": 8421504,
       "position": {
-        "x": -8.09017,
-        "y": -5,
-        "z": 3.09017
+        "x": -0.8090170000000001,
+        "y": -0.5,
+        "z": 0.30901700000000004
       },
       "opacity": 0.75,
       "label": {
@@ -863,7 +903,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -884,9 +924,9 @@
       "name": "n00r",
       "color": 8421504,
       "position": {
-        "x": -3.09017,
-        "y": -8.09017,
-        "z": 5
+        "x": -0.30901700000000004,
+        "y": -0.8090170000000001,
+        "z": 0.5
       },
       "opacity": 0.75,
       "label": {
@@ -895,7 +935,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -916,8 +956,8 @@
       "name": "n00s",
       "color": 8421504,
       "position": {
-        "x": -5.25731,
-        "y": -8.50651,
+        "x": -0.5257310000000001,
+        "y": -0.850651,
         "z": 0
       },
       "opacity": 0.75,
@@ -927,7 +967,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -948,9 +988,9 @@
       "name": "n00t",
       "color": 8421504,
       "position": {
-        "x": 3.09017,
-        "y": -8.09017,
-        "z": 5
+        "x": 0.30901700000000004,
+        "y": -0.8090170000000001,
+        "z": 0.5
       },
       "opacity": 0.75,
       "label": {
@@ -959,7 +999,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -980,8 +1020,8 @@
       "name": "n00u",
       "color": 8421504,
       "position": {
-        "x": 5.25731,
-        "y": -8.50651,
+        "x": 0.5257310000000001,
+        "y": -0.850651,
         "z": 0
       },
       "opacity": 0.75,
@@ -991,7 +1031,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -1012,9 +1052,9 @@
       "name": "n00v",
       "color": 8421504,
       "position": {
-        "x": 8.09017,
-        "y": -5,
-        "z": 3.09017
+        "x": 0.8090170000000001,
+        "y": -0.5,
+        "z": 0.30901700000000004
       },
       "opacity": 0.75,
       "label": {
@@ -1023,7 +1063,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -1044,9 +1084,9 @@
       "name": "n00w",
       "color": 8421504,
       "position": {
-        "x": 8.09017,
-        "y": -5,
-        "z": -3.09017
+        "x": 0.8090170000000001,
+        "y": -0.5,
+        "z": -0.30901700000000004
       },
       "opacity": 0.75,
       "label": {
@@ -1055,7 +1095,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -1076,9 +1116,9 @@
       "name": "n00x",
       "color": 8421504,
       "position": {
-        "x": 5,
-        "y": 3.09017,
-        "z": -8.09017
+        "x": 0.5,
+        "y": 0.30901700000000004,
+        "z": -0.8090170000000001
       },
       "opacity": 0.75,
       "label": {
@@ -1087,7 +1127,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -1108,9 +1148,9 @@
       "name": "n00y",
       "color": 8421504,
       "position": {
-        "x": -5,
-        "y": 3.09017,
-        "z": -8.09017
+        "x": -0.5,
+        "y": 0.30901700000000004,
+        "z": -0.8090170000000001
       },
       "opacity": 0.75,
       "label": {
@@ -1119,7 +1159,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -1140,9 +1180,9 @@
       "name": "n00z",
       "color": 8421504,
       "position": {
-        "x": -8.09017,
-        "y": -5,
-        "z": -3.09017
+        "x": -0.8090170000000001,
+        "y": -0.5,
+        "z": -0.30901700000000004
       },
       "opacity": 0.75,
       "label": {
@@ -1151,7 +1191,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -1173,7 +1213,7 @@
       "color": 8421504,
       "position": {
         "x": 0,
-        "y": -10,
+        "y": -1,
         "z": 0
       },
       "opacity": 0.75,
@@ -1183,7 +1223,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -1204,9 +1244,9 @@
       "name": "n011",
       "color": 8421504,
       "position": {
-        "x": 5,
-        "y": -3.09017,
-        "z": -8.09017
+        "x": 0.5,
+        "y": -0.30901700000000004,
+        "z": -0.8090170000000001
       },
       "opacity": 0.75,
       "label": {
@@ -1215,7 +1255,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -1236,9 +1276,9 @@
       "name": "n012",
       "color": 8421504,
       "position": {
-        "x": 3.09017,
-        "y": -8.09017,
-        "z": -5
+        "x": 0.30901700000000004,
+        "y": -0.8090170000000001,
+        "z": -0.5
       },
       "opacity": 0.75,
       "label": {
@@ -1247,7 +1287,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -1269,8 +1309,8 @@
       "color": 8421504,
       "position": {
         "x": 0,
-        "y": -5.25731,
-        "z": -8.50651
+        "y": -0.5257310000000001,
+        "z": -0.850651
       },
       "opacity": 0.75,
       "label": {
@@ -1279,7 +1319,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -1302,7 +1342,7 @@
       "position": {
         "x": 0,
         "y": 0,
-        "z": -10
+        "z": -1
       },
       "opacity": 0.75,
       "label": {
@@ -1311,7 +1351,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -1332,9 +1372,9 @@
       "name": "n015",
       "color": 8421504,
       "position": {
-        "x": -5,
-        "y": -3.09017,
-        "z": -8.09017
+        "x": -0.5,
+        "y": -0.30901700000000004,
+        "z": -0.8090170000000001
       },
       "opacity": 0.75,
       "label": {
@@ -1343,7 +1383,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -1364,9 +1404,9 @@
       "name": "n016",
       "color": 8421504,
       "position": {
-        "x": -3.09017,
-        "y": -8.09017,
-        "z": -5
+        "x": -0.30901700000000004,
+        "y": -0.8090170000000001,
+        "z": -0.5
       },
       "opacity": 0.75,
       "label": {
@@ -1375,10 +1415,18 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     }
   ],
   "edges": [],
+  "guides": {
+    "circles": [],
+    "points": [],
+    "faces": [],
+    "lines": [],
+    "planes": []
+  },
+  "guideGroups": [],
   "groups": []
 }

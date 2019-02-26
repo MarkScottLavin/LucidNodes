@@ -104,7 +104,7 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	labelCanvasMaterial( this, this.canvas );
 
 	//this.displayEntity = new THREE.Sprite( this.material );
-	this.bufferGeom = new THREE.PlaneBufferGeometry( 1, 1, 1, 1 );
+	this.bufferGeom = new THREE.PlaneBufferGeometry( 0.1, 0.1, 1, 1 );
 	this.displayEntity = new THREE.Mesh( this.bufferGeom, this.material );
 
 	this.displayEntity.isLucidNodesEntityPart = true;

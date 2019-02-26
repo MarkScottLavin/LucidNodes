@@ -76,7 +76,7 @@ var initAddGuideCircleToolProposedCircle = function( e ){
 	if ( !addGuideCircleToolState.point ){
 		
 		var mousePoint = getMousePoint();
-		addGuideCircleToolState.point = new Point( getMousePoint(), 1.0, 0xff8800 );
+		addGuideCircleToolState.point = new Point( getMousePoint(), 0.1, 0xff8800 );
 		
 	}
 	

@@ -67,7 +67,7 @@ function addEdgeTool( position ){
 				addEdgeToolState.addEdgeLine = new THREE.Line( geometry, addEdgeLineMaterial );
 				scene.add( addEdgeToolState.addEdgeLine );			
 
-				addEdgeToolState.endPoint = new Point( position, 1.0, 0x00ff00 );
+				addEdgeToolState.endPoint = new Point( position, 0.1, 0x00ff00 );
 								
 				// And now add an event listener that moves the line's second vertex with the mouse.
 				addAddEdgeToolListeners(); 
