@@ -204,6 +204,7 @@ var toolState = {
 		addGuideCircle: 0,
 		addGuideLine: 0,
 		addVectorGuideLine: 0,
+		addGuideFace: 0,
 		toolIsActive: false
 };
 
@@ -342,6 +343,13 @@ function addToolListeners( tool = "select" ){
 		document.getElementById('visualizationContainer').addEventListener( 'mouseup', activateAddVectorGuideLineTool, false );
 		document.addEventListener( 'keyup', onAddVectorGuideLineToolKeyUp, false );	
 	}	
+
+	if ( tool === "addGuideFace" ){
+		
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initAddGuideFaceTool0Point, false );
+		document.getElementById('visualizationContainer').addEventListener( 'mouseup', activateAddGuideFaceTool, false );
+		document.addEventListener( 'keyup', onAddGuideFaceToolKeyUp, false );		
+	}
 }
 
 function removeToolListeners( tool ){
@@ -419,7 +427,16 @@ function removeToolListeners( tool ){
 		document.removeEventListener( 'keyup', onAddVectorGuideLineToolKeyUp, false );	
 		bailAddVectorGuideLineTool();	
 		
-	}	
+	}
+
+	if ( tool === "addGuideFace" ){
+		
+		document.getElementById('visualizationContainer').removeEventListener( 'mouseup', activateAddGuideFaceTool, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initAddGuideFaceTool0Point, false );
+		document.removeEventListener( 'keyup', onAddGuideFaceToolKeyUp, false );			
+		bailAddGuideFaceTool();
+
+	}		
 	
 }
 
@@ -430,6 +447,7 @@ var activateAddNodeTool = function( e ){ addNodeTool( placeAtPlaneIntersectionPo
 var activateAddGuideLineTool = function( e ){ addGuideLineTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
 var activateAddGuideCircleTool = function( e ){ addGuideCircleTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
 var activateAddVectorGuideLineTool = function( e ){ addVectorGuideLineTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
+var activateAddGuideFaceTool = function( e ){ addGuideFaceTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
 var paintGraphElements = function( e ){ paintGraphElementOnMouseUp(); };
 var getGraphElementColor = function( e ){ selectGraphElementColorOnMouseUp(); };
 

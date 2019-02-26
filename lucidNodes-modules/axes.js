@@ -17,7 +17,7 @@ Axes( 300, true, 0.2, { x: 0, y: 0, z: 0 } );
  * }
  */
 
-function Axes( extents = 300, rulers = true, opacity = 0.5, origin = { x: 0, y: 0, z: 0 }, parent = scene ) {
+function Axes( extents = 30, rulers = true, opacity = 0.5, origin = { x: 0, y: 0, z: 0 }, parent = scene ) {
 	
 	parent.axes = new THREE.Group();
 	parent.axes.position.set( origin.x, origin.y, origin.z );
@@ -33,7 +33,7 @@ function Axes( extents = 300, rulers = true, opacity = 0.5, origin = { x: 0, y: 
 		};
 		
 	parent.axes.opacity = opacity;
-	parent.axes.linewidth = 1;
+	parent.axes.linewidth = 0.1;
 	parent.axes.material = {
 		x: new THREE.LineBasicMaterial ({ 
 			color: parent.axes.color.x,  
@@ -125,7 +125,7 @@ function axesRulers2( axes, direction, extents ){
 	ruler.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
 	ruler.computeBoundingSphere();
 	
-	var rulerPointMaterial = new THREE.PointsMaterial( { size: 0.1, color: axes.color[direction], transparent: true, opacity: axes.opacity } );
+	var rulerPointMaterial = new THREE.PointsMaterial( { size: 0.01, color: axes.color[direction], transparent: true, opacity: axes.opacity } );
 	
 	var rulerPoints = new THREE.Points( ruler, rulerPointMaterial );
 	axes.displayAxis[direction].add( rulerPoints );	

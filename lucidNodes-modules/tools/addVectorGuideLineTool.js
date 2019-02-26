@@ -22,7 +22,7 @@ function initAddVectorGuideLineTool0Point( e ){
 	if ( addVectorGuideLineToolState.points.length <= 0 ){
 		
 	//	var mousePoint = getMousePoint();
-		addVectorGuideLineToolState.points.push( new Point( getMousePoint(), 1.0, 0xff0000 ) );
+		addVectorGuideLineToolState.points.push( new Point( getMousePoint(), 0.1, 0xff0000 ) );
 		
 	}
 
@@ -97,7 +97,7 @@ function addVectorGuideLineTool( position ){
 		addVectorGuideLineToolState.addVectorGuideLineToolLine = new THREE.Line( geometry, addVectorGuideLineToolLineMaterial );
 		scene.add( addVectorGuideLineToolState.addVectorGuideLineToolLine );			
 
-		addVectorGuideLineToolState.points.push ( new Point( position, 1.0, 0x00ff00 ) );
+		addVectorGuideLineToolState.points.push ( new Point( position, 0.1, 0x00ff00 ) );
 		
 		// AddVectorGuideLine the orthogoal 
 		moveOrthoGuideLinesToPosition( lineStart );

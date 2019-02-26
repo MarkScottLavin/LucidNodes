@@ -4,7 +4,7 @@ var snap = true;						// snapping is on or off.
 var snapObjsIntersectedByRay = [];		// The subset of Object3Ds intersected that are snap objects
 var snapPointsIntersectedByRay = [];	// The subset of Object3Ds intersected that are snapPoints
 var snapCylindersIntersectedByRay = [];	// The subset of Object3Ds intersected that are snapCylinders
-var snapRadius = 1;						// Default snapradius
+var snapRadius = 0.1;						// Default snapradius
 
 /* SNAP INTENSITY */
 

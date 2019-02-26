@@ -166,7 +166,7 @@ function initVRControls(){
 
     vrControls = new THREE.VRControls( camera );
     vrControls.standing = true;
-	vrControls.userHeight = 15.0;
+	vrControls.userHeight = 1.6;
 	camera.position.x = -20;
 	camera.position.z = 20;
     camera.position.y = vrControls.userHeight;
@@ -242,8 +242,8 @@ function cameras() {
 	
 	camera.position.init = function( camera ){
 			
-			camera.position.set( 0, 15, 20 );
-			camera.lookAt(new THREE.Vector3( 0, 15, 0 ));
+			camera.position.set( 0, 1.6, 20 );
+			camera.lookAt(new THREE.Vector3( 0, 1.6, 0 ));
 			camera.up = new THREE.Vector3( 0,1,0 );
 			debug.master && debug.cameras && console.log ('Camera Position Initialized: ' , camera.position );			
 			
@@ -454,8 +454,8 @@ var entities = function(){
 			
 			ground: function( parameters ) { 
 				
-				this.xSize = parameters.xSize || 1000;
-				this.zSize = parameters.zSize || 1000;
+				this.xSize = parameters.xSize || worldExtents;
+				this.zSize = parameters.zSize || worldExtents;
 				this.heightOffset = parameters.heightOffset || 0.001;
 				this.opacity = parameters.opacity || 0.5;
 				
@@ -478,7 +478,7 @@ var entities = function(){
 	};
 	
 	//	Render the Ground
-	sceneChildren.geometries.constant.ground( { xSize: 2000 , zSize: 2000 , heightOffset: -0.001, opacity: 0.5, name: "groundPlane" } );
+	sceneChildren.geometries.constant.ground( { xSize: worldExtents , zSize: worldExtents, heightOffset: -0.001, opacity: 0.5, name: "groundPlane" } );
 
 };
 

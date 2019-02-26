@@ -22,7 +22,7 @@ function initMoveTool0Point( e ){
 	if ( moveToolState.points.length <= 0 ){
 		
 	//	var mousePoint = getMousePoint();
-		moveToolState.points.push( new Point( getMousePoint(), 1.0, 0xff0000 ) );
+		moveToolState.points.push( new Point( getMousePoint(), 0.1, 0xff0000 ) );
 		
 	}
 
@@ -277,7 +277,7 @@ function moveTool( position ){
 		moveToolState.moveLine = new THREE.Line( geometry, moveLineMaterial );
 		scene.add( moveToolState.moveLine );			
 
-		moveToolState.points.push ( new Point( position, 1.0, 0x00ff00 ) );
+		moveToolState.points.push ( new Point( position, 0.1, 0x00ff00 ) );
 		
 		// Move the orthogoal 
 		moveOrthoGuideLinesToPosition( lineStart );

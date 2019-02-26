@@ -1,5 +1,5 @@
 var radialAxesColor = 0x333333;
-var radialAxesLineWidth = 1;
+var radialAxesLineWidth = 0.1;
 var radialAxesOpacity = 0.1
 var radialAxesMaterial = new THREE.LineBasicMaterial ({ color: radialAxesColor, linewidth: radialAxesLineWidth, transparent: true, opacity: radialAxesOpacity });
 
@@ -30,7 +30,7 @@ function RadialAxes( extents, degreeSeparation, opacity = 0.5, origin = { x: 0, 
 
 }
 
-function RadialAxialCircles( extents = 30, spacing = 1, plane = "xz", parent = scene ){
+function RadialAxialCircles( extents = 10, spacing = 1, plane = "xz", parent = scene ){
 	
 	parent.radialCircles = new THREE.Group();
 	
@@ -86,5 +86,5 @@ function showRadialAxes( parent = scene ){
 } 
 
 // Radial Axes
-RadialAxes( 40, 30, 0.2, { x: 0, y: 0, z: 0 } );	
+RadialAxes( 10, 30, 0.2, { x: 0, y: 0, z: 0 } );	
 RadialAxialCircles();
