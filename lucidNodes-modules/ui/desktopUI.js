@@ -80,6 +80,7 @@ var initDesktopUI = function(){
 	document.getElementById('addGuideLine').addEventListener( 'mouseup', function(){ selectTool( "addGuideLine" ); });
 	document.getElementById('addVectorGuideLine').addEventListener( 'mouseup', function(){ selectTool( "addVectorGuideLine" ); });	
 	document.getElementById('addGuideCircle').addEventListener( 'mouseup', function(){ selectTool( "addGuideCircle" ); });
+	document.getElementById('addGuideFace').addEventListener( 'mouseup', function(){ selectTool( "addGuideFace" ); });
 //	document.getElementById('guidePoint').addEventListener( 'mouseup', function(){ selectTool( "select" ); });	
 //	document.getElementById('guideFace').addEventListener( 'mouseup', function(){ selectTool( "select" ); });
 	
@@ -191,7 +192,7 @@ var initDesktopUI = function(){
 		var scaleVal = parseFloat( scaleInput.value );
 		
 		if ( SELECTED.nodes.length > 0 && scaleInput.value.length > 0 && !scaleVal.isNaN && scaleVal > 0 ){ 
-			scaleAllNodesInArray( SELECTED.nodes, scaleVal ); 
+			scaleEachNode( SELECTED.nodes, scaleVal ); 
 			}
 
 		document.getElementById( "scaleInput" ).value = "";

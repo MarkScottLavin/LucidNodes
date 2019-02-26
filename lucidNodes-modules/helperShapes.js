@@ -49,7 +49,7 @@ function circle( parent = scene, radius = 1, segments, thetaStart = 0 , thetaLen
  *
  */
 
-function Point( position, size = 0.25, color = 0x888888, opacity = 1, parent = scene ){
+function Point( position, size = 0.025, color = 0x888888, opacity = 1, parent = scene ){
 	
 	this.isPoint = true;
 
@@ -132,10 +132,10 @@ function addGhostOfObj3D( parameters ){
 		
 		var meshGhostMtl = new THREE.MeshPhongMaterial( { color: color, opacity: opacity, transparent: true, side: THREE.DoubleSide } );
 		var lineGhostMtl = new THREE.LineBasicMaterial ( { color: color, linewidth: 1, transparent: true, opacity: opacity } );
-		var pointGhostMtl = new THREE.PointsMaterial( { size: 0.1, color: color, opacity: opacity, transparent: true } ); 
+		var pointGhostMtl = new THREE.PointsMaterial( { size: 0.01, color: color, opacity: opacity, transparent: true } ); 
 		
 		if ( obj3D.isGraphElementPart ){
-			var geometry = new THREE.SphereBufferGeometry( 0.2, 32, 32 );
+			var geometry = new THREE.SphereBufferGeometry( 0.02, 32, 32 );
 			ghost = new THREE.Mesh( geometry, meshGhostMtl );	
 			ghost.position.copy( ghostPosition );
 		}	

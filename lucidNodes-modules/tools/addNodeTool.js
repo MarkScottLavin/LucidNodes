@@ -45,7 +45,7 @@ function initAddNodeToolPoint( e ){
 	if ( !addNodeToolState.point ){
 		
 		var mousePoint = getMousePoint();
-		addNodeToolState.point = new Point( getMousePoint(), 1.0, 0xff8800 );
+		addNodeToolState.point = new Point( getMousePoint(), 0.1, 0xff8800 );
 		
 	}
 

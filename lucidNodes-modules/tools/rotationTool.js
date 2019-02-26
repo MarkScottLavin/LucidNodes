@@ -24,7 +24,7 @@ function initRotTool0Point( e ){
 	if ( rotToolState.points.length <= 0 ){
 		
 		var mousePoint = getMousePoint();
-		rotToolState.points.push( new Point( getMousePoint(), 1.0, 0xff0000 ) );
+		rotToolState.points.push( new Point( getMousePoint(), 0.1, 0xff0000 ) );
 		
 	}
 
@@ -113,7 +113,7 @@ function rotationTool( position ){
 		rotToolState.angleLines.push( new THREE.Line( geometry, angleLineMaterial ) );
 		scene.add( rotToolState.angleLines[0] );			
 
-		rotToolState.points.push ( new Point( position, 1.0, 0x00ff00 ) );
+		rotToolState.points.push ( new Point( position, 0.1, 0x00ff00 ) );
 		
 		// And now add an event listener that moves the first line's second vertex with the mouse.
 		addRotationToolListenersZeroSet();
@@ -160,7 +160,7 @@ function rotationTool( position ){
 		addGhostsOfSelectedGuides();
 		
 		// add a third point ( rotToolState.points[2] ) and line that both moves with the mouse	
-		rotToolState.points.push ( new Point( position, 1.0, 0x0000ff ) );		
+		rotToolState.points.push ( new Point( position, 0.1, 0x0000ff ) );		
 
 		addRotationToolListenersOneSet();
 

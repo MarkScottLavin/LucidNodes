@@ -63,10 +63,10 @@ initAlignedNodes();
 initCommon();
 
 // How many decimal places should node positions be adjusted to?
-var decimalPlaces = 2;
+var decimalPlaces = 3;
 
 // How closely should nodes appoach before snapping?
-var snapProximity = 0.5;
+var snapProximity = 0.05;
 
 // HELPER FUNCTIONS
 

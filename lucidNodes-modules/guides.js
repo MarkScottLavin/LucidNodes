@@ -415,6 +415,15 @@ function initPresetGuideLines( limit = worldExtents ){
 
 }
 
+function scaleGuideLine( guide, scaleFactor ){
+	
+	guide.partsInScene.forEach(
+		function( part ){
+			part.scale.set( scaleFactor, scaleFactor, scaleFactor );
+		}		
+	);	
+}
+
 // let's Intialize our Preset GuideLines
 initPresetGuideLines();	
 
@@ -588,6 +597,33 @@ function addGuideCircle( parameters ){
 	
 }
 
+function scaleGuideCircle( guide, scaleFactor ){
+	
+	guide.radius = guide.radius * scaleFactor;
+	
+	guide.partsInScene.forEach(
+		function( part ){
+			part.scale.set( scaleFactor, scaleFactor, scaleFactor );
+		}
+	);
+	
+}
+
+function scaleEachGuideCircle( guideArr, scaleFactor ){	
+	guideArr.forEach( function( guide ){ scaleGuideCircle( guide, scaleFactor ); } ); 
+}
+
+function scaleGuideCircleArr( guideArr, scaleFactor, centroid = { x: 0, y: 0, z: 0 } ){
+	
+	let centerPt = new THREE.Vector3( centroid.x, centroid.y, centroid.z );
+	
+	scaleEachGuideCircle( guideArr, scaleFactor );
+	
+	guideArr.forEach( function( guide ){ 
+		let newPos = new THREE.Vector3().addVectors( guide.position.multiplyScalar( scaleFactor ), centerPt ); 
+		moveGuideTo( guide, newPos );
+	} );
+}
 // END CIRCLES
 
 // FACES
@@ -642,15 +678,19 @@ LUCIDNODES.GuideFace = function( parameters ){
 	}
 	
 	if ( parameters.vertices && parameters.vertices.length === 3 ){
-		this.vertices = parameters.vertices;
+		this.vertices = [ 
+			new THREE.Vector3( parameters.vertices[0].x, parameters.vertices[0].y, parameters.vertices[0].z ), 
+			new THREE.Vector3( parameters.vertices[1].x, parameters.vertices[1].y, parameters.vertices[1].z ), 
+			new THREE.Vector3( parameters.vertices[2].x, parameters.vertices[2].y, parameters.vertices[2].z ) 
+			];
 	}
 	else if ( parameters.vertices && parameters.vertices.length !== 3 ){
 		console.error( "guideFace(): Number of vertices must be 3. Only ", parameters.vertices.length, " were given. Reverting to default vertex values." );
-		this.vertices = [ { x: 0, y: 0, z: 0 }, { x: 1, y: 1, z: 1 }, { x: -1, y: -1, z: -1 } ];
+		this.vertices = [ new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 1, 1, 1 ), new THREE.Vector3( -1, -1, -1 ) ];
 	}
 	else {
 		console.error( "guideFace(): No vertices were given. Reverting to default vertex values." );
-		this.vertices = [ { x: 0, y: 0, z: 0 }, { x: 1, y: 1, z: 1 }, { x: -1, y: -1, z: -1 } ];
+		this.vertices = [ new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 1, 1, 1 ), new THREE.Vector3( -1, -1, -1 ) ];
 	}
 	
 	this.color = new THREE.Color();
@@ -678,6 +718,8 @@ LUCIDNODES.GuideFace = function( parameters ){
 	this.geometry.vertices.push( new THREE.Vector3( this.vertices[0].x, this.vertices[0].y, this.vertices[0].z ) );
 	this.geometry.vertices.push( new THREE.Vector3( this.vertices[1].x, this.vertices[1].y, this.vertices[1].z ) );
 	this.geometry.vertices.push( new THREE.Vector3( this.vertices[2].x, this.vertices[2].y, this.vertices[2].z ) );
+	this.geometry.verticesNeedUpdate = true;
+	
 	
 	this.material = new THREE.MeshStandardMaterial( { transparent: true, color: this.color, opacity: this.opacity, visible: this.visible, side: THREE.DoubleSide} );
 	this.normal = new THREE.Vector3( 0, 1, 0 ); 
@@ -739,6 +781,23 @@ function addGuideFace( parameters ){
 	cognition.guides.faces.push( new LUCIDNODES.GuideFace( parameters ) );
 	
 }
+
+/* Not working */
+/*
+function scaleGuideFace( guide, scaleFactor ){
+	
+	guide.vertices.forEach( function( vertex ){ 
+		vertex = vertex.multiplyScalar( scaleFactor );
+		});
+
+	guide.geometry.vertices.forEach( function( vertex ){ 
+		vertex = vertex.multiplyScalar( scaleFactor );
+		});	
+	
+	guide.geometry.verticesNeedUpdate = true;
+	
+}  */
+
 
 // END FACES
 

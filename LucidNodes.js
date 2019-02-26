@@ -123,11 +123,12 @@ var globalAppSettings = {
 	transparency: true,
 	castShadow: true,
 	receiveShadow: true,
+	nodeRadius: 0.05,
 	defaultNodeColor: 0x808080,
 	defaultNodeOpacity: /* 0.75, */ 1,
-	defaultLabelScale: { x: 4, y: 2, z: 1 },
+	defaultLabelScale: { x: 0.4, y: 0.2, z: 1 },
 	defaultEdgeColor: 0x808080,
-	defaultEdgeThickness: 4,
+	defaultEdgeThickness: 0.4,
 	defaultEdgeLineType: "solid" /* dashed */,
 	defaultEdgeOpacity: /* 0.5, */ 1,
 	defaultGuideOpacity: 0.5,
@@ -139,9 +140,10 @@ var globalAppSettings = {
 	edgeColorOnSelect: 0x0000ff,
 	showGroupCenterPoints: true,
 	centroidColor: 0x008800,
-	centroidSize: 0.25,
+	centroidSize: 0.025,
 	weightedCentroidColor: 0x0088ff,
-	weightedCentroidSize: 0.25
+	weightedCentroidSize: 0.025,
+	camPerpendicularPlaneDist: 0.9
 }
 
 // THE LUCIDNODE MASTER OBJECT
@@ -172,22 +174,6 @@ var LUCIDNODES = {
 		if ( cognition.nodes && cognition.nodes.length > 0 ){
 			LUCIDNODES.showNodeArrayCentroid( cognition.nodes );
 		}		
-	},
-	
-	computeSubgraph: function( node ){
-			/* 	Get all the nodes and edges in the graph submitted as argument, 
-				map/generate all subgraphs of the graph (dot-notation: id.subGroup[key1], id.subGroup[key2]... );
-				include an 'edges' property that notes all edges between nodes ( 
-					edge: true/false, 
-					if (edge) {
-						type: {	a, 
-								b, 
-								c, 
-								d... }, 
-						directional: true/false - use a function here to ask if the edge type can be directional, if so, then look to see if a direction is specified
-						
-				return the object of subgraphs
-				*/
 	},
 	
 	nodePositionComparison: function( node1, node2 ){
@@ -267,11 +253,11 @@ var LUCIDNODES = {
 		
 		/* Position */
 		
-		this.position = new THREE.Vector3( parameters.position.x, parameters.position.y, parameters.position.z ) || new THREE.Vector3( 0, -2, -2 );
+		this.position = new THREE.Vector3( parameters.position.x, parameters.position.y, parameters.position.z ) || new THREE.Vector3( 0, 0, 0 );
 		
 		/* Appearance */
 		
-		this.radius = parameters.radius || 0.5;
+		this.radius = parameters.radius || globalAppSettings.nodeRadius;
 		this.shape = parameters.shape || "sphere";
 		
 		this.color = new THREE.Color();
@@ -694,9 +680,6 @@ function polygonPlate( sides, radius ){
 	centerExtrude( geometry, thickness );
 	
 	return geometry;
-	
-/*	var bufferGeometry = new THREE.BufferGeometry().fromGeometry( geometry );
-	return bufferGeometry; */
 }
 
 
@@ -781,8 +764,6 @@ function removeNodeDisplayEntity( node ){
 
 function createEdgeDisplayEntity( edge ){
 
-//	edge.displayEntity = cylinderBetweenPoints( edge.ends[0], edge.ends[1], 0.05 ); /// Testing edges as cylinders for various widths.
-
 	edge.geom = new THREE.Geometry();
 	edge.geom.dynamic = true;
 	edge.geom.vertices.push( edge.ends[0], edge.ends[1]	);		
@@ -813,7 +794,7 @@ function nodesFromJson( arr ){
 	for ( var n = 0; n < arr.length; n++ ) {	
 			cognition.nodes[n] = new LUCIDNODES.Node( { id: arr[n].id,
 														name: arr[n].name, 
-														position: {		//vWhen position is object-based
+														position: {		//When position is object-based
 															x: parseFloat ( arr[n].position.x ),
 															y: parseFloat ( arr[n].position.y ),
 															z: parseFloat ( arr[n].position.z ) 
@@ -847,6 +828,7 @@ function edgesFromJson( arr ){
 			cognition.edges[e] = new LUCIDNODES.Edge( { id: arr[e].id,
 														name: arr[e].name,
 														nodes: [ getEdgeNodesFromEdgeId( arr[e].id )[0], getEdgeNodesFromEdgeId( arr[e].id )[1] ],
+														thickness: arr[e].thickness,
 														opacity: arr[e].opacity,
 														color: arr[e].color,
 														label: { 
@@ -1059,9 +1041,6 @@ function addNode( position ){
 	
 	cognition.nodes.push( new LUCIDNODES.Node( { 	
 												position: { x: position.x, y: position.y, z: position.z }, 
-												radius: 0.5, 
-												shape: "sphere", 
-												color: globalAppSettings.defaultNodeColor,
 												opacity: globalAppSettings.defaultNodeOpacity, 														
 												labelColor: globalAppSettings.defaultNodeLabel,
 												labelOpacity: globalAppSettings.defaultNodeLabelOpacity
@@ -1206,7 +1185,20 @@ function scaleNode( node, scaleFactor ){
 	node.displayEntity.add( node.label.displayEntity );	
 }
 
-function scaleAllNodesInArray( nodeArr, scaleFactor ){	nodeArr.forEach( function( node ){ scaleNode( node, scaleFactor ); } ); }
+function scaleEachNode( nodeArr, scaleFactor ){	nodeArr.forEach( function( node ){ scaleNode( node, scaleFactor ); } ); }
+
+function scaleNodeArr( nodeArr, scaleFactor, centroid = { x: 0, y: 0, z: 0 } ){
+	
+	let centerPt = new THREE.Vector3( centroid.x, centroid.y, centroid.z );
+	
+	scaleEachNode( nodeArr, scaleFactor );
+	
+	nodeArr.forEach( function( node ){ 
+		let newPos = new THREE.Vector3().addVectors( node.position.multiplyScalar( scaleFactor ), centerPt ); 
+		moveNodeTo( node, newPos );
+	} );
+}
+
 
 function restoreDeletedNode( node ){
 	

@@ -58,7 +58,7 @@ function initAddGuideLineToolProposedLine( e ){
 	if ( !addGuideLineToolState.point ){
 		
 		var mousePoint = getMousePoint();
-		addGuideLineToolState.point = new Point( getMousePoint(), 1.0, 0xff8800 );
+		addGuideLineToolState.point = new Point( getMousePoint(), 0.1, 0xff8800 );
 		
 	}
 	

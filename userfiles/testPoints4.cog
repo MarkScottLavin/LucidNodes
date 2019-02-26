@@ -1,6 +1,46 @@
 {
   "theme": "default.thm",
   "themeURL": "/themes",
+  "dollyCam": {
+    "camera": {
+      "quaternion": {
+        "x": 0.1043876264616809,
+        "y": 0.39890756606651967,
+        "z": -0.045765394039157144,
+        "w": 0.9098799403685205
+      },
+      "rotation": {
+        "x": 0.33057324575113317,
+        "y": 0.7985732046040896,
+        "z": -0.24105057607930627
+      },
+      "aspect": 3.9971751412429377,
+      "zoom": 1,
+      "position": {
+        "x": 8.027649186208192,
+        "y": 0.6782116663684148,
+        "z": -0.33045428085270423
+      }
+    },
+    "quaternion": {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "aspect": 1,
+    "zoom": 1,
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
   "nodes": [
     {
       "contentType": "default",
@@ -21,8 +61,8 @@
       "color": 8421504,
       "position": {
         "x": 0,
-        "y": 15.25731,
-        "z": 8.50651
+        "y": 1.5257310000000002,
+        "z": 0.850651
       },
       "opacity": 0.75,
       "label": {
@@ -31,7 +71,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -52,9 +92,9 @@
       "name": "WTF",
       "color": 8421504,
       "position": {
-        "x": -8.50651,
-        "y": 10,
-        "z": 5.25731
+        "x": -0.850651,
+        "y": 1,
+        "z": 0.5257310000000001
       },
       "opacity": 0.75,
       "label": {
@@ -63,7 +103,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -85,8 +125,8 @@
       "color": 8421504,
       "position": {
         "x": 0,
-        "y": 5.25731,
-        "z": 8.50651
+        "y": 0.5257310000000001,
+        "z": 0.850651
       },
       "opacity": 0.75,
       "label": {
@@ -95,7 +135,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -116,8 +156,8 @@
       "name": "Aye!",
       "color": 8421504,
       "position": {
-        "x": 5.25731,
-        "y": 18.50651,
+        "x": 0.5257310000000001,
+        "y": 1.850651,
         "z": 0
       },
       "opacity": 0.75,
@@ -127,7 +167,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -148,9 +188,9 @@
       "name": "Ox",
       "color": 8421504,
       "position": {
-        "x": 8.50651,
-        "y": 10,
-        "z": -5.25731
+        "x": 0.850651,
+        "y": 1,
+        "z": -0.5257310000000001
       },
       "opacity": 0.75,
       "label": {
@@ -159,7 +199,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -181,8 +221,8 @@
       "color": 8421504,
       "position": {
         "x": 0,
-        "y": 15.25731,
-        "z": -8.50651
+        "y": 1.5257310000000002,
+        "z": -0.850651
       },
       "opacity": 0.75,
       "label": {
@@ -191,7 +231,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -212,9 +252,9 @@
       "name": "Youare beautifulrememeber that",
       "color": 8421504,
       "position": {
-        "x": 8.50651,
-        "y": 10,
-        "z": 5.25731
+        "x": 0.850651,
+        "y": 1,
+        "z": 0.5257310000000001
       },
       "opacity": 0.75,
       "label": {
@@ -223,7 +263,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -244,8 +284,8 @@
       "name": "Kindness",
       "color": 16777088,
       "position": {
-        "x": 5.25731,
-        "y": 2.50651,
+        "x": 0.5257310000000001,
+        "y": 0.250651,
         "z": 0
       },
       "opacity": 0.75,
@@ -255,7 +295,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 3.6,
+      "radius": 0.36000000000000004,
       "shape": "sphere"
     },
     {
@@ -276,8 +316,8 @@
       "name": "Institutions",
       "color": 8421504,
       "position": {
-        "x": -5.25731,
-        "y": 2.50651,
+        "x": -0.5257310000000001,
+        "y": 0.250651,
         "z": 0
       },
       "opacity": 0.75,
@@ -287,7 +327,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -309,8 +349,8 @@
       "color": 8421504,
       "position": {
         "x": 0,
-        "y": 5.25731,
-        "z": -8.50651
+        "y": 0.5257310000000001,
+        "z": -0.850651
       },
       "opacity": 0.75,
       "label": {
@@ -319,7 +359,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -340,9 +380,9 @@
       "name": "n00a",
       "color": 16744448,
       "position": {
-        "x": 22,
-        "y": 15.25731,
-        "z": 8.50651
+        "x": 2.2,
+        "y": 1.5257310000000002,
+        "z": 0.850651
       },
       "opacity": 0.4,
       "label": {
@@ -351,7 +391,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 1,
+      "radius": 0.1,
       "shape": "sphere"
     },
     {
@@ -372,9 +412,9 @@
       "name": "n00b",
       "color": 8397835,
       "position": {
-        "x": 14.50651,
-        "y": 10,
-        "z": 5.25731
+        "x": 1.4506510000000001,
+        "y": 1,
+        "z": 0.5257310000000001
       },
       "opacity": 0.2,
       "label": {
@@ -383,7 +423,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.2,
+      "radius": 0.020000000000000004,
       "shape": "sphere"
     },
     {
@@ -404,9 +444,9 @@
       "name": "n00c",
       "color": 65280,
       "position": {
-        "x": 22,
-        "y": 5.25731,
-        "z": 8.50651
+        "x": 2.2,
+        "y": 0.5257310000000001,
+        "z": 0.850651
       },
       "opacity": 0.7,
       "label": {
@@ -415,7 +455,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -436,8 +476,8 @@
       "name": "n00d",
       "color": 8421504,
       "position": {
-        "x": 27.25731,
-        "y": 18.50651,
+        "x": 2.725731,
+        "y": 1.850651,
         "z": 0
       },
       "opacity": 0.1,
@@ -447,7 +487,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 1.6,
+      "radius": 0.16000000000000003,
       "shape": "sphere"
     },
     {
@@ -468,9 +508,9 @@
       "name": "n00e",
       "color": 8421504,
       "position": {
-        "x": 44,
-        "y": 15.25731,
-        "z": 8.50651
+        "x": 4.4,
+        "y": 1.5257310000000002,
+        "z": 0.850651
       },
       "opacity": 0.75,
       "label": {
@@ -479,7 +519,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -500,9 +540,9 @@
       "name": "n00f",
       "color": 8421504,
       "position": {
-        "x": 46,
-        "y": 10,
-        "z": 5.25731
+        "x": 4.6000000000000005,
+        "y": 1,
+        "z": 0.5257310000000001
       },
       "opacity": 0.75,
       "label": {
@@ -511,7 +551,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -532,9 +572,9 @@
       "name": "n00g",
       "color": 8421504,
       "position": {
-        "x": 49,
-        "y": 5.25731,
-        "z": 8.50651
+        "x": 4.9,
+        "y": 0.5257310000000001,
+        "z": 0.850651
       },
       "opacity": 0.75,
       "label": {
@@ -543,7 +583,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     },
     {
@@ -564,8 +604,8 @@
       "name": "n00h",
       "color": 8421504,
       "position": {
-        "x": 44,
-        "y": 18.50651,
+        "x": 4.4,
+        "y": 1.850651,
         "z": 0
       },
       "opacity": 0.75,
@@ -575,7 +615,7 @@
       },
       "labelOpacity": null,
       "src": null,
-      "radius": 0.5,
+      "radius": 0.05,
       "shape": "sphere"
     }
   ],
@@ -600,8 +640,8 @@
           "name": "Kindness",
           "color": 16777088,
           "position": {
-            "x": 5.25731,
-            "y": 2.50651,
+            "x": 0.5257310000000001,
+            "y": 0.250651,
             "z": 0
           },
           "opacity": 0.75,
@@ -611,7 +651,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 3.6,
+          "radius": 0.36000000000000004,
           "shape": "sphere"
         },
         {
@@ -633,8 +673,8 @@
           "color": 8421504,
           "position": {
             "x": 0,
-            "y": 15.25731,
-            "z": -8.50651
+            "y": 1.5257310000000002,
+            "z": -0.850651
           },
           "opacity": 0.75,
           "label": {
@@ -643,7 +683,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -678,8 +718,8 @@
           "name": "Kindness",
           "color": 16777088,
           "position": {
-            "x": 5.25731,
-            "y": 2.50651,
+            "x": 0.5257310000000001,
+            "y": 0.250651,
             "z": 0
           },
           "opacity": 0.75,
@@ -689,7 +729,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 3.6,
+          "radius": 0.36000000000000004,
           "shape": "sphere"
         },
         {
@@ -711,8 +751,8 @@
           "color": 8421504,
           "position": {
             "x": 0,
-            "y": 5.25731,
-            "z": -8.50651
+            "y": 0.5257310000000001,
+            "z": -0.850651
           },
           "opacity": 0.75,
           "label": {
@@ -721,7 +761,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -756,8 +796,8 @@
           "name": "Kindness",
           "color": 16777088,
           "position": {
-            "x": 5.25731,
-            "y": 2.50651,
+            "x": 0.5257310000000001,
+            "y": 0.250651,
             "z": 0
           },
           "opacity": 0.75,
@@ -767,7 +807,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 3.6,
+          "radius": 0.36000000000000004,
           "shape": "sphere"
         },
         {
@@ -788,9 +828,9 @@
           "name": "Ox",
           "color": 8421504,
           "position": {
-            "x": 8.50651,
-            "y": 10,
-            "z": -5.25731
+            "x": 0.850651,
+            "y": 1,
+            "z": -0.5257310000000001
           },
           "opacity": 0.75,
           "label": {
@@ -799,7 +839,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -835,8 +875,8 @@
           "color": 8421504,
           "position": {
             "x": 0,
-            "y": 15.25731,
-            "z": -8.50651
+            "y": 1.5257310000000002,
+            "z": -0.850651
           },
           "opacity": 0.75,
           "label": {
@@ -845,7 +885,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         },
         {
@@ -867,8 +907,8 @@
           "color": 8421504,
           "position": {
             "x": 0,
-            "y": 5.25731,
-            "z": -8.50651
+            "y": 0.5257310000000001,
+            "z": -0.850651
           },
           "opacity": 0.75,
           "label": {
@@ -877,7 +917,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -912,9 +952,9 @@
           "name": "Ox",
           "color": 8421504,
           "position": {
-            "x": 8.50651,
-            "y": 10,
-            "z": -5.25731
+            "x": 0.850651,
+            "y": 1,
+            "z": -0.5257310000000001
           },
           "opacity": 0.75,
           "label": {
@@ -923,7 +963,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         },
         {
@@ -945,8 +985,8 @@
           "color": 8421504,
           "position": {
             "x": 0,
-            "y": 15.25731,
-            "z": -8.50651
+            "y": 1.5257310000000002,
+            "z": -0.850651
           },
           "opacity": 0.75,
           "label": {
@@ -955,7 +995,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -991,8 +1031,8 @@
           "color": 8421504,
           "position": {
             "x": 0,
-            "y": 5.25731,
-            "z": -8.50651
+            "y": 0.5257310000000001,
+            "z": -0.850651
           },
           "opacity": 0.75,
           "label": {
@@ -1001,7 +1041,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         },
         {
@@ -1022,9 +1062,9 @@
           "name": "Ox",
           "color": 8421504,
           "position": {
-            "x": 8.50651,
-            "y": 10,
-            "z": -5.25731
+            "x": 0.850651,
+            "y": 1,
+            "z": -0.5257310000000001
           },
           "opacity": 0.75,
           "label": {
@@ -1033,7 +1073,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -1068,8 +1108,8 @@
           "name": "Institutions",
           "color": 8421504,
           "position": {
-            "x": -5.25731,
-            "y": 2.50651,
+            "x": -0.5257310000000001,
+            "y": 0.250651,
             "z": 0
           },
           "opacity": 0.75,
@@ -1079,7 +1119,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         },
         {
@@ -1101,8 +1141,8 @@
           "color": 8421504,
           "position": {
             "x": 0,
-            "y": 5.25731,
-            "z": -8.50651
+            "y": 0.5257310000000001,
+            "z": -0.850651
           },
           "opacity": 0.75,
           "label": {
@@ -1111,7 +1151,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -1146,8 +1186,8 @@
           "name": "Institutions",
           "color": 8421504,
           "position": {
-            "x": -5.25731,
-            "y": 2.50651,
+            "x": -0.5257310000000001,
+            "y": 0.250651,
             "z": 0
           },
           "opacity": 0.75,
@@ -1157,7 +1197,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         },
         {
@@ -1178,9 +1218,9 @@
           "name": "WTF",
           "color": 8421504,
           "position": {
-            "x": -8.50651,
-            "y": 10,
-            "z": 5.25731
+            "x": -0.850651,
+            "y": 1,
+            "z": 0.5257310000000001
           },
           "opacity": 0.75,
           "label": {
@@ -1189,7 +1229,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -1224,9 +1264,9 @@
           "name": "WTF",
           "color": 8421504,
           "position": {
-            "x": -8.50651,
-            "y": 10,
-            "z": 5.25731
+            "x": -0.850651,
+            "y": 1,
+            "z": 0.5257310000000001
           },
           "opacity": 0.75,
           "label": {
@@ -1235,7 +1275,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         },
         {
@@ -1256,8 +1296,8 @@
           "name": "Kindness",
           "color": 16777088,
           "position": {
-            "x": 5.25731,
-            "y": 2.50651,
+            "x": 0.5257310000000001,
+            "y": 0.250651,
             "z": 0
           },
           "opacity": 0.75,
@@ -1267,7 +1307,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 3.6,
+          "radius": 0.36000000000000004,
           "shape": "sphere"
         }
       ],
@@ -1302,8 +1342,8 @@
           "name": "Kindness",
           "color": 16777088,
           "position": {
-            "x": 5.25731,
-            "y": 2.50651,
+            "x": 0.5257310000000001,
+            "y": 0.250651,
             "z": 0
           },
           "opacity": 0.75,
@@ -1313,7 +1353,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 3.6,
+          "radius": 0.36000000000000004,
           "shape": "sphere"
         },
         {
@@ -1334,8 +1374,8 @@
           "name": "Institutions",
           "color": 8421504,
           "position": {
-            "x": -5.25731,
-            "y": 2.50651,
+            "x": -0.5257310000000001,
+            "y": 0.250651,
             "z": 0
           },
           "opacity": 0.75,
@@ -1345,7 +1385,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -1380,8 +1420,8 @@
           "name": "Aye!",
           "color": 8421504,
           "position": {
-            "x": 5.25731,
-            "y": 18.50651,
+            "x": 0.5257310000000001,
+            "y": 1.850651,
             "z": 0
           },
           "opacity": 0.75,
@@ -1391,7 +1431,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         },
         {
@@ -1413,8 +1453,8 @@
           "color": 8421504,
           "position": {
             "x": 0,
-            "y": 15.25731,
-            "z": 8.50651
+            "y": 1.5257310000000002,
+            "z": 0.850651
           },
           "opacity": 0.75,
           "label": {
@@ -1423,7 +1463,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -1458,8 +1498,8 @@
           "name": "Aye!",
           "color": 8421504,
           "position": {
-            "x": 5.25731,
-            "y": 18.50651,
+            "x": 0.5257310000000001,
+            "y": 1.850651,
             "z": 0
           },
           "opacity": 0.75,
@@ -1469,7 +1509,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         },
         {
@@ -1491,8 +1531,8 @@
           "color": 8421504,
           "position": {
             "x": 0,
-            "y": 15.25731,
-            "z": -8.50651
+            "y": 1.5257310000000002,
+            "z": -0.850651
           },
           "opacity": 0.75,
           "label": {
@@ -1501,7 +1541,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -1536,8 +1576,8 @@
           "name": "Aye!",
           "color": 8421504,
           "position": {
-            "x": 5.25731,
-            "y": 18.50651,
+            "x": 0.5257310000000001,
+            "y": 1.850651,
             "z": 0
           },
           "opacity": 0.75,
@@ -1547,7 +1587,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         },
         {
@@ -1568,9 +1608,9 @@
           "name": "Ox",
           "color": 8421504,
           "position": {
-            "x": 8.50651,
-            "y": 10,
-            "z": -5.25731
+            "x": 0.850651,
+            "y": 1,
+            "z": -0.5257310000000001
           },
           "opacity": 0.75,
           "label": {
@@ -1579,7 +1619,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -1614,9 +1654,9 @@
           "name": "WTF",
           "color": 8421504,
           "position": {
-            "x": -8.50651,
-            "y": 10,
-            "z": 5.25731
+            "x": -0.850651,
+            "y": 1,
+            "z": 0.5257310000000001
           },
           "opacity": 0.75,
           "label": {
@@ -1625,7 +1665,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         },
         {
@@ -1647,8 +1687,8 @@
           "color": 8421504,
           "position": {
             "x": 0,
-            "y": 15.25731,
-            "z": 8.50651
+            "y": 1.5257310000000002,
+            "z": 0.850651
           },
           "opacity": 0.75,
           "label": {
@@ -1657,7 +1697,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -1692,9 +1732,9 @@
           "name": "WTF",
           "color": 8421504,
           "position": {
-            "x": -8.50651,
-            "y": 10,
-            "z": 5.25731
+            "x": -0.850651,
+            "y": 1,
+            "z": 0.5257310000000001
           },
           "opacity": 0.75,
           "label": {
@@ -1703,7 +1743,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         },
         {
@@ -1725,8 +1765,8 @@
           "color": 8421504,
           "position": {
             "x": 0,
-            "y": 15.25731,
-            "z": -8.50651
+            "y": 1.5257310000000002,
+            "z": -0.850651
           },
           "opacity": 0.75,
           "label": {
@@ -1735,7 +1775,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -1771,8 +1811,8 @@
           "color": 8421504,
           "position": {
             "x": 0,
-            "y": 15.25731,
-            "z": -8.50651
+            "y": 1.5257310000000002,
+            "z": -0.850651
           },
           "opacity": 0.75,
           "label": {
@@ -1781,7 +1821,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         },
         {
@@ -1802,8 +1842,8 @@
           "name": "Institutions",
           "color": 8421504,
           "position": {
-            "x": -5.25731,
-            "y": 2.50651,
+            "x": -0.5257310000000001,
+            "y": 0.250651,
             "z": 0
           },
           "opacity": 0.75,
@@ -1813,7 +1853,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -1848,9 +1888,9 @@
           "name": "WTF",
           "color": 8421504,
           "position": {
-            "x": -8.50651,
-            "y": 10,
-            "z": 5.25731
+            "x": -0.850651,
+            "y": 1,
+            "z": 0.5257310000000001
           },
           "opacity": 0.75,
           "label": {
@@ -1859,7 +1899,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         },
         {
@@ -1881,8 +1921,8 @@
           "color": 8421504,
           "position": {
             "x": 0,
-            "y": 5.25731,
-            "z": -8.50651
+            "y": 0.5257310000000001,
+            "z": -0.850651
           },
           "opacity": 0.75,
           "label": {
@@ -1891,7 +1931,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -1926,9 +1966,9 @@
           "name": "n00b",
           "color": 8397835,
           "position": {
-            "x": 14.50651,
-            "y": 10,
-            "z": 5.25731
+            "x": 1.4506510000000001,
+            "y": 1,
+            "z": 0.5257310000000001
           },
           "opacity": 0.2,
           "label": {
@@ -1937,7 +1977,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.2,
+          "radius": 0.020000000000000004,
           "shape": "sphere"
         },
         {
@@ -1958,9 +1998,9 @@
           "name": "n00c",
           "color": 65280,
           "position": {
-            "x": 22,
-            "y": 5.25731,
-            "z": 8.50651
+            "x": 2.2,
+            "y": 0.5257310000000001,
+            "z": 0.850651
           },
           "opacity": 0.7,
           "label": {
@@ -1969,7 +2009,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -2004,9 +2044,9 @@
           "name": "n00a",
           "color": 16744448,
           "position": {
-            "x": 22,
-            "y": 15.25731,
-            "z": 8.50651
+            "x": 2.2,
+            "y": 1.5257310000000002,
+            "z": 0.850651
           },
           "opacity": 0.4,
           "label": {
@@ -2015,7 +2055,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 1,
+          "radius": 0.1,
           "shape": "sphere"
         },
         {
@@ -2036,9 +2076,9 @@
           "name": "n00c",
           "color": 65280,
           "position": {
-            "x": 22,
-            "y": 5.25731,
-            "z": 8.50651
+            "x": 2.2,
+            "y": 0.5257310000000001,
+            "z": 0.850651
           },
           "opacity": 0.7,
           "label": {
@@ -2047,7 +2087,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -2082,9 +2122,9 @@
           "name": "n00b",
           "color": 8397835,
           "position": {
-            "x": 14.50651,
-            "y": 10,
-            "z": 5.25731
+            "x": 1.4506510000000001,
+            "y": 1,
+            "z": 0.5257310000000001
           },
           "opacity": 0.2,
           "label": {
@@ -2093,7 +2133,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.2,
+          "radius": 0.020000000000000004,
           "shape": "sphere"
         },
         {
@@ -2114,9 +2154,9 @@
           "name": "n00a",
           "color": 16744448,
           "position": {
-            "x": 22,
-            "y": 15.25731,
-            "z": 8.50651
+            "x": 2.2,
+            "y": 1.5257310000000002,
+            "z": 0.850651
           },
           "opacity": 0.4,
           "label": {
@@ -2125,7 +2165,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 1,
+          "radius": 0.1,
           "shape": "sphere"
         }
       ],
@@ -2160,9 +2200,9 @@
           "name": "Ox",
           "color": 8421504,
           "position": {
-            "x": 8.50651,
-            "y": 10,
-            "z": -5.25731
+            "x": 0.850651,
+            "y": 1,
+            "z": -0.5257310000000001
           },
           "opacity": 0.75,
           "label": {
@@ -2171,7 +2211,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         },
         {
@@ -2193,8 +2233,8 @@
           "color": 8421504,
           "position": {
             "x": 0,
-            "y": 15.25731,
-            "z": 8.50651
+            "y": 1.5257310000000002,
+            "z": 0.850651
           },
           "opacity": 0.75,
           "label": {
@@ -2203,7 +2243,7 @@
           },
           "labelOpacity": null,
           "src": null,
-          "radius": 0.5,
+          "radius": 0.05,
           "shape": "sphere"
         }
       ],
@@ -2219,5 +2259,13 @@
       "labelColor": 8421504
     }
   ],
+  "guides": {
+    "circles": [],
+    "points": [],
+    "faces": [],
+    "lines": [],
+    "planes": []
+  },
+  "guideGroups": [],
   "groups": []
 }
