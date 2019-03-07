@@ -13,34 +13,10 @@ function initAddNodeTool(){
 
 initAddNodeTool();
 
-var addNodeToolPointFollowMouse = function( e ){
-	
-//	var mousePoint = getMousePoint();
-	var mousePoint = snapToNearestSnapObj( getMousePoint() );	
-	
-	if ( addNodeToolState.point ){ 
-		movePointTo( addNodeToolState.point, mousePoint );	
-	}
-}
+var addNodeToolPointFollowMouse = function( e ){ pointFollowMouse( e, addNodeToolState.point ); }
+var addNodeLineFollowMouse = function( e ){ heightMarkerFollowMouse( e, addNodeToolState.addNodeLine ); }
 
-var addNodeLineStartFollowMouse = function( e ){
-	
-	var startPoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents ); 
-	
-	var startXZ = new THREE.Vector3( startPoint.x, 0, startPoint.z );
-	
-	lineStartToPoint ( addNodeToolState.addNodeLine, startXZ );
-}
-
-var addNodeLineEndFollowMouse = function( e ){
-	
-	var endPoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents ); 
-	
-	lineEndToPoint ( addNodeToolState.addNodeLine, endPoint );
-}
-
-
-function initAddNodeToolPoint( e ){
+function initAddNodeToolPoint( e ){ 
 	
 	if ( !addNodeToolState.point ){
 		
@@ -79,8 +55,7 @@ function initAddNodeToolLine( e ){
 	document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initAddNodeToolLine, false );
 	
 	// And then we'll add a new listener that has the line follow the mouse.
-	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addNodeLineStartFollowMouse, false );
-	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addNodeLineEndFollowMouse, false );		
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addNodeLineFollowMouse, false );
 }
 
 var addNodeWithTool = function( e ){
@@ -96,9 +71,8 @@ function addNodeTool( position ){
 	var lineStart = new THREE.Vector3();
 	
 	var lineEnd = position;
-			
-	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addNodeLineStartFollowMouse, false );
-	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addNodeLineEndFollowMouse, false );
+		
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addNodeLineFollowMouse, false );		
 	document.getElementById('visualizationContainer').addEventListener( 'click', addNodeWithTool, false );
 	
 }
@@ -114,9 +88,8 @@ function bailAddNodeTool(){
 		scene.remove( addNodeToolState.point.displayEntity );	
 		addNodeToolState.point = null;
 	}
-	
-	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addNodeLineStartFollowMouse, false );	
-	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addNodeLineEndFollowMouse, false );		
+
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addNodeLineFollowMouse, false );		
 	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addNodeToolPointFollowMouse, false );
 	document.getElementById('visualizationContainer').removeEventListener( 'click', addNodeWithTool, false );	
 }

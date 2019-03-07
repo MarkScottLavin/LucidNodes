@@ -1,6 +1,6 @@
 /* SCENEETUP.JS
  * Name: Scene Setup
- * version 0.1.30
+ * version 0.1.31
  * Author: Mark Scott Lavin 
  * License: MIT
  * For Changelog see README.txt
@@ -240,9 +240,12 @@ function cameras() {
 	
 	camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, worldExtents * 1.5 );
 	
+	camera.receiveShadow = true;
+	camera.castShadow = true;
+	
 	camera.position.init = function( camera ){
 			
-			camera.position.set( 0, 1.6, 20 );
+			camera.position.set( 0, 1.6, 2 );
 			camera.lookAt(new THREE.Vector3( 0, 1.6, 0 ));
 			camera.up = new THREE.Vector3( 0,1,0 );
 			debug.master && debug.cameras && console.log ('Camera Position Initialized: ' , camera.position );			
@@ -261,6 +264,9 @@ function initRenderer() {
 	
 	renderer = new THREE.WebGLRenderer({ alpha: true });
 	renderer.setClearColor( 0xffffff, 1 );
+	renderer.shadowMap.enabled = true;
+	renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap	
+	
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.domElement.setAttribute( 'id' , 'renderSpace' );
 	renderer.domElement.setAttribute( 'class' , 'threeWebGLRenderer' );
@@ -304,28 +310,33 @@ function groundColor( color ){
 
 function lights() {
 	
+	var ambientLight = new THREE.AmbientLight( 0xffffff, 0.3 );
+	scene.add( ambientLight);
+	
 	sceneChildren.lights = [];
 	
-	sceneChildren.lights.push( new THREE.PointLight( 0xffffff, 7, 1000 ) );
-	sceneChildren.lights.push( new THREE.PointLight( 0xffffff, 7, 1000 ) );
-	sceneChildren.lights.push( new THREE.SpotLight( 0xffffff, 0.5 ) );
-	
-	sceneChildren.lights[0].position.set( 500,500,500 );
-	sceneChildren.lights[1].position.set( -500,500,-500 );
-	sceneChildren.lights[2].position.set( 0, 100, 1000 );
+//	sceneChildren.lights.push( new THREE.DirectionalLight( 0xffffff, 3 ) );	
+	sceneChildren.lights.push( new THREE.PointLight( 0xffffff, 1, 1000 ) );
+//	sceneChildren.lights.push( new THREE.PointLight( 0xffffff, 1, 1000 ) );
+
+//	sceneChildren.lights[0].position.set( 0, 100, 0 );	
+	sceneChildren.lights[0].position.set( 50, 50,50 );
+//	sceneChildren.lights[1].position.set( -50,50,-50 );
 	
 	for ( var n = 0; n < sceneChildren.lights.length; n++ ){
 
 		sceneChildren.lights[ n ].castShadow = true;
-		sceneChildren.lights[ n ].shadow.camera.near = 200;
+		sceneChildren.lights[ n ].shadow.camera.near = camera.near;
 		sceneChildren.lights[ n ].shadow.camera.far = camera.far;
-		sceneChildren.lights[ n ].shadow.camera.fov = 50;
-		sceneChildren.lights[ n ].shadow.bias = -0.00022;
+//		sceneChildren.lights[ n ].shadow.bias = -0.00022;
 		sceneChildren.lights[ n ].shadow.mapSize.width = 1024;
-		sceneChildren.lights[ n ].shadow.mapSize.height = 1024;	
+		sceneChildren.lights[ n ].shadow.mapSize.height = 1024;
+//		sceneChildren.lights[ n ].shadow.darkness = 0.5;	
 		
 		scene.add( sceneChildren.lights[ n ] );	
 		
+//		var helper = new THREE.CameraHelper( sceneChildren.lights[ n ].shadow.camera );
+//		scene.add( helper );
 	}
 	
 	debug.master && debug.lights && console.log ( 'lights(): ', sceneChildren.lights );
@@ -368,7 +379,7 @@ function materials() {
 			channelDecVal > 0 ? hex = channelDecVal.toString(16) : hex = '00'.toString(16) ; 
 			return hex;
 		},
-		ground: new THREE.MeshBasicMaterial( {color: 0xdddddd, side: THREE.DoubleSide, transparent: true, opacity: 0.5} ),
+		ground: new THREE.MeshLambertMaterial( {color: 0xdddddd, side: THREE.DoubleSide, transparent: true, opacity: 0.5} ),
 		line: {
 				dashed:{
 						red: new THREE.LineDashedMaterial ({ color: 0xff0000, dashSize: 0.1, gapSize: 0.1,	linewidth: 3 }),
@@ -457,13 +468,14 @@ var entities = function(){
 				this.xSize = parameters.xSize || worldExtents;
 				this.zSize = parameters.zSize || worldExtents;
 				this.heightOffset = parameters.heightOffset || 0.001;
-				this.opacity = parameters.opacity || 0.5;
+				this.opacity = parameters.opacity || /* 0.5 */ 1;
 				
 				this.groundBuffer = new THREE.PlaneBufferGeometry( this.xSize, this.zSize, 1 );
 				this.groundMesh = new THREE.Mesh( this.groundBuffer , sceneChildren.materials.ground );
 				
 				this.groundMesh.rotation.x = Math.PI / 2;
 				this.groundMesh.position.y = this.heightOffset;
+				this.groundMesh.receiveShadow = true;
 				this.groundMesh.name = parameters.name || "ground";				
 				
 				scene.add( this.groundMesh );
@@ -478,7 +490,7 @@ var entities = function(){
 	};
 	
 	//	Render the Ground
-	sceneChildren.geometries.constant.ground( { xSize: worldExtents , zSize: worldExtents, heightOffset: -0.001, opacity: 0.5, name: "groundPlane" } );
+	sceneChildren.geometries.constant.ground( { xSize: worldExtents / 20 , zSize: worldExtents / 20, heightOffset: -0.001, opacity: 0.5 , name: "groundPlane" } );
 
 };
 

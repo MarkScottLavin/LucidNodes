@@ -35,15 +35,7 @@ function initRotTool0Point( e ){
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', rotToolPoint0FollowMouse, false );	
 }
 
-var rotToolPoint0FollowMouse = function( e ){
-	
-	var mousePoint = snapToNearestSnapObj( getMousePoint() );
-	
-	if ( rotToolState.points[0] ){ 
-		movePointTo( rotToolState.points[0], mousePoint );	
-	}
-}
-
+var rotToolPoint0FollowMouse = function( e ){ pointFollowMouse( e, rotToolState.points[0] ); }
 
 var angleLine0ToMouse = function( e ){
 	

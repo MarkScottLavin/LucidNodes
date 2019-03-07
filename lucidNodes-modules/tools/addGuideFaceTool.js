@@ -35,14 +35,7 @@ function initAddGuideFaceTool0Point( e ){
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideFaceToolPoint0FollowMouse, false );	
 }
 
-var addGuideFaceToolPoint0FollowMouse = function( e ){
-	
-	var mousePoint = snapToNearestSnapObj( getMousePoint() );
-	
-	if ( addGuideFaceToolState.points[0] ){ 
-		movePointTo( addGuideFaceToolState.points[0], mousePoint );	
-	}
-}
+var addGuideFaceToolPoint0FollowMouse = function( e ){ pointFollowMouse( e, addGuideFaceToolState.points[0] ); }
 
 var faceEdge0ToMouse = function( e ){
 	

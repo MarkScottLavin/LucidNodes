@@ -1,6 +1,6 @@
 /****************************************************
 	* LUCIDNODES.JS: 
-	* Version 0.1.33.1
+	* Version 0.1.35
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -20,7 +20,6 @@ Array.prototype.clone = function() {
 // We'll auto-generate Node Id's as Base 36 integers. 
 
 var nodeCounter = 0;
-var paneCounter = 0;
 var groupCounter = 0;
 var guideCounter = 0;
 var guideGroupCounter = 0;
@@ -33,10 +32,6 @@ var encodeId = function( type, counter ){
 		prefix = "n"; 
 		b36string = nodeCounter.toString( 36 );
 		nodeCounter++; }
-	else if ( type === "pane" ){
-		prefix = "p";
-		b36string = paneCounter.toString( 36 );
-		paneCounter++ }
 	else if ( type === "guide" ){ 
 		prefix = "g";
 		b36string = guideCounter.toString( 36 );
@@ -128,7 +123,7 @@ var globalAppSettings = {
 	defaultNodeOpacity: /* 0.75, */ 1,
 	defaultLabelScale: { x: 0.4, y: 0.2, z: 1 },
 	defaultEdgeColor: 0x808080,
-	defaultEdgeThickness: 0.4,
+	defaultEdgeThickness: 0.04,
 	defaultEdgeLineType: "solid" /* dashed */,
 	defaultEdgeOpacity: /* 0.5, */ 1,
 	defaultGuideOpacity: 0.5,
@@ -143,7 +138,8 @@ var globalAppSettings = {
 	centroidSize: 0.025,
 	weightedCentroidColor: 0x0088ff,
 	weightedCentroidSize: 0.025,
-	camPerpendicularPlaneDist: 0.9
+	camPerpendicularPlaneDist: 0.9,
+	rayCastLinePrecision: 0.05
 }
 
 // THE LUCIDNODE MASTER OBJECT
@@ -160,13 +156,9 @@ var LUCIDNODES = {
 		} 
 	},
 	showNodeArrayCentroid: function( nodeArr ){
-//		nodeArr.centroid = LUCIDNODES.nodeArrayCentroid( nodeArr );
-//		nodeArr.centroid.point = new Point( nodeArr.centroid, globalAppSettings.centroidSize, globalAppSettings.centroidColor );	
 		return new Point( LUCIDNODES.nodeArrayCentroid( nodeArr ), globalAppSettings.centroidSize, globalAppSettings.centroidColor );
 	},
 	showNodeArrayWeightedCentroid: function( nodeArr, weightingProp ){
-//		nodeArr.weightedCentroid = LUCIDNODES.nodeArrayWeightedCentroid( nodeArr, weightingProp );
-//		nodeArr.weightedCentroid.point = new Point( nodeArr.weightedCentroid, globalAppSettings.weightedCentroidSize, globalAppSettings.weightedCentroidColor );	
 		return new Point( LUCIDNODES.nodeArrayWeightedCentroid( nodeArr, weightingProp ), globalAppSettings.weightedCentroidSize, globalAppSettings.weightedCentroidColor );	
 	},
 	
@@ -189,25 +181,6 @@ var LUCIDNODES = {
 		
 		debug.master && debug.positioning && console.log( "nodePositionComparison: ", this.relativePosition );
 		return this.relativePosition;	
-	},
-	
-	Pane: function( parameters ){
-		
-		this.isLucidNodesEntity = true;
-		this.isPane = true;
-		this.id = parameters.id || encodeId( "pane" , paneCounter );
-		this.id.referent = this;
-		
-		this.position = new THREE.Vector3( parameters.position.x, parameters.position.y, parameters.position.z ) || new THREE.Vector3( 0, -2, -2 );
-		
-		this.color = new THREE.Color();
-		if ( parameters.color ){ this.color.set( parameters.color ); }
-		else if ( parameters.color === 0 ){ this.color.set( 0x000000 ); }
-		else { this.color.set( globalAppSettings.defaultNodeColor ); }
-
-		this.opacity = parameters.opacity || globalAppSettings.defaultNodeOpacity;
-		this.material = new THREE.MeshPhongMaterial( {color: this.color } );
-		this.material.opacity = this.opacity;			
 	},
 	
 	// SINGLE NODE
@@ -414,7 +387,7 @@ var LUCIDNODES = {
 	 * @author Mark Scott Lavin /
 	 *
 	 * parameters = {
-	 *  nodes: <array>\ [ node[0], node[1] ]
+	 *  nodes: <array> [ node[0], node[1] ]
 	 * 	id: <string>
 	 *  name: <string>
 	 *  color: <obj> {r: <integer>, g: <integer>, b: <integer> },
@@ -619,7 +592,7 @@ function createNodeDisplayEntity( node ){
 	node.displayEntity.graphElementPartType = "nodeDisplayEntity";
 	node.partsInScene.push( node.displayEntity );
 	node.displayEntity.castShadow = node.castShadow;
-	node.displayEntity.receiveShadow = node.receiveShadow;
+	node.displayEntity.receiveShadow = false;
 	
 	node.displayEntity.referent = node;
 	
@@ -689,35 +662,6 @@ function centerExtrude( geometry, thickness ){
 		geometry.applyMatrix ( new THREE.Matrix4().makeTranslation( 0, 0, -( thickness / 2 ) ) );
 		geometry.verticesNeedUpdate = true;
 	}
-}
-
-function createNodeDisplayEntity2( node ){
-	
-	if ( node.shape === "sphere" ){ 
-		node.bufferGeom = new THREE.SphereBufferGeometry( node.radius, 32, 32 );
-	}
-	if ( node.shape === "cube" ){
-		var cubeEdge = _Math.cubeEdgeInscribeInSphere( node.radius );
-		node.bufferGeom = new THREE.BoxBufferGeometry( cubeEdge, cubeEdge, cubeEdge );
-	}	
-	
-	node.displayEntity = new THREE.Mesh( node.bufferGeom, node.material );
-	node.displayEntity.isLucidNodesEntityPart = true;
-	node.displayEntity.lucidNodesEntityPartType = "nodeDisplayEntity";	
-	node.displayEntity.isGraphElementPart = true;  // This can be simplified...
-	node.displayEntity.graphElementPartType = "nodeDisplayEntity"
-	node.displayEntity.referent = node;			// This simply becomes "parent"
-	
-	node.displayEntity.rotation.setFromQuaternion( node.displayEntityRotation );
-	node.displayEntity.applyQuaternion( node.displayEntityQuaternion );
-	
-	//node.displayEntity.position.copy( node.position ); This defaults to { 0, 0, 0 }
-	
-	//applyNodeRotationByShape( node );
-	rotationByShape( node ); // This ok as is.
-	
-	node.add( node.displayEntity ); 	
-	
 }
 
 function rotationByShape( node ){
@@ -1622,17 +1566,6 @@ function getPlaneIntersectPointRecursive( plane ){
 	else { return backup }
 }
 
-function changeGraphElementLabelText( graphElement, string ){
-	
-	var label = graphElement.label;
-	
-	changeLucidNodesEntityName( graphElement, string );
-	
-	label.displayEntity.text = string;
-	label.displayEntity.changeText( string );
-	
-}
-
 function changeLucidNodesEntityName( entity, string ){
 	
 	if ( entity.isLucidNodesEntity && entity.hasOwnProperty( "name" ) ){
@@ -1736,28 +1669,6 @@ function clearAll(){
 
 // End Deletion Handling
 
-function createPaneDisplayEntity( pane ){
-	
-	pane.displayEntity = new THREE.Mesh(new THREE.PlaneBufferGeometry( pane.size.x, pane.size.y, 8, 8), new THREE.MeshBasicMaterial( { color: 0xffffff, alphaTest: 0 }));
-	pane.displayEntity.isLucidNodesEntityPart = true;
-	pane.displayEntity.lucidNodesEntityPartType = "paneDisplayEntity";	
-	pane.displayEntity.isGraphElementPart = true;
-	pane.displayEntity.graphElementPartType = "paneDisplayEntity";
-	pane.displayEntity.referent = pane;
-	
-	pane.displayEntity.position.copy( pane.position );
-	
-	scene.add( pane.displayEntity ); 	
-}
-
-// Enable objects to aways face the camera
-
-function objectFaceCamera( obj3D, camera ){
-	
-	obj3D.quaternion.copy( camera.quaternion );
-
-}
-
 /* Preseving position & rotation */
 
 /*
@@ -1779,8 +1690,6 @@ function getGlobalPosition( element ){
 	
 	return globalPosition;
 }
-
-
 
 
 /* Searching for Text Content */

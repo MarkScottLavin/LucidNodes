@@ -14,12 +14,31 @@ function lineEndToPoint( line, endPosition ){
 	line.geometry.verticesNeedUpdate = true;
 }
 
+function heightMarkerFollowMouse( e, line ){
+	
+	let marker = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents ); 
+	let floor = new THREE.Vector3( marker.x, 0, marker.z );
+	
+	lineStartToPoint ( line, marker );	 
+	lineEndToPoint ( line, floor );
+	
+}
+
 function movePointTo( point, position ){
 	
 	var p = limitPositionToExtents( position, workspaceExtents );	
 	
 	point.position = { x: p.x, y: p.y, z: p.z };
 	point.displayEntity.position.copy( point.position );
+}
+
+function pointFollowMouse( e, point ){
+	
+	var mousePoint = snapToNearestSnapObj( getMousePoint() );	
+	
+	if ( point && point.isPoint ){ 
+		movePointTo( point, mousePoint );	
+	}		
 }
 
 function getNodePositionsRelativeTo( ptPosition, nodeArr ){

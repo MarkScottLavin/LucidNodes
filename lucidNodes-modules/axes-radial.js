@@ -43,7 +43,7 @@ function RadialAxialCircles( extents = 10, spacing = 1, plane = "xz", parent = s
 	for ( var c = 0; c < count; c++ ){
 		
 		radius = spacing * c ; 
-		circles.push( new circle( parent.radialCircles, radius, 48 ) ); 
+		circles.push( new circle({ parent: parent.radialCircles, radius: radius, segments: 48 } )); 
 		
 		//radialCircles.add( circles[ c ] );
 	}

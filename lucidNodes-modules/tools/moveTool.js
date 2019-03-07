@@ -33,14 +33,7 @@ function initMoveTool0Point( e ){
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', moveToolPoint0FollowMouse, false );	
 }
 
-var moveToolPoint0FollowMouse = function( e ){
-	
-	var mousePoint = snapToNearestSnapObj( getMousePoint() );
-	
-	if ( moveToolState.points[0] ){ 
-		movePointTo( moveToolState.points[0], mousePoint );	
-	}
-}
+var moveToolPoint0FollowMouse = function( e ){ pointFollowMouse( e, moveToolState.points[0] ); }
 
 var moveToolPoint1FollowMouse = function( e ){
 	

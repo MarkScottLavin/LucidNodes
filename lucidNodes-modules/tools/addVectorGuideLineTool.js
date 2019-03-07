@@ -33,14 +33,7 @@ function initAddVectorGuideLineTool0Point( e ){
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addVectorGuideLineToolPoint0FollowMouse, false );	
 }
 
-var addVectorGuideLineToolPoint0FollowMouse = function( e ){
-	
-	var mousePoint = snapToNearestSnapObj( getMousePoint() );
-	
-	if ( addVectorGuideLineToolState.points[0] ){ 
-		movePointTo( addVectorGuideLineToolState.points[0], mousePoint );	
-	}
-}
+var addVectorGuideLineToolPoint0FollowMouse = function( e ){ pointFollowMouse( e, addVectorGuideLineToolState.points[0] ); }
 
 var addVectorGuideLineToolPoint1FollowMouse = function( e ){
 	

@@ -10,36 +10,15 @@ function initAddGuideCircleTool(){
 		point: null,
 		proposedCircle: null,
 		addGuideCircleHeightMarker: null,
+		quaternion: null,
 		keyRadius: 0
 	}
 }
 
 initAddGuideCircleTool();
 
-var addGuideCircleToolPointFollowMouse = function( e ){
-	
-	var mousePoint = snapToNearestSnapObj( getMousePoint() );	
-	
-	if ( addGuideCircleToolState.point ){ 
-		movePointTo( addGuideCircleToolState.point, mousePoint );	
-	}
-}
-
-var addGuideCircleHeightStartFollowMouse = function( e ){
-	
-	var startPoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents ); 
-	
-	var startXZ = new THREE.Vector3( startPoint.x, 0, startPoint.z );
-	
-	lineStartToPoint ( addGuideCircleToolState.addGuideCircleHeightMarker, startXZ );
-}
-
-var addGuideCircleHeightEndFollowMouse = function( e ){
-	
-	var endPoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents ); 
-	
-	lineEndToPoint ( addGuideCircleToolState.addGuideCircleHeightMarker, endPoint );
-}
+var addGuideCircleToolPointFollowMouse = function( e ){ pointFollowMouse( e, addGuideCircleToolState.point ); }
+var addGuideCircleHeightMarkerFollowMouse = function( e ){ heightMarkerFollowMouse( e, addGuideCircleToolState.addGuideCircleHeightMarker ); }
 
 var addGuideCircleCenterFollowMouse = function( e ){
 	 
@@ -48,8 +27,7 @@ var addGuideCircleCenterFollowMouse = function( e ){
 		var mousePoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents );
 		addGuideCircleToolState.proposedCircle.displayEntity.position.set( mousePoint.x, mousePoint.y, mousePoint.z );
 
-	}
-	
+	}	
 }
 
 var addGuideCircleRadiusFollowMouse = function( e ){
@@ -59,19 +37,21 @@ var addGuideCircleRadiusFollowMouse = function( e ){
 		var mousePoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents );
 		var center = addGuideCircleToolState.proposedCircle.displayEntity.position;		
 		
-		var dist = new THREE.Vector3();
-		dist.subVectors( mousePoint, center ); 
-		
-		var stretch = Math.max( dist.x, dist.y );
+		var stretch = mousePoint.distanceTo( center );
 		
 		addGuideCircleToolState.proposedCircle.radius = stretch;		
-		addGuideCircleToolState.proposedCircle.displayEntity.scale.set( stretch, stretch, 1 );
+		addGuideCircleToolState.proposedCircle.displayEntity.scale.set( stretch * 10, stretch * 10, 1 );
 
 	}	
 }
+var addGuideCircleQuaternionFollowMouse = function( e ){
+	
+	if ( addGuideCircleToolState.proposedCircle ){
+		addGuideCircleToolState.proposedCircle.displayEntity.setRotationFromQuaternion( getToolQuaternion() );
+	};
+}
 
 var initAddGuideCircleToolProposedCircle = function( e ){
-		
 
 	if ( !addGuideCircleToolState.point ){
 		
@@ -82,7 +62,7 @@ var initAddGuideCircleToolProposedCircle = function( e ){
 	
 	if ( !addGuideCircleToolState.proposedCircle ){
 
-		addGuideCircleToolState.proposedCircle = new circle();	
+		addGuideCircleToolState.proposedCircle = new circle({ quaternionForRotation: getToolQuaternion() });	
 	}
 
 	// Now that we've initialized the toolpoint, we can remove the listener.
@@ -90,8 +70,7 @@ var initAddGuideCircleToolProposedCircle = function( e ){
 	
 	// And then we'll add a new listener that has the point follow the mouse.
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideCircleToolPointFollowMouse, false );
-	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideCircleHeightStartFollowMouse, false );
-	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideCircleHeightEndFollowMouse, false );
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideCircleHeightMarkerFollowMouse, false );
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideCircleCenterFollowMouse, false );	
 	
 }
@@ -127,7 +106,7 @@ function addGuideCircleWithTool(){
 	var center = addGuideCircleToolState.proposedCircle.displayEntity.position.clone();
 	var radius = addGuideCircleToolState.proposedCircle.radius;
 	 
-	addGuideCircle( { radius: radius, position: center, thetaStart: addGuideCircleToolState.proposedCircle.thetaStart, thetaLength: addGuideCircleToolState.thetaLength, visible: true, definedBy: [ "user" ] } ) 
+	addGuideCircle( { radius: radius, position: center, thetaStart: addGuideCircleToolState.proposedCircle.thetaStart, thetaLength: addGuideCircleToolState.thetaLength, visible: true, definedBy: [ "user" ], quaternionForRotation: getToolQuaternion() } ) 
 	
 } 
 
@@ -147,7 +126,7 @@ function addGuideCircleTool( position ){
 			sceneChildren.browserControls.enabled = false;				
 		}		
 		
-		document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideCircleRadiusFollowMouse, false );
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideCircleRadiusFollowMouse, false );		
 		
 		addGuideCircleToolState.clickCount++;
 		return;
@@ -199,9 +178,8 @@ function bailAddGuideCircleTool(){
 		addGuideCircleToolState.proposedCircle = null;
 	}	
 	
-	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addGuideCircleRadiusFollowMouse, false );	
-	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addGuideCircleHeightStartFollowMouse, false );	
-	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addGuideCircleHeightEndFollowMouse, false );
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addGuideCircleRadiusFollowMouse, false );
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addGuideCircleHeightMarkerFollowMouse, false );	
 	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addGuideCircleCenterFollowMouse, false );	
 	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addGuideCircleToolPointFollowMouse, false );
 
@@ -213,6 +191,33 @@ function bailAddGuideCircleTool(){
 
 
 /* TOOL-SPECIFIC KEYHANDLING */
+
+function getToolQuaternion(){
+		
+	var quaternion = new THREE.Quaternion();
+	
+	// If no key is down, force the quaternion to match that of the camera.
+	if ( !keysPressed.keys.includes( "a" ) && !keysPressed.keys.includes ( "b" ) && !keysPressed.keys.includes ( "c" ) ){	
+		quaternion = camera.quaternion;
+	}	
+	
+	// If only "a" is down, force the quaternion to have the circle face the x-axis.	
+	if ( keysPressed.keys.includes ( "a" ) && !keysPressed.keys.includes( "b" ) && !keysPressed.keys.includes( "c" ) ){
+		quaternion = new THREE.Quaternion().setFromEuler( new THREE.Euler( 0, ( Math.PI / 2 ), 0, "XYZ") );
+	}	
+	
+	// If only "b" is down, force the quaternion to have the circle face the y-axis.
+	if ( keysPressed.keys.includes ( "b" ) && !keysPressed.keys.includes( "a" ) && !keysPressed.keys.includes( "c" ) ){
+		quaternion = new THREE.Quaternion().setFromEuler( new THREE.Euler( ( Math.PI / 2 ), 0, 0, "XYZ") );
+	}
+	
+	// If only "c" is down, force the quaternion to have the circle face the z-axis.
+	if ( keysPressed.keys.includes ( "c" ) && !keysPressed.keys.includes( "a" ) && !keysPressed.keys.includes( "b" ) ){
+		quaternion = new THREE.Quaternion().setFromEuler( new THREE.Euler( 0, 0, ( Math.PI / 2 ), "XYZ") );	
+	}	
+	
+	return quaternion;
+}
 
 function onAddGuideCircleToolKeyUp( event ){
 	

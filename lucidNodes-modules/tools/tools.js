@@ -205,6 +205,7 @@ var toolState = {
 		addGuideLine: 0,
 		addVectorGuideLine: 0,
 		addGuideFace: 0,
+		drawRecctangle: 0,
 		toolIsActive: false
 };
 
@@ -330,15 +331,15 @@ function addToolListeners( tool = "select" ){
 	} 	
 	
 	if ( tool === "addGuideCircle" ){
-//		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , addGuideCircleCenterFollowMouse, false );
-		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initAddguideCircleToolHeightMarker, false );		
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initAddguideCircleToolHeightMarker, false );	
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideCircleQuaternionFollowMouse, false );		
 		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initAddGuideCircleToolProposedCircle, false );			
 		document.getElementById('visualizationContainer').addEventListener( 'mouseup' , activateAddGuideCircleTool, false );	
-		document.addEventListener( 'keyup', onAddGuideCircleToolKeyUp, false );		
+		document.addEventListener( 'keyup', onAddGuideCircleToolKeyUp, false );	
+	//	document.addEventListener( 'keydown', onAddGuideCircleToolKeyDown, false );			
 	} 	
 
 	if ( tool === "addVectorGuideLine" ){
-		
 		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initAddVectorGuideLineTool0Point, false );	
 		document.getElementById('visualizationContainer').addEventListener( 'mouseup', activateAddVectorGuideLineTool, false );
 		document.addEventListener( 'keyup', onAddVectorGuideLineToolKeyUp, false );	
@@ -350,6 +351,13 @@ function addToolListeners( tool = "select" ){
 		document.getElementById('visualizationContainer').addEventListener( 'mouseup', activateAddGuideFaceTool, false );
 		document.addEventListener( 'keyup', onAddGuideFaceToolKeyUp, false );		
 	}
+	
+	if ( tool === "drawRectangle" ){
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initDrawRectangleToolHeightMarker, false );		
+		document.getElementById('visualizationContainer').addEventListener( 'mousemove' , initDrawRectangleToolProposedCircle, false );			
+		document.getElementById('visualizationContainer').addEventListener( 'mouseup' , activateDrawRectangleTool, false );	
+		document.addEventListener( 'keyup', onDrawRectangleToolKeyUp, false );		
+	} 	
 }
 
 function removeToolListeners( tool ){
@@ -412,11 +420,12 @@ function removeToolListeners( tool ){
 	}
 
 	if ( tool === "addGuideCircle" ){
-//		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , addGuideCircleCenterFollowMouse, false );
-		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initAddguideCircleToolHeightMarker, false );		
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initAddguideCircleToolHeightMarker, false );
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addGuideCircleQuaternionFollowMouse, false );		
 		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initAddGuideCircleToolProposedCircle, false );	
 		document.getElementById('visualizationContainer').removeEventListener( 'mouseup' , activateAddGuideCircleTool, false );		
 		document.removeEventListener( 'keyup', onAddGuideCircleToolKeyUp, false );				
+//		document.removeEventListener( 'keydown', onAddGuideCircleToolKeyDown, false );				
 		bailAddGuideCircleTool();		
 	}  	
 	
@@ -436,7 +445,15 @@ function removeToolListeners( tool ){
 		document.removeEventListener( 'keyup', onAddGuideFaceToolKeyUp, false );			
 		bailAddGuideFaceTool();
 
-	}		
+	}	
+
+	if ( tool === "drawRectangle" ){
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initDrawRectangleToolHeightMarker, false );		
+		document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initDrawRectangleToolProposedCircle, false );	
+		document.getElementById('visualizationContainer').removeEventListener( 'mouseup' , activateDrawRectangleTool, false );		
+		document.removeEventListener( 'keyup', onDrawRectangleToolKeyUp, false );				
+		bailDrawRectangleTool();		
+	}  		
 	
 }
 
@@ -448,6 +465,7 @@ var activateAddGuideLineTool = function( e ){ addGuideLineTool( placeAtPlaneInte
 var activateAddGuideCircleTool = function( e ){ addGuideCircleTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
 var activateAddVectorGuideLineTool = function( e ){ addVectorGuideLineTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
 var activateAddGuideFaceTool = function( e ){ addGuideFaceTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
+var activateDrawRectangleTool = function( e ){ drawRectangleTool( placeAtPlaneIntersectionPoint( activeGuidePlane ) ); };
 var paintGraphElements = function( e ){ paintGraphElementOnMouseUp(); };
 var getGraphElementColor = function( e ){ selectGraphElementColorOnMouseUp(); };
 

@@ -1,6 +1,6 @@
 /****************************************************
 	* MOUSEBEHAVIOR.JS: 
-	* Version 0.1.33.1
+	* Version 0.1.35
 	* Author Mark Scott Lavin
 	* License: MIT
 	*
@@ -12,6 +12,7 @@
 
 // For Capturing what's intersected by the mouse
 var ray = new THREE.Raycaster();
+ray.linePrecision = globalAppSettings.rayCastLinePrecision;
 
 // For tracking mouse location on the 2D screen at Mouse Events
 var mouse = new THREE.Vector2();
@@ -62,10 +63,6 @@ function mouseEventHandler( event ){
 	// update presetGuides.planes.camPerpendicular to be perpendicular to the current camera direction.
 	presetGuides.planes.camPerpendicular.plane.quaternion.copy( camera.quaternion );
 	presetGuides.planes.camPerpendicular.plane.position.copy( cameraLookAtPosition( camera, globalAppSettings.camPerpendicularPlaneDist ) );
-	
-/*	if ( snap ){
-		var nearestIntersctedSnapPoint = nearestIntersectedSnapPoint();
-	}  */
 	
 	// get the nearest graphElement intersected by the picking ray. If no graphElement, return the nearest object
 	var nearestIntersected = nearestIntersectedObject3D();

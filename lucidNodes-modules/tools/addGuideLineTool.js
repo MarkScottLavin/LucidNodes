@@ -14,32 +14,8 @@ function initAddGuideLineTool(){
 
 initAddGuideLineTool();
 
-var addGuideLineToolPointFollowMouse = function( e ){
-	
-//	var mousePoint = getMousePoint();
-	var mousePoint = snapToNearestSnapObj( getMousePoint() );	
-	
-	if ( addGuideLineToolState.point ){ 
-		movePointTo( addGuideLineToolState.point, mousePoint );	
-	}
-}
-
-var addGuideLineHeightMarkerStartFollowMouse = function( e ){
-	
-	var startPoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents ); 
-	
-	var startXZ = new THREE.Vector3( startPoint.x, 0, startPoint.z );
-	
-	lineStartToPoint ( addGuideLineToolState.addGuideLineHeightMarker, startXZ );
-}
-
-var addGuideLineHeightMarkerEndFollowMouse = function( e ){
-	
-	var endPoint = limitPositionToExtents( snapToNearestSnapObj( getMousePoint() ), workspaceExtents ); 
-	
-	lineEndToPoint ( addGuideLineToolState.addGuideLineHeightMarker, endPoint );
-}
-
+var addGuideLineToolPointFollowMouse = function( e ){ pointFollowMouse( e, addGuideLineToolState.point ); }
+var addGuideLineHeightMarkerFollowMouse = function( e ){ heightMarkerFollowMouse( e, addGuideLineToolState.addGuideLineHeightMarker ); }
 
 var addGuideLineProposedLineFollowMouse = function( e ){
 	 
@@ -119,8 +95,7 @@ function initAddGuideLineToolLine( e ){
 	document.getElementById('visualizationContainer').removeEventListener( 'mousemove' , initAddGuideLineToolLine, false );
 	
 	// And then we'll add a new listener that has the line follow the mouse.
-	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideLineHeightMarkerStartFollowMouse, false );
-	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideLineHeightMarkerEndFollowMouse, false );	
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideLineHeightMarkerFollowMouse, false );	
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideLineProposedLineFollowMouse, false );		
 }
 
@@ -145,8 +120,7 @@ function addGuideLineTool( position ){
 	
 	var lineEnd = position;
 			
-	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideLineHeightMarkerStartFollowMouse, false );
-	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideLineHeightMarkerEndFollowMouse, false );
+	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideLineHeightMarkerFollowMouse, false );
 	document.getElementById('visualizationContainer').addEventListener( 'mousemove', addGuideLineProposedLineFollowMouse, false );	
 	document.getElementById('visualizationContainer').addEventListener( 'click', addGuideLineWithTool, false );
 	
@@ -169,8 +143,7 @@ function bailAddGuideLineTool(){
 		addGuideLineToolState.proposedLine = null;
 	}	
 	
-	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addGuideLineHeightMarkerStartFollowMouse, false );	
-	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addGuideLineHeightMarkerEndFollowMouse, false );
+	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addGuideLineHeightMarkerFollowMouse, false );
 	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addGuideLineProposedLineFollowMouse, false );	
 	document.getElementById('visualizationContainer').removeEventListener( 'mousemove', addGuideLineToolPointFollowMouse, false );
 	document.getElementById('visualizationContainer').removeEventListener( 'click', addGuideLineWithTool, false );	

@@ -14,9 +14,23 @@
  */
 
 
-function circle( parent = scene, radius = 1, segments, thetaStart = 0 , thetaLength = ( Math.PI * 2 ) ){
+/* function circle( parent = scene, radius = 1, segments, thetaStart = 0 , thetaLength = ( Math.PI * 2 ), quaternionForRotation ){  */
+
+function circle( parameters ){
 	
-	segments = segments !== undefined ? Math.max( 24, segments ) : 24;
+	parent = parameters.parent || scene; 
+	radius = parameters.radius || 0.1;
+	
+	thetaStart = parameters.thetaStart || 0;  
+	thetaLength = parameters.thetLength || ( Math.PI * 2 )
+	
+	if ( parameters.segments ){	segments = Math.ceil( Math.max( 48, parameters.segments ) ); }
+	else { segments = 48; }
+	
+	if ( parameters.quaternionForRotation ){
+		quaternionForRotation = new THREE.Quaternion( parameters.quaternionForRotation.x, parameters.quaternionForRotation.y, parameters.quaternionForRotation.z, parameters.quaternionForRotation.w );
+	}
+	else { quaternionForRotation = new THREE.Quaternion( 0, 0, 0, 1 ); }
 	
 	var vertices = [];
 	var vertex;
@@ -35,6 +49,7 @@ function circle( parent = scene, radius = 1, segments, thetaStart = 0 , thetaLen
 	}
 	
 	this.displayEntity = new THREE.Line( geometry, radialAxesMaterial );
+	this.displayEntity.quaternion.copy( quaternionForRotation );
 	
 	parent.add( this.displayEntity );
 
