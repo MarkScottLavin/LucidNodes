@@ -279,7 +279,7 @@ function onDblClick( event ){
 		ACTIVE_HIDDEN_TEXT_INPUT = x.hiddenInput;
 		positionInput( event, ACTIVE_HIDDEN_TEXT_INPUT );
 		ACTIVE_HIDDEN_TEXT_INPUT.focus();
-		changeLabelText2( x.label, ACTIVE_HIDDEN_TEXT_INPUT.value ) 
+		changeLabelText( x.label, ACTIVE_HIDDEN_TEXT_INPUT.value ) 
 		cursorInScene( "text" );
 	}
 }
@@ -386,7 +386,7 @@ function nearestIntersectedObject3D(){
 			
 			rayInPath = rayIn2DCanvasPath( graphElementsIntersectedByRay[g] );
 			
-			if ( graphElementsIntersectedByRay[g].object.isNewLabelType ){
+			if ( graphElementsIntersectedByRay[g].object.isLabel ){
 				
 				if ( rayInPath ){
 					nearest = graphElementsIntersectedByRay[g].object;
@@ -394,7 +394,7 @@ function nearestIntersectedObject3D(){
 				}						
 			}
 			
-			else if ( !graphElementsIntersectedByRay[g].object.isNewLabelType ){
+			else if ( !graphElementsIntersectedByRay[g].object.isLabel ){
 					nearest = graphElementsIntersectedByRay[g].object;
 					break;				
 			}		

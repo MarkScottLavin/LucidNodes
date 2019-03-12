@@ -33,14 +33,16 @@ globalAppSettings.labelCanvasMinPxSize = 300;
 LUCIDNODES.nodeLabel = function( parameters ) {
 		
 	this.isLucidNodesEntity = true;		
-	this.isNewLabelType = true;
+	this.isLabel = true;
 	this.isNodeLabel = true;
+	this.isForEntityType = "node";
 	
 	/* HANDLE PARAMETERS */
 	
 	if ( parameters === undefined ) parameters = {};
 	
 	this.node = parameters.hasOwnProperty("node") ? parameters["node"] : null;
+	this.entityFor = this.node;
 	
 	/* Text */
 	this.text = parameters.hasOwnProperty("text") ? parameters["text"] : "no text";
@@ -60,6 +62,7 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	this.backgroundOpacity = parameters.hasOwnProperty("backgroundOpacity") ? parameters["backgroundOpacity"] : globalAppSettings.defaultNodeLabelBackgroundOpacity;
 	this.backgroundColor.a = this.backgroundOpacity;
 	
+	/* Textline Thickness (Essentially fontweight) */
 	this.textLineThickness = parameters.hasOwnProperty("textLineThickness") ? parameters["textLineThickness"] : this.borderThickness;
 	this.paddingX = parameters.hasOwnProperty("paddingX") ? parameters["paddingX"] : this.textLineThickness;
 	this.paddingY = parameters.hasOwnProperty("paddingY") ? parameters["paddingY"] : this.paddingX;
@@ -68,8 +71,10 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	this.castShadow = parameters.castShadow || globalAppSettings.castShadow;  /* Set to global default */
 	this.receiveShadow = parameters.receiveShadow || globalAppSettings.receiveShadow; /* Set to global default */	
 	
+	/* Face the camera, or face static direction? */
 	this.faceCamera = parameters.hasOwnProperty("faceCamera") ? parameters["faceCamera"] : true; 
 	
+	/* Alignment of the Label */
 	this.aligment = parameters.hasOwnProperty("alignment") ? parameters["alignment"] : "right";
 	
 	/* Create the Canvas & Context */
@@ -102,23 +107,8 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	labelFillText( this, this.textLines, this.textColor, this.opacity, this.fontsize, this.lineSpacing, this.totalTextHeight );
 
 	labelCanvasMaterial( this, this.canvas );
-
-	//this.displayEntity = new THREE.Sprite( this.material );
-	this.bufferGeom = new THREE.PlaneBufferGeometry( 0.1, 0.1, 1, 1 );
-	this.displayEntity = new THREE.Mesh( this.bufferGeom, this.material );
-
-	this.displayEntity.isLucidNodesEntityPart = true;
-	this.displayEntity.lucidNodesEntityPartType = "nodeLabelDisplayEntity";	
-	this.displayEntity.isGraphElementPart = true;
-	this.displayEntity.graphElementPartType = "nodeLabelDisplayEntity";	
-	this.displayEntity.isLabel = true;
-	this.displayEntity.referent = this;
 	
-	
-	this.displayEntity.castShadow = this.castShadow;
-	this.displayEntity.receiveShadow = this.receiveShadow;	
-	
-	this.node.partsInScene.push( this.displayEntity );
+	createLabelDisplayEntity( this );
 	
 	// Initialize Dynamic Scaling ( Text stays same size regardless of length or # of lines )
 	this.scaleFactor = getDynamicScaleFactor( this );	
@@ -128,62 +118,36 @@ LUCIDNODES.nodeLabel = function( parameters ) {
 	
 	/* Transformations */
 
-	this.onMouseOver = function(){
-
-		labelScale( this, this.scaleFactor * 1.333 );
-		
-		debug.master && debug.labels && console.log( "newLabelType.onMouseOver(): uv coords: ", this.displayEntity.uv );
-		debug.master && debug.labels && console.log( "newLabelType.onMouseOver(): ray: ", ray );
-		//isIntersectPointInContextFillPath( this.canvas.context );
-		
-		this.node.onMouseOverLabel();
-	}
-	
-	this.onMouseLeave = function(){
-
-		labelScale( this, this.scaleFactor );		
-		this.node.onMouseLeaveLabel();
-	}
-	
-	this.onMouseOverNode = function(){};
-	
-	this.onMouseLeaveNode = function(){};
-	
-	this.onClick = function(){
-		
-		this.backgroundColor = { r: 0, g: 0, b: 255, a: this.backgroundOpacity };
-		
-		clearLabelText( this );			
-		makeFilledPathIn2DContext( this, this.textWidth, this.totalTextHeight, this.backgroundColor, this.borderThickness ); 
-		labelFillText( this, this.textLines, this.textColor, this.opacity, this.fontsize, this.lineSpacing, this.totalTextHeight );
-	};
-	
-	this.onClickOutside = function(){
-		
-		this.backgroundColor = { r: 255, g: 255, b: 255, a: this.backgroundOpacity };
-		
-		clearLabelText( this );			
-		makeFilledPathIn2DContext( this, this.textWidth, this.totalTextHeight, this.backgroundColor, this.borderThickness ); 
-		labelFillText( this, this.textLines, this.textColor, this.opacity, this.fontsize, this.lineSpacing, this.totalTextHeight );					
-	};
-	
-	this.onAddEdgeTool = function(){
-		this.displayEntity.material.color.set( globalAppSettings.nodeColorOnAltSelect );
-	};
-	
-	this.onDblClick = function(){};
-	
-	this.unTransformOnDblClickOutside = function(){};
-	
-	attachHiddenInputToNewLabelType( this );
+	addNodeLabelTransformations( this );
 	
 	/* End NodeLabel Transformations */		
 	
-	this.node.labelPivot.add( this.displayEntity );
+	this.entityFor.labelPivot.add( this.displayEntity );
 }
 
 
 /*---------------------------------------------------------------------*/
+
+function createLabelDisplayEntity( label ){
+	
+	label.bufferGeom = new THREE.PlaneBufferGeometry( 0.1, 0.1, 1, 1 );
+	label.displayEntity = new THREE.Mesh( label.bufferGeom, label.material );
+
+	label.displayEntity.isLucidNodesEntityPart = true;
+	label.displayEntity.lucidNodesEntityPartType = label.isForEntityType + "LabelDisplayEntity";	
+	label.displayEntity.isGraphElementPart = true;
+	label.displayEntity.graphElementPartType = label.isForEntityType + "LabelDisplayEntity";	
+	label.displayEntity.isLabel = true;
+	label.displayEntity.referent = label;
+	
+	label.displayEntity.castShadow = label.castShadow;
+	label.displayEntity.receiveShadow = label.receiveShadow;	
+	
+	label.entityFor.partsInScene.push( label.displayEntity );
+	
+}
+
+
 
 function labelCanvasMaterial( label, canvas ){
 	
@@ -259,17 +223,6 @@ function textAlignRight( label, textLineWidth ){
 	return ( label.canvas.width - textLineWidth - label.paddingX );
 }
 
-// Temporary... for the newLabelType testing
-function attachHiddenInputToNewLabelType( label ){
-	
-	appendEntityHiddenInputToDOM( label );
-	
-	label.hiddenInput.onkeyup = function() { 
-		
-		label.isNewLabelType && changeLabelText2( label, label.text );
-	}	
-}
-
 function setupLabelCanvasAndContext( label, fontsize, fontface ){
 
 	label.canvas = createCanvas();
@@ -332,36 +285,6 @@ function getDynamicScaleFactor( label ){
 	return dynamicFactor;
 }
 
-function changeLabelText2 ( label, string ){
-			
-	clearLabelText( label );
-
-	label.text = string;
-	label.textLines = textToMultipleLines( label.text );
-	label.totalTextHeight = getMultiLineTextHeight( label.textLines, label.fontsize, label.lineSpacing ) + ( label.paddingY * 2 );
-	label.textWidth = getMaxTextWidth( label.context, label.textLines );
-	
-	var canvasWidth = label.textWidth + (( label.paddingX + label.borderThickness ) * 2 );
-
-	// Set the canvas size & make it square (in px)
-	var canvasPxWidth = Math.max( globalAppSettings.labelCanvasMinPxSize, canvasWidth );
-	squareCanvas( label.canvas, canvasPxWidth );
-
-	label.context.font = "Bold " + label.fontsize + "px " + label.fontface;	
-	
-	label.scaleFactor = getDynamicScaleFactor( label );
-	labelScale( label, label.scaleFactor );
-	
-	makeFilledPathIn2DContext( label, canvasWidth, label.totalTextHeight, label.backgroundColor, label.borderThickness ); 
-	
-	labelFillText( label, label.textLines, label.textColor, label.opacity, label.fontsize, label.lineSpacing, label.totalTextHeight );
-	
-	labelCanvasMaterial( label, label.canvas );
-	
-	label.displayEntity.material.map.needsUpdate = true; 
-
-}
-
 // Check if a label is set to face camera... if it is, have it face the camera.
 function getLabels( graphElementArr ){
 	
@@ -389,12 +312,9 @@ function labelArrayFaceCamera( labelArr, camera ){
 function labelFaceCamera( label, camera ){
 	
 	if ( label.faceCamera ){
-		objectFaceCamera( label.node.labelPivot, camera );
+		objectFaceCamera( label.entityFor.labelPivot, camera );
 	} 
 }
-
-
-	
 
 	
 	/**
@@ -409,122 +329,210 @@ function labelFaceCamera( label, camera ){
 	 *  opacity: <float> between 0 & 1,
 	 * }
 	 */	
+	
+LUCIDNODES.EdgeLabel = function( parameters ) {
+		
+	this.isLucidNodesEntity = true;		
+	this.isLabel = true;
+	this.isEdgeLabel = true;
+	this.isForEntityType = "edge";
+	
+	/* HANDLE PARAMETERS */
+	
+	if ( parameters === undefined ) parameters = {};
+	
+	this.edge = parameters.hasOwnProperty("edge") ? parameters["edge"] : null;
+	this.entityFor = this.edge;
+	
+	/* Text */
+	this.text = parameters.hasOwnProperty("text") ? parameters["text"] : "no text";
+//	this.textColor = parameters.hasOwnProperty("textColor") ? parameters["textColor"] : { r: 0, g: 0, b: 0 };
+	this.textColor = parameters.hasOwnProperty("textColor") ? parameters["textColor"] : new THREE.Color( this.entity.color );
+	this.fontface = parameters.hasOwnProperty("fontface") ? parameters["fontface"] : "Arial";
+	this.fontsize = parameters.hasOwnProperty("fontsize") ? parameters["fontsize"] : globalAppSettings.defaultEdgeLabelFontSize;
+	this.textAlign = parameters.hasOwnProperty("textAlignment") ? parameters["textAlign"] : "left";
+	this.lineSpacing = parameters.hasOwnProperty("lineSpacing") ? parameters["lineSpacing"] : globalAppSettings.defaultTextLineSpacing;
 
-LUCIDNODES.EdgeLabel = function( parameters ){
-		
-		this.isLucidNodesEntity = true;		
-		this.isEdgeLabel = true;
-		
-		this.text = parameters.text;
-		this.edge = parameters.edge;
-		this.fontface = parameters.fontface || "Arial";
-		this.fontsize = parameters.fontsize || globalAppSettings.defaultEdgeLabelFontSize;
+	/* Border */
+	this.borderThickness = parameters.hasOwnProperty("borderThickness") ? parameters["borderThickness"] : 0;
+	this.borderColor = parameters.hasOwnProperty("borderColor") ? parameters["borderColor"] : { r: 0, g: 0, b: 0 };
 
+	/* Background */	
+	this.backgroundColor = parameters.hasOwnProperty("backgroundColor") ? parameters["backgroundColor"] : { r: 255, g: 255, b: 255 };
+	this.opacity = parameters.hasOwnProperty("opacity") ? parameters["opacity"] : globalAppSettings.defaultEdgeLabelOpacity;
+	this.backgroundOpacity = parameters.hasOwnProperty("backgroundOpacity") ? parameters["backgroundOpacity"] : globalAppSettings.defaultNodeLabelBackgroundOpacity;
+	this.backgroundColor.a = this.backgroundOpacity;
+	
+	/* Textline Thickness (Essentially fontweight) */
+	this.textLineThickness = parameters.hasOwnProperty("textLineThickness") ? parameters["textLineThickness"] : this.borderThickness;
+	this.paddingX = parameters.hasOwnProperty("paddingX") ? parameters["paddingX"] : this.textLineThickness;
+	this.paddingY = parameters.hasOwnProperty("paddingY") ? parameters["paddingY"] : this.paddingX;
+	
+	/* Shadow */
+	this.castShadow = parameters.castShadow || globalAppSettings.castShadow; 
+	this.receiveShadow = parameters.receiveShadow || globalAppSettings.receiveShadow;	
+	
+	/* Face the camera, or face static direction? */
+	this.faceCamera = parameters.hasOwnProperty("faceCamera") ? parameters["faceCamera"] : true; 
+	
+	/* Alignment of the Label */
+	this.aligment = parameters.hasOwnProperty("alignment") ? parameters["alignment"] : "right";
+	
+	/* Create the Canvas & Context */
+	setupLabelCanvasAndContext( this, this.fontsize, this.fontface );
+	
+	/* Separate the Text into multiple lines */
+	this.textLines = textToMultipleLines( this.text );
+	
+	// Get the width of the text (px) from the width of the longest line
+	this.textWidth = getMaxTextWidth( this.context, this.textLines );
+	var canvasWidth = this.textWidth + (( this.paddingX + this.borderThickness ) * 2 );
 
-		this.textColor = new THREE.Color();
-		if ( parameters.textColor ){ this.textColor.set( parameters.textColor ); }
-		else if ( parameters.textColor === 0 ){ this.textColor.set( 0x000000 ); }
-		else { this.textColor.set( this.edge.color ); }		
-		
-		this.color = new THREE.Color();
-		this.color.clone( this.textColor );
+	// Set the canvas size & make it square (in px)
+	var canvasPxWidth = Math.max( globalAppSettings.labelCanvasMinPxSize, canvasWidth );
+	squareCanvas( this.canvas, canvasPxWidth );
+	
+	this.context.font = "Bold " + this.fontsize + "px " + this.fontface;		
+	
+	// stroke color
+	this.context.strokeStyle = "rgba(" + this.borderColor.r + "," + this.borderColor.g + "," + this.borderColor.b + "," + this.opacity + ")";
+	// border width
+	this.context.lineWidth = this.textLineThickness;
 
-		this.opacity = parameters.opacity || parameters.edge.opacity || globalAppSettings.defaultEdgeLabelOpacity;
+	this.totalTextHeight = getMultiLineTextHeight ( this.textLines, this.fontsize, this.lineSpacing ) + ( this.paddingY * 2 );
+	
+	makeFilledPathIn2DContext( this, canvasWidth, this.totalTextHeight, this.backgroundColor, this.borderThickness ); 
+	
+	// text color
+	
+	labelFillText( this, this.textLines, this.textColor, this.opacity, this.fontsize, this.lineSpacing, this.totalTextHeight );
 
-		this.textLineThickness = parameters.textLineThickness || 6;
+	labelCanvasMaterial( this, this.canvas );
+	
+	createLabelDisplayEntity( this );
+	
+	// Initialize Dynamic Scaling ( Text stays same size regardless of length or # of lines )
+	this.scaleFactor = getDynamicScaleFactor( this );	
+	labelScale( this, this.scaleFactor );
+	
+//	positionLabelWithAlignment( this, this.alignment, ( this.node.radius + ( getScaledLabelWidth( this ) / 2 ) ) );
+	positionLabel( this, /* this.edge.centerPoint */ { x: 0, y: 0, z: 0 } );
+	this.entityFor.labelPivot.position.copy( this.edge.centerPoint );
+	
+	/* Transformations */
 
-		makeContextWithText( this, this.text ); 
-		
-		// canvas contents will be used for a texture
-		this.texture = new THREE.Texture( this.canvas ); 
-		this.texture.needsUpdate = true;
-		this.texture.minFilter = THREE.LinearFilter;
-		
-		/* Shadows */
-		this.castShadow = parameters.castShadow || globalAppSettings.castShadow;  /* Set to global default */
-		this.receiveShadow = parameters.receiveShadow || globalAppSettings.receiveShadow; /* Set to global default */
+	addEdgeLabelTransformations( this );
+	
+	this.entityFor.labelPivot.add( this.displayEntity ); 	
+	
+}	
+	
+function addNodeLabelTransformations( label ){
+	
+	label.onMouseOver = function(){
 
-		this.material = new THREE.SpriteMaterial( { map: this.texture } );
-		this.displayEntity = new THREE.Sprite( this.material );
-		this.displayEntity.scale.set( globalAppSettings.defaultLabelScale.x, globalAppSettings.defaultLabelScale.y, globalAppSettings.defaultLabelScale.z );		
+		labelScale( label, label.scaleFactor * 1.333 );
 		
-		this.displayEntity.isLucidNodesEntityPart = true;
-		this.displayEntity.lucidNodesEntityPartType = "edgeLabelDisplayEntity";		
-		this.displayEntity.isGraphElementPart = true;
-		this.displayEntity.graphElementPartType = "edgeLabelDisplayEntity";
-		this.displayEntity.isLabel = true;
-		this.displayEntity.referent = this;
+		debug.master && debug.labels && console.log( "label.onMouseOver(): uv coords: ", label.displayEntity.uv );
+		debug.master && debug.labels && console.log( "label.onMouseOver(): ray: ", ray );
+		//isIntersectPointInContextFillPath( label.canvas.context );
 		
-		this.displayEntity.castShadow = this.castShadow;
-		this.displayEntity.receiveShadow = this.receiveShadow;
+		label.entityFor.onMouseOverLabel();
+	}
+	
+	label.onMouseLeave = function(){
 
-		this.edge.partsInScene.push( this.displayEntity );		
+		labelScale( label, label.scaleFactor );		
+		label.entityFor.onMouseLeaveLabel();
+	}
+	
+	label.onMouseOverNode = function(){};
+	
+	label.onMouseLeaveNode = function(){};
+	
+	label.onClick = function(){
 		
-		positionLabel( this, this.edge.centerPoint );
+		label.backgroundColor = { r: 0, g: 0, b: 255, a: label.backgroundOpacity };
 		
-		this.onMouseOver = function(){
-			var color = globalAppSettings.edgeColorOnMouseOver;
-			var scale = globalAppSettings.defaultLabelScale;	
-			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;			
-			var newScale = { 	x: scale.x * scaleFactor,
-								y: scale.y * scaleFactor,
-								z: scale.z * scaleFactor
-							};
-							
-			this.displayEntity.material.color.set ( globalAppSettings.edgeColorOnMouseOver );							
-			this.displayEntity.scale.set( newScale.x, newScale.y, newScale.z );			
-			
-			this.edge.onMouseOverLabel();
-		};
-		
-		this.onMouseLeave = function(){
-			var scale = globalAppSettings.defaultLabelScale;
-			
-			this.displayEntity.material.color.set ( this.color );
-			this.displayEntity.scale.set( scale.x , scale.y , scale.z );
-			
-			this.edge.onMouseLeaveLabel();			
-		};
-
-		this.onMouseOverEdge = function(){
-			var color = globalAppSettings.edgeColorOnMouseOver;
-			var scale = globalAppSettings.defaultLabelScale;						
-			var scaleFactor = globalAppSettings.nodeScaleOnMouseOver;
-			var newScale = { 	x: scale.x * scaleFactor,
-								y: scale.y * scaleFactor,
-								z: scale.z * scaleFactor
-							};
-			
-			this.displayEntity.material.color.set ( globalAppSettings.edgeColorOnMouseOver );	
-			this.displayEntity.scale.set( newScale.x, newScale.y, newScale.z );			
-		};
-		
-		this.onMouseLeaveEdge = function(){
-			var scale = globalAppSettings.defaultLabelScale;			
-			
-			this.displayEntity.material.color.set( this.color );		
-			this.displayEntity.scale.set( scale.x , scale.y , scale.z );			
-		};
-		
-		this.onClick = function(){
-			this.displayEntity.material.color.set( globalAppSettings.edgeColorOnSelect );			
-		};
-		
-		this.onClickOutside = function(){
-			this.displayEntity.material.color.set( this.color );				
-		};
-
-		this.onDblClick = function(){
-
-		};
-		
-		this.unTransformOnDblClickOutside = function(){
-
-		};		
-		
-		scene.add( this.displayEntity );
+		clearLabelText( label );			
+		makeFilledPathIn2DContext( label, label.textWidth, label.totalTextHeight, label.backgroundColor, label.borderThickness ); 
+		labelFillText( label, label.textLines, label.textColor, label.opacity, label.fontsize, label.lineSpacing, label.totalTextHeight );
 	};
 	
+	label.onClickOutside = function(){
+		
+		label.backgroundColor = { r: 255, g: 255, b: 255, a: label.backgroundOpacity };
+		
+		clearLabelText( label );			
+		makeFilledPathIn2DContext( label, label.textWidth, label.totalTextHeight, label.backgroundColor, label.borderThickness ); 
+		labelFillText( label, label.textLines, label.textColor, label.opacity, label.fontsize, label.lineSpacing, label.totalTextHeight );					
+	};
+	
+	label.onAddEdgeTool = function(){
+		label.displayEntity.material.color.set( globalAppSettings.nodeColorOnAltSelect );
+	};
+	
+	label.onDblClick = function(){};
+	
+	label.unTransformOnDblClickOutside = function(){};
+	
+	attachHiddenInputToLabel( label );	
+	
+}	
+	
+	
+function addEdgeLabelTransformations( label ){
+	
+	label.onMouseOver = function(){
+
+		labelScale( label, label.scaleFactor * 1.333 );
+		
+		debug.master && debug.labels && console.log( "label.onMouseOver(): uv coords: ", label.displayEntity.uv );
+		debug.master && debug.labels && console.log( "label.onMouseOver(): ray: ", ray );
+		//isIntersectPointInContextFillPath( label.canvas.context );
+		
+		label.entityFor.onMouseOverLabel();
+	}	
+	
+	label.onMouseLeave = function(){
+
+		labelScale( label, label.scaleFactor );		
+		label.entityFor.onMouseLeaveLabel();
+	}	
+
+	label.onMouseOverEdge = function(){};
+	
+	label.onMouseLeaveEdge = function(){}; 
+	
+	label.onClick = function(){
+		
+		label.backgroundColor = { r: 0, g: 0, b: 255, a: label.backgroundOpacity };
+		
+		clearLabelText( label );			
+		makeFilledPathIn2DContext( label, label.textWidth, label.totalTextHeight, label.backgroundColor, label.borderThickness ); 
+		labelFillText( label, label.textLines, label.textColor, label.opacity, label.fontsize, label.lineSpacing, label.totalTextHeight );
+	};
+	
+	label.onClickOutside = function(){
+		
+		label.backgroundColor = { r: 255, g: 255, b: 255, a: label.backgroundOpacity };
+		
+		clearLabelText( label );			
+		makeFilledPathIn2DContext( label, label.textWidth, label.totalTextHeight, label.backgroundColor, label.borderThickness ); 
+		labelFillText( label, label.textLines, label.textColor, label.opacity, label.fontsize, label.lineSpacing, label.totalTextHeight );					
+	};
+	
+	label.onAddEdgeTool = function(){
+		label.displayEntity.material.color.set( globalAppSettings.nodeColorOnAltSelect );
+	};
+	
+	label.onDblClick = function(){};
+	
+	label.unTransformOnDblClickOutside = function(){};
+	
+	attachHiddenInputToLabel( label );	
+	
+}	
 	
 function createNodeLabel( node ){
 
@@ -534,7 +542,7 @@ function createNodeLabel( node ){
 			fontsize: node.labelFontsize || globalAppSettings.defaultNodeLabelFontSize,
 			textColor: node.labelColor || node.color,
 			borderColor: node.labelColor || node.color,
-			opacity: /* node.labelOpacity || */ globalAppSettings.defaultNodeLabelOpacity
+			opacity: node.labelOpacity || globalAppSettings.defaultNodeLabelOpacity
 		});
 }
 
@@ -573,6 +581,17 @@ function attachHiddenInputToLucidNodesEntity( entity ){
 		var string = this.value;
 		changeLucidNodesEntityName( entity, string );
 	}
+}
+
+
+// Temporary... for label testing
+function attachHiddenInputToLabel( label ){
+	
+	appendEntityHiddenInputToDOM( label );
+	
+	label.hiddenInput.onkeyup = function() { 
+		changeLabelText( label, label.text );
+	}	
 }
 
 	/*
@@ -627,17 +646,31 @@ function clearLabelText( label ){
 	
 }
 
-function changeLabelText ( label, string ){
+function changeLabelText( label, string ){
 			
 	clearLabelText( label );
 
 	label.text = string;
-	//label.metrics = label.context.measureText( label.text );
+	label.textLines = textToMultipleLines( label.text );
+	label.totalTextHeight = getMultiLineTextHeight( label.textLines, label.fontsize, label.lineSpacing ) + ( label.paddingY * 2 );
+	label.textWidth = getMaxTextWidth( label.context, label.textLines );
 	
-	labelSize( label, string );
-	labelText( label, string );
+	var canvasWidth = label.textWidth + (( label.paddingX + label.borderThickness ) * 2 );
+
+	// Set the canvas size & make it square (in px)
+	var canvasPxWidth = Math.max( globalAppSettings.labelCanvasMinPxSize, canvasWidth );
+	squareCanvas( label.canvas, canvasPxWidth );
+
+	label.context.font = "Bold " + label.fontsize + "px " + label.fontface;	
 	
-	//labelBackgroundForDebug( label );
+	label.scaleFactor = getDynamicScaleFactor( label );
+	labelScale( label, label.scaleFactor );
+	
+	makeFilledPathIn2DContext( label, canvasWidth, label.totalTextHeight, label.backgroundColor, label.borderThickness ); 
+	
+	labelFillText( label, label.textLines, label.textColor, label.opacity, label.fontsize, label.lineSpacing, label.totalTextHeight );
+	
+	labelCanvasMaterial( label, label.canvas );
 	
 	label.displayEntity.material.map.needsUpdate = true; 
 

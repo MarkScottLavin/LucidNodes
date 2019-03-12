@@ -447,6 +447,10 @@ var LUCIDNODES = {
 		this.receiveShadow = parameters.receiveShadow; /* Set to global default */
 
 		createEdgeDisplayEntity( this );
+		
+		/* And creating a pivot point around which will revolve dependent objects like labels and annotations-nodes */
+		this.labelPivot = new THREE.Object3D();
+		this.displayEntity.add( this.labelPivot );
 				
 		this.onMouseOver = function(){
 			
@@ -1154,7 +1158,8 @@ function restoreDeletedNode( node ){
 
 	// Recreate the displayEntity and the node's label
 	createNodeDisplayEntity( node );
-	createNodeLabel( node );
+	node.displayEntity.add( node.labelPivot );
+	node.labelPivot.add( node.label.displayEntity );
 	
 	// Restore any edges associated to the node. 
 	restoreDeletedNodeEdges( node ); 
@@ -1172,8 +1177,9 @@ function restoreDeletedEdge( edge ){
 	cognition.edges.push( edge );	
 	
 	// Recreate the displayEntity and the edge's label
-	debug.master && debug.restoreDeleted && createEdgeDisplayEntity( edge );
-	createEdgeLabel( edge );
+	createEdgeDisplayEntity( edge );
+	edge.displayEntity.add( edge.labelPivot );
+	edge.labelPivot.add( edge.label.displayEntity );	
 
 	debug.master && debug.restoreDeleted && console.log( 'DELETED:', DELETED );
 	debug.master && debug.restoreDeleted && console.log( 'Cognition: ', cognition.edges );
@@ -1254,7 +1260,8 @@ function pullEdge( edge ){
 	edge.geom.verticesNeedUpdate = true;
 	
 	edge.centerPoint = _Math.avgPosition( edge.nodes[0].position, edge.nodes[1].position );	
-	positionLabel( edge.label, edge.centerPoint );
+	edge.labelPivot.position.copy( edge.centerPoint );
+	positionLabel( edge.label, { x: 0, y: 0, z: 0 } );
 	
 }
 
@@ -1570,13 +1577,7 @@ function changeLucidNodesEntityName( entity, string ){
 	
 	if ( entity.isLucidNodesEntity && entity.hasOwnProperty( "name" ) ){
 		entity.name = string;
-		
-		if ( entity.isNode ){
-			changeLabelText2( entity.label, entity.name );	
-		}
-		else if ( entity.isEdge ){
-			changeLabelText( entity.label, entity.name ); 
-		}
+		changeLabelText( entity.label, entity.name );	
 	}
 	
 }
@@ -1714,7 +1715,7 @@ function selectAllWithPhrase( phrase ){
 	
 	unSelectAllGraphElements();
 	cognition.nodes.forEach( function( node ){ if ( node.label.text.includes( phrase ) ){ selectNode( node ); } } );
-	cognition.edges.forEach( function( edges ){ if ( edge.label.text.includes( phrase ) ){ selectEdge( edge ); } } );		
+	cognition.edges.forEach( function( edge ){ if ( edge.label.text.includes( phrase ) ){ selectEdge( edge ); } } );		
 
 }
 
@@ -1726,6 +1727,8 @@ function changeNodeContentType( node, contentType ){
 		removeNodeImage( node );
 	}
 }
+
+
 
 function changeContentTypeOfNodes( nodeArr, contentType ){ nodeArr.forEach( function( node ){ changeNodeContentType( node, contentType ); } ); }
 

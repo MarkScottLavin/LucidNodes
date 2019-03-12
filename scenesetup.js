@@ -105,6 +105,7 @@ function animate( timestamp ) {
 
 	stats.begin();
 	labelArrayFaceCamera( getLabels ( cognition.nodes ), camera );	
+	labelArrayFaceCamera( getLabels ( cognition.edges ), camera );	
 
 	var delta = Math.min( timestamp - lastRender, 500 );
 	lastRender = timestamp;
