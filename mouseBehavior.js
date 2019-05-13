@@ -355,19 +355,6 @@ function nearestIntersectedObject3D(){
 	/* Added version 0.1.32.2 */
 	if ( snap ){
 		snapObjsIntersectedByRay = findSnapObjsInObj3DArray( object3DsIntersectedByRay );
-		
-		/*
-		let topLevel = firstSnap;
-		
-		object3DsIntersectedByRay.forEach( function( intersectedObj ){
-			if ( intersectedObj.isSnapOj && intersectedObj.point ===  firstSnap.point ){
-				
-			}
-		});
-		
-		*/
-		
-		
 	}
 	
 	/* Added version 0.1.32.2 */	
@@ -405,7 +392,7 @@ function nearestIntersectedObject3D(){
 		
 		for ( var s = 0; s < snapObjsIntersectedByRay.length; s++ ){
 		
-			if ( snapObjsIntersectedByRay[ s ].object.referent.definedBy.includes( "user" ) ){
+			if ( snapObjsIntersectedByRay[ s ].object.referent.definedBy.includes( "user" )	){
 				nearest = snapObjsIntersectedByRay[ s ].object;
 				break;
 			}	

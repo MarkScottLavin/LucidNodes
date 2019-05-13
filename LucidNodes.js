@@ -267,6 +267,9 @@ var LUCIDNODES = {
 		/* And creating a pivot point around which will revolve dependent objects like labels and annotations-nodes */
 		this.labelPivot = new THREE.Object3D();
 		this.displayEntity.add( this.labelPivot );
+		
+		/* SnapSphere */
+		createNodeSnapObj( this );
 
 		/* Label */
 		
@@ -610,7 +613,6 @@ function createNodeDisplayEntity( node ){
 	scene.add( node.displayEntity ); 
 }
 
-
 function triPlate( radius ){ return polygonPlate( 3, radius ); }
 
 function squarePlate( radius ){ return polyGonPlate ( 4, radius ); }
@@ -668,6 +670,18 @@ function centerExtrude( geometry, thickness ){
 	}
 }
 
+function createNodeSnapObj( node ){
+	
+	node.snapSphere = new snapSphere( node.position );
+	node.snapSphere.sphere.referent = node;
+	node.snapSphere.sphere.isLucidNodesEntityPart = true;
+	node.snapSphere.sphere.lucidNodesEntityPartType = "snapSphere";
+	node.snapSphere.sphere.isGraphElementPart = true;
+	node.snapSphere.sphere.graphElementPartType = "nodeSnapSphere";	
+	node.partsInScene.push( node.snapSphere.sphere );
+	
+}
+
 function rotationByShape( node ){
 
 	var rot;
@@ -688,7 +702,7 @@ function changeNodeShape( node, shape ){
 	
 	node.displayEntity.remove( node.label.displayEntity );
 	
-	removeNodeDisplayEntity( node );
+	removeEntityPartInScene( entity, "displayEntity" );
 	
 	if ( node.shape === "sphere" || "cube" || "v1octahedron" || "v1tetrahedron" || "v1icosahedron" || "hexRing" || "octaRing" ){
 		changeNodeContentType( node, "default" );
@@ -703,11 +717,22 @@ function changeNodeShape( node, shape ){
 
 function changeShapeAllNodesInArray( nodeArr, shape ){ nodeArr.forEach( function( node ){ changeNodeShape( node, shape ); } ); }
 
-function removeNodeDisplayEntity( node ){
+function removeEntityPartsInScene( entity, removeHistory = false ){
 	
-	node.partsInScene.splice( node.partsInScene.indexOf( node.displayEntity ), 1 );	
-	scene.remove( node.displayEntity );
+	entity.partsInScene.forEach( function( part ){
+		scene.remove( part );	
+	});
+	
+	if ( removeHistory ){
+		entity.partsInScene = [];		
+	}
+}
 
+function removeEntityPartInScene( entity, part ){
+	
+	entity.partsInScene.splice( entity.partsInScene.indexOf( entity[ part ] ), 1 );	
+	scene.remove( entity[ part ] );
+	
 }
 
 function createEdgeDisplayEntity( edge ){
@@ -729,12 +754,6 @@ function createEdgeDisplayEntity( edge ){
 	
 	scene.add( edge.displayEntity );
 
-}
-
-function removeEdgeDisplayEntity( edge ){
-	
-	edge.partsInScene.splice( edge.partsInScene.indexOf( edge.displayEntity ), 1 );
-	scene.remove( edge.displayEntity );
 }
 
 function nodesFromJson( arr ){
@@ -1123,7 +1142,7 @@ function scaleNode( node, scaleFactor ){
 
 	node.displayEntity.remove( node.label.displayEntity );
 	
-	removeNodeDisplayEntity( node );
+	removeEntityPartInScene( node, "displayEntity" );
 	createNodeDisplayEntity( node );
 	
 	if ( node.contentType === "image" && node.src ){
@@ -1588,7 +1607,7 @@ function deleteNode( node ){
 	
 	var nodeIndex = cognition.nodes.indexOf( node );	
 	
-	removeNodeDisplayEntity( node );	
+	removeEntityPartsInScene( node, true );	
 	cognition.nodes.splice( nodeIndex, 1 );	
 
 	deleteGraphElementLabel( node );
@@ -1608,7 +1627,7 @@ function deleteNodeEdges( node ){
 
 function deleteEdge( edge ){
 	
-	removeEdgeDisplayEntity( edge );
+	removeEntityPartsInScene( edge, true );		
 	deleteGraphElementLabel( edge );
 	
 	var edgeCognitionIndex = cognition.edges.indexOf( edge );

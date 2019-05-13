@@ -1098,36 +1098,13 @@ function deleteGuide( guide ){
 	
 	var guideIndex = cognition.guides[ guide.guideType + "s" ].indexOf( guide );
 	
-	removeGuidePartsInScene( guide, true );
+	removeEntityPartsInScene( guide, true );
 	cognition.guides[ guide.guideType + "s" ].splice( guideIndex, 1 );	
 	
 	DELETED.guides[ guide.guideType + "s" ].push( guide );
 	
 	debug.master && debug.guides[ guide.guideType + "s" ] && console.log( 'DELETED.guides', [ guide.guideType + "s" ] ,':', DELETED.guides[ guide.guideType + "s" ] );
 
-}
-
-function removeGuidePartsInScene( guide, removeHistory = false ){
-	
-	guide.partsInScene.forEach( function( part ){
-		scene.remove( part );	
-	});
-	
-	if ( removeHistory ){
-		guide.partsInScene = [];		
-	}
-}
-
-function removeGuideSnapObjs( guide ){
-	
-	var partsInScene = guide.partsInScene.slice();
-	
-	partsInScene.forEach( function( part ){
-		if ( part.isSnapObj ){
-			scene.remove( part );				
-			guide.partsInScene.splice( guide.partsInScene.indexOf( part ), 1 );			
-		}	
-	});
 }
 
 function restoreDeletedGuide( guide ){
@@ -1230,7 +1207,7 @@ function moveGuideTo( guide, position ){
 		else if ( guide.guideType === "line" ){
 			
 			moveGuideLineToPosition( p, guide );
-//			removeGuidePartsInScene( guide );
+//			removeEntityPartsInScene( guide );
 //			createGuideLinePartsInScene( guide );
 //			computeGuideLinePosition( guide );
 		}

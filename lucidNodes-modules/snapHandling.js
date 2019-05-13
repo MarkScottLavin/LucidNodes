@@ -335,7 +335,7 @@ function snapToGuideCircle( position, guideCircle ){
 	}
 	// note in testing that the snap only works properly if all instances of the the Quaternion are normalized.
 	
-	// Let's figure out we are on the circle.
+	// Let's figure out where we are on the circle.
 	var circleArcTraversed = getCircleArcTraversed ( getFractionOfTorusArc( guideCircle) );
 	var arcPosition = positionOnArc( guideCircle.object.referent.radius, circleArcTraversed );
 
@@ -387,8 +387,23 @@ function snapToGuidePoint( position, guidePoint ){
 //	if ( guidePoint.object.referent.isGuide && guidePoint.object.referent.id ){
 		debug.master && debug.snap && console.log( "snapToNearestSnapObj(): ", guidePoint.object.referent.id ); 
 	}
+//	return snapPositionTo( position, guidePoint.object.position );
+	
+	
+	// If we've intersected a node, we'll snap to that, because it has a higher priority...	
+	for ( let s = 0; s < object3DsIntersectedByRay.length; s++ ){
+		if ( object3DsIntersectedByRay[ s ].isSnapObj && object3DsIntersectedByRay[ s ].point === position ){
+			if ( object3DsIntersectedByRay[ s ].isSnapSphere && object3DsIntersectedByRay[ s ].graphElementPartType && object3DsIntersectedByRay[ s ].graphElementPartType === "nodeSnapSphere" ){
+				snapToGuidePoint( position, object3DsIntersectedByRay[ s ].referent );
+				break;
+				return;
+			}
+		}
+	}	
+	
+//	return snapPositionTo( position, applyPositionOnSnapCylinderToLine( guideLine, guideLine.object.referent.line ) );
 	return snapPositionTo( position, guidePoint.object.position );
-
+	
 } 
 
 function getFaceIntersectPoint( faceGeometry ){

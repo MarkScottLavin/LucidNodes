@@ -486,4 +486,3 @@ function guideGroupsFromJson( arr ){
 // Test Functions
 
 // addGuidePointHexGrid( { name: "testHexGrid", xSize: 32, ySize: 18, position:{ x: 2, y: 2, z: 2 }, spacing: 3 } );
-// addGuideFace( { vertices: [ { x: 10, y: 1, z: 10 }, { x: 21, y: 11, z: 11 }, { x: 31, y: 1, z: 11 } ], definedBy: ["user" ] } );
